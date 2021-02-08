@@ -1,0 +1,38 @@
+{
+  "name": "breedinginsight",
+  "version": "1.0.0",
+  "description": "Breeding Insight Test Automation",
+  "main": "index.js",
+  "scripts": {
+    "debug": "node --inspect-brk=1337 node_modules/cucumber/bin/cucumber-js",
+    "test:debug": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
+    "test:pipeline": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json",
+    "test:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
+    "test:firefox": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env firefox",
+    "test:edge": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env edge"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://chris_vacalares@bitbucket.org/chris_vacalares/breedinginsight.git"
+  },
+  "keywords": [
+    "Test",
+    "Automation"
+  ],
+  "author": "Christian Vacalares",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/chris_vacalares/breedinginsight#readme",
+  "devDependencies": {
+    "chromedriver": "^88.0.0",
+    "cucumber": "^6.0.5",
+    "cucumber-html-reporter": "^5.2.0",
+    "cucumber-pretty": "^6.0.0",
+    "edgedriver": "^4.17134.1",
+    "geckodriver": "^1.20.0",
+    "iedriver": "^3.14.2",
+    "mkdirp": "^1.0.4",
+    "nightwatch": "^1.3.6",
+    "nightwatch-api": "^3.0.1",
+    "selenium-server": "^3.141.59"
+  }
+}
