@@ -76,14 +76,37 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    //new user fields
-    newUserNameField: "#Name",
-    newUserEmailField: "#Email",
-    newUserRoleSelect: "#Role",
-    newUserNameUnicodeText: "#app div.sidebarlayout p:nth-child(3)",
-    newUserSaveButton:
-      "#app div.sidebarlayout button.button.is-primary[data-testid='save']:nth-child(1)",
-    newUserCancelButton:
-      "#app div.sidebarlayout button.button[data-testid='cancel']:nth-child(2)",
+    //top alert
+    topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
+    fixInvalidFieldsText: {
+      selector: "//*[@id='app']//div[contains(text(), 'Fix Invalid Fields')]",
+      locateStrategy: "xpath",
+    },
+  },
+  sections: {
+    newUserForm: {
+      selector: "#app div.sidebarlayout form",
+      elements: {
+        //new user fields
+        nameField: "#Name",
+        emailField: "#Email",
+        roleSelect: "#Role",
+        nameUnicodeText: "p:nth-child(3)",
+        saveButton: "button.button.is-primary[data-testid='save']:nth-child(1)",
+        cancelButton: "button.button[data-testid='cancel']:nth-child(2)",
+        emailIsRequiredText: {
+          selector: "//*[@id='Email']/../span[1]",
+          locateStrategy: "xpath",
+        },
+        emailIsInvalidText: {
+          selector: "//*[@id='Email']/../span[2]",
+          locateStrategy: "xpath",
+        },
+        userNameIsRequiredText: {
+          selector: "//*[@id='Name']/../span[1]",
+          locateStrategy: "xpath",
+        },
+      },
+    },
   },
 };
