@@ -2,7 +2,7 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("cucumber");
 const page = client.page.page();
 
-Given(/^a user logs with valid credentials$/, async () => {
+Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
@@ -20,19 +20,19 @@ When(
   }
 );
 
-When(/^selects Traits$/, async () => {
+When(/^user selects Traits$/, async () => {
   await page.click("@traitsButton");
 });
 
-Then(/^the user sees a page of All Traits$/, async () => {
+Then(/^user sees a page of All Traits$/, async () => {
   await page.assert.visible("@traitsTable");
 });
 
-Then(/^the user sees a row of headers under All Traits$/, async () => {
+Then(/^user sees a row of headers under All Traits$/, async () => {
   await page.assert.visible("@traitsHeaderTable");
 });
 
-Then(/^the headers are Name, Level, Method, and Scale$/, async () => {
+Then(/^headers are Name, Level, Method, and Scale$/, async () => {
   await page.expect
     .element("#traitTableLabel th:nth-child(1)")
     .text.contain("Name");
@@ -47,27 +47,27 @@ Then(/^the headers are Name, Level, Method, and Scale$/, async () => {
     .text.contain("Scale");
 });
 
-When(/^clicks Show details$/, async () => {
+When(/^user clicks Show details$/, async () => {
   await page.click("#traitTableLabel tr:nth-child(1) a");
 });
 
-When(/^selects a row under the headers$/, async () => {
+When(/^user selects a row under the headers$/, async () => {
   await page.click("#traitTableLabel tr:nth-child(1) td:nth-child(1)");
 });
 
-Then(/^the user sees a a detail pane appear$/, async () => {
+Then(/^user sees a a detail pane appear$/, async () => {
   await page.assert.visible("@traitsPane");
 });
 
-Then(/^the user not sees a a detail pane appear$/, async () => {
+Then(/^user not sees a a detail pane appear$/, async () => {
   await page.assert.not.visible("@traitsPane");
 });
 
-Then(/^selects the user$/, () => {
+Then(/^user selects the user$/, () => {
   return true;
 });
 
-Given(/^a sysad is logs in$/, async () => {
+Given(/^user is logs in as sysad$/, async () => {
   await page.navigate();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
@@ -78,11 +78,14 @@ Given(/^a sysad is logs in$/, async () => {
   await page.click("@signInButton");
 });
 
-When(/^selects System Administration on program-selection page$/, async () => {
-  await page.click("@systemAdministrationLabel");
-});
+When(
+  /user selects System Administration on program-selection page$/,
+  async () => {
+    await page.click("@systemAdministrationLabel");
+  }
+);
 
-When(/^selects Users in left navigation$/, async () => {
+When(/^user selects Users in left navigation$/, async () => {
   await page.click("@usersLeftMenu");
 });
 
@@ -90,11 +93,11 @@ Given(/^user is on the user-management page$/, async () => {
   await page.assert.visible("@usersHeader");
 });
 
-Then(/^page of Users is visible$/, async () => {
+Then(/^user can see page of Users$/, async () => {
   await page.assert.visible("@usersTable");
 });
 
-Then(/^table header contains$/, async (table) => {
+Then(/^user can see table header contains$/, async (table) => {
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
@@ -115,19 +118,28 @@ Then(/^table header contains$/, async (table) => {
   }
 });
 
-Then(/^New User button is visible$/, async () => {
+Then(/^user can see New User button$/, async () => {
   await page.assert.visible("@newUserButton");
 });
 
-Then(/^each row has an Edit link$/, async () => {
+Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
     selector: "//a[contains(text(),'Edit')]",
     locateStrategy: "xpath",
   };
-  await page.expect.elements(selector).count.equal(19);
+
+  let rows;
+  await client.elements(
+    "css selector",
+    "#app div.sidebarlayout main table tbody tr",
+    ({ value }) => {
+      rows = value.length;
+    }
+  );
+  await page.expect.elements(selector).count.equal(rows);
 });
 
-Then(/^each row has a Deactivate link$/, async () => {
+Then(/^user can see each row has a Deactivate link$/, async () => {
   const selector = {
     selector: "//a[contains(text(),'Deactivate')]",
     locateStrategy: "xpath",
@@ -135,27 +147,27 @@ Then(/^each row has a Deactivate link$/, async () => {
   await page.expect.elements(selector).count.equal(19);
 });
 
-Then(/^Previous page button is visible$/, async () => {
+Then(/^user can see Previous page button$/, async () => {
   await page.assert.visible("@previousButton");
 });
 
-Then(/^Next page button is visible$/, async () => {
+Then(/^user can see Next page button$/, async () => {
   await page.assert.visible("@nextButton");
 });
 
-Then(/^Current page button is visible$/, async () => {
+Then(/^user can see Current page button$/, async () => {
   await page.assert.visible("@paginationButton");
 });
 
-Then(/^Results per page combo box is visible$/, async () => {
+Then(/^user can see Results per page combobox$/, async () => {
   await page.assert.visible("@paginationComboBox");
 });
 
-Then(/^Label per page is visible$/, async () => {
+Then(/^user can see Label per page$/, async () => {
   await page.assert.visible("@perPageLabel");
 });
 
-Then(/^Show All button is visible$/, async () => {
+Then(/^user can see Show All button$/, async () => {
   await page.assert.visible("@showAllButton");
 });
 
@@ -164,95 +176,133 @@ When(/^user selects New User button$/, async () => {
 });
 
 Then(
-  /^banner appears with an error message 'Fix Invalid Fields'$/,
+  /^user can see banner appears with an error message 'Fix Invalid Fields'$/,
   async () => {
     await page.assert.visible("@topAlertDangerArticle");
     await page.assert.visible("@fixInvalidFieldsText");
   }
 );
 
-Then(/^'Email is required' is visible below the Email field$/, async () => {
-  await page.assert.visible("@newUserEmailIsRequiredText");
+Then(/^user can see 'Email is required' below the Email field$/, async () => {
+  await page.section.newUserForm.assert.visible("@emailIsRequiredText");
 });
 
-Then(
-  /^'Email must be in email format' is visible below the Email field$/,
-  async () => {
-    await page.assert.visible("@newUserEmailIsInvalidText");
-  }
-);
-
-Then(/^'Name is required' is visible below the Name field$/, async () => {
-  await page.assert.visible("@newUserNameIsRequiredText");
+Then(/^user can see 'Name is required' below the Name field$/, async () => {
+  await page.section.newUserForm.assert.visible("@nameIsRequiredText");
 });
 
-When(/^sets "([^"]*)" in Email field$/, async (args1) => {
-  args1 = args1.replace("*", Date.now().toString());
-  await page.setValue("@newUserEmailField", args1);
-  user.email=arg1;
-});
+When(/^user sets "([^"]*)" in Email field$/, async (args1) => {});
 
-Then(/^name field is visible$/, async () => {
+Then(/^user can see name field$/, async () => {
   await page.section.newUserForm.assert.visible("@nameField");
 });
 
-Then(/^email field is visible$/, async () => {
+Then(/^user can see email field$/, async () => {
   await page.section.newUserForm.assert.visible("@emailField");
 });
 
-Then(/^role dropdown is visible$/, async () => {
+Then(/^user can see role dropdown$/, async () => {
   await page.section.newUserForm.assert.visible("@roleSelect");
 });
 
-Then(/^"([^"]*)" under Name field is visible$/, async (args1) => {
+Then(/^user can see "([^"]*)" under Name field$/, async (args1) => {
   await page.section.newUserForm.assert.containsText("@nameUnicodeText", args1);
 });
 
-Then(/^Save button is visible$/, async () => {
+Then(/^user can see Save button$/, async () => {
   await page.section.newUserForm.assert.visible("@saveButton");
 });
 
-Then(/^Cancel button is visible$/, async () => {
+Then(/^user can see Cancel button$/, async () => {
   await page.section.newUserForm.assert.visible("@cancelButton");
 });
 
-When(/^sets "([^"]*)" in Name field$/, async (args1) => {
-  var user = {};
-  user.userName = args1.replace("*", Date.now().toString());
-  await page.section.newUserForm.setValue("@nameField", user.userName);
+When(/^user sets "([^"]*)" in Name field$/, async (args1) => {
+  setUserName(args1);
 });
 
-Then(/^"([^"]*)" is in the list of users$/, async (args1) => {
+Then(/^user can see "([^"]*)" is in the list of users$/, async (args1) => {
   console.log(args1);
   return true;
 });
 
-Then(/^"([^"]*)" in the Email field$/, async (args1) => {
+Then(/^user can see "([^"]*)" in the Email field$/, async (args1) => {
   console.log(args1);
   return true;
 });
 
-Then(/^No Role in the Role field$/, async () => {
-  return true;
-});
-
-When(/^selects Save button$/, async () => {
+When(/^user selects Save button$/, async () => {
   await page.section.newUserForm.click("@saveButton");
 });
 
-When(/^selects Cancel button$/, async() => {
-	await page.section.newUserForm.click("@cancelButton");
+Then(
+  /^user can see 'Email must be in email format' below the Email field$/,
+  async () => {
+    await page.section.newUserForm.assert.visible("@emailIsInvalidText");
+  }
+);
+
+When(/^user creates a new program$/, async (table) => {
+  this.program = {};
+  await page.waitForElementVisible("@newProgramButton");
+  await page.click("@newProgramButton");
+  for (column of table.raw()[0]) {
+    for (hash of table.hashes()) {
+      switch (column) {
+        case "Program Name":
+          this.program.name = hash["Program Name"].replace(
+            "*",
+            Date.now().toString()
+          );
+          await page.setValue("@programNameField", this.program.name);
+          break;
+        case "Species":
+          this.program.species = hash["Species"];
+          await page.setValue("@speciesSelect", this.program.species);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+  await page.click("@saveButton");
 });
 
-When(/^sets "([^"]*)" in Role dropdown$/, async(args1) => {
-await page.section.newUserForm.setValue("@roleSelect", args1);
+Then(/^user can see a new program is created$/, async () => {
+  await page.assert.containsText(
+    "#adminProgramTableLabel table tr.is-new td:nth-child(1)",
+    this.program.name
+  );
+  await page.assert.containsText(
+    "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
+    this.program.species
+  );
+  console.log("and this" + this.program.name);
 });
 
-Then(/^a label 'per page'$/, () => {
-  return true;
+When(/^user selects Cancel button$/, async () => {
+  await page.section.newUserForm.click("@cancelButton");
 });
 
-When(/^the sysad selects 'New User'$/, () => {
+When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
+  setRole(args1);
+});
+
+When(/^user selects Program "([^"]*)" in left navigation$/, async (args1) => {
+  await page.click({
+    selector: `//*[@id='sideMenu']//nav//ul//a[contains(text(), '${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects "([^"]*)" in left navigation$/, async (args1) => {
+  await page.click({
+    selector: `//*[@id="sideMenu"]//nav//ul[2]//a[contains(text(), '${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see a label 'per page'$/, () => {
   return true;
 });
 
@@ -290,94 +340,66 @@ Then(
 
 Then(
   /^the form stays open withan error message under the Email field stating 'Email must be in email format'$/,
-  () => {
+  async () => {
     return true;
   }
 );
 
-When(/^TestNewUser is in the list of users$/, () => {
-  return true;
+When(/^user creates a new user$/, async (table) => {
+  await page.click("@newUserButton");
+  for (column of table.raw()[0]) {
+    for (hash of table.hashes()) {
+      switch (column) {
+        case "Name":
+          setUserName(hash["Name"]);
+          break;
+        case "Email":
+          setEmail(hash["Email"]);
+          break;
+        case "Role":
+          setRole(hash["Role"]);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+  await page.section.newUserForm.click("@saveButton");
 });
 
-When(/^newuser@mail.com in the Email field$/, () => {
-  return true;
+Then(/^user can see a new user is added in users list$/, async () => {
+  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
+  await page.assert.containsText("tr.is-new td[name='email']", user.email);
+  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
 });
 
-Then(/^No Role in the Role field$/, () => {
-  return true;
-});
-
-When(/^enters TestAdminUser in the Name field$/, () => {
-  return true;
-});
-
-When(/^enters newadminuser@mail.com in the Email field$/, () => {
-  return true;
-});
-
-When(/^selects admin from role dropdown$/, () => {
-  return true;
-});
-
-When(/^TestAdminUser is in the list of users$/, () => {
-  return true;
-});
-
-When(/^newadminuser@mail.com in the Email field$/, () => {
-  return true;
-});
-
-When(/^admin in the Role field$/, () => {
-  return true;
-});
-
-When(/^sysad adds name andor email andor role$/, () => {
-  return true;
-});
-
-Then(/^no new user is in the Users list$/, () => {
-  return true;
-});
-
-When(/^the sysad selects 'Edit' for TestNewUser$/, () => {
-  return true;
-});
-
-Then(/^a form opens with TestNewUser in the Name field$/, () => {
-  return true;
-});
-
-When(/^changes TestNewUser to TestEditUser in the Name field$/, () => {
-  return true;
-});
-
-When(
-  /^changes  newuser@mail.com to edituser@mail.com in the Email field$/,
-  () => {
-    return true;
+Then(
+  /^user can see System Administration in the upper right corner$/,
+  async () => {
+    await page.assert.visible("@systemAdministrationHeader");
   }
 );
 
-When(
-  /^changes  newuser@mail.com to edituser@mail.com in the Email field$/,
-  () => {
-    return true;
+Then(
+  /^user can see an arrow dropdown on right of System Administation$/,
+  async () => {
+    await page.assert.visible("@systemAdministationDropDownIcon");
   }
 );
 
-Then(/^a banner appears with a success message "([^"]*)".$/, (args1) => {
-  console.log(args1);
-  return true;
-});
+//functions
+async function setUserName(name) {
+  this.user = {};
+  user.userName = name.replace("*", Date.now().toString());
+  return await page.section.newUserForm.setValue("@nameField", user.userName);
+}
 
-Then(/^TestNewUser is not in the list of users$/, () => {
-  return true;
-});
+async function setEmail(email) {
+  user.email = email.replace("*", Date.now().toString());
+  return await page.section.newUserForm.setValue("@emailField", user.email);
+}
 
-When(/^the sysad selects 'Edit' for TestNewUser$/, () => {
-  return true;
-});
-
-When(/^changes own name$/, () => {
-  return true;
-});
+async function setRole(role) {
+  user.role = role;
+  return await page.section.newUserForm.setValue("@roleSelect", user.role);
+}

@@ -30,6 +30,22 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
+    newProgramButton: "#adminProgramTableLabel > button",
+    programNameField: "#Program-Name",
+    speciesSelect: "#Species",
+    saveButton:
+      "#adminProgramTableLabel > form > div:nth-child(2) > div > button.button.is-primary",
+    cancelButton:
+      "#adminProgramTableLabel > form > div:nth-child(2) > div > button:nth-child(2)",
+
+    systemAdministrationHeader:
+      "#app div.sidebarlayout div.level-right.program-selection-level  h1",
+
+    systemAdministationDropDownIcon:
+      "#app div.sidebarlayout header div.dropdown-trigger button",
+
+    loggedInText: "#app div.sidebarlayout div.level-right div:nth-child(1) p",
+
     //left navigation
     usersLeftMenu: {
       selector: "//*[@id='sideMenu']//a[contains(text(), 'Users')]",
@@ -102,7 +118,7 @@ module.exports = {
           selector: "//*[@id='Email']/../span[2]",
           locateStrategy: "xpath",
         },
-        userNameIsRequiredText: {
+        nameIsRequiredText: {
           selector: "//*[@id='Name']/../span[1]",
           locateStrategy: "xpath",
         },

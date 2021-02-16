@@ -15,3 +15,23 @@ npm install
 ```sh
 npm test
 ```
+
+
+Conventions
+Entering (typing) value - "sets"
+When user sets "abcdef@test.com" in email Field
+
+Everything else is a "select"
+    - dropdown
+    - combo box
+    - radio button
+    - link
+    - button
+
+When user selects "Canada" in Country dropdown
+When user selects "test" in Option combo box0
+
+
+
+Visibility of a control
+Then user can see "control" is visible

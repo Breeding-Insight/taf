@@ -1,4 +1,3 @@
-@debug
 Feature: Demo Tests
               Demo tests for BreedInsight
 

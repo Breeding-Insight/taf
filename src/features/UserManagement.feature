@@ -1,95 +1,88 @@
 Feature: System User Management (15)
 
         Background: Sysad logs in
-            Given a sysad is logs in
-              And selects System Administration on program-selection page
-              And selects Users in left navigation
-
-        Scenario: User Management page
-            Given user is on the user-management page
-             Then page of Users is visible
-              And New User button is visible
-              And table header contains
-                  | Header |
-                  | Name   |
-                  | Email  |
-            #   | OCRID    |
-                  | Role     |
-                  | Programs |
-              And each row has an Edit link
-        #   And each row has a Deactivate link
-              And Previous page button is visible
-              And Current page button is visible
-              And Next page button is visible
-              And Results per page combo box is visible
-              And Label per page is visible
-              And Show All button is visible
+            Given user is logs in as sysad
+              And user selects System Administration on program-selection page
+              And user selects Users in left navigation
 
         @debug
+        Scenario: User Management page
+             When user is on the user-management page
+             Then user can see page of Users
+              And user can see New User button
+              And user can see table header contains
+                  | Header   |
+                  | Name     |
+                  | Email    |
+                  | Role     |
+                  | Programs |
+              And user can see each row has an Edit link
+        #   And each row has a Deactivate link
+              And user can see Previous page button
+              And user can see Current page button
+              And user can see Next page button
+              And user can see Results per page combobox
+              And user can see Label per page
+              And user can see Show All button
+
         Scenario: New User form entities
             Given user is on the user-management page
              When user selects New User button
-             Then name field is visible
-              And email field is visible
-              And role dropdown is visible
-              And "Name of user. All Unicode special characters accepted." under Name field is visible
-              And Save button is visible
-              And Cancel button is visible
+             Then user can see name field
+              And user can see email field
+              And user can see role dropdown
+              And user can see "Name of user. All Unicode special characters accepted." under Name field
+              And user can see Save button
+              And user can see Cancel button
 
-        # Scenario: Entering Name only and selecting Save - error message
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "TestNewUser" in Name field
-        #       And selects Save button
-        #      Then banner appears with an error message 'Fix Invalid Fields'
-        #       And 'Email is required' is visible below the Email field
+        Scenario: Entering Name only and selecting Save - error message
+            Given user is on the user-management page
+             When user selects New User button
+              And user sets "TestNewUser" in Name field
+              And user selects Save button
+             Then user can see banner appears with an error message 'Fix Invalid Fields'
+              And user can see 'Email is required' below the Email field
 
-        # Scenario: Entering Email only and selecting Save - error message
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "newuser@mail.com" in Email field
-        #       And selects Save button
-        #      Then banner appears with an error message 'Fix Invalid Fields'
-        #       And 'Name is required' is visible below the Name field
+        Scenario: Entering Email only and selecting Save - error message
+            Given user is on the user-management page
+             When user selects New User button
+              And user sets "newuser@mail.com" in Email field
+              And user selects Save button
+             Then user can see banner appears with an error message 'Fix Invalid Fields'
+              And user can see 'Name is required' below the Name field
 
-        # Scenario: Entering invalid Email and selecting Save - error message
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "TestNewUser" in Name field
-        #       And sets "invalidemail" in Email field
-        #       And selects Save button
-        #      Then 'Email must be in email format' is visible below the Email field
+        Scenario: Entering invalid Email and selecting Save - error message
+            Given user is on the user-management page
+             When user selects New User button
+              And user sets "TestNewUser" in Name field
+              And user sets "invalidemail" in Email field
+              And user selects Save button
+             Then user can see 'Email must be in email format' below the Email field
 
-        # Scenario: Adding new user with no system role
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "TestNewUser" in Name field
-        #       And sets "testemail*@gmail.com" in Email field
-        #       And selects Save button
-        #      Then "TestNewUser" is in the list of users
-        #       And "testemail@gmail.com" in the Email field
-        #       And No Role in the Role field
+        Scenario: Adding new user with no system role
+            Given user is on the user-management page
+             When user creates a new user
+                  | Name   | Email                | Role |
+                  | Test * | test*@mailinator.com |      |
+             Then user can see a new user is added in users list
 
-        # Scenario: Adding new user with admin role
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "TestNewUser" in Name field
-        #       And sets "testemail*@gmail.com" in Email field
-        #       And sets "admin" in Role dropdown
-        #       And selects Save button
-        #      Then "TestNewUser" is in the list of users
-        #       And "testemail@gmail.com" in the Email field
-        #       And "admin" in the Role field
+        Scenario:  Adding new user with admin role
+            Given user is on the user-management page
+             When user creates a new user
+                  | Name   | Email                | Role  |
+                  | Test * | test*@mailinator.com | admin |
+             Then user can see a new user is added in users list
 
-        # Scenario: Filling out new user form and selecting Cancel
-        #     Given user is on the user-management page
-        #      When user selects New User button
-        #       And sets "TestNewUser" in Name field
-        #       And sets "testemail*@gmail.com" in Email field
-        #       And sets "admin" in Role dropdown
-        #       And selects Cancel button
-        #      Then the form closes
-        #       And no new user is in the Users list
+        @debug
+        Scenario: Filling out new user form and selecting Cancel
+            Given user is on the user-management page
+             When user selects New User button
+              And user sets "TestNewUser" in Name field
+              And user sets "testemail*@gmail.com" in Email field
+              And user sets "admin" in Role dropdown
+              And user selects Cancel button
+            #  Then user the form closes
+            #   And user no new user is in the Users list
 
 #     Scenario: Edit form entities
 #         Given a system administrator is on the user-management page
