@@ -29,7 +29,7 @@ Everything else is a "select"
     - button
 
 When user selects "Canada" in Country dropdown
-When user selects "test" in Option combo box0
+When user selects "test" in Option combo box
 
 
 

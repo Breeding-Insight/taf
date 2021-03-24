@@ -302,6 +302,14 @@ When(/^user selects "([^"]*)" in left navigation$/, async (args1) => {
   });
 });
 
+Then(/^user does not see new user form$/, async () => {
+  await page.assert.not.section("@newUserForm").not.present;
+});
+
+Then(/^user does not see a new user in Users list$/, async () => {
+  await page.assert.not.elementPresent("tr.is-new");
+});
+
 Then(/^user can see a label 'per page'$/, () => {
   return true;
 });
@@ -351,13 +359,40 @@ When(/^user creates a new user$/, async (table) => {
     for (hash of table.hashes()) {
       switch (column) {
         case "Name":
-          setUserName(hash["Name"]);
+          await setUserName(hash["Name"]);
           break;
         case "Email":
-          setEmail(hash["Email"]);
+          await setEmail(hash["Email"]);
           break;
         case "Role":
-          setRole(hash["Role"]);
+          await setRole(hash["Role"]);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+  await page.section.newUserForm.click("@saveButton");
+});
+
+When(/^user edits a user$/, async (table) => {
+  await showAll();
+  //go to the row with matching name
+  await page.click({
+    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a[contains(text(),'Edit')]`,
+    locateStrategy: "xpath",
+  });
+  for (column of table.raw()[0]) {
+    for (hash of table.hashes()) {
+      switch (column) {
+        case "Name":
+          await setUserName(hash["Name"]);
+          break;
+        case "Email":
+          await setEmail(hash["Email"]);
+          break;
+        case "Role":
+          await setRole(hash["Role"]);
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
@@ -371,6 +406,28 @@ Then(/^user can see a new user is added in users list$/, async () => {
   await page.assert.containsText("tr.is-new td[name='name']", user.userName);
   await page.assert.containsText("tr.is-new td[name='email']", user.email);
   await page.assert.containsText("tr.is-new td[name='roles']", user.role);
+});
+
+Then(/^user can see user is in users list$/, async () => {
+  await page.assert.visible({
+    selector: `*//tr/td[contains(text(), '${user.userName}')]`,
+    locateStrategy: "xpath",
+  });
+  await page.assert.visible({
+    selector: `*//tr/td[contains(text(), '${user.email}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see edited user in users list$/, async () => {
+  await page.assert.visible({
+    selector: `//td[contains(text(),'${user.userName}')]`,
+    locateStrategy: "xpath",
+  });
+  await page.assert.visible({
+    selector: `//td[contains(text(),'${user.email}')]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(
@@ -387,19 +444,88 @@ Then(
   }
 );
 
+When(/^user clicks Edit of a user$/, async () => {
+  await showAll();
+  await page.pause(1000);
+  await page.click({
+    selector: `//td[contains(text(),'${user.userName}')]/following-sibling::td//a[@data-testid='edit']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user can see "([^"]*)" as a program$/, async (args1) => {
+  await page.navigateToPrograms();
+  await page.waitForElementVisible("@showAllButton");
+  await page.click("@showAllButton");
+  await page.waitForElementVisible({
+    selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${args1} ']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/, async(args1,args2) => {
+  await page.navigateToProgram(args2);
+
+  await page.waitForElementVisible("@programManagementLeftMenu");
+  await page.click("@programManagementLeftMenu");
+  await page.waitForElementVisible("@userLeftMenu");
+  await page.click("@userLeftMenu");
+  await page.waitForElementVisible("@showAllButton");
+  await page.click("@showAllButton");
+  await page.waitForElementVisible({
+    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+    locateStrategy: "xpath",
+  });
+  await page.waitForElementVisible({
+    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' breeder ']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user can see "([^"]*)" has been added to "([^"]*)" as a member$/, async(args1,args2) => {
+  await page.navigateToProgram(args2);
+
+  await page.waitForElementVisible("@programManagementLeftMenu");
+  await page.click("@programManagementLeftMenu");
+  await page.waitForElementVisible("@userLeftMenu");
+  await page.click("@userLeftMenu");
+  await page.waitForElementVisible("@showAllButton");
+  await page.click("@showAllButton");
+  await page.waitForElementVisible({
+    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+    locateStrategy: "xpath",
+  });
+  await page.waitForElementVisible({
+    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' member ']`,
+    locateStrategy: "xpath",
+  });
+});
+
+
+//*[@id="sideMenu"]/nav/ul[2]/li[3]/a
+
+
+
 //functions
 async function setUserName(name) {
   this.user = {};
   user.userName = name.replace("*", Date.now().toString());
-  return await page.section.newUserForm.setValue("@nameField", user.userName);
+  await page.section.newUserForm.clearValue("@nameField");
+  await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
 async function setEmail(email) {
   user.email = email.replace("*", Date.now().toString());
+  await page.section.newUserForm.clearValue("@emailField");
   return await page.section.newUserForm.setValue("@emailField", user.email);
 }
 
 async function setRole(role) {
   user.role = role;
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
+}
+
+async function showAll() {
+  await page.moveToElement("@showAllButton", 1, 1);
+  await page.click("@showAllButton");
 }

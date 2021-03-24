@@ -1,30 +1,19 @@
-const { client } = require("nightwatch-api");
-
 module.exports = {
-  url: "http://sandbox.breedinginsight.net/",
+  url: "http://sandbox.breedinginsight.net:8025",
+  // commands: [commands.commands],
   elements: {
-    iUnderstandButton:
-      "#app article.notification.is-marginless.is-warning button.button.is-dark",
-    loginButton:
-      "#app > div.sidebarlayout > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > button",
-    orcidSignInButton: "#connect-orcid-button",
+    
 
-    emailInput: "#username",
-    passwordInput: "#password",
 
-    signInButton: "#signin-button",
 
-    snacksButton: "#app > div.sidebarlayout a:nth-child(3)",
 
-    traitsButton: "#sideMenu ul:nth-child(5) > li:nth-child(4) > a",
 
-    traitsTable: "#traitTableLabel",
 
-    traitsHeaderTable: "#traitTableLabel thead",
 
-    traitsPane:
-      "#traitTableLabel div.column.is-one-third-desktop.is-half-tablet.is-half-mobile.is-gapless.pl-0",
 
+
+
+    
     //program page
     systemAdministrationLabel: {
       selector: "//*[@id='app']//a[contains(text(), 'System Administration')]",
@@ -54,17 +43,6 @@ module.exports = {
     },
     programsLeftMenu: {
       selector: "//*[@id='sideMenu']//a[contains(text(), 'Programs')]",
-      locateStrategy: "xpath",
-    },
-
-    programManagementLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Program Management ']",
-      locateStrategy: "xpath",
-    },
-
-    userLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Users ']",
-      index: 1,
       locateStrategy: "xpath",
     },
 
@@ -99,7 +77,10 @@ module.exports = {
       selector: "//*[@id='app']//span[contains(text(),'per page')]",
       locateStrategy: "xpath",
     },
-    showAllButton: "a.pagination-link.show-all-button",
+    showAllButton: {
+      selector: "//*[@id='app']//a[contains(text(),'Show All')]",
+      locateStrategy: "xpath",
+    },
 
     //top alert
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
@@ -134,36 +115,4 @@ module.exports = {
       },
     },
   },
-  commands: [
-    {
-      navigateToUsers: async function () {
-        //get the current url
-        let url;
-        await client.url(({ value }) => {
-          url = new URL(value).origin;
-        });
-        await client.url(url + "/admin/user-management");
-      },
-      navigateToPrograms: async function () {
-        //get the current url
-        debugger;
-        let url;
-        await client.url(({ value }) => {
-          url = new URL(value).origin;
-        });
-        await client.url(url + "/admin/program-management");
-        await this.waitForElementVisible("#adminProgramTableLabel");
-      },
-      navigateToProgram: async function(program){
-        await this.navigateToPrograms();
-        await this.click("@showAllButton");
-        await this.click(
-          {
-            selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
-            locateStrategy: "xpath",
-          }
-        );
-      },
-    },
-  ],
 };

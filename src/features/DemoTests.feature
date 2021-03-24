@@ -1,5 +1,5 @@
-Feature: Demo Tests
-              Demo tests for BreedInsight
+# Feature: Demo Tests
+#               Demo tests for BreedInsight
 
         # @smoke
         # Scenario: Validate user can see all traits

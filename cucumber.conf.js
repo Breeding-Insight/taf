@@ -52,7 +52,7 @@ AfterAll(async () => {
       jsonFile: "report/cucumber_report.json",
       output: "report/cucumber_report.html",
       reportSuiteAsScenarios: true,
-      launchReport: true,
+      launchReport: false,
       metadata: {
         OS: platform,
         Browser: browserName,

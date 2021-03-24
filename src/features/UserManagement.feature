@@ -5,7 +5,6 @@ Feature: System User Management (15)
               And user selects System Administration on program-selection page
               And user selects Users in left navigation
 
-        @debug
         Scenario: User Management page
              When user is on the user-management page
              Then user can see page of Users
@@ -73,7 +72,6 @@ Feature: System User Management (15)
                   | Test * | test*@mailinator.com | admin |
              Then user can see a new user is added in users list
 
-        @debug
         Scenario: Filling out new user form and selecting Cancel
             Given user is on the user-management page
              When user selects New User button
@@ -81,27 +79,27 @@ Feature: System User Management (15)
               And user sets "testemail*@gmail.com" in Email field
               And user sets "admin" in Role dropdown
               And user selects Cancel button
-            #  Then user the form closes
-            #   And user no new user is in the Users list
+             Then user does not see new user form
+              And user does not see a new user in Users list
 
-#     Scenario: Edit form entities
-#         Given a system administrator is on the user-management page
-#          When the sysad selects 'Edit' for TestNewUser
-#          Then a form opens with TestNewUser in the Name field
-#           And newuser@mail.com in the Email field
-#           And No Role in the Role field
-#           And a Save button
-#           And a Cancel button
+        Scenario: Edit form entities
+            Given user is on the user-management page
+             When user creates a new user
+                  | Name   | Email                | Role  |
+                  | Test * | test*@mailinator.com | admin |
+              And user edits a user
+                  | Name   | Email                | Role |
+                  | Test * | test*@mailinator.com |      |
+             Then user can see edited user in users list
 
-#     Scenario: Editing form and selecting Cancel
-#         Given a system administrator is on the user-management page
-#          When the sysad selects 'Edit' for TestNewUser
-#           And sysad adds name and/or email and/or role
-#           And selects Cancel
-#          Then the form closes
-#           And TestNewUser is in the list of users
-#           And newuser@mail.com in the Email field
-#           And No Role in the Role field
+        Scenario: Editing form and selecting Cancel
+            Given user is on the user-management page
+             When user creates a new user
+                  | Name   | Email                | Role  |
+                  | Test * | test*@mailinator.com | admin |
+              And user clicks Edit of a user
+              And user selects Cancel button
+             Then user can see user is in users list
 
 #     Scenario: Editing form and selecting Save
 #         Given a system administrator is on the user-management page
@@ -117,20 +115,21 @@ Feature: System User Management (15)
 #           And edituser@mail.com in the Email field
 #           And admin in the Role field
 
-#     Scenario: Editing self
-#         Given a system administrator is on the user-management page
-#          When the sysad selects 'Edit' for TestNewUser
-#           And changes own name
-#           And changes own email
-#           And selects no role
-#           And selects Save button
-#          Then a banner appears with a success message "User info (name/email/program) successfully updated"
-#           And a banner appears with a fail message "You don't have permissions to edit the roles of this user"
-#           And the form closes
-#           And TestNewUser is not in the list of users
-#           And EditNewUser is in the list of users
-#           And edituser@mail.com in the Email field
-#           And admin in the Role field
+        Scenario: SysAd can't edit own account
+            Given user is on the user-management page
+
+        #      When the sysad selects 'Edit' for TestNewUser
+        #       And changes own name
+        #       And changes own email
+        #       And selects no role
+        #       And selects Save button
+        #      Then a banner appears with a success message "User info (name/email/program) successfully updated"
+        #       And a banner appears with a fail message "You don't have permissions to edit the roles of this user"
+        #       And the form closes
+        #       And TestNewUser is not in the list of users
+        #       And EditNewUser is in the list of users
+        #       And edituser@mail.com in the Email field
+        #       And admin in the Role field
 
 #     Scenario: User Deactivate modal
 #         Given a system administrator is on the user-management page
