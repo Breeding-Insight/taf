@@ -25,9 +25,38 @@ module.exports = {
     traitsPane:
       "#traitTableLabel div.column.is-one-third-desktop.is-half-tablet.is-half-mobile.is-gapless.pl-0",
 
+    welcomeText: {
+      selector:
+        "//*[@id='app']//div/main/section/div/h1[contains(text(), 'Welcome,')]",
+      locateStrategy: "xpath",
+    },
+
+    whichProgramText: {
+      selector:
+        "//*[@id='app']//div/main/section/div/p[contains(text(), 'Which program are you working with today?')]",
+      locateStrategy: "xpath",
+    },
+
     //program page
     systemAdministrationLabel: {
       selector: "//*[@id='app']//a[contains(text(), 'System Administration')]",
+      locateStrategy: "xpath",
+    },
+
+    programsTable: "table.is-striped.is-narrow.is-hoverable.is-fullwidth",
+
+    systemAdministrationHeader:
+      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
+    systemAdministrationDropDownIcon:
+      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button > span > svg.feather.feather-chevron-down",
+
+    loggedInAsLabel:
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
+    logoutButton:
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(2) > button",
+
+    programsLabel: {
+      selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
       locateStrategy: "xpath",
     },
 
@@ -38,9 +67,6 @@ module.exports = {
       "#adminProgramTableLabel > form > div:nth-child(2) > div > button.button.is-primary",
     cancelButton:
       "#adminProgramTableLabel > form > div:nth-child(2) > div > button:nth-child(2)",
-
-    systemAdministrationHeader:
-      "#app div.sidebarlayout div.level-right.program-selection-level  h1",
 
     systemAdministationDropDownIcon:
       "#app div.sidebarlayout header div.dropdown-trigger button",
@@ -107,6 +133,13 @@ module.exports = {
       selector: "//*[@id='app']//div[contains(text(), 'Fix Invalid Fields')]",
       locateStrategy: "xpath",
     },
+
+    //program list
+    topProgramButton:
+      "#app > div.sidebarlayout > div > div > main > section > div > div > div > div > a:nth-child(1)",
+
+    programSelectorDropDownButton:
+      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
   },
   sections: {
     newUserForm: {
@@ -154,15 +187,34 @@ module.exports = {
         await client.url(url + "/admin/program-management");
         await this.waitForElementVisible("#adminProgramTableLabel");
       },
-      navigateToProgram: async function(program){
+      navigateToProgram: async function (program) {
         await this.navigateToPrograms();
         await this.click("@showAllButton");
-        await this.click(
-          {
-            selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
-            locateStrategy: "xpath",
-          }
-        );
+        await this.click({
+          selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
+          locateStrategy: "xpath",
+        });
+      },
+      navigateToProgramSelection: async function (program) {
+        //get the current url
+        debugger;
+        let url;
+        await client.url(({ value }) => {
+          url = new URL(value).origin;
+        });
+        await client.url(url + "/program-selection");
+        await this.waitForElementVisible("@welcomeText");
+      },
+      isOptionVisible: async function (optionName) {
+        const selector = {
+          selector: `//*[@id='program-menu']/div/a[text()=' ${optionName} ']`,
+          locateStrategy: "xpath",
+        };
+        let visible = false;
+        this.isVisible(selector, ({value}) =>{
+          visible= value;
+        });
+        return visible;
       },
     },
   ],

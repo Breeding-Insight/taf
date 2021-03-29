@@ -78,6 +78,17 @@ Given(/^user is logs in as sysad$/, async () => {
   await page.click("@signInButton");
 });
 
+Given(/^user is logs in as breeder$/, async () => {
+  await page.navigate();
+  await page.click("@iUnderstandButton");
+  await page.click("@loginButton");
+  await page.click("@orcidSignInButton");
+
+  await page.setValue("@emailInput", "christian@mailinator.com");
+  await page.setValue("@passwordInput", "cucumber1");
+  await page.click("@signInButton");
+});
+
 When(
   /user selects System Administration on program-selection page$/,
   async () => {
@@ -168,6 +179,10 @@ Then(/^user can see Label per page$/, async () => {
 });
 
 Then(/^user can see Show All button$/, async () => {
+  await page.assert.visible("@showAllButton");
+});
+
+When(/^user clicks Show All button$/, async () => {
   await page.assert.visible("@showAllButton");
 });
 
@@ -430,12 +445,12 @@ Then(/^user can see edited user in users list$/, async () => {
   });
 });
 
-Then(
-  /^user can see System Administration in the upper right corner$/,
-  async () => {
-    await page.assert.visible("@systemAdministrationHeader");
-  }
-);
+Then(/^user can see "([^"]*)" in the upper right corner$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//header//h1[text()='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
 
 Then(
   /^user can see an arrow dropdown on right of System Administation$/,
@@ -463,48 +478,135 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
   });
 });
 
-When(/^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/, async(args1,args2) => {
-  await page.navigateToProgram(args2);
+When(
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
+  async (args1, args2) => {
+    await page.navigateToProgram(args2);
 
-  await page.waitForElementVisible("@programManagementLeftMenu");
-  await page.click("@programManagementLeftMenu");
-  await page.waitForElementVisible("@userLeftMenu");
-  await page.click("@userLeftMenu");
-  await page.waitForElementVisible("@showAllButton");
-  await page.click("@showAllButton");
-  await page.waitForElementVisible({
-    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
-    locateStrategy: "xpath",
-  });
-  await page.waitForElementVisible({
-    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' breeder ']`,
+    await page.waitForElementVisible("@programManagementLeftMenu");
+    await page.click("@programManagementLeftMenu");
+    await page.waitForElementVisible("@userLeftMenu");
+    await page.click("@userLeftMenu");
+    await page.waitForElementVisible("@showAllButton");
+    await page.click("@showAllButton");
+    await page.waitForElementVisible({
+      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+      locateStrategy: "xpath",
+    });
+    await page.waitForElementVisible({
+      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' breeder ']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a member$/,
+  async (args1, args2) => {
+    await page.navigateToProgram(args2);
+
+    await page.waitForElementVisible("@programManagementLeftMenu");
+    await page.click("@programManagementLeftMenu");
+    await page.waitForElementVisible("@userLeftMenu");
+    await page.click("@userLeftMenu");
+    await page.waitForElementVisible("@showAllButton");
+    await page.click("@showAllButton");
+    await page.waitForElementVisible({
+      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+      locateStrategy: "xpath",
+    });
+    await page.waitForElementVisible({
+      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' member ']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(/^user can see 'Welcome, Christian'$/, async () => {
+  await page.assert.visible("@welcomeText");
+});
+
+When(/^user can see 'Which program are you working with today'$/, async () => {
+  await page.assert.visible("@whichProgramText");
+});
+
+Then(/^user can see "([^"]*)" is top of the list$/, async (args1) => {
+  await page.assert.containsText("@topProgramButton", args1);
+});
+
+Then(/^user can see "([^"]*)" is in the list$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//*[@id='app']//section//a[text()=' ${args1} ']`,
     locateStrategy: "xpath",
   });
 });
 
-When(/^user can see "([^"]*)" has been added to "([^"]*)" as a member$/, async(args1,args2) => {
-  await page.navigateToProgram(args2);
+When(/^user navigates to Program Selection$/, async () => {
+  await page.navigateToProgramSelection();
+});
 
-  await page.waitForElementVisible("@programManagementLeftMenu");
-  await page.click("@programManagementLeftMenu");
-  await page.waitForElementVisible("@userLeftMenu");
-  await page.click("@userLeftMenu");
-  await page.waitForElementVisible("@showAllButton");
-  await page.click("@showAllButton");
-  await page.waitForElementVisible({
-    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
-    locateStrategy: "xpath",
-  });
-  await page.waitForElementVisible({
-    selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' member ']`,
+Then(/^user can see System Administration combo box$/, async () => {
+  await page.assert.visible("@systemAdministrationDropDownIcon");
+});
+
+Then(/^user can see 'Logged in as'$/, async () => {
+  await page.assert.visible("@loggedInAsLabel");
+});
+
+Then(/^user can see a Log out button$/, async () => {
+  await page.assert.visible("@logoutButton");
+});
+
+Then(/^user can see a header 'Programs'$/, async () => {
+  await page.assert.visible("@programsLabel");
+});
+
+Then(/^user can see list of all programs - active and inactive$/, async () => {
+  await page.assert.visible("@programsTable");
+});
+
+Then(/^user can see a New Program button$/, async () => {
+  await page.assert.visible("@newProgramButton");
+});
+
+When(/^user clicks the combo box of Program Selector$/, async () => {
+  await page.click("@programSelectorDropDownButton");
+});
+
+Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//*[@id='program-menu']/div/a[text()=' ${args1} ']`,
     locateStrategy: "xpath",
   });
 });
 
+When(/^user selects "([^"]*)" the program selector$/, async (args1) => {
+  await page.click("@programSelectorDropDownButton");
+  await page.click({
+    selector: `//*[@id='program-menu']/div/a[text()=' ${args1} ']`,
+    locateStrategy: "xpath",
+  });
+});
 
-//*[@id="sideMenu"]/nav/ul[2]/li[3]/a
+Then(
+  /^user can see "([^"]*)" as label in the bottom of the navigation menu$/,
+  async (args1) => {
+    await page.assert.visible({
+      selector: `//aside/nav/p[text()=' ${args1} ']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
 
-
+Then(
+  /^user can see "([^"]*)" as link in the bottom of the navigation menu$/,
+  async (args1) => {
+    await page.assert.visible({
+      selector: `//aside//ul[2]//a[text()=' ${args1} ']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
 
 //functions
 async function setUserName(name) {
