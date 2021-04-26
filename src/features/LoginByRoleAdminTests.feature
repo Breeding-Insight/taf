@@ -1,17 +1,16 @@
-Feature: Logging with different roles - view (7)
+Feature: Logging with Sys Ad
 
         Background: Required Setup
-            Given user is logs in as sysad
+            Given user logs in as sysad
               And user selects System Administration on program-selection page
-              And user can see "Snack Breeder" has been added to "Snacks" as a breeder
-              And user can see "Snack Breeder" has been added to "Trail Mix" as a member
-              And user can see "TrailMix Breeder" has been added to "Trail Mix" as a breeder
+              And user can see "Cucumber Breeder" has been added to "Snacks" as a breeder
+              And user can see "Cucumber Breeder" has been added to "Trail Mix" as a member
+              And user can see "Cucumber Breeder" has been added to "Trail Mix" as a breeder
               And user can see "Snacks" as a program
-
-
+        
         Scenario: Logging in as an admin - program selection
               And user navigates to Program Selection
-              And user can see 'Welcome, Christian'
+              And user can see "Welcome, Christian" on program-selection page
               And user can see 'Which program are you working with today'
               And user can see "System Administration" is top of the list
               And user can see "Snacks" is in the list
@@ -56,9 +55,4 @@ Feature: Logging with different roles - view (7)
               And user can see "Traits" as link in the bottom of the navigation menu
               And user can see "Program Management" as link in the bottom of the navigation menu
 
-        Scenario: Logging in as a breeder/member of multiple programs
-            Given user is logs in as breedr
-              And user can see 'Welcome, Christian'
-              And user can see 'Which program are you working with today'
-              And user can see "Snacks" is in the list
-              And user can see "Trail Mix" is in the list
+     

@@ -1,7 +1,7 @@
 const { client } = require("nightwatch-api");
 
 module.exports = {
-  url: "http://sandbox.breedinginsight.net/",
+  url: "http://localhost/",
   elements: {
     iUnderstandButton:
       "#app article.notification.is-marginless.is-warning button.button.is-dark",
@@ -28,6 +28,11 @@ module.exports = {
     welcomeText: {
       selector:
         "//*[@id='app']//div/main/section/div/h1[contains(text(), 'Welcome,')]",
+      locateStrategy: "xpath",
+    },
+
+    programWelcomeText: {
+      selector: "//*[@id='app']//main//div//p[contains(text(),'Welcome')]",
       locateStrategy: "xpath",
     },
 
@@ -140,6 +145,10 @@ module.exports = {
 
     programSelectorDropDownButton:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
+
+    homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
+    traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
+    programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
   },
   sections: {
     newUserForm: {
@@ -162,6 +171,10 @@ module.exports = {
         },
         nameIsRequiredText: {
           selector: "//*[@id='Name']/../span[1]",
+          locateStrategy: "xpath",
+        },
+        roleIsRequiredText: {
+          selector: "//*[@id='Role']/../../span",
           locateStrategy: "xpath",
         },
       },
@@ -211,8 +224,8 @@ module.exports = {
           locateStrategy: "xpath",
         };
         let visible = false;
-        this.isVisible(selector, ({value}) =>{
-          visible= value;
+        this.isVisible(selector, ({ value }) => {
+          visible = value;
         });
         return visible;
       },
