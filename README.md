@@ -35,3 +35,5 @@ When user selects "test" in Option combo box
 
 Visibility of a control
 Then user can see "control" is visible
+
+Test
