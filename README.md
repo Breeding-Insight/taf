@@ -31,9 +31,6 @@ Everything else is a "select"
 When user selects "Canada" in Country dropdown
 When user selects "test" in Option combo box
 
-
-
 Visibility of a control
 Then user can see "control" is visible
 
-'Add Test'

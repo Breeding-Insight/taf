@@ -5,15 +5,15 @@ Feature: Breeder User Management
              Then user can see "Welcome, Cucumber Breeder!" on program-selection page
               And user can see 'Which program are you working with today'
              When user selects "Snacks" on program-selection page
-             Then user can see "Home" on the left side navigation
-              And user can see "Traits" on the left side navigation
-              And user can see "Program Management" on the left side navigation
+             Then user can see "Home" in navigation
+              And user can see "Traits" in navigation
+              And user can see "Program Management" in navigation
 
         Scenario: Users Table
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              Then user can see Program User Management page
               And user can see Users page
               And user can see table header contains
@@ -33,14 +33,14 @@ Feature: Breeder User Management
         Scenario: User Management page
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              Then user can see Program User Management page
 
         Scenario: System Admin and Program Member - Program User Management
             Given user logs in as sysad
-              And user selects System Administration on program-selection page
-              And user selects "Users" in left navigation
+              And user selects "System Administration" on program-selection page
+              And user selects "Users" in navigation
              Then user can see page of Users
               And user can see table header contains
                   | Header |
@@ -51,8 +51,8 @@ Feature: Breeder User Management
         Scenario: No System Role and Program Member - Program User Management
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              Then user can see page of Users
               And user can see table header contains
                   | Header |
@@ -65,15 +65,15 @@ Feature: Breeder User Management
         Scenario: ???
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              Then user can see Program User Management page
 
         Scenario: New User form - enter nothing and select Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user selects New User button
               And user selects Save button
               And user can see 'Name is required' below the Name field
@@ -84,8 +84,8 @@ Feature: Breeder User Management
         Scenario: New User form - enter name only - Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user selects New User button
               And user sets "Tester Breeder" in Name field
               And user selects Save button
@@ -95,8 +95,8 @@ Feature: Breeder User Management
         Scenario: New User form - enter all required, valid fields - Cancel
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
               And user sets "Tester Breeder" in Name field
               And user sets "testnewuser@mail.com" in Email field
               And user sets "breeder" in Role dropdown
@@ -107,8 +107,8 @@ Feature: Breeder User Management
         Scenario: New User form - enter all required, valid fields - Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -117,8 +117,8 @@ Feature: Breeder User Management
         Scenario: NEW User form - enter existing email address - Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user selects New User button
               And user sets "TestNewUser" in Name field
               And user sets "cucumberbreeder@mailinator.com" in Email field
@@ -130,8 +130,8 @@ Feature: Breeder User Management
         Scenario: Edit Form elements
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -141,8 +141,8 @@ Feature: Breeder User Management
         Scenario: Edit Form - change role - Cancel
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -153,8 +153,8 @@ Feature: Breeder User Management
         Scenario: Edit Form - change role - Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
              When user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -166,8 +166,8 @@ Feature: Breeder User Management
         Scenario: Deactivate link - modal
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
               And user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -180,8 +180,8 @@ Feature: Breeder User Management
         Scenario: Deactivate link - Cancel
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
               And user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |
@@ -192,8 +192,8 @@ Feature: Breeder User Management
         Scenario: Deactivate link - Yes, deactivate
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
-              And user selects "Program Management" in left navigation
-              And user selects "Users" in left navigation
+              And user selects "Program Management" in navigation
+              And user selects "Users" in navigation
               And user creates a new user
                   | Name   | Email                | Role    |
                   | Test * | test*@mailinator.com | breeder |

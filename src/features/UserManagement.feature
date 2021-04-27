@@ -2,8 +2,8 @@ Feature: System User Management (15)
 
         Background: Sysad logs in
             Given user is logs in as sysad
-              And user selects System Administration on program-selection page
-              And user selects Users in left navigation
+              And user selects "System Administration" on program-selection page
+              And user selects Users in navigation
 
         Scenario: User Management page
              When user is on the user-management page

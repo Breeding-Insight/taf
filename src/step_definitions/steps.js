@@ -100,13 +100,6 @@ Given(/^user logs in as member$/, async () => {
   await page.click("@signInButton");
 });
 
-When(
-  /user selects System Administration on program-selection page$/,
-  async () => {
-    await page.click("@systemAdministrationLabel");
-  }
-);
-
 When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   await page.click({
     selector: `//*[@id='app']//main//a[text()=' ${args1} ']`,
@@ -114,7 +107,7 @@ When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   });
 });
 
-When(/^user selects Users in left navigation$/, async () => {
+When(/^user selects Users in navigation$/, async () => {
   await page.click("@usersLeftMenu");
 });
 
@@ -383,14 +376,14 @@ When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
   setRole(args1);
 });
 
-When(/^user selects Program "([^"]*)" in left navigation$/, async (args1) => {
+When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
   await page.click({
     selector: `//*[@id='sideMenu']//nav//ul//a[contains(text(), '${args1}')]`,
     locateStrategy: "xpath",
   });
 });
 
-When(/^user selects "([^"]*)" in left navigation$/, async (args1) => {
+When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
   await page.click({
     selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
     locateStrategy: "xpath",
@@ -728,7 +721,7 @@ Then(/^user can see "([^"]*)" as logged in$/, async (args1) => {
   await page.assert.containsText("@loggedInAsLabel", "Cucumber Breeder");
 });
 
-Then(/^user can see "([^"]*)" on the left side navigation$/, async (args1) => {
+Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   switch (args1) {
     case "Home":
       await page.assert.visible("@homeMenu");
@@ -815,6 +808,41 @@ When(/^user selects modal Yes, archive button$/, async () => {
 
 Then(/^user can see "([^"]*)" in the the Role dropdown$/, async (args1) => {
   await page.section.newUserForm.assert.containsText("@roleSelect", args1);
+});
+
+Then(/^user can header "([^"]*)"$/, async (args1) => {
+  await page.assert.containsText("#app main section h1", args1);
+});
+
+Then(/^user can see a message 'Before You Import...'$/, async () => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div > strong",
+    "Before You Import..."
+  );
+});
+
+Then(
+  /^user can see a message 'Prepare trait information for import using the provided template.'$/,
+  async () => {
+    await page.assert.containsText(
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div",
+      "Prepare trait information for import using the provided template."
+    );
+  }
+);
+
+Then(
+  /^user can see a button 'Download the Trait Import Template'$/,
+  async () => {
+    await page.assert.containsText(
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-right > div > div > a",
+      "Download the Trait Import Template"
+    );
+  }
+);
+
+Then(/^user can see a button 'Choose a file...'$/, async() => {
+	await page.assert.containsText("#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > div > span:nth-child(2)", "Choose a file...");
 });
 
 //functions

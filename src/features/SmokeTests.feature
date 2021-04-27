@@ -3,7 +3,7 @@
 #         Scenario: User Management page
 #             Given a sysad is logs in
 #               And selects System Administration on program-selection page
-#               And selects Users in left navigation
+#               And selects Users in navigation
 #               And user is on the user-management page
 #              Then page of Users is visible
 #               And New User button is visible
@@ -25,7 +25,7 @@
 #         Scenario: Adding new user with no system role
 #             Given a sysad is logs in
 #               And selects System Administration on program-selection page
-#               And selects Users in left navigation
+#               And selects Users in navigation
 #               And user is on the user-management page
 #              When user creates a new user
 #                   | Name   | Email                | Role |
@@ -85,7 +85,7 @@
 #             Given Snacks exists as a program
 #               And I login to BI as a system administrator
 #              When I select System Administration
-#               And select Snacks under Programs in left navigation page
+#               And select Snacks under Programs in navigation page
 #               And select Program Management under Snacks
 #              Then the Program Location Management page is presented
 #               And I see a tab labeled Locations
@@ -95,8 +95,8 @@
 #         Scenario: New Location, Save
 #             Given a sysad is logs in
 #               And selects System Administration on program-selection page
-#               And selects Program "Snacks" in left navigation
-#               And selects "Program Management" in left navigation
+#               And selects Program "Snacks" in navigation
+#               And selects "Program Management" in navigation
 #               And select "+ New Location" button
 #               And enter Target into "Name"
 #               And select "Save"

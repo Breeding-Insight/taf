@@ -2,7 +2,7 @@ Feature: Logging with Sys Ad
 
         Background: Required Setup
             Given user logs in as sysad
-              And user selects System Administration on program-selection page
+              And user selects "System Administration" on program-selection page
               And user can see "Cucumber Breeder" has been added to "Snacks" as a breeder
               And user can see "Cucumber Breeder" has been added to "Trail Mix" as a member
               And user can see "Cucumber Breeder" has been added to "Trail Mix" as a breeder
@@ -17,7 +17,7 @@ Feature: Logging with Sys Ad
               And user can see "Trail Mix" is in the list
 
         Scenario: Logging in as an admin - program-management page
-              And user selects System Administration on program-selection page
+              And user selects "System Administration" on program-selection page
              Then user can see "System Administration" in the upper right corner
               And user can see System Administration combo box
               And user can see 'Logged in as'
@@ -32,7 +32,7 @@ Feature: Logging with Sys Ad
                   | # Users |
              When user clicks Show All button
              Then user can see each row has an Edit link
-            #   And user can see each row has a Deactivate link
+              And user can see each row has a Deactivate link
               And user can see Previous page button
               And user can see Current page button
               And user can see Next page button
@@ -41,13 +41,13 @@ Feature: Logging with Sys Ad
               And user can see Show All button
 
         Scenario: program combo box options
-              And user selects System Administration on program-selection page
+              And user selects "System Administration" on program-selection page
               And user clicks the combo box of Program Selector
              Then user can see "Trail Mix" as an option
               And user can see "Snacks" as an option
 
         Scenario: Switching programs using the combo box
-              And user selects System Administration on program-selection page
+              And user selects "System Administration" on program-selection page
              When user selects "Trail Mix" the program selector
              Then user can see "Trail Mix" in the upper right corner
               And user can see "Trail Mix" as label in the bottom of the navigation menu
