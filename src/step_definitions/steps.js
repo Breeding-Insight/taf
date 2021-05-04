@@ -1,6 +1,9 @@
 const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("cucumber");
+const path = require("path");
+const { AsyncLocalStorage } = require("async_hooks");
 const page = client.page.page();
+const importFolder = path.join(__basedir + "\\src\\files\\TraitImport_v03");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -841,8 +844,170 @@ Then(
   }
 );
 
-Then(/^user can see a button 'Choose a file...'$/, async() => {
-	await page.assert.containsText("#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > div > span:nth-child(2)", "Choose a file...");
+Then(/^user can see a button 'Choose a file...'$/, async () => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > div > span:nth-child(2)",
+    "Choose a file..."
+  );
+});
+
+When(/^user uploads "([^"]*)" file$/, async (args1) => {
+  await page.setValue(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > input[type=file]",
+    path.resolve(importFolder, args1)
+  );
+});
+
+Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(1) > div",
+    args1
+  );
+});
+
+Then(/^user cans see 'Choose a different file...' button$/, async () => {
+  await page.assert.visible(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(2) > div > label > div > span:nth-child(2)"
+  );
+});
+
+Then(/^user can see 'Import' button$/, async () => {
+  await page.assert.visible(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+  );
+});
+
+When(/^user selects "([^"]*)" button$/, async (args1) => {
+  await page.pause(1000);
+  const selector = {
+    selector: `//*[contains(@class,'button')][contains(text(),'${args1}')]`,
+    locateStrategy: "xpath",
+  };
+  await page.waitForElementVisible(selector);
+  await page.click(selector);
+});
+
+Then(/^user can see 'Curate And Confirm New Traits' header$/, async () => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > h1",
+    "Curate and Confirm New Traits"
+  );
+});
+
+Then(/^user can see "([^"]*)" button$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//*[contains(@class,'button')][contains(text(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user see a list of traits in a table$/, async () => {
+  await page.assert.visible("#traitsImportTableLabel");
+});
+
+Then(
+  /^user can see "([^"]*)" column header in "([^"]*)"$/,
+  async (args1, args2) => {
+    let id;
+    if (args2.includes("Traits Import Table")) id = "traitsImportTableLabel";
+    else
+      id = 'traitTableLabel';
+
+    await page.assert.visible({
+      selector: `//*[@id='${id}']//table/thead/tr/th[contains(text(),'${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
+  await showAll();
+  let rows;
+
+  await client.elements("css selector", "tbody tr", ({ value }) => {
+    return (rows = value.length);
+  });
+
+  await page.expect
+    .elements({
+      selector: "//a[text()=' Show details ']",
+      locateStrategy: "xpath",
+    })
+    .count.equal(rows);
+});
+
+Then(/^user can see a modal box$/, async () => {
+  await page.assert.visible(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card"
+  );
+});
+
+Then(/^user can not see a modal box$/, async () => {
+  await page.assert.not.elementPresent(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card"
+  );
+});
+
+Then(/^user can sees 'Abort This Import' in modal box$/, async () => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3",
+    "Abort This Import"
+  );
+});
+
+Then(
+  /^user can see 'No traits will be added, and the import in progress will be completely removed.' in modal box$/,
+  async () => {
+    await page.assert.containsText(
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p",
+      "No traits will be added, and the import in progress will be completely removed."
+    );
+  }
+);
+
+Then(/^user can see 'Yes, abort' button$/, async () => {
+  await page.assert.containsText(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong",
+    "Yes, abort"
+  );
+});
+
+When(/^user selects 'Import' button$/, async () => {
+  await page.click(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+  );
+  await page.pause(3000);
+});
+
+Then(/^user can see 'Imported cancelled' in banner$/, async () => {
+  await page.assert.containsText("@bannerText", "Import cancelled");
+});
+
+Then(
+  /^user can see 'Imported traits have been added to Snacks.' in banner$/,
+  async () => {
+    await page.assert.containsText(
+      "@bannerText",
+      "Imported traits have been added to Snacks."
+    );
+  }
+);
+
+When(/^user selects 'Yes, abort' button$/, async () => {
+  await page.click(
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong"
+  );
+});
+
+Then(/^user can see Traits table$/, async () => {
+  await page.assert.visible("#traitTableLabel");
+});
+
+Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//*[@id="app"]//li[contains(text(), "${args1}")]`,
+    locateStrategy: "xpath",
+  });
 });
 
 //functions

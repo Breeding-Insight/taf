@@ -11,6 +11,7 @@ const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
 
 setDefaultTimeout(300000);
+global.__basedir = __dirname;
 
 Before(async()=>{
   await createSession();

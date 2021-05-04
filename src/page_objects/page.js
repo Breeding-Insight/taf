@@ -149,6 +149,9 @@ module.exports = {
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+
+    //banner
+    bannerText:"#app article.notification:nth-child(1) div.level-item:nth-child(2)",
   },
   sections: {
     newUserForm: {
