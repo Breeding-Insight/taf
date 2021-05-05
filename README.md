@@ -48,6 +48,6 @@ npm run test:chrome
 <br>_When user selects "Cancel" button_
 
 ## Validating controls
-- Visibility of a control
+- Visibility of a control, use "see" and "not see"
 <br>_Then user can see "Snacks" button_
 <br>_Then user can not see "Cancel" link_
