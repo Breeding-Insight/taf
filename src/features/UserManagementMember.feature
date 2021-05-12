@@ -2,7 +2,7 @@ Feature: Breeder User Management
 
         Scenario: User Program Welcome Page
             Given user logs in as member
-             Then user can see "Welcome, Cucumber Breeder!" on program-selection page
+             Then user can see "Welcome, Cucumber Member!" on program-selection page
               And user can see 'Which program are you working with today'
              When user selects "Snacks" on program-selection page
              Then user can see "Home" in navigation
@@ -10,7 +10,7 @@ Feature: Breeder User Management
               And user can see "Program Management" in navigation
 
         Scenario: Users Table
-            Given user logs in as breeder
+            Given user logs in as member
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -31,7 +31,7 @@ Feature: Breeder User Management
               And user can see Show All button
 
         Scenario: User Management page
-            Given user logs in as breeder
+            Given user logs in as member
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation

@@ -648,12 +648,16 @@ When(/^user navigates to Program Selection$/, async () => {
   await page.navigateToProgramSelection();
 });
 
+Then(/^user can see System Administration combo box$/, async () => {
+  await page.assert.visible("@systemAdministrationDropDownIcon");
+});
+
 Then(/^user can see Program Selection combo box$/, async () => {
   await page.assert.visible("@systemAdministrationDropDownIcon");
 });
 
 Then(/^user cannot see Program Selection combo box$/, async () => {
-  await page.assert.not.visible("@systemAdministrationDropDownIcon");
+  await page.assert.not.elementPresent("@systemAdministrationDropDownIcon");
 });
 
 Then(/^user can see 'Logged in as'$/, async () => {
@@ -721,7 +725,7 @@ Then(/^user can see Welcome page of program$/, async () => {
 
 Then(/^user can see "([^"]*)" as logged in$/, async (args1) => {
   await page.assert.visible("@loggedInAsLabel");
-  await page.assert.containsText("@loggedInAsLabel", "Cucumber Breeder");
+  await page.assert.containsText("@loggedInAsLabel", args1);
 });
 
 Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
@@ -1009,6 +1013,12 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
     locateStrategy: "xpath",
   });
 });
+
+
+When(/^new step here$/, () => {
+	return true;
+});
+
 
 //functions
 async function setUserName(name) {
