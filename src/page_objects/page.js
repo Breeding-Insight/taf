@@ -6,7 +6,7 @@ module.exports = {
     iUnderstandButton:
       "#app article.notification.is-marginless.is-warning button.button.is-dark",
     loginButton:
-      "#app > div.sidebarlayout > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > button",
+      "#app > div.is-full-length > main > section > div > div:nth-child(5) > div.column.is-three-fifths > div:nth-child(1) > div:nth-child(2) > button",
     orcidSignInButton: "#connect-orcid-button",
 
     emailInput: "#username",

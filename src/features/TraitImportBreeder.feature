@@ -145,7 +145,7 @@ Feature: Trait Import (10 Scenarios)
             And user selects 'Import' button
             Then user can see 'Curate And Confirm New Traits' header
 
-      @BI-933
+      @BI-933l
       Scenario: Traits - extra columns
             And user uploads "test_traits_extraCols.xlsx" file
             And user selects 'Import' button

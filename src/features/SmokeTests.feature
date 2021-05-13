@@ -1,26 +1,5 @@
-# Feature: Smoke Tests (11)
+Feature: Smoke Tests (11)
 
-#         Scenario: User Management page
-#             Given a sysad is logs in
-#               And selects System Administration on program-selection page
-#               And selects Users in navigation
-#               And user is on the user-management page
-#              Then page of Users is visible
-#               And New User button is visible
-#               And table header contains
-#                   | Header   |
-#                   | Name     |
-#                   | Email    |
-#                   | Role     |
-#                   | Programs |
-#               And each row has an Edit link
-#         #   And each row has a Deactivate link
-#               And Previous page button is visible
-#               And Current page button is visible
-#               And Next page button is visible
-#               And Results per page combo box is visible
-#               And Label per page is visible
-#               And Show All button is visible
 
 #         Scenario: Adding new user with no system role
 #             Given a sysad is logs in

@@ -19,12 +19,6 @@ module.exports = {
         "./node_modules/iedriver/lib/iedriver/IEDriverServer.exe",
     },
   },
-  // webdriver: {
-  //   start_process: true,
-  //   server_path: chromedriver.path,
-  //   cli_args: ["--log", "debug"],
-  //   port: 4444,
-  // },
 
   test_settings: {
     default: {
