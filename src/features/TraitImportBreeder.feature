@@ -22,6 +22,8 @@ Feature: Trait Import (10 Scenarios)
             And user can see 'Import' button
 
       @BI-918
+      @BI-810
+      @SmokeTests
       Scenario: Traits - choosing an xls file And selecting Import
             When user uploads "test_import-xls.xls" file
             And user selects 'Import' button
@@ -65,6 +67,7 @@ Feature: Trait Import (10 Scenarios)
             Then user can see 'Imported cancelled' in banner
 
       @BI-922
+      @BI-811
       Scenario: Traits - Confirm Import for xls file
             And user uploads "test_import-xls.xls" file
             And user selects 'Import' button

@@ -22,10 +22,14 @@ module.exports = {
 
   test_settings: {
     default: {
+      launch_url:"http://localhost",
       screenshots: {
         enabled: true,
         path: "./screenshots",
       },
+    },
+    sandbox: {
+      launch_url:"http://sandbox.breedinginsight.net/",
     },
     ie: {
       desiredCapabilities: {
@@ -54,6 +58,15 @@ module.exports = {
       },
       desiredCapabilities: {
         browserName: "MicrosoftEdge",
+      },
+    },
+    'sandbox.chrome': {
+      extends: 'sandbox',
+      desiredCapabilities: {
+        browserName: "chrome",
+        chromeOptions: {
+          w3c: false,
+        },
       },
     },
   },

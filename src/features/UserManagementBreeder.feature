@@ -30,6 +30,8 @@ Feature: Breeder User Management
               And user can see Label per page
               And user can see Show All button
 
+@BI-805
+@SmokeTests
         Scenario: User Management page
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page
@@ -104,6 +106,8 @@ Feature: Breeder User Management
              Then user does not see new user form
               And user does not see a new user in Users list
 
+@debug
+@BI-806
         Scenario: New User form - enter all required, valid fields - Save
             Given user logs in as breeder
               And user selects "Snacks" on program-selection page

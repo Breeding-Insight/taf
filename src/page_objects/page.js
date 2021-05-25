@@ -1,12 +1,19 @@
 const { client } = require("nightwatch-api");
 
 module.exports = {
-  url: "http://localhost/",
+  url: function () {
+    return this.api.launchUrl;
+  },
   elements: {
-    iUnderstandButton:
-      "#app article.notification.is-marginless.is-warning button.button.is-dark",
-    loginButton:
-      "#app > div.is-full-length > main > section > div > div:nth-child(5) > div.column.is-three-fifths > div:nth-child(1) > div:nth-child(2) > button",
+    iUnderstandButton: {
+      selector:
+        "//button[starts-with(normalize-space(.),'I understand, close this message')]",
+      locateStrategy: "xpath",
+    },
+    loginButton: {
+      selector: "//button[starts-with(normalize-space(.),'LOG IN')]",
+      locateStrategy: "xpath",
+    },
     orcidSignInButton: "#connect-orcid-button",
 
     emailInput: "#username",
@@ -66,7 +73,10 @@ module.exports = {
     },
 
     newProgramButton: "#adminProgramTableLabel > button",
-    programNameField: "#Program-Name",
+    programNameField: {
+      selector: "//*[@id='Program Name']",
+      locateStrategy: "xpath",
+    },
     speciesSelect: "#Species",
     saveButton:
       "#adminProgramTableLabel > form > div:nth-child(2) > div > button.button.is-primary",
@@ -106,7 +116,7 @@ module.exports = {
     },
 
     newUserButton: {
-      selector: "//*[@id='app']//button/span[contains(text(),'New User')]",
+      selector: "//button[starts-with(normalize-space(.),'New User')]",
       locateStrategy: "xpath",
     },
 
@@ -151,7 +161,8 @@ module.exports = {
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
 
     //banner
-    bannerText:"#app article.notification:nth-child(1) div.level-item:nth-child(2)",
+    bannerText:
+      "#app article.notification:nth-child(1) div.level-item:nth-child(2)",
   },
   sections: {
     newUserForm: {
@@ -185,6 +196,14 @@ module.exports = {
   },
   commands: [
     {
+      clickButton: async function (name) {
+        const selector={
+          selector: `//button[starts-with(normalize-space(.),'${name}')]`,
+          locateStrategy: "xpath",
+        };
+        await this.waitForElementVisible(selector);
+        await this.click(selector);
+      },
       navigateToUsers: async function () {
         //get the current url
         let url;

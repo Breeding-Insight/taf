@@ -7,9 +7,10 @@
     "debug": "node --inspect-brk=1337 node_modules/cucumber/bin/cucumber-js",
     "test:debug": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
     "test:pipeline": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json",
-    "test:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
+    "test:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
     "test:firefox": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env firefox",
-    "test:edge": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env edge"
+    "test:edge": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env edge",
+    "test:sandbox.chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env sandbox.chrome"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/chris_vacalares/breedinginsight#readme",
   "devDependencies": {
+    "@slime/stopwatch": "^1.0.5",
     "chromedriver": "^90.0.0",
     "cucumber": "^6.0.5",
     "cucumber-html-reporter": "^5.2.0",

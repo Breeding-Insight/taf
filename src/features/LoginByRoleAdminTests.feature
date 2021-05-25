@@ -18,7 +18,6 @@ Feature: Logging with Sys Administration
             And user can see "Snacks" is in the list
             And user can see "Trail Mix" is in the list
 
-@debug
 @BI-803
 @SmokeTests
       Scenario: Logging in as an admin - program-management page

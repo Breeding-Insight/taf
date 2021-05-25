@@ -1,23 +1,14 @@
 Feature: Smoke Tests (11)
 
-
-#         Scenario: Adding new user with no system role
-#             Given a sysad is logs in
-#               And selects System Administration on program-selection page
-#               And selects Users in navigation
-#               And user is on the user-management page
-#              When user creates a new user
-#                   | Name   | Email                | Role |
-#                   | Test * | test*@mailinator.com |      |
-#              Then new user is added in the users list
-
-#         Scenario: New Program, Save
-#             Given a sysad is logs in
-#               And selects System Administration on program-selection page
-#              When user creates a new program
-#                   | Program Name | Species      |
-#                   | Test *       | Sweet Potato |
-#              Then a new program is created
+    @BI-804
+    @SmokeTests
+    Scenario: New Program, Save
+        Given user logs in as sysad
+        And user selects "System Administration" on program-selection page
+        When user creates a new program
+            | Program Name | Species      |
+            | Test *       | Sweet Potato |
+        Then user can see a new program is created
 
 # #don't know how to add breeder
 #         Scenario: Program User Managment page

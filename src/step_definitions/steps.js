@@ -1,7 +1,6 @@
 const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("cucumber");
 const path = require("path");
-const { AsyncLocalStorage } = require("async_hooks");
 const page = client.page.page();
 const importFolder = path.join(__basedir + "\\src\\files\\TraitImport_v03");
 
@@ -72,6 +71,7 @@ Then(/^user selects the user$/, () => {
 
 Given(/^user logs in as sysad$/, async () => {
   await page.navigate();
+  await waitReady();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
@@ -83,6 +83,7 @@ Given(/^user logs in as sysad$/, async () => {
 
 Given(/^user logs in as breeder$/, async () => {
   await page.navigate();
+  await waitReady();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
@@ -94,6 +95,7 @@ Given(/^user logs in as breeder$/, async () => {
 
 Given(/^user logs in as member$/, async () => {
   await page.navigate();
+  await waitReady();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
@@ -449,7 +451,7 @@ Then(
 );
 
 When(/^user creates a new user$/, async (table) => {
-  await page.click("@newUserButton");
+  await page.clickButton("New User");
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
@@ -884,7 +886,7 @@ Then(/^user can see 'Import' button$/, async () => {
 When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.pause(1000);
   const selector = {
-    selector: `//*[contains(@class,'button')][contains(text(),'${args1}')]`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}')]`,
     locateStrategy: "xpath",
   };
   await page.waitForElementVisible(selector);
@@ -914,8 +916,7 @@ Then(
   async (args1, args2) => {
     let id;
     if (args2.includes("Traits Import Table")) id = "traitsImportTableLabel";
-    else
-      id = 'traitTableLabel';
+    else id = "traitTableLabel";
 
     await page.assert.visible({
       selector: `//*[@id='${id}']//table/thead/tr/th[contains(text(),'${args1}')]`,
@@ -1014,11 +1015,9 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   });
 });
 
-
 When(/^new step here$/, () => {
-	return true;
+  return true;
 });
-
 
 //functions
 async function setUserName(name) {
@@ -1053,4 +1052,27 @@ async function closeNotification() {
     return (visible = value);
   });
   if (visible) await page.click(button);
+}
+
+async function waitReady() {
+  const StopWatch = require("@slime/stopwatch");
+  let stopWatch = new StopWatch();
+  stopWatch.startTimer();
+
+  let text;
+  const selector = "#versionInfo > span > span > a:nth-child(2)";
+  while (stopWatch.getTimeElapsedInMs < 300000) {
+    await page.getText(selector, ({ value }) => {
+      if (value.error) {
+        throw Error(value.error);
+      }
+      text = value;
+    });
+    if (text.includes("api unknown")) return;
+    console.log("not found here");
+    await client.pause(10000);
+    await client.refresh();
+  }
+  stopWatch.stopTimer();
+  throw new Error("Application version failed to load. Unable to login.");
 }
