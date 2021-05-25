@@ -1,7 +1,7 @@
 Feature: Breeder User Management
 
         Scenario: User Program Welcome Page
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
              Then user can see "Welcome, Cucumber Breeder!" on program-selection page
               And user can see 'Which program are you working with today'
              When user selects "Snacks" on program-selection page
@@ -10,7 +10,7 @@ Feature: Breeder User Management
               And user can see "Program Management" in navigation
 
         Scenario: Users Table
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -33,15 +33,15 @@ Feature: Breeder User Management
 @BI-805
 @SmokeTests
         Scenario: User Management page
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
              Then user can see Program User Management page
 
         Scenario: System Admin and Program Member - Program User Management
-            Given user logs in as sysad
-              And user selects "System Administration" on program-selection page
+            Given user logs in as "sysad"              
+            And user selects "System Administration" on program-selection page
               And user selects "Users" in navigation
              Then user can see page of Users
               And user can see table header contains
@@ -51,7 +51,7 @@ Feature: Breeder User Management
                   | Role   |
 
         Scenario: No System Role and Program Member - Program User Management
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -65,14 +65,14 @@ Feature: Breeder User Management
               And user can see each row doesn't have a Deactivate link
 
         Scenario: ???
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
              Then user can see Program User Management page
 
         Scenario: New User form - enter nothing and select Save
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -84,7 +84,7 @@ Feature: Breeder User Management
              Then user can see banner appears with an error message 'Fix Invalid Fields'
 
         Scenario: New User form - enter name only - Save
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -95,7 +95,7 @@ Feature: Breeder User Management
               And user can see 'Role is required' below the Role field
 
         Scenario: New User form - enter all required, valid fields - Cancel
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -109,7 +109,7 @@ Feature: Breeder User Management
 @debug
 @BI-806
         Scenario: New User form - enter all required, valid fields - Save
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -119,7 +119,7 @@ Feature: Breeder User Management
              Then user can see a new user is added in users list
 
         Scenario: NEW User form - enter existing email address - Save
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -132,7 +132,7 @@ Feature: Breeder User Management
              Then user can see new user form
 
         Scenario: Edit Form elements
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -143,7 +143,7 @@ Feature: Breeder User Management
              Then user can see "breeder" in the the Role dropdown
 
         Scenario: Edit Form - change role - Cancel
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -155,7 +155,7 @@ Feature: Breeder User Management
              Then user can see user is in users list
 
         Scenario: Edit Form - change role - Save
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -168,7 +168,7 @@ Feature: Breeder User Management
              Then user can see user is in users list
 
         Scenario: Deactivate link - modal
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -182,7 +182,7 @@ Feature: Breeder User Management
               And user selects modal Cancel button
 
         Scenario: Deactivate link - Cancel
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation
@@ -194,7 +194,7 @@ Feature: Breeder User Management
              Then user can see user is in users list
 
         Scenario: Deactivate link - Yes, deactivate
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
               And user selects "Snacks" on program-selection page
               And user selects "Program Management" in navigation
               And user selects "Users" in navigation

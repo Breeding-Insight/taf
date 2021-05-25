@@ -1,7 +1,7 @@
 Feature: Trait Import (10 Scenarios)
 
       Background: Setup
-            Given user logs in as breeder
+            Given user logs in as "Cucumber Breeder"
             When user selects "Snacks" on program-selection page
             And user selects "Traits" in navigation
             And user selects "Import Traits" in navigation

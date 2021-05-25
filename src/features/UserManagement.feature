@@ -1,7 +1,7 @@
 Feature: System User Management (15)
 
     Background: Sysad logs in
-        Given user logs in as sysad
+        Given user logs in as "sysad"
         And user selects "System Administration" on program-selection page
         And user selects Users in navigation
 

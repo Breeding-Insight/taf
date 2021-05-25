@@ -3,7 +3,7 @@ Feature: Smoke Tests (11)
     @BI-804
     @SmokeTests
     Scenario: New Program, Save
-        Given user logs in as sysad
+        Given user logs in as "sysad"
         And user selects "System Administration" on program-selection page
         When user creates a new program
             | Program Name | Species      |

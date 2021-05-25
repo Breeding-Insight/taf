@@ -69,39 +69,38 @@ Then(/^user selects the user$/, () => {
   return true;
 });
 
-Given(/^user logs in as sysad$/, async () => {
+Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.navigate();
   await waitReady();
   await page.click("@iUnderstandButton");
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
 
-  await page.setValue("@emailInput", "christian@mailinator.com");
-  await page.setValue("@passwordInput", "cucumber1");
-  await page.click("@signInButton");
-});
+  let email;
+  let password;
 
-Given(/^user logs in as breeder$/, async () => {
-  await page.navigate();
-  await waitReady();
-  await page.click("@iUnderstandButton");
-  await page.click("@loginButton");
-  await page.click("@orcidSignInButton");
-
-  await page.setValue("@emailInput", "cucumberbreeder@mailinator.com");
-  await page.setValue("@passwordInput", "cucumber1");
-  await page.click("@signInButton");
-});
-
-Given(/^user logs in as member$/, async () => {
-  await page.navigate();
-  await waitReady();
-  await page.click("@iUnderstandButton");
-  await page.click("@loginButton");
-  await page.click("@orcidSignInButton");
-
-  await page.setValue("@emailInput", "cucumbermember@mailinator.com");
-  await page.setValue("@passwordInput", "cucumber2");
+  switch (args1) {
+    case "sysad":
+      email = "christian@mailinator.com";
+      password = "cucumber1";
+      break;
+    case "Cucumber Breeder":
+      email = "cucumberbreeder@mailinator.com";
+      password = "cucumber1";
+      break;
+    case "Cucumber Member":
+      email = "cucumbermember@mailinator.com";
+      password = "cucumber2";
+      break;
+    case "TrailMix Breeder":
+      email = "trailmix@mailinator.com ";
+      password = "trailmix1";
+      break;
+    default:
+      throw new Error("Unknown user name");
+  }
+  await page.setValue("@emailInput", userName);
+  await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
 });
 
@@ -410,45 +409,6 @@ Then(/^user does not see a new user in Users list$/, async () => {
 Then(/^user can see a label 'per page'$/, () => {
   return true;
 });
-
-Then(/^a form pops up with text boxes labeled Name, Email, and Role$/, () => {
-  return true;
-});
-
-Then(/^a message stating "([^"]*)" under Name text box$/, (args1) => {
-  console.log(args1);
-  return true;
-});
-
-Then(/^a Save button$/, () => {
-  return true;
-});
-
-Then(/^a Cancel button$/, () => {
-  return true;
-});
-
-When(/^enters TestNewUser in the Name field$/, () => {
-  return true;
-});
-
-When(/^enters newuser@mail.com in the Email field$/, () => {
-  return true;
-});
-
-Then(
-  /^the form stays open with an error message stating 'Name is required' appears below the Email field$/,
-  () => {
-    return true;
-  }
-);
-
-Then(
-  /^the form stays open withan error message under the Email field stating 'Email must be in email format'$/,
-  async () => {
-    return true;
-  }
-);
 
 When(/^user creates a new user$/, async (table) => {
   await page.clickButton("New User");
@@ -1013,10 +973,6 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
     selector: `//*[@id="app"]//li[contains(text(), "${args1}")]`,
     locateStrategy: "xpath",
   });
-});
-
-When(/^new step here$/, () => {
-  return true;
 });
 
 //functions
