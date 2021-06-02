@@ -93,20 +93,20 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
       password = "cucumber2";
       break;
     case "TrailMix Breeder":
-      email = "trailmix@mailinator.com ";
+      email = "trailmix@mailinator.com";
       password = "trailmix1";
       break;
     default:
       throw new Error("Unknown user name");
   }
-  await page.setValue("@emailInput", userName);
+  await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
 });
 
 When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   await page.click({
-    selector: `//*[@id='app']//main//a[text()=' ${args1} ']`,
+    selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -282,7 +282,7 @@ Then(/^user can see 'Role is required' below the Role field$/, async () => {
 });
 
 When(/^user sets "([^"]*)" in Email field$/, async (args1) => {
-  await page.section.newUserForm.setValue("@emailField", args1);
+  await setEmail(args1);
 });
 
 Then(/^user can see name field$/, async () => {
@@ -411,7 +411,7 @@ Then(/^user can see a label 'per page'$/, () => {
 });
 
 When(/^user creates a new user$/, async (table) => {
-  await page.clickButton("New User");
+  await page.click("@newUserButton");
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
@@ -430,6 +430,10 @@ When(/^user creates a new user$/, async (table) => {
     }
   }
   await page.section.newUserForm.click("@saveButton");
+});
+
+When(/^user clicks 'New User' button$/, async () => {
+  await page.click("@newUserButton");
 });
 
 When(/^user edits a user$/, async (table) => {
@@ -463,7 +467,8 @@ When(/^user edits a user$/, async (table) => {
   await page.section.newUserForm.click("@saveButton");
 });
 
-Then(/^user can see a new user is added in users list$/, async () => {
+Then(/^user can see a new user is added in User$/, async () => {
+  await showAll();
   await page.assert.containsText("tr.is-new td[name='name']", user.userName);
   await page.assert.containsText("tr.is-new td[name='email']", user.email);
   await page.assert.containsText("tr.is-new td[name='roles']", user.role);
@@ -472,15 +477,15 @@ Then(/^user can see a new user is added in users list$/, async () => {
 Then(/^user can see user is in users list$/, async () => {
   await showAll();
   await page.assert.visible({
-    selector: `//tr/td[contains(text(), '${user.userName}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.userName}')]`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//tr/td[contains(text(), '${user.email}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.email}')]`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//td[contains(text(), '${user.email}')]/..//td[contains(text(), '${user.role}')]`,
+    selector: `//td[contains(text(), '${user.email}')]/..//td[normalize-space(.)='${user.role}')]`,
     locateStrategy: "xpath",
   });
 });
@@ -535,10 +540,9 @@ When(/^user clicks Edit of a user$/, async () => {
 
 When(/^user can see "([^"]*)" as a program$/, async (args1) => {
   await page.navigateToPrograms();
-  await page.waitForElementVisible("@showAllButton");
-  await page.click("@showAllButton");
+  await showAll();
   await page.waitForElementVisible({
-    selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${args1} ']`,
+    selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -555,11 +559,11 @@ When(
     await page.waitForElementVisible("@showAllButton");
     await page.click("@showAllButton");
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' breeder ']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='breeder']`,
       locateStrategy: "xpath",
     });
   }
@@ -577,11 +581,11 @@ When(
     await page.waitForElementVisible("@showAllButton");
     await page.click("@showAllButton");
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[text()=' ${args1} ']/following-sibling::td[text()=' member ']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='member']`,
       locateStrategy: "xpath",
     });
   }
@@ -591,7 +595,7 @@ Then(/^user can see "([^"]*)" on program-selection page$/, async (name) => {
   await page.assert.containsText("@welcomeText", name);
 });
 
-When(/^user can see 'Which program are you working with today'$/, async () => {
+Then(/^user can see 'Which program are you working with today'$/, async () => {
   await page.assert.visible("@whichProgramText");
 });
 
@@ -601,7 +605,7 @@ Then(/^user can see "([^"]*)" is top of the list$/, async (args1) => {
 
 Then(/^user can see "([^"]*)" is in the list$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id='app']//section//a[text()=' ${args1} ']`,
+    selector: `//*[@id='app']//section//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -648,7 +652,7 @@ When(/^user clicks the combo box of Program Selector$/, async () => {
 
 Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id='program-menu']/div/a[text()=' ${args1} ']`,
+    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -656,7 +660,7 @@ Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
 When(/^user selects "([^"]*)" the program selector$/, async (args1) => {
   await page.click("@programSelectorDropDownButton");
   await page.click({
-    selector: `//*[@id='program-menu']/div/a[text()=' ${args1} ']`,
+    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -665,7 +669,7 @@ Then(
   /^user can see "([^"]*)" as label in the bottom of the navigation menu$/,
   async (args1) => {
     await page.assert.visible({
-      selector: `//aside/nav/p[text()=' ${args1} ']`,
+      selector: `//aside/nav/p[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
   }
@@ -675,7 +679,7 @@ Then(
   /^user can see "([^"]*)" as link in the bottom of the navigation menu$/,
   async (args1) => {
     await page.assert.visible({
-      selector: `//aside//ul[2]//a[text()=' ${args1} ']`,
+      selector: `//aside//ul[2]//a[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
   }
@@ -687,6 +691,9 @@ Then(/^user can see Welcome page of program$/, async () => {
 
 Then(/^user can see "([^"]*)" as logged in$/, async (args1) => {
   await page.assert.visible("@loggedInAsLabel");
+  await page.getText("@loggedInAsLabel", ({ value }) => {
+    console.log("text value is " + value);
+  });
   await page.assert.containsText("@loggedInAsLabel", args1);
 });
 
@@ -719,58 +726,56 @@ Then(/^user can see Users page$/, async () => {
 
 When(/^user selects Deactivate of user$/, async () => {
   await page.click({
-    selector: `//td[text()=' ${user.userName} ']/..//a[2]`,
+    selector: `//td[normalize-space(.)='${user.userName}']/..//a[2]`,
     locateStrategy: "xpath",
   });
 });
 
 Then(/^user can see a modal with Deactivate message$/, async () => {
   const selector =
-    "#programUserTableLabel > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3";
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3";
   await page.assert.visible(selector);
   await page.assert.containsText(
     selector,
-    `Deactivate ${user.userName} from program Snacks?`
+    `Deactivate ${user.userName} from the system?`
   );
 
   const messageText1 =
-    "#programUserTableLabel > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(1)";
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(1)";
   await page.assert.containsText(
     messageText1,
-    "This will only remove the user's access to your program and will not affect their account."
+    "Access for this user will be removed system wide."
   );
 
   const messageText2 =
-    "#programUserTableLabel > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(2)";
+    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(2)";
   await page.assert.containsText(
     messageText2,
     "Program-related data collected by this user will not be affected by this change."
   );
 });
 
-Then(/^user can see Yes, archive button$/, async () => {
-  await page.assert.visible(
-    "#programUserTableLabel > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong"
-  );
+Then(/^user can see 'Yes, deactivate' button$/, async () => {
+  await page.assert.visible("@deactivateButton");
 });
 
-Then(/^user can see modal Cancel button$/, async () => {
+Then(/^user can see 'Cancel' button$/, async () => {
   await page.assert.visible({
-    selector: "//button[text()=' Cancel ']",
+    selector: "//button[normalize-space(.)='Cancel']",
     locateStrategy: "xpath",
   });
 });
 
-When(/^user selects modal Cancel button$/, async () => {
+When(/^user selects 'Cancel' button$/, async () => {
   await page.click({
-    selector: "//button[text()=' Cancel ']",
+    selector: "//button[normalize-space(.)='Cancel']",
     locateStrategy: "xpath",
   });
 });
 
 When(/^user selects modal Yes, archive button$/, async () => {
   await page.click({
-    selector: "//strong[text()='Yes, archive']/..",
+    selector: "//strong[normalize-space(.)='Yes, archive']/..",
     locateStrategy: "xpath",
   });
 });
@@ -895,7 +900,7 @@ Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
 
   await page.expect
     .elements({
-      selector: "//a[text()=' Show details ']",
+      selector: "//a[normalize-space(.)='Show details']",
       locateStrategy: "xpath",
     })
     .count.equal(rows);
@@ -908,9 +913,7 @@ Then(/^user can see a modal box$/, async () => {
 });
 
 Then(/^user can not see a modal box$/, async () => {
-  await page.assert.not.elementPresent(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card"
-  );
+  await page.assert.not.elementPresent("@modalCard");
 });
 
 Then(/^user can sees 'Abort This Import' in modal box$/, async () => {
@@ -975,6 +978,91 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   });
 });
 
+When(/^user sets "([^"]*)" in Name field of User$/, async (args1) => {
+  await setUserName(args1);
+});
+
+When(/^user sets "([^"]*)" in Email field of User$/, async (args1) => {
+  await setEmail(args1);
+});
+
+When(/^user sets "([^"]*)" in Role dropdown of User$/, async (args1) => {
+  await setRole(args1);
+});
+
+When(/^user click 'Save' button in User$/, async () => {
+  await page.click("@saveUserButton");
+});
+
+Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
+  await page.assert.containsText({
+    selector: `//*[@id='app']//article[normalize-space(.)='${args1}]'`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//*[@id='programUserTableLabel']//th[normalize-space(.)='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see new user added in User$/, async () => {
+  await showAll();
+  await page.assert.visible("");
+});
+
+Then(/^user can see 'Previous' button$/, async () => {
+  await page.assert.visible("@previousButton");
+});
+
+Then(/^user can see 'Next' button$/, async () => {
+  await page.assert.visible("@nextButton");
+});
+
+Then(/^user can see 'Show All' button$/, async () => {
+  await page.assert.visible("@showAllButton");
+});
+Then(/^user can see 'per page' label$/, async () => {
+  await page.assert.visible("@perPageLabel");
+});
+
+Then(/^user can see Results Per Page dropdown$/, async () => {
+  await page.assert.visible("@paginationComboBox");
+});
+
+Then(/^user can see 'New Location' in Locations$/, async () => {
+  await page.assert.visible("@newLocationButton");
+});
+
+Then(/^user can see 'System Administration' title on Programs$/, async () => {
+  await page.assert.visible("@systemAdministrationLabel");
+});
+
+Then(/^user can not see "([^"]*)" in navigation$/, async (args1) => {
+  await page.assert.not.elementPresent({
+    selector: `//*[@id="sideMenu"]//nav//a[normalize-space(.)='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects 'Yes, deactivate' button$/, async () => {
+  await page.click("@deactivateButton");
+});
+
+When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
+  await showAll();
+  await page.click({
+    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects 'Save' button in Users$/, async () => {
+  await page.clickButton("Save");
+});
+
 //functions
 async function setUserName(name) {
   this.user = {};
@@ -986,7 +1074,7 @@ async function setUserName(name) {
 async function setEmail(email) {
   user.email = email.replace("*", Date.now().toString());
   await page.section.newUserForm.clearValue("@emailField");
-  return await page.section.newUserForm.setValue("@emailField", user.email);
+  await page.section.newUserForm.setValue("@emailField", user.email);
 }
 
 async function setRole(role) {
@@ -1024,8 +1112,7 @@ async function waitReady() {
       }
       text = value;
     });
-    if (text.includes("api unknown")) return;
-    console.log("not found here");
+    if (!text.includes("api unknown")) return;
     await client.pause(10000);
     await client.refresh();
   }

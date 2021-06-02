@@ -51,7 +51,7 @@ module.exports = {
 
     //program page
     systemAdministrationLabel: {
-      selector: "//*[@id='app']//a[contains(text(), 'System Administration')]",
+      selector: "//*[@id='app']//a[normalize-space(.)='System Administration']",
       locateStrategy: "xpath",
     },
 
@@ -88,6 +88,12 @@ module.exports = {
 
     loggedInText: "#app div.sidebarlayout div.level-right div:nth-child(1) p",
 
+    saveUserButton: {
+      selector:
+        "//*[@id='programUserTableLabel']//span[normalize-space(.)='Save']/ancestor::button",
+      locateStrategy: "xpath",
+    },
+
     //left navigation
     usersLeftMenu: {
       selector: "//*[@id='sideMenu']//a[contains(text(), 'Users')]",
@@ -123,12 +129,12 @@ module.exports = {
     usersTable: "#app section table",
 
     nextButton: {
-      selector: "//*[@id='app']//a[contains(text(),'Next')]",
+      selector: "//*[@id='app']//a[normalize-space(.)='Next']",
       locateStrategy: "xpath",
     },
 
     previousButton: {
-      selector: "//*[@id='app']//a[contains(text(),'Previous')]",
+      selector: "//*[@id='app']//a[normalize-space(.)='Previous']",
       locateStrategy: "xpath",
     },
 
@@ -137,10 +143,13 @@ module.exports = {
     paginationComboBox: "#paginationSelect",
 
     perPageLabel: {
-      selector: "//*[@id='app']//span[contains(text(),'per page')]",
+      selector: "//*[@id='app']//span[normalize-space(.)='per page']",
       locateStrategy: "xpath",
     },
-    showAllButton: "a.pagination-link.show-all-button",
+    showAllButton: {
+      selector: "//nav//a[normalize-space(.)='Show All']",
+      locateStrategy: "xpath",
+    },
 
     //top alert
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
@@ -162,7 +171,25 @@ module.exports = {
 
     //banner
     bannerText:
-      "#app article.notification:nth-child(1) div.level-item:nth-child(2)",
+      "#app > div:nth-child(1) > article:nth-child(1) > div > div > div > div > div:nth-child(2)",
+
+    //location
+    newLocationButton: {
+      selector:
+        "//*[@id='emptyTableMessage']//button[normalize-space(.)='New Location']",
+      locateStrategy: "xpath",
+    },
+
+    //deactivate
+    deactivateButton: {
+      selector:
+        "//*[@id='app']//main//section//button[normalize-space(.)='Yes, deactivate']",
+      locateStrategy: "xpath",
+    },
+
+    //modal card
+    modalCard:
+      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card",
   },
   sections: {
     newUserForm: {
@@ -197,8 +224,8 @@ module.exports = {
   commands: [
     {
       clickButton: async function (name) {
-        const selector={
-          selector: `//button[starts-with(normalize-space(.),'${name}')]`,
+        const selector = {
+          selector: `//button[contains(normalize-space(.),'${name}')]`,
           locateStrategy: "xpath",
         };
         await this.waitForElementVisible(selector);
