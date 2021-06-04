@@ -221,7 +221,6 @@ Feature: Breeder User Management
 		And user can see Save button
 
 @BI-901
-@debug
 	Scenario: Deactivate link - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

@@ -119,8 +119,16 @@ Given(/^user is on the user-management page$/, async () => {
   await page.assert.visible("@usersHeader");
 });
 
+When(/^user is on the program-management page$/, async () => {
+  await page.assert.visible("#adminProgramTableLabel");
+});
+
 Then(/^user can see page of Users$/, async () => {
   await page.assert.visible("@usersTable");
+});
+
+Then(/^user can see page of Programs$/, async () => {
+  await page.assert.visible("#adminProgramTableLabel");
 });
 
 Then(/^user can see table header contains$/, async (table) => {
@@ -1063,6 +1071,10 @@ When(/^user selects 'Save' button in Users$/, async () => {
   await page.clickButton("Save");
 });
 
+Then(/^user can see 'New Program' button on Program$/, async() => {
+	await page.assert.visible("@newProgramButton");
+});
+
 //functions
 async function setUserName(name) {
   this.user = {};
@@ -1105,16 +1117,16 @@ async function waitReady() {
 
   let text;
   const selector = "#versionInfo > span > span > a:nth-child(2)";
-  while (stopWatch.getTimeElapsedInMs < 300000) {
+  while (stopWatch.getTimeElapsedInMs < 100000) {
     await page.getText(selector, ({ value }) => {
       if (value.error) {
         throw Error(value.error);
       }
       text = value;
     });
-    if (!text.includes("api unknown")) return;
-    await client.pause(10000);
+    if (!(text.includes("api loading") || text.includes("api unknown"))) return;
     await client.refresh();
+    await client.pause(10000);
   }
   stopWatch.stopTimer();
   throw new Error("Application version failed to load. Unable to login.");
