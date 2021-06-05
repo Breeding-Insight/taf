@@ -73,11 +73,13 @@ module.exports = {
     },
 
     newProgramButton: "#adminProgramTableLabel > button",
-    programNameField: {
-      selector: "//*[@id='Program Name']",
+    programNameField: "#Program-Name",
+    programNameMessageText: {
+      selector: "//input[@id='Program-Name']/../p",
       locateStrategy: "xpath",
     },
     speciesSelect: "#Species",
+    speciesLabel: "#adminProgramTableLabel label[for='Species']",
     saveButton:
       "#adminProgramTableLabel > form > div:nth-child(2) > div > button.button.is-primary",
     cancelButton:
@@ -278,6 +280,7 @@ module.exports = {
         });
         return visible;
       },
+      isOptionListe
     },
   ],
 };

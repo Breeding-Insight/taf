@@ -29,6 +29,23 @@ Feature: Program Management (15)
 	@debug
 	Scenario: New Program form elements
 		When user is on the program-management page
+		When user selects 'New Program' in Programs page
+		Then user can see 'Program Name' label in Programs page
+		Then user can see 'Program Name' field in Programs page
+		Then user can see 'Name of program. All Unicode special characters accepted.' text in Programs page
+		Then user can see 'Species' label in Programs page
+		Then user can see 'Species' dropdown in Programs page
+		Then user can see "Sweet Potato" in 'Species' dropdown in Programs page
+		Then user can see "Blueberry" in 'Species' dropdown in Programs page
+		Then user can see "Trout" in 'Species' dropdown in Programs page
+		Then user can see "Salmon" in 'Species' dropdown in Programs page
+		Then user can see "Grape" in 'Species' dropdown in Programs page
+		Then user can see "Alfalfa" in 'Species' dropdown in Programs page
+		Then user can see 'Specify custom program data storage location' checkbox in Programs page
+		Then user can see 'Save' button in Programs page
+		Then user can see 'Cancel' button in Programs page
+
+
 		# When user selects New Program button
 		# Then user can see 'Program Name' label in Programs
 
@@ -147,7 +164,6 @@ Feature: Program Management (15)
 		Then user can not see user is in users list
 
 	@BI-836
-	@debug
 	Scenario Outline: Editing self
 		Given user is on the user-management page
 		When user selects 'Edit' of "<Email>" of Users

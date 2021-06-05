@@ -1075,6 +1075,11 @@ Then(/^user can see 'New Program' button on Program$/, async() => {
 	await page.assert.visible("@newProgramButton");
 });
 
+When(/^user selects 'New Program' in Programs page$/, async() => {
+  await page.click("@newProgramButton");
+});
+
+
 //functions
 async function setUserName(name) {
   this.user = {};
