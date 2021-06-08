@@ -280,7 +280,6 @@ module.exports = {
         });
         return visible;
       },
-      isOptionListe
     },
   ],
 };
