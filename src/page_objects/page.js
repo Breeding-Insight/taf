@@ -73,17 +73,6 @@ module.exports = {
     },
 
     newProgramButton: "#adminProgramTableLabel > button",
-    programNameField: "#Program-Name",
-    programNameMessageText: {
-      selector: "//input[@id='Program-Name']/../p",
-      locateStrategy: "xpath",
-    },
-    speciesSelect: "#Species",
-    speciesLabel: "#adminProgramTableLabel label[for='Species']",
-    saveButton:
-      "#adminProgramTableLabel > form > div:nth-child(2) > div > button.button.is-primary",
-    cancelButton:
-      "#adminProgramTableLabel > form > div:nth-child(2) > div > button:nth-child(2)",
 
     systemAdministationDropDownIcon:
       "#app div.sidebarlayout header div.dropdown-trigger button",
@@ -221,6 +210,56 @@ module.exports = {
           locateStrategy: "xpath",
         },
       },
+    },
+    programForm: {
+      selector: "#adminProgramTableLabel > form",
+      elements: {
+        programNameField: "#Program-Name",
+        programNameLabel: "label[for='Program Name']",
+        programNameMessageText: {
+          selector: ".//input[@id='Program-Name']/../p",
+          locateStrategy: "xpath",
+        },
+        programNameRequired: "span[class='form-error has-text-danger']",
+        speciesSelect: "#Species",
+        speciesLabel: "label[for='Species']",
+        specifyCustomDataCheckbox: "#checkbox",
+        saveButton: {
+          selector: ".//span[normalize-space(.)='Save']/ancestor::button",
+          locateStrategy: "xpath",
+        },
+        speciesErrorMessage: "svg",
+        cancelButton: {
+          selector: ".//button[normalize-space(.)='Cancel']",
+          locateStrategy: "xpath",
+        },
+      },
+      commands: [
+        {
+          isSpeciesListed: async function (option) {
+            const selector = {
+              selector: `.//select[@id='Species']/option[normalize-space(.)='${option}']`,
+              locateStrategy: "xpath",
+            };
+            await this.assert.elementPresent(selector);
+          },
+          isProgramNotExists: async function (programName) {
+            const selector = {
+              selector: `.//td[name='name']/a[normalize-space(.)='${programName}']`,
+              locateStrategy: "xpath",
+            };
+            await this.assert.not.elementPresent(selector);
+          },
+          isProgramExists: async function (programName) {
+            const selector = {
+              selector: `.//td[name='name']/a[normalize-space(.)='${programName}']`,
+              locateStrategy: "xpath",
+            };
+            await this.assert.visible(selector);
+          },
+          
+        },
+      ],
     },
   },
   commands: [

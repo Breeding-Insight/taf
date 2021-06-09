@@ -1003,8 +1003,15 @@ When(/^user click 'Save' button in User$/, async () => {
 });
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
-  await page.assert.containsText({
-    selector: `//*[@id='app']//article[normalize-space(.)='${args1}]'`,
+  await page.assert.visible({
+    selector: `//article//div[normalize-space(.)='${args1}' and @class='column']`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see "([^"]*)" in banner$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//article//div[normalize-space(.)='${args1}' and @class='column']`,
     locateStrategy: "xpath",
   });
 });
@@ -1075,7 +1082,7 @@ Then(/^user can see 'New Program' button on Program$/, async() => {
 	await page.assert.visible("@newProgramButton");
 });
 
-When(/^user selects 'New Program' in Programs page$/, async() => {
+When(/^user selects 'New Program' button in Programs page$/, async() => {
   await page.click("@newProgramButton");
 });
 

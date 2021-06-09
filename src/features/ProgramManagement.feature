@@ -26,10 +26,9 @@ Feature: Program Management (15)
 		And user can see Show All button
 
 	@BI-848
-	@debug
 	Scenario: New Program form elements
 		When user is on the program-management page
-		When user selects 'New Program' in Programs page
+		When user selects 'New Program' button in Programs page
 		Then user can see 'Program Name' label in Programs page
 		Then user can see 'Program Name' field in Programs page
 		Then user can see 'Name of program. All Unicode special characters accepted.' text in Programs page
@@ -45,27 +44,50 @@ Feature: Program Management (15)
 		Then user can see 'Save' button in Programs page
 		Then user can see 'Cancel' button in Programs page
 
+	@BI-849
+	Scenario: New Program form, entering program name only
+		When user is on the program-management page
+		When user selects 'New Program' button in Programs page
+		When user sets "Tests" in Program Name field in Programs Page
+		When user selects 'Save' button in Programs Page
+		Then user can see "Fix Invalid Fields" in banner
+		Then user can see 'Program Form' in Programs Page
 
-		# When user selects New Program button
-		# Then user can see 'Program Name' label in Programs
+	@BI-850
+	Scenario: New Program form, selecting species only
+		When user is on the program-management page
+		When user selects 'New Program' button in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs Page
+		When user selects 'Save' button in Programs Page
+		Then user can see "Fix Invalid Fields" in banner
+		Then user can see 'Program Form' in Programs Page
+		Then user can see 'Program Name is required' text in Programs Page
 
-	@BI-827
-	Scenario: Entering Name only and selecting Save - error message
-		Given user is on the user-management page
-		When user selects New User button
-		And user sets "TestNewUser" in Name field
-		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
-		And user can see 'Email is required' below the Email field
+	@BI-851
+	Scenario: New Program form, Cancel
+		When user is on the program-management page
+		When user selects 'New Program' button in Programs page
+		When user sets "Test" in Program Name field in Programs Page
+		When user selects "Sweet Potato" in Species dropdown in Programs Page
+		When user selects 'Cancel' button in Programs Page
+		Then user can not see 'Program Form' in Programs Page
+		Then user can not see "Test" Program in Programs Page
 
-	@BI-828
-	Scenario: Entering Email only and selecting Save - error message
-		Given user is on the user-management page
-		When user selects New User button
-		And user sets "newuser@mail.com" in Email field
-		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
-		And user can see 'Name is required' below the Name field
+	@BI-852
+	Scenario Outline: New Program form, Save
+		When user is on the program-management page
+		When user selects 'New Program' button in Programs page
+		When user sets "<Name>" in Program Name field in Programs Page
+		When user selects "<Species>" in Species dropdown in Programs Page
+		When user selects 'Save' button in Programs Page
+		Then user can not see 'Program Form' in Programs Page
+		Then user can see "Success! <Name> is added" in banner
+		Then user can see new program in Programs Page
+
+		Examples:
+			| Name    | Species      |
+			| Program | Sweet Potato |
+
 
 	@BI-829
 	Scenario: Entering invalid Email and selecting Save - error message
