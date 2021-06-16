@@ -40,18 +40,29 @@ jobs:
     
     #check out docker stuff
     - name: Checkout private docker
-    uses: actions/checkout@v2
-    with:
-     repository: my-org/my-private-tools #TODO
-     token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains your PAT
-     path: my-tools #TODO
+      uses: actions/checkout@v2
+      with:
+       repository: Breeding-Insight/bi-docker-stack
+       token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains your PAT, TODO
+       path: my-tools #TODO, unclear if needed?
 
     #spin up docker here?
     #from bi-docker-stack
     - run: docker-compose -f docker-compose.yml -f docker-compose-qa.yml up -d #TODO: ask Tim which docker compose
     
-    - run: npm ci #unclear if needed
-    - run: npm run build --if-present #unclear if needed
+    - name: Set up JDK 1.8 and Chrome #unclear if needed?
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Install Google Chrome
+      run: |
+       chmod +x ./scripts/InstallChrome.sh
+        ./scripts/InstallChrome.sh
+    
+    #Do selenium and npm need to be installed, ie npm install
+    - name: Run tests
+    #- run: npm ci #unclear if needed
+    #- run: npm run build --if-present #unclear if needed
     - run: npm run test:chrome #can change type of test here
     
     - name: save-report #check this works
