@@ -19,8 +19,8 @@ name: daily run for taf
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-    #- cron: "5 * * * *"
+    #- cron: "0 0 * * *"
+    - cron: "5 * * * *"
 
 jobs:
   test:
