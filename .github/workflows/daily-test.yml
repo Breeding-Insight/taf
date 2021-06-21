@@ -87,10 +87,10 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-    #- name: Install Google Chrome
-    #  run: |
-    #   chmod +x ./scripts/InstallChrome.sh
-    #    ./scripts/InstallChrome.sh
+    - name: Install Google Chrome
+      run: |
+       chmod +x ./scripts/InstallChrome.sh
+        ./scripts/InstallChrome.sh
     
     #from bi-docker-stack
     - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
