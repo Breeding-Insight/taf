@@ -27,7 +27,39 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
+    env:
+      USER_ID: 1001
+      GROUP_ID: 1001
+      
+      OAUTH_CLIENT_ID: APP-ZX6M8LSAN3YIIAQ5
+      OAUTH_CLIENT_SECRET: d80bd610-3ebf-4351-9bc8-05c6ef316cbc
+      JWT_SECRET: siodjf09usdfijsdf09jkojhasd98aysdkjhasd98yasdohasd908yasdohasdo8ausdihhasd09uasldhiasdiuasd09asd0ihasd09uasdioh
+      JWT_DOMAIN: localhost
+      
+      DB_PASSWORD: postgres
+      DB_SERVER: dbserver:5432
+      DB_NAME: bidb
+      DB_USER: postgres
+      ADMIN_ORCID: 0000-0003-0437-8310
+      
+      API_INTERNAL_PORT: 8081
+      API_INTERNAL_TEST_PORT: 8082
 
+      BRAPI_SERVER_PORT: 8080
+
+      BRAPI_DEFAULT_URL: http://brapiserver:8080
+      BRAPI_REFERENCE_SOURCE: breeding-insight.net
+      BRAPI_DB_SERVER: dbserver:5432
+      BRAPI_DB: postgres
+      BRAPI_DB_USER: postgres
+      BRAPI_DB_PASSWORD: postgres
+      WEB_BASE_URL: https://localhost
+      API_BASE_URL: https://localhost
+      REGISTERED_DOMAIN: localhost
+      EMAIL_RELAY_HOST: mailhog
+      EMAIL_RELAY_PORT: 1025
+      EMAIL_FROM: bidevteam@cornell.edu
+      
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
