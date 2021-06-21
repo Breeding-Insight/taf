@@ -19,8 +19,9 @@ name: daily run for taf
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-    #- cron: "5 * * * *"
+    - cron: 0 5 * * *
+    #- cron: 5 * * * *
+  workflow_dispatch:
 
 jobs:
   test:
