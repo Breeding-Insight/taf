@@ -61,7 +61,7 @@ jobs:
     #    ./scripts/InstallChrome.sh
     
     #from bi-docker-stack
-    - run: docker-compose -f docker-compose.yml -f docker-compose-qa.yml up -d
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
     
     #Does selenium need to be installed
     
