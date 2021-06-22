@@ -101,6 +101,10 @@ jobs:
       uses: browser-actions/setup-chrome@latest
       if: matrix.os == 'ubuntu-latest'
       
+    - name: Run Chrome
+      if: matrix.os == 'ubuntu-latest'
+      run: chrome --version
+      
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
       if: matrix.os == 'windows-latest'
