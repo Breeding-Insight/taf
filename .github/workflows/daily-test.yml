@@ -22,11 +22,107 @@ on:
     - cron: 0 5 * * *
     #- cron: 5 * * * *
   workflow_dispatch:
-
+  
+#Unfortunately can't do parallel matrix cause need to run edge with windows-latest. It's rude. Duplicated code is sad.
 jobs:
-  test:
+  test-chrome:
 
     runs-on: ubuntu-latest
+    env:
+      USER_ID: 1001
+      GROUP_ID: 1001
+      
+      OAUTH_CLIENT_ID: APP-ZX6M8LSAN3YIIAQ5
+      OAUTH_CLIENT_SECRET: d80bd610-3ebf-4351-9bc8-05c6ef316cbc
+      JWT_SECRET: siodjf09usdfijsdf09jkojhasd98aysdkjhasd98yasdohasd908yasdohasdo8ausdihhasd09uasldhiasdiuasd09asd0ihasd09uasdioh
+      JWT_DOMAIN: localhost
+      
+      DB_PASSWORD: postgres
+      DB_SERVER: dbserver:5432
+      DB_NAME: bidb
+      DB_USER: postgres
+      ADMIN_ORCID: 0000-0003-0437-8310
+      
+      API_INTERNAL_PORT: 8081
+      API_INTERNAL_TEST_PORT: 8082
+
+      BRAPI_SERVER_PORT: 8080
+
+      BRAPI_DEFAULT_URL: http://brapiserver:8080
+      BRAPI_REFERENCE_SOURCE: breeding-insight.net
+      BRAPI_DB_SERVER: dbserver:5432
+      BRAPI_DB: postgres
+      BRAPI_DB_USER: postgres
+      BRAPI_DB_PASSWORD: postgres
+      WEB_BASE_URL: https://localhost
+      API_BASE_URL: https://localhost
+      REGISTERED_DOMAIN: localhost
+      EMAIL_RELAY_HOST: mailhog
+      EMAIL_RELAY_PORT: 1025
+      EMAIL_FROM: bidevteam@cornell.edu
+    
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        #browser: [chrome, edge]
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    #check out docker stuff
+    - name: Docker checkout (private)
+      uses: actions/checkout@v2
+      with:
+       repository: Breeding-Insight/bi-docker-stack
+       token: ${{ secrets.DOCKERPATH }}
+       path: bi-docker-stack
+    
+    - run: npm install
+    
+    - name: Set up JDK 13
+      uses: actions/setup-java@v1.4.3
+      with:
+          java-version: 13
+          
+    - name: Set up Chrome
+      #uses: browser-actions/setup-chrome@v90.0.4430
+      run: |
+        sudo apt-get update
+        sudo apt-get --only-upgrade install google-chrome-stable
+        google-chrome --version
+    
+    #from bi-docker-stack
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
+    
+    - name: Run tests on Chrome
+    #- run: npm ci #unclear if needed
+    #- run: npm run build --if-present #unclear if needed
+      run: npm run test:chrome
+    
+    - name: save-report #check this works
+      run: |	
+        mkdir -p ${{ github.workspace }}/artifact
+        echo hello > ${{ github.workspace }}/artifact/reports/index.html
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.name }}-cucumber-report
+        path:  ${{ github.workspace }}/artifact/**/*
+
+
+  test-edge:
+
+    runs-on: windows-latest
     env:
       USER_ID: 1001
       GROUP_ID: 1001
@@ -93,30 +189,14 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-          
-    - name: Set up Chrome
-      #uses: browser-actions/setup-chrome@v90.0.4430
-      run: |
-        sudo apt-get update
-        sudo apt-get --only-upgrade install google-chrome-stable
-        google-chrome --version
-      if: matrix.browser == 'chrome'
       
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
-      if: matrix.browser == 'edge'
     
     #from bi-docker-stack
     - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
     
-    - name: Run tests on Chrome
-      if: matrix.browser == 'chrome'
-    #- run: npm ci #unclear if needed
-    #- run: npm run build --if-present #unclear if needed
-      run: npm run test:chrome
-      
     - name: Run tests on Edge
-      if: matrix.browser == 'edge'
       run: npm run test:edge
     
     - name: save-report #check this works
