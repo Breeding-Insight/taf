@@ -91,12 +91,12 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-    #- name: Install Google Chrome
+    - name: Install Google Chrome
       #uses: browser-actions/setup-chrome@v90.0.4430
-      #run: |
-      #  sudo apt-get update
-      #  sudo apt-get --only-upgrade install google-chrome-stable
-      #  google-chrome --version
+      run: |
+        sudo apt-get update
+        sudo apt-get --only-upgrade install google-chrome-stable
+        google-chrome --version
     
     #from bi-docker-stack
     - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
