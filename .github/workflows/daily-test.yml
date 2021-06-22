@@ -59,7 +59,11 @@ jobs:
       EMAIL_RELAY_HOST: mailhog
       EMAIL_RELAY_PORT: 1025
       EMAIL_FROM: bidevteam@cornell.edu
-      
+    
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -87,8 +91,8 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-    - name: Install Google Chrome
-      uses: browser-actions/setup-chrome@v90.0.4430
+    #- name: Install Google Chrome
+      #uses: browser-actions/setup-chrome@v90.0.4430
       #run: |
       #  sudo apt-get update
       #  sudo apt-get --only-upgrade install google-chrome-stable
