@@ -65,9 +65,11 @@ jobs:
         image: selenium/standalone-chrome
 
     strategy:
+      fail-fast: false
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        browser: [chrome, edge]
 
     steps:
     - uses: actions/checkout@v2
@@ -91,20 +93,31 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-    - name: Install Google Chrome
+          
+    - name: Set up Chrome
       #uses: browser-actions/setup-chrome@v90.0.4430
       run: |
         sudo apt-get update
         sudo apt-get --only-upgrade install google-chrome-stable
         google-chrome --version
+      if: matrix.browser == 'chrome'
+      
+    - name: Set up Edge
+      uses: browser-actions/setup-edge@latest
+      if: matrix.browser == 'edge'
     
     #from bi-docker-stack
     - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
     
-    - name: Run tests
+    - name: Run tests on Chrome
+      if: matrix.browser == 'chrome'
     #- run: npm ci #unclear if needed
     #- run: npm run build --if-present #unclear if needed
-      run: npm run test:chrome #can change type of test here
+      run: npm run test:chrome
+      
+    - name: Run tests on Edge
+      if: matrix.browser == 'edge'
+      run: npm run test:edge
     
     - name: save-report #check this works
       run: |	
