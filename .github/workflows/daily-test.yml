@@ -113,9 +113,10 @@ jobs:
     #- run: npm ci #unclear if needed
     #- run: npm run build --if-present #unclear if needed
       #run: npm run test:chrome
-      run: |
-        $Env:CHROMIUM_BIN = "chrome"
-        npm run test:chrome --headless --no-sandbox
+      #run: |
+      #  $Env:CHROMIUM_BIN = "chrome"
+      #  npm run test:chrome --headless --no-sandbox
+      run: npm run test:chrome --headless --no-sandbox
       
     - name: Run tests on Edge
       if: matrix.os == 'windows-latest'
