@@ -86,7 +86,7 @@ jobs:
        path: bi-docker-stack
     
     - run: npm install
-    - run: npm install mkdirp
+    - run: npm install -g mkdirp
     
     - name: Set up JDK 13
       uses: actions/setup-java@v1.4.3
@@ -95,10 +95,11 @@ jobs:
           
     - name: Set up Chrome
       #uses: browser-actions/setup-chrome@v90.0.4430
-      run: |
-        sudo apt-get update
-        sudo apt-get --only-upgrade install google-chrome-stable
-        google-chrome --version
+      #run: |
+      #  sudo apt-get update
+      #  sudo apt-get --only-upgrade install google-chrome-stable
+      #  google-chrome --version
+      uses: browser-actions/setup-chrome@latest
       if: matrix.os == 'ubuntu-latest'
       
     - name: Set up Edge
