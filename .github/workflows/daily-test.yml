@@ -31,7 +31,7 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
-    runs-on: $${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     env:
       USER_ID: 1001
       GROUP_ID: 1001
