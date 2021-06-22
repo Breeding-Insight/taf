@@ -86,7 +86,6 @@ jobs:
        path: bi-docker-stack
     
     - run: npm install
-    - run: npm install mkdirp@latest
     
     - name: Set up JDK 13
       uses: actions/setup-java@v1.4.3
@@ -114,7 +113,9 @@ jobs:
     #- run: npm ci #unclear if needed
     #- run: npm run build --if-present #unclear if needed
       #run: npm run test:chrome
-      run: npm run mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome --headless --no-sandbox
+      run: |
+        $Env:CHROMIUM_BIN = "chrome"
+        npm run test:chrome --headless --no-sandbox
       
     - name: Run tests on Edge
       if: matrix.os == 'windows-latest'
