@@ -150,7 +150,7 @@ jobs:
       if: ${{ always() }}
       run: |	
         mkdir -p ${{ github.workspace }}/artifact/reports
-        echo hello > ${{ github.workspace }}/artifact/reports/cucumber_report.html
+        echo 'cucumber_report' > ${{ github.workspace }}/artifact/reports/cucumber_report.html
       
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
