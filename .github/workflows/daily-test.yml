@@ -93,7 +93,7 @@ jobs:
           java-version: 13
           
     - name: Set up Chrome
-      uses: browser-actions/setup-chrome@stable
+      uses: browser-actions/setup-chrome@latest
       #run: |
       #  sudo apt-get update
       #  sudo apt-get --only-upgrade install google-chrome-stable
@@ -115,7 +115,15 @@ jobs:
       run: chrome --version
        
     - name: Set up compatible chromedriver
-      uses: nanasess/setup-chromedriver@91.0.4472
+      uses: nanasess/setup-chromedriver@master
+      with:
+        chromedriver-version: '91.0.4472'
+        
+    - name: Run compatible chromedriver
+      run: |
+        export DISPLAY=:99
+        chromedriver --url-base=/wd/hub &
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
