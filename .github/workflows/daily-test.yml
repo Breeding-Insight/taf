@@ -147,17 +147,16 @@ jobs:
       run: npm run test:edge
     
     - name: save-report #check this works
+      if: ${{ always() }}
       run: |	
         mkdir -p ${{ github.workspace }}/artifact
         echo hello > ${{ github.workspace }}/artifact/reports/index.html
-      if: ${{ always() }}
       
     - uses: actions/upload-artifact@v2
+      if: ${{ always() }}
       with:
         name: ${{ env.name }}-cucumber-report-${{ matrix.os }} #TODO modify matrix to have file name be chrome/edge
         path:  ${{ github.workspace }}/artifact/**/*
-        if: ${{ always() }}
-
     
     
     
