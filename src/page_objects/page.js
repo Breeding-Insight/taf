@@ -212,7 +212,7 @@ module.exports = {
       },
     },
     programForm: {
-      selector: "#adminProgramTableLabel > form",
+      selector: "#adminProgramTableLabel",
       elements: {
         programNameField: "#Program-Name",
         programNameLabel: "label[for='Program Name']",
@@ -224,15 +224,26 @@ module.exports = {
         speciesSelect: "#Species",
         speciesLabel: "label[for='Species']",
         specifyCustomDataCheckbox: "#checkbox",
+        brAPIURLField: "#BrAPI-URL",
+        brAPIURLErrorMessage: "span[class='form-error has-text-danger']",
         saveButton: {
           selector: ".//span[normalize-space(.)='Save']/ancestor::button",
           locateStrategy: "xpath",
         },
         speciesErrorMessage: "svg",
         cancelButton: {
-          selector: ".//button[normalize-space(.)='Cancel']",
+          selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
           locateStrategy: "xpath",
         },
+        modalAlertMessage: "div.modal-card article h3",
+        modalMessage: "section p",
+        yesRemoveButton: {
+          selector:
+            ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",
+          locateStrategy: "xpath",
+        },
+        cancelModalButton:{
+          selector:".//div[@class='modal-card']//button[normalize-space(.)='Cancel']",locateStrategy:"xpath"},
       },
       commands: [
         {
@@ -257,7 +268,31 @@ module.exports = {
             };
             await this.assert.visible(selector);
           },
-          
+          isItemInNewRow: async function (list) {
+            for (var key in list) {
+              if (key == "Name") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='name']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+              if (key == "Species") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='species']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+            }
+          },
+          editProgram: async function (name) {
+            const selector = {
+              selector: `//td[@name='name'][normalize-space(.)='${name}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+              locateStrategy: "xpath",
+            };
+            await this.click(selector);
+          },
         },
       ],
     },

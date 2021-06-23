@@ -1004,14 +1004,14 @@ When(/^user click 'Save' button in User$/, async () => {
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='column']`,
+    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
     locateStrategy: "xpath",
   });
 });
 
 Then(/^user can see "([^"]*)" in banner$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='column']`,
+    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
     locateStrategy: "xpath",
   });
 });
@@ -1123,23 +1123,23 @@ async function closeNotification() {
 }
 
 async function waitReady() {
-  const StopWatch = require("@slime/stopwatch");
-  let stopWatch = new StopWatch();
-  stopWatch.startTimer();
+  // const StopWatch = require("@slime/stopwatch");
+  // let stopWatch = new StopWatch();
+  // stopWatch.startTimer();
 
-  let text;
-  const selector = "#versionInfo > span > span > a:nth-child(2)";
-  while (stopWatch.getTimeElapsedInMs < 100000) {
-    await page.getText(selector, ({ value }) => {
-      if (value.error) {
-        throw Error(value.error);
-      }
-      text = value;
-    });
-    if (!(text.includes("api loading") || text.includes("api unknown"))) return;
-    await client.refresh();
-    await client.pause(10000);
-  }
-  stopWatch.stopTimer();
-  throw new Error("Application version failed to load. Unable to login.");
+  // let text;
+  // const selector = "#versionInfo > span > span > a:nth-child(2)";
+  // while (stopWatch.getTimeElapsedInMs < 100000) {
+  //   await page.getText(selector, ({ value }) => {
+  //     if (value.error) {
+  //       throw Error(value.error);
+  //     }
+  //     text = value;
+  //   });
+  //   if (!(text.includes("api loading") || text.includes("api unknown"))) return;
+  //   await client.refresh();
+  //   await client.pause(10000);
+  // }
+  // stopWatch.stopTimer();
+  // throw new Error("Application version failed to load. Unable to login.");
 }
