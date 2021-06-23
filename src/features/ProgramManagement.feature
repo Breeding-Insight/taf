@@ -262,7 +262,6 @@ Feature: Program Management (15)
 			| Program* |
 
 	@BI-863
-	@debug
 	Scenario Outline: Deactivate, Remove
 		When user is on the program-management page
 		When user selects 'New Program' button in Programs page
