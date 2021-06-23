@@ -146,19 +146,20 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: npm run test:edge
     
-    - name: Create Report Folder
-      if: ${{ always() }}
-      run: |	
-        mkdir -p ${{ github.workspace }}/artifact/reports
-        cd ${{ github.workspace }}/artifact/reports
-        echo 'cucumber_report.html' > ${{ github.workspace }}/artifact/reports/cucumber_report.html
+    #- name: Create Report Folder
+    #  if: always()
+    #  run: |	
+    #    mkdir -p ${{ github.workspace }}/artifact/reports
+    #    cd ${{ github.workspace }}/artifact/reports
+    #    echo 'cucumber_report.html' > ${{ github.workspace }}/artifact/reports/cucumber_report.html
       
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
-      if: ${{ always() }}
+      if: always()
       with:
-        name: $cucumber-report-${{ matrix.os }}-{{ github.run_number }} #TODO modify matrix to have file name be chrome/edge
-        path: ${{ github.workspace }}/artifact/reports
+        name: cucumber-report-${{ matrix.os }}-${{ github.run_number }} #TODO modify matrix to have file name be chrome/edge
+        path: ${{ github.workspace }}/report/*
+        #path: ${{ github.workspace }}/artifact/reports
     
     
     
