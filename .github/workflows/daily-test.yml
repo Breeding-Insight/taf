@@ -140,7 +140,7 @@ jobs:
       #run: |
       #  $Env:CHROMIUM_BIN = "chrome"
       #  npm run test:chrome --headless --no-sandbox
-      run: npm run test:chrome --headless --no-sandbox
+      run: npm run test:chromeDaily --headless --no-sandbox
       
     - name: Run tests on Edge
       if: matrix.os == 'windows-latest'
