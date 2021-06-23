@@ -93,21 +93,24 @@ jobs:
           java-version: 13
           
     - name: Set up Chrome
-      #uses: browser-actions/setup-chrome@latest
+      uses: browser-actions/setup-chrome@stable
       #run: |
       #  sudo apt-get update
       #  sudo apt-get --only-upgrade install google-chrome-stable
       #  google-chrome --version
       #uses: browser-actions/setup-chrome@90.0.4430
-      run: |
-          VERSION_STRING="88.0.4324.96-1"
-          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_90.0.4430_amd64.deb"
-          sudo dpkg -i "google-chrome-stable_90.0.4430_amd64.deb"
+      #run: |
+      #    VERSION_STRING="88.0.4324.96-1"
+      #    wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_90.0.4430_amd64.deb"
+      #    sudo dpkg -i "google-chrome-stable_90.0.4430_amd64.deb"
       if: matrix.os == 'ubuntu-latest'
       
     - name: Run Chrome
       if: matrix.os == 'ubuntu-latest'
       run: chrome --version
+    
+    - name: Set up compatible chromedriver
+      uses: nanasess/setup-chromedriver@v91.0.4472
       
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
