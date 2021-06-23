@@ -65,9 +65,9 @@ jobs:
       EMAIL_RELAY_PORT: 1025
       EMAIL_FROM: bidevteam@cornell.edu
     
-    services:
-      selenium:
-        image: selenium/standalone-chrome
+    #services:
+    #  selenium:
+    #    image: selenium/standalone-chrome
 
     steps:
     - uses: actions/checkout@v2
