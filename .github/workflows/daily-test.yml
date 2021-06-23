@@ -105,12 +105,17 @@ jobs:
       #    sudo dpkg -i "google-chrome-stable_90.0.4430_amd64.deb"
       if: matrix.os == 'ubuntu-latest'
       
+    - name: Get chrome stable
+      uses: ./dist/
+      with:
+       chrome-version: stable
+      
     - name: Run Chrome
       if: matrix.os == 'ubuntu-latest'
       run: chrome --version
-    
+       
     - name: Set up compatible chromedriver
-      uses: nanasess/setup-chromedriver@v91.0.4472
+      uses: nanasess/setup-chromedriver@91.0.4472
       
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
