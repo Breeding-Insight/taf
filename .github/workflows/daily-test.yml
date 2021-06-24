@@ -139,6 +139,7 @@ jobs:
     - name: set up required data for tests
       #shell: bash #'script -q -e -c "bash {0}"'
       run: | 
+        docker exec bidb psql -U postgres --command "DECLARE user_id UUID;" bidb
         docker exec bidb psql -U postgres --command "user_id := (SELECT id FROM bi_user WHERE name = 'system');" bidb
         docker exec bidb psql -U postgres --command "insert into bi_user (orcid, name, email, created_by, updated_by, active) values ('0000-0001-5398-6158', 'Christian', 'christian@mailinator.com', user_id, user_id, true);" bidb
         docker exec bidb psql -U postgres --command "insert into bi_user (orcid, name, email, created_by, updated_by, active) values ('0000-0001-7266-4760', 'Cucumber Breeder', 'cucumberbreeder@mailinator.com', user_id, user_id, true);" bidb
