@@ -141,7 +141,9 @@ jobs:
       #shell: bash #'script -q -e -c "bash {0}"'    
       run: | 
         echo $(ls)
-        docker exec bidb ADD /taf/populate-taf-data.sql root/
+        #docker exec bidb ADD /taf/populate-taf-data.sql root/
+        #/home
+        docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb
         
     - name: Run tests on Chrome
