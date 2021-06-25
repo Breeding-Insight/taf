@@ -136,6 +136,7 @@ jobs:
       run: sleep 30s
       shell: bash
       
+    - uses: actions/checkout@v2
     - name: set up required data for tests
       #shell: bash #'script -q -e -c "bash {0}"'    
       run: | 
