@@ -44,7 +44,7 @@ VALUES
 ('0000-0002-7046-0251', 'TrailMix Breeder', 'trailmix@mailinator.com', user_id, user_id, true);
 
 INSERT INTO system_user_role (bi_user_id, system_role_id, created_by, updated_by) 
-SELECT bi_user.id, system_role.id, user_id, user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';' bidb
+SELECT bi_user.id, system_role.id, user_id, user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';
 
 
 END $$;
