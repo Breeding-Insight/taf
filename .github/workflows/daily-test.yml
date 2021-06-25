@@ -140,7 +140,8 @@ jobs:
     - name: set up required data for tests
       #shell: bash #'script -q -e -c "bash {0}"'    
       run: | 
-        docker exec bidb psql -U postgres -a -f 'populate-taf-data.sql' -d bidb
+        echo $(ls)
+        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
