@@ -142,9 +142,10 @@ jobs:
       run: | 
         echo $(ls)
         #docker exec bidb ADD /taf/populate-taf-data.sql root/
-        #/home
-        docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
-        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb
+        #/home/host
+        #docker exec pwd
+        docker exec cp populate-taf-data.sql bidb:/populate-taf-data.sql
+        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
