@@ -46,5 +46,10 @@ VALUES
 INSERT INTO system_user_role (bi_user_id, system_role_id, created_by, updated_by) 
 SELECT bi_user.id, system_role.id, user_id, user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';
 
+--Populate Programs
+--INSERT INTO table (name, active) VALUES ()
+
+--Add Users To Programs
+
 
 END $$;
