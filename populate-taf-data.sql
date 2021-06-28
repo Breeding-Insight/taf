@@ -59,7 +59,15 @@ INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'breeder'
 JOIN program ON program.name = 'Snacks';
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'breeder'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'member'
+JOIN program ON program.name = 'Trail Mix';
+INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'TrailMix Breeder' and role.domain = 'breeder'
+JOIN program ON program.name = 'Trail Mix';INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
+JOIN program ON program.name = 'Snacks';
+INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'member'
 JOIN program ON program.name = 'Trail Mix';
 
 --way to do this without so many joins?
