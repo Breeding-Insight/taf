@@ -48,16 +48,17 @@ SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN syst
 
 --Populate Programs
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Cucumber', by_user_id, by_user_id, true FROM species WHERE species.common_name = '';
+SELECT species.id, 'Cucumber', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Blueberry';
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE species.common_name = '';
+SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = '';
+SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
 
 --Add Users To Programs
---INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
---SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = '' and role.domain = 'breeder'
---JOIN program ON program.name = '';
+INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber' and role.domain = 'breeder'
+JOIN program ON program.name = 'Snacks';
+
 --way to do this without so many joins?
 
 
