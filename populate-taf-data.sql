@@ -21,7 +21,7 @@ values
 
 DO $$
 DECLARE
-    user_id UUID;
+    by_user_id UUID;
 BEGIN
 
 by_user_id := (SELECT id FROM bi_user WHERE name = 'system');
@@ -46,7 +46,7 @@ VALUES
 INSERT INTO system_user_role (bi_user_id, system_role_id, created_by, updated_by) 
 SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';
 
-/*--Populate Programs
+--Populate Programs
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Cucumber', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Blueberry';
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
@@ -58,8 +58,11 @@ SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE spe
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber' and role.domain = 'breeder'
 JOIN program ON program.name = 'Snacks';
+INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber' and role.domain = 'breeder'
+JOIN program ON program.name = 'Trail Mix';
 
 --way to do this without so many joins?
-*/
+
 
 END $$;
