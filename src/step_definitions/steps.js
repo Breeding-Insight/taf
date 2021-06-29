@@ -108,7 +108,7 @@ When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
-  });
+  }).saveScreenshot('./screenshots/program-selecton.png');
 });
 
 When(/^user selects Users in navigation$/, async () => {
