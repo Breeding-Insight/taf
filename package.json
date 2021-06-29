@@ -27,7 +27,7 @@
   "devDependencies": {
     "@slime/stopwatch": "^1.0.5",
     "chromedriver": "^91.0.0",
-    "cucumber": "^6.0.5",
+    "cucumber": "^7.0.0",
     "cucumber-html-reporter": "^5.2.0",
     "cucumber-pretty": "^6.0.0",
     "edgedriver": "^4.17134.1",
