@@ -325,3 +325,24 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
     locateStrategy: "xpath",
   });
 });
+
+When(/^user selects 'New Location' button in Program Management page$/, async() => {
+	await page.section.locationForm.click("@newLocationButton");
+});
+
+When(/^user selects 'Save' button in Program Management page$/, async() => {
+	await page.section.locationForm.click("@saveButton");
+});
+
+When(/^user sets "([^"]*)" in Name field in Program Management page$/, async(args1) => {
+  await page.section.locationForm.setValue("@nameField", args1);
+});
+
+Then(/^user can not see the New Location form in Program Management page$/, async() => {
+	await page.section.locationForm.assert.not.elementPresent("@form");
+});
+
+Then(/^user can see "([^"]*)" in Name column in Program Management page$/, async(args1) => {
+	await page.section.locationForm.isItemInNewRow({ Name: args1 });
+});
+

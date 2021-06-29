@@ -885,14 +885,10 @@ Then(/^user see a list of traits in a table$/, async () => {
 });
 
 Then(
-  /^user can see "([^"]*)" column header in "([^"]*)"$/,
-  async (args1, args2) => {
-    let id;
-    if (args2.includes("Traits Import Table")) id = "traitsImportTableLabel";
-    else id = "traitTableLabel";
-
+  /^user can see "([^"]*)" column header$/,
+  async (args1) => {
     await page.assert.visible({
-      selector: `//*[@id='${id}']//table/thead/tr/th[contains(text(),'${args1}')]`,
+      selector: `//table/thead/tr/th[contains(text(),'${args1}')]`,
       locateStrategy: "xpath",
     });
   }

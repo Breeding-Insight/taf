@@ -242,8 +242,11 @@ module.exports = {
             ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",
           locateStrategy: "xpath",
         },
-        cancelModalButton:{
-          selector:".//div[@class='modal-card']//button[normalize-space(.)='Cancel']",locateStrategy:"xpath"},
+        cancelModalButton: {
+          selector:
+            ".//div[@class='modal-card']//button[normalize-space(.)='Cancel']",
+          locateStrategy: "xpath",
+        },
       },
       commands: [
         {
@@ -292,6 +295,41 @@ module.exports = {
               locateStrategy: "xpath",
             };
             await this.click(selector);
+          },
+        },
+      ],
+    },
+    //Program Management
+    locationForm: {
+      selector: "#locationTableLabel",
+      elements: {
+        form: "form.new-form",
+        newLocationButton: {
+          selector: ".//button[normalize-space(.)='New Location']",
+          locateStrategy: "xpath",
+        },
+        nameField: "#Name",
+        saveButton: {
+          selector: ".//span[normalize-space(.)='Save']/ancestor::button",
+          locateStrategy: "xpath",
+        },
+        cancelButton: {
+          selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
+          locateStrategy: "xpath",
+        },
+      },
+      commands: [
+        {
+          isItemInNewRow: async function (list) {
+            for (var key in list) {
+              if (key == "Name") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='name']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+            }
           },
         },
       ],

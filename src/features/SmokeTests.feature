@@ -47,12 +47,25 @@ Feature: Smoke Tests (11)
 		Then user can see Results Per Page dropdown
 
 	@BI-807
-	Scenario: Program Location Management page
+	@debug
+	Scenario Outline: Program Location Management page
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
 		When user selects "Locations" in navigation
-		Then user can see 'New Location' in Locations
+		When user selects 'New Location' button in Program Management page
+		When user sets "<location name>" in Name field in Program Management page
+		When user selects 'Save' button in Program Management page
+		Then user can not see the New Location form in Program Management page
+		Then user can see banner contains "Success! <location name> added."
+		Then user can see "Name" column header
+		Then user can see "# Experiments" column header
+		Then user can see "<location name>" in Name column in Program Management page
+		And user can see each row has an Edit link
+		And user can see each row has a Deactivate link
+		Examples:
+			| location name | 
+			| location1 | 
 
 	@BI-808
 	Scenario: Program Location Management page
