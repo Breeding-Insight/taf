@@ -101,7 +101,7 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   }
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
-  await page.click("@signInButton");
+  await page.click("@signInButton").saveScreenshot(`./screenshots/program-selecton.png`);
 });
 
 When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
