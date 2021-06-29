@@ -70,6 +70,6 @@ After(function () {
   // closeSession();
 });
 
-AfterStep( function ({result}) {
+AfterStep(function () {
     this.driver.takeScreenshot();
 });
