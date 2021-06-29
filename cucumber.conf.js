@@ -5,7 +5,8 @@ const {
   closeSession,
   startWebDriver,
   stopWebDriver,
-  getNewScreenshots
+  getNewScreenshots,
+  saveScreenshot
 } = require("nightwatch-api");
 const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
