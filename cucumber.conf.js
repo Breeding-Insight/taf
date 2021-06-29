@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { setDefaultTimeout, After, AfterAll, BeforeAll, Before, AfterStep } = require("cucumber");
+const { setDefaultTimeout, After, AfterAll, BeforeAll, Before } = require("cucumber");
 const {
   createSession,
   closeSession,
@@ -68,8 +68,4 @@ AfterAll(async () => {
 After(function () {
   getNewScreenshots().forEach(file => this.attach(fs.readFileSync(file), 'image/png'));
   // closeSession();
-});
-
-AfterStep(function () {
-    this.driver.takeScreenshot();
 });
