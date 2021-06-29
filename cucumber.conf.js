@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { setDefaultTimeout, After, AfterAll, BeforeAll, Before } = require("cucumber");
+const { setDefaultTimeout, After, AfterAll, BeforeAll, Before, AfterStep } = require("cucumber");
 const {
   createSession,
   closeSession,
