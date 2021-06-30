@@ -69,5 +69,6 @@ After(function () {
   getNewScreenshots().forEach(file => this.attach(fs.readFileSync(file), 'image/png'));
   this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
   this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  this.attach('attach test');
   // closeSession();
 });
