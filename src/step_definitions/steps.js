@@ -104,7 +104,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton").saveScreenshot(`./screenshots/login.png`);
-  this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
+  await this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
 });
 
 //temp turn not arrow fxn?
@@ -113,7 +113,7 @@ When(/user selects "([^"]*)" on program-selection page$/, async function (args1)
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   }).saveScreenshot(`./screenshots/program-selecton.png`);
-  this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
 });
 
 When(/^user selects Users in navigation$/, async () => {
@@ -564,17 +564,14 @@ When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
   async function (args1, args2) {
     await page.navigateToProgram(args2);
-
+    await page.click("@signInButton").saveScreenshot(`./screenshots/usercheck.png`);
+    this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
     await page.waitForElementVisible("@userLeftMenu");
     await page.click("@userLeftMenu");
     await page.waitForElementVisible("@showAllButton");
-    await page.click("@showAllButton");
-	  
-    await page.click("@signInButton").saveScreenshot(`./screenshots/usercheck.png`);
-    this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
-	  
+    await page.click("@showAllButton");	  
     await page.waitForElementVisible({
       selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
