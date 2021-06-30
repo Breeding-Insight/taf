@@ -102,7 +102,7 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
-  await client.takeScreenshot.then(function (buffer) {
+  await client.takeScreenshot().then(function (buffer) {
 	  return this.attach(buffer, 'image/png')});
 	//need driver defined
 	//also asynchronous, need to wait for it, await?
