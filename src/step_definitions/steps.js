@@ -103,7 +103,7 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   }
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
-  await page.click("@signInButton").saveScreenshot(`./screenshots/program-selecton.png`);
+  await page.click("@signInButton").saveScreenshot(`./screenshots/login.png`);
   //this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
   //await client.takeScreenshot().then(function (buffer) {
 	  //return this.attach(buffer, 'image/png')});
