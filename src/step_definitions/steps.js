@@ -3,6 +3,7 @@ const { Given, Then, When } = require("cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir + "\\src\\files\\TraitImport_v03");
+const fs = require("fs");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
