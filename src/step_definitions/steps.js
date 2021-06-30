@@ -71,7 +71,7 @@ Then(/^user selects the user$/, () => {
   return true;
 });
 
-Given(/^user logs in as "([^"]*)"$/, async (args1) => {
+Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.navigate();
   await waitReady();
   await page.click("@iUnderstandButton");
@@ -104,16 +104,7 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton").saveScreenshot(`./screenshots/login.png`);
-  //this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
-  //await client.takeScreenshot().then(function (buffer) {
-	  //return this.attach(buffer, 'image/png')});
-	//need driver/browser defined
-	//browser and client in theory interchangeable but client doesn't have takeScreenshot()?
-	//also asynchronous, need to wait for it, await?
-	//but client can ALSO equal nightwatch?
-  //.saveScreenshot(`./screenshots/program-selecton.png`);
-	
-	//fs.readFileSync(file)
+  this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
 });
 
 //temp turn not arrow fxn?
@@ -571,7 +562,7 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 
 When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
-  async (args1, args2) => {
+  async function (args1, args2) {
     await page.navigateToProgram(args2);
 
     await page.waitForElementVisible("@programManagementLeftMenu");
@@ -580,6 +571,10 @@ When(
     await page.click("@userLeftMenu");
     await page.waitForElementVisible("@showAllButton");
     await page.click("@showAllButton");
+	  
+    await page.click("@signInButton").saveScreenshot(`./screenshots/usercheck.png`);
+    this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
+	  
     await page.waitForElementVisible({
       selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
