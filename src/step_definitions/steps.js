@@ -101,7 +101,12 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   }
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
-  await page.click("@signInButton").saveScreenshot(`./screenshots/program-selecton.png`);
+  await page.click("@signInButton");
+  await page.takeScreenshot.then(function (buffer) {
+	  return this.attach(buffer, 'image/png')});
+	//need driver defined
+	//also asynchronous, need to wait for it, await?
+  //.saveScreenshot(`./screenshots/program-selecton.png`);
 });
 
 When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
