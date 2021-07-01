@@ -109,6 +109,8 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
 
 //temp turn not arrow fxn?
 When(/user selects "([^"]*)" on program-selection page$/, async function (args1) {
+  await page.saveScreenshot(`./screenshots/shouldhaveoptions.png`);
+    this.attach(fs.readFileSync(`./screenshots/shouldhaveoptions.png`), 'image/png');
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
@@ -566,7 +568,7 @@ When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
   async function (args1, args2) {
     await page.navigateToProgram(args2);
-    await page.click("@signInButton").saveScreenshot(`./screenshots/usercheck.png`);
+    await page.saveScreenshot(`./screenshots/usercheck.png`);
     this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
