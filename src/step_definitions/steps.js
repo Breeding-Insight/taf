@@ -563,9 +563,9 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
   async function (args1, args2) {
-    await page.navigateToProgram(args2);
-    await page.click("@signInButton").saveScreenshot(`./screenshots/usercheck.png`);
+    await page.navigateToProgram(args2).saveScreenshot(`./screenshots/usercheck.png`);
     this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
+    await page.click("@signInButton");
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
     await page.waitForElementVisible("@userLeftMenu");
