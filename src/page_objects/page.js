@@ -293,8 +293,8 @@ module.exports = {
       },
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
-        await this.click("@showAllButton").saveScreenshot(`./screenshots/showallbutton.png`);
-        await this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'showallbutton/png');;
+        await this.click("@showAllButton").saveScreenshot(`./screenshots/usercheck.png`);
+        await this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');;
         await this.click({
           selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
           locateStrategy: "xpath",
