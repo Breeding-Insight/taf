@@ -1,4 +1,5 @@
 const { client } = require("nightwatch-api");
+const fs = require("fs");
 
 module.exports = {
   url: function () {
