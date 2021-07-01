@@ -347,7 +347,7 @@ Then(
   }
 );
 
-When(/^user creates a new program$/, async (table) => {
+When(/^user creates a new program$/, async function (table) {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
   await page.click("@newProgramButton").saveScreenshot(`./screenshots/newprogrambutton.png`);
