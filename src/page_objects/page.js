@@ -1,6 +1,4 @@
 const { client } = require("nightwatch-api");
-const fs = require("fs");
-const reporter = require("cucumber-html-reporter");
 
 module.exports = {
   url: function () {
@@ -294,8 +292,7 @@ module.exports = {
       },
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
-        await this.click("@showAllButton").saveScreenshot(`./screenshots/usercheck.png`);
-        this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
+        await this.click("@showAllButton");
         await this.click({
           selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
           locateStrategy: "xpath",
