@@ -350,7 +350,8 @@ Then(
 When(/^user creates a new program$/, async (table) => {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
-  await page.click("@newProgramButton");
+  await page.click("@newProgramButton").saveScreenshot(`./screenshots/newprogrambutton.png`);
+    this.attach(fs.readFileSync(`./screenshots/newprogrambutton.png`), 'image/png');
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
@@ -370,7 +371,8 @@ When(/^user creates a new program$/, async (table) => {
       }
     }
   }
-  await page.click("@saveButton");
+  await page.click("@saveButton").saveScreenshot(`./screenshots/newprogramsave.png`);
+    this.attach(fs.readFileSync(`./screenshots/newprogramsave.png`), 'image/png');
 });
 
 Then(/^user can see a new program is created$/, async () => {
