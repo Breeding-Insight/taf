@@ -148,6 +148,10 @@ jobs:
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
         
+    - name: Sleep to ensure data setup?
+      run: sleep 30s
+      shell: bash
+        
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
     #- run: npm ci #unclear if needed
