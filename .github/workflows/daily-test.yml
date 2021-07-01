@@ -149,7 +149,7 @@ jobs:
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
         
     - name: Sleep to ensure data setup?
-      run: sleep 30s
+      run: sleep 300s
       shell: bash
         
     - name: Run tests on Chrome
