@@ -17,7 +17,7 @@ global.__basedir = __dirname;
 Before(async()=>{
   await createSession();
   //await client.maximizeWindow();
-  await client.resizeWindow(1920,1080);
+  await client.resizeWindow(1024,768);
   //browser.setWindowRect(x, y, width, height)
   //fullscreenWindow
 })
