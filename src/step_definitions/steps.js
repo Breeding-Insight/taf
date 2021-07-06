@@ -884,15 +884,12 @@ Then(/^user see a list of traits in a table$/, async () => {
   await page.assert.visible("#traitsImportTableLabel");
 });
 
-Then(
-  /^user can see "([^"]*)" column header$/,
-  async (args1) => {
-    await page.assert.visible({
-      selector: `//table/thead/tr/th[contains(text(),'${args1}')]`,
-      locateStrategy: "xpath",
-    });
-  }
-);
+Then(/^user can see "([^"]*)" column header$/, async (args1) => {
+  await page.assert.visible({
+    selector: `//table/thead/tr/th[contains(text(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
 
 Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
   await showAll();
@@ -1074,14 +1071,13 @@ When(/^user selects 'Save' button in Users$/, async () => {
   await page.clickButton("Save");
 });
 
-Then(/^user can see 'New Program' button on Program$/, async() => {
-	await page.assert.visible("@newProgramButton");
+Then(/^user can see 'New Program' button on Program$/, async () => {
+  await page.assert.visible("@newProgramButton");
 });
 
-When(/^user selects 'New Program' button in Programs page$/, async() => {
+When(/^user selects 'New Program' button in Programs page$/, async () => {
   await page.click("@newProgramButton");
 });
-
 
 //functions
 async function setUserName(name) {
@@ -1119,23 +1115,28 @@ async function closeNotification() {
 }
 
 async function waitReady() {
-  // const StopWatch = require("@slime/stopwatch");
-  // let stopWatch = new StopWatch();
-  // stopWatch.startTimer();
+  const StopWatch = require("@slime/stopwatch");
+  let stopWatch = new StopWatch();
+  stopWatch.startTimer();
 
   // let text;
   // const selector = "#versionInfo > span > span > a:nth-child(2)";
-  // while (stopWatch.getTimeElapsedInMs < 100000) {
-  //   await page.getText(selector, ({ value }) => {
-  //     if (value.error) {
-  //       throw Error(value.error);
-  //     }
-  //     text = value;
-  //   });
-  //   if (!(text.includes("api loading") || text.includes("api unknown"))) return;
-  //   await client.refresh();
-  //   await client.pause(10000);
-  // }
-  // stopWatch.stopTimer();
-  // throw new Error("Application version failed to load. Unable to login.");
+  let found = false;
+  while (!found && stopWatch.getTimeElapsedInMs < 300000) {
+    try {
+      await page.waitForElementPresent(
+        { selector: "//a[contains(text(), 'api v')]", locateStrategy: "xpath" },
+        1000,
+        1000
+      );
+      found = true;
+    } catch (error) {
+      await client.refresh();
+      await page.pause(1000);
+    }
+  }
+  stopWatch.stopTimer();
+  if (!found) {
+    throw new Error("Application version failed to load. Unable to login.");
+  }
 }
