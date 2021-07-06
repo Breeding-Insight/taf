@@ -10,7 +10,11 @@
     "test:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
     "test:firefox": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env firefox",
     "test:edge": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env edge",
-    "test:sandbox.chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env sandbox.chrome"
+    "test:sandbox.chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env sandbox.chrome",
+    "htest:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @SmokeTests --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
+    "htestNoTag:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @hTest --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome",
+    "htestSingle:chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @BI-803 --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome"
+
   },
   "repository": {
     "type": "git",

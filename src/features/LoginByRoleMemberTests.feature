@@ -1,3 +1,4 @@
+@hTest
 Feature: Logging with Member
 
 	Scenario: Logging in as a member of one program

@@ -22,7 +22,7 @@ module.exports = {
 
   test_settings: {
     default: {
-      launch_url:"http://localhost",
+      launch_url:"http://localhost:8080", //http://localhost:8080 https://rel-test.breedinginsight.net/
       screenshots: {
         enabled: true,
         path: "./screenshots",

@@ -8,7 +8,7 @@
 		"sqltools.connections": [
 			{
 				"previewLimit": 50,
-				"server": "localhost",
+				"server": "localhost:8080",
 				"port": 5432,
 				"driver": "PostgreSQL",
 				"name": "BI",
