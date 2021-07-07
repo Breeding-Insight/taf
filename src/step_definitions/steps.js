@@ -817,14 +817,14 @@ Then(
   /^user can see a button 'Download the Trait Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#download-trait-template", "Download the Trait Import Template"
+      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
     );
   }
 );
 
 Then(/^user can see a button 'Choose a file...'$/, async () => {
   await page.assert.containsText(
-    "#choose-file > span:nth-child(2)",
+    "#fileselector-choose-file > span:nth-child(2)",
     "Choose a file..."
   );
 });
@@ -845,13 +845,13 @@ Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
 
 Then(/^user cans see 'Choose a different file...' button$/, async () => {
   await page.assert.visible(
-    "#choose-different-file"
+    "#fileselector-choose-different-file"
   );
 });
 
 Then(/^user can see 'Import' button$/, async () => {
   await page.assert.visible(
-    "#import-button"
+    "#fileselectmessagebox-import-button"
   );
 });
 
@@ -942,13 +942,13 @@ Then(
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
   await page.assert.containsText(
-    "#yes-abort", "Yes, abort"
+    "#traitsimport-yes-abort", "Yes, abort"
   );
 });
 
 When(/^user selects 'Import' button$/, async () => {
   await page.click(
-    "#import-button"
+    "#fileselectmessagebox-import-button"
   );
   await page.pause(3000);
 });
@@ -969,7 +969,7 @@ Then(
 
 When(/^user selects 'Yes, abort' button$/, async () => {
   await page.click(
-    "#yes-abort"
+    "#traitsimport-yes-abort"
   );
 });
 

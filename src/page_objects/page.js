@@ -65,7 +65,7 @@ module.exports = {
     loggedInAsLabel:
       "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
     logoutButton:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(2) > button",
+      "#basesidebarlayout-logout-button",
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
