@@ -159,6 +159,10 @@ module.exports = {
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+    programManagementHeader: {
+      selector: "//section/div/h1[normalize-space(.)='Program Management']",
+      locateStrategy: "xpath",
+    },
 
     //banner
     bannerText:
@@ -298,6 +302,40 @@ module.exports = {
           },
         },
       ],
+    },
+    programManagement: {
+      selector: "div.program-management",
+      elements: {
+        locationsLink: {
+          selector: ".//li/a[normalize-space(.)='Locations']",
+          locateStrategy: "xpath",
+        },
+        usersLink: {
+          selector: ".//li/a[normalize-space(.)='Users']",
+          locateStrategy: "xpath",
+        },
+        newLocationButton: {
+          selector: ".//button[normalize-space(.)='New Location']",
+          locateStrategy: "xpath",
+        },
+        nameIsRequiredText: {
+          selector: ".//span[normalize-space(.)='Name is required']",
+          locateStrategy: "xpath",
+        },
+      },
+      sections: {
+        form: {
+          selector: "form",
+          elements: {
+            nameIsRequiredText: {
+              selector: ".//span[normalize-space(.)='Name is required']",
+              locateStrategy: "xpath",
+            },
+            saveButton: "button[data-testid='save']",
+            cancelButton: "button[data-testid='cancel']",
+          },
+        },
+      },
     },
     //Program Management
     locationForm: {

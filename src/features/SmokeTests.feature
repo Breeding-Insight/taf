@@ -47,7 +47,6 @@ Feature: Smoke Tests (11)
 		Then user can see Results Per Page dropdown
 
 	@BI-807
-	@debug
 	Scenario Outline: Program Location Management page
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
@@ -64,8 +63,8 @@ Feature: Smoke Tests (11)
 		And user can see each row has an Edit link
 		And user can see each row has a Deactivate link
 		Examples:
-			| location name | 
-			| location1 | 
+			| location name |
+			| location1     |
 
 	@BI-808
 	Scenario: Program Location Management page
@@ -73,7 +72,7 @@ Feature: Smoke Tests (11)
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
 		When user selects "Locations" in navigation
-		# When user selects "New Location" in Locations
+# When user selects "New Location" in Locations
 
 
 # #don't know how to add breeder
