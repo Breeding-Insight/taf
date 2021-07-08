@@ -159,6 +159,10 @@ module.exports = {
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+    programManagementHeader: {
+      selector: "//section/div/h1[normalize-space(.)='Program Management']",
+      locateStrategy: "xpath",
+    },
 
     //banner
     bannerText:
@@ -212,7 +216,7 @@ module.exports = {
       },
     },
     programForm: {
-      selector: "#adminProgramTableLabel > form",
+      selector: "#adminProgramTableLabel",
       elements: {
         programNameField: "#Program-Name",
         programNameLabel: "label[for='Program Name']",
@@ -224,13 +228,27 @@ module.exports = {
         speciesSelect: "#Species",
         speciesLabel: "label[for='Species']",
         specifyCustomDataCheckbox: "#checkbox",
+        brAPIURLField: "#BrAPI-URL",
+        brAPIURLErrorMessage: "span[class='form-error has-text-danger']",
         saveButton: {
           selector: ".//span[normalize-space(.)='Save']/ancestor::button",
           locateStrategy: "xpath",
         },
         speciesErrorMessage: "svg",
         cancelButton: {
-          selector: ".//button[normalize-space(.)='Cancel']",
+          selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
+          locateStrategy: "xpath",
+        },
+        modalAlertMessage: "div.modal-card article h3",
+        modalMessage: "section p",
+        yesRemoveButton: {
+          selector:
+            ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",
+          locateStrategy: "xpath",
+        },
+        cancelModalButton: {
+          selector:
+            ".//div[@class='modal-card']//button[normalize-space(.)='Cancel']",
           locateStrategy: "xpath",
         },
       },
@@ -257,7 +275,100 @@ module.exports = {
             };
             await this.assert.visible(selector);
           },
-          
+          isItemInNewRow: async function (list) {
+            for (var key in list) {
+              if (key == "Name") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='name']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+              if (key == "Species") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='species']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+            }
+          },
+          editProgram: async function (name) {
+            const selector = {
+              selector: `//td[@name='name'][normalize-space(.)='${name}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+              locateStrategy: "xpath",
+            };
+            await this.click(selector);
+          },
+        },
+      ],
+    },
+    programManagement: {
+      selector: "div.program-management",
+      elements: {
+        locationsLink: {
+          selector: ".//li/a[normalize-space(.)='Locations']",
+          locateStrategy: "xpath",
+        },
+        usersLink: {
+          selector: ".//li/a[normalize-space(.)='Users']",
+          locateStrategy: "xpath",
+        },
+        newLocationButton: {
+          selector: ".//button[normalize-space(.)='New Location']",
+          locateStrategy: "xpath",
+        },
+        nameIsRequiredText: {
+          selector: ".//span[normalize-space(.)='Name is required']",
+          locateStrategy: "xpath",
+        },
+      },
+      sections: {
+        form: {
+          selector: "form",
+          elements: {
+            nameIsRequiredText: {
+              selector: ".//span[normalize-space(.)='Name is required']",
+              locateStrategy: "xpath",
+            },
+            saveButton: "button[data-testid='save']",
+            cancelButton: "button[data-testid='cancel']",
+          },
+        },
+      },
+    },
+    //Program Management
+    locationForm: {
+      selector: "#locationTableLabel",
+      elements: {
+        form: "form.new-form",
+        newLocationButton: {
+          selector: ".//button[normalize-space(.)='New Location']",
+          locateStrategy: "xpath",
+        },
+        nameField: "#Name",
+        saveButton: {
+          selector: ".//span[normalize-space(.)='Save']/ancestor::button",
+          locateStrategy: "xpath",
+        },
+        cancelButton: {
+          selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
+          locateStrategy: "xpath",
+        },
+      },
+      commands: [
+        {
+          isItemInNewRow: async function (list) {
+            for (var key in list) {
+              if (key == "Name") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='name']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.containsText(selector, list[key]);
+              }
+            }
+          },
         },
       ],
     },

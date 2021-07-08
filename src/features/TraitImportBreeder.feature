@@ -33,10 +33,10 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Confirm" button
 		And user can see "Abort" button
 		And user see a list of traits in a table
-		And user can see "Name" column header in "Traits Import Table"
-		And user can see "Level" column header in "Traits Import Table"
-		And user can see "Method" column header in "Traits Import Table"
-		And user can see "Scale" column header in "Traits Import Table"
+		And user can see "Name" column header
+		And user can see "Level" column header
+		And user can see "Method" column header
+		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
 	@BI-919
@@ -76,10 +76,10 @@ Feature: Trait Import (10 Scenarios)
 		When user selects "Confirm" button
 		Then user can see 'Imported traits have been added to Snacks.' in banner
 		And user can see Traits table
-		And user can see "Name" column header in "Traits Table"
-		And user can see "Level" column header in "Traits Table"
-		And user can see "Method" column header in "Traits Table"
-		And user can see "Scale" column header in "Traits Table"
+		And user can see "Name" column header
+		And user can see "Level" column header
+		And user can see "Method" column header
+		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
 	@BI-923
@@ -96,10 +96,10 @@ Feature: Trait Import (10 Scenarios)
 		When user selects "Confirm" button
 		Then user can see 'Imported traits have been added to Snacks.' in banner
 		And user can see Traits table
-		And user can see "Name" column header in "Traits Table"
-		And user can see "Level" column header in "Traits Table"
-		And user can see "Method" column header in "Traits Table"
-		And user can see "Scale" column header in "Traits Table"
+		And user can see "Name" column header
+		And user can see "Level" column header
+		And user can see "Method" column header
+		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
 	@BI-926
