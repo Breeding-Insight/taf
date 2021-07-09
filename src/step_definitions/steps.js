@@ -114,8 +114,9 @@ When(/user selects "([^"]*)" on program-selection page$/, async function (args1)
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
-  }).saveScreenshot(`./screenshots/program-selecton.png`);
-  await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  });
+  //.saveScreenshot(`./screenshots/program-selecton.png`);
+  //await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
 });
 
 When(/^user selects Users in navigation$/, async () => {
