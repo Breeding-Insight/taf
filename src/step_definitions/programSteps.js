@@ -6,7 +6,7 @@ const page = client.page.page();
 const program = {};
 
 Then(/^user can see 'Program Name' label in Programs page$/, async () => {
-  await programForm.assert.visible("@programNameLabel");
+  await page.section.programForm.assert.visible("@programNameLabel");
 });
 
 Then(/^user can see 'Program Name' field in Programs page$/, async () => {
