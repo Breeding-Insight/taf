@@ -1,17 +1,6 @@
 import axios from 'axios';
 
 let programIds = process.argv.slice(2);
-      
-//http://<brapi-server url>/brapi/v2/programs
-//http://brapiserver:8080
-//${process.env.VUE_APP_BI_API_V1_PATH}
-/*const { data } = await axios({
-    url: 'http://brapiserver:8080/brapi/v2/programs',
-    method: 'post',
-    data: query//,
-    //params: { full }
-});
-*/
 
 //axios.all( []); for calling multiple post
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
@@ -19,7 +8,7 @@ await axios.post('http://brapiserver:8080/brapi/v2/programs', {
     "externalReferences": [
         {
             "referenceSource": "breeding-insight.org",
-            "referenceID": programIds[1]
+            "referenceID": programIds[0]
         }
     ]
 })
@@ -27,5 +16,4 @@ await axios.post('http://brapiserver:8080/brapi/v2/programs', {
     console.log(response);
 }, (error) => {
     console.log(error);
-})
-;
+});
