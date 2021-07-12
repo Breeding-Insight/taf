@@ -117,6 +117,11 @@ When(/user selects "([^"]*)" on program-selection page$/, async function (args1)
   });
   //.saveScreenshot(`./screenshots/program-selecton.png`);
   //await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  await new Promise(resolve => {
+      setTimeout(function () {
+        console.log('waited');
+    }, 50000); 
+  });
 });
 
 When(/^user selects Users in navigation$/, async () => {
