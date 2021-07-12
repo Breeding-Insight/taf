@@ -48,8 +48,6 @@ SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN syst
 
 --Populate Programs
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Cucumber', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Blueberry';
-INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
