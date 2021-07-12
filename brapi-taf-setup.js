@@ -1,37 +1,31 @@
-import {BiResponse, Response} from "@/breeding-insight/model/BiResponse";
-//import * as api from "@/util/api";
-import { Result, Err, Success, ResultGenerator } from "@/breeding-insight/model/Result";
+import axios from 'axios';
 
-//first handle one, then loop
-static async setupProgram(programId: string, full : boolean): Promise<Result<Error, BiResponse>> {
-    try {
-    
-      //SQL
-      //or execute sql outside and then call script
-      //process.argv
-    
-      const programSetup = {
-        "programName": "Snacks",
-        "externalReferences": [
-          {
-            "referenceSource": "breeding-insight.org",
-            "referenceID": //from SQL
-          }
-        ]
-      };
+let programIds = process.argv.slice(2);
       
-      //http://<brapi-server url>/brapi/v2/programs
-      const { data } = await api.call({
-        url: `${process.env.VUE_APP_BI_API_V1_PATH}/brapi/v2/programs`,
-        method: 'post',
-        data: query,
-        params: { full }
-      }) as Response;
+//http://<brapi-server url>/brapi/v2/programs
+//http://brapiserver:8080
+//${process.env.VUE_APP_BI_API_V1_PATH}
+/*const { data } = await axios({
+    url: 'http://brapiserver:8080/brapi/v2/programs',
+    method: 'post',
+    data: query//,
+    //params: { full }
+});
+*/
 
-      return ResultGenerator.success(new BiResponse(data));
-        
-    } catch (error) {
-      return ResultGenerator.err(error);
-    }  
-}
-
+//axios.all( []); for calling multiple post
+await axios.post('http://brapiserver:8080/brapi/v2/programs', {
+    "programName": "Snacks",
+    "externalReferences": [
+        {
+            "referenceSource": "breeding-insight.org",
+            "referenceID": programIds[1]
+        }
+    ]
+})
+.then((response) => {
+    console.log(response);
+}, (error) => {
+    console.log(error);
+})
+;
