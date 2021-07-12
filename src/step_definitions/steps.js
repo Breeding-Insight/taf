@@ -120,6 +120,7 @@ When(/user selects "([^"]*)" on program-selection page$/, async function (args1)
   await new Promise(resolve => {
       setTimeout(function () {
         console.log('waited');
+        resolve(true);
     }, 50000); 
   });
 });
