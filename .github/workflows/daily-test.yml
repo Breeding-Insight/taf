@@ -148,10 +148,12 @@ jobs:
         #docker exec cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
-        
-    #- name: Sleep to ensure data setup?
-    #  run: sleep 600s
-    #  shell: bash
+    
+    #- name: set up brapi data
+    #  run: |
+        #sql
+        #SELECT id FROM program WHERE name='Snacks'
+        #npm run brapi-taf-setup.js 
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
