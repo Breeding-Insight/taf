@@ -1,15 +1,16 @@
 import axios from 'axios';
-
 const { Client } = require('pg');
 const client = new Client();
 await client.connect();
-const res = await client.query('SELECT id FROM program WHERE name='Snacks' AS snacksId', (err, res) => {
+
+let res = await client.query("SELECT id FROM program WHERE name='Snacks' AS snacksId", (err, res) => {
   if (err) {
     console.log(err.stack)
   } else {
     console.log(res.rows[0])
   }
 });
+
 let snacksId = res.rows[0].snacksId;
 await client.end();
 
