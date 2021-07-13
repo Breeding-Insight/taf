@@ -1,12 +1,14 @@
 import axios from 'axios';
 import pg from 'pg';
 //const { Client } =  pg;
+//Uncertain about host and port
+//or it could be a # or _ in the password supposedly?
 const pgClient = new pg.Client({
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
-  user: 'postgres',
-  password: 'postgres',
-  database: 'bidb'
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 await pgClient.connect();
 
