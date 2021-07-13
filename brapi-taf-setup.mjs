@@ -1,8 +1,9 @@
 import axios from 'axios';
-import pg from 'pg';
+//import pg from 'pg';
 //const { Client } =  pg;
 //Uncertain about host and port
 //or it could be a # or _ in the password supposedly?
+/*
 const pgClient = new pg.Client({
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
@@ -22,6 +23,18 @@ let res = await pgClient.query("SELECT id FROM program WHERE name='Snacks' AS sn
 
 let snacksId = res.rows[0].snacksId;
 await pgClient.end();
+*/
+
+//json retrieval 
+import fs from 'fs';
+fs.readFile('./something.json', 'utf8', (err, jsonString) => {
+  if (err) {
+    console.log("File read failed:", err);
+    return;
+  }
+  console.log("File data:", jsonString);
+  //let programInfo = JSON.parse(data);
+})
 
 //axios.all( []); for calling multiple post
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
