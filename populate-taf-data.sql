@@ -77,4 +77,16 @@ INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
 JOIN program ON program.name = 'Trail Mix';
 
+--Pass on Program IDs for BRAPI setup
+--SELECT id AS programId, name AS programName FROM program FOR JSON PATH, ROOT('Programs');
+COPY (
+  SELECT json_agg(row_to_json(program_data)) :: text
+  FROM (
+      SELECT
+        name,
+        id
+      FROM program
+        ) program_data
+) to './programIds.json';
+
 END $$;
