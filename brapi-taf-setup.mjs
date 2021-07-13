@@ -1,7 +1,7 @@
 import axios from 'axios';
-import * as pg from 'pg';
-const { Client } =  pg;
-const pgClient = new Client();
+import pg from 'pg';
+//const { Client } =  pg;
+const pgClient = new pg.Client();
 await pgClient.connect();
 
 let res = await pgClient.query("SELECT id FROM program WHERE name='Snacks' AS snacksId", (err, res) => {
