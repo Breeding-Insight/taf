@@ -33,16 +33,17 @@ fs.readFile('./something.json', 'utf8', (err, jsonString) => {
     return;
   }
   console.log("File data:", jsonString);
-  //let programInfo = JSON.parse(data);
+  let programInfo = JSON.parse(data);
 })
 
 //axios.all( []); for calling multiple post
+//make a loop
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
-    "programName": "Snacks",
+    "programName": programInfo[0].name,
     "externalReferences": [
         {
             "referenceSource": "breeding-insight.org",
-            "referenceID": snacksId
+            "referenceID": programInfo[0].id
         }
     ]
 })
