@@ -1,5 +1,6 @@
 import axios from 'axios';
-import Client from 'pg';
+import * as pg from 'pg';
+const { Client } =  pg;
 const client = new Client();
 await client.connect();
 
