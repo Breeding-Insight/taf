@@ -1,5 +1,5 @@
 import axios from 'axios';
-const { Client } = require('pg');
+import Client from 'pg';
 const client = new Client();
 await client.connect();
 
