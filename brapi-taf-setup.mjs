@@ -1,10 +1,10 @@
 import axios from 'axios';
 import * as pg from 'pg';
-const { pgClient } =  pg;
-const pgclient = new pgClient();
-await pgclient.connect();
+const { Client } =  pg;
+const pgClient = new Client();
+await pgClient.connect();
 
-let res = await client.query("SELECT id FROM program WHERE name='Snacks' AS snacksId", (err, res) => {
+let res = await pgClient.query("SELECT id FROM program WHERE name='Snacks' AS snacksId", (err, res) => {
   if (err) {
     console.log(err.stack)
   } else {
@@ -13,7 +13,7 @@ let res = await client.query("SELECT id FROM program WHERE name='Snacks' AS snac
 });
 
 let snacksId = res.rows[0].snacksId;
-await client.end();
+await pgClient.end();
 
 //axios.all( []); for calling multiple post
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
