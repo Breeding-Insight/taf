@@ -1,7 +1,13 @@
 import axios from 'axios';
 import pg from 'pg';
 //const { Client } =  pg;
-const pgClient = new pg.Client();
+const pgClient = new pg.Client({
+  host: process.env.POSTGRES_HOST,
+  port: process.env.POSTGRES_PORT,
+  user: 'postgres',
+  password: 'postgres',
+  database: bidb
+});
 await pgClient.connect();
 
 let res = await pgClient.query("SELECT id FROM program WHERE name='Snacks' AS snacksId", (err, res) => {
