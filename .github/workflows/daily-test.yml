@@ -151,7 +151,7 @@ jobs:
     
     - name: set up brapi data
       run: |
-        #npm run
+        npm install pg
         node brapi-taf-setup.mjs
         
     - name: Run tests on Chrome
