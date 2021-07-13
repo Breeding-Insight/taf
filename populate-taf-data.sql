@@ -79,7 +79,7 @@ JOIN program ON program.name = 'Trail Mix';
 
 --Pass on Program IDs for BRAPI setup
 --SELECT id AS programId, name AS programName FROM program FOR JSON PATH, ROOT('Programs');
-COPY (
+\copy (
   SELECT json_agg(row_to_json(program_data)) :: text
   FROM (
       SELECT
@@ -87,6 +87,8 @@ COPY (
         id
       FROM program
         ) program_data
-) to './programIds.json';
+) TO 'programIds.json';
+
+
 
 END $$;
