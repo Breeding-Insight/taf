@@ -151,8 +151,8 @@ jobs:
     
     - name: set up brapi data
       run: |
-        npm run
-        node brapi-taf-setup.js
+        #npm run
+        node brapi-taf-setup.mjs
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
