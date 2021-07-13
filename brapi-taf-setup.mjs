@@ -6,7 +6,7 @@ const pgClient = new pg.Client({
   port: process.env.POSTGRES_PORT,
   user: 'postgres',
   password: 'postgres',
-  database: bidb
+  database: 'bidb'
 });
 await pgClient.connect();
 
