@@ -89,8 +89,8 @@ JOIN program ON program.name = 'Trail Mix';
 --        ) program_data
 --) TO :filepath;
 
---COPY (SELECT json_agg(t) from program) TO :filepath;
-\copy (SELECT * FROM program) TO '/test.json';
-\copy (SELECT json_agg(program) FROM program) TO '/test2.json';
+COPY (SELECT json_agg(program) FROM program) TO '/test2.json';
+--\copy (SELECT * FROM program) TO '/test.json';
+--\copy (SELECT json_agg(program) FROM program) TO '/test2.json';
 
 END $$;
