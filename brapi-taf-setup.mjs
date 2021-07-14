@@ -26,7 +26,7 @@ await pgClient.end();
 */
 
 //json retrieval 
-import fs from 'fs';
+/*import fs from 'fs';
 fs.readFile('./programIds.json', 'utf8', (err, jsonString) => {
   if (err) {
     console.log("File read failed:", err);
@@ -34,8 +34,10 @@ fs.readFile('./programIds.json', 'utf8', (err, jsonString) => {
   }
   console.log("File data:", jsonString);
   let programInfo = JSON.parse(data);
-})
+})*/
 
+console.log(process.argv);
+let programInfo = process.argv.slice(2);
 //axios.all( []); for calling multiple post
 //make a loop
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
