@@ -147,11 +147,15 @@ jobs:
         #docker exec pwd
         #docker exec cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
-        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
-        
-    #- name: Sleep to ensure data setup?
-    #  run: sleep 600s
-    #  shell: bash
+        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb -v filePath="${{ github.workspace }}/programIds.json"  #eventually remove a cause output messy
+    
+    - name: set up brapi data
+      run: |
+        npm install pg
+        echo `docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM programs WHERE name='Snacks';"`
+        --snacksTest="(docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM programs WHERE name='Snacks';")"
+        --echo $snacksTest
+        node brapi-taf-setup.mjs
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'

@@ -109,13 +109,20 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
 
 //temp turn not arrow fxn?
 When(/user selects "([^"]*)" on program-selection page$/, async function (args1) {
-  await page.saveScreenshot(`./screenshots/shouldhaveoptions.png`);
-    this.attach(fs.readFileSync(`./screenshots/shouldhaveoptions.png`), 'image/png');
+  //await page.saveScreenshot(`./screenshots/shouldhaveoptions.png`);
+  //this.attach(fs.readFileSync(`./screenshots/shouldhaveoptions.png`), 'image/png');
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
-  }).saveScreenshot(`./screenshots/program-selecton.png`);
-  await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  });
+  //.saveScreenshot(`./screenshots/program-selecton.png`);
+  //await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
+  await new Promise(resolve => {
+      setTimeout(function () {
+        console.log('waited');
+        resolve(true);
+    }, 50000); 
+  });
 });
 
 When(/^user selects Users in navigation$/, async () => {

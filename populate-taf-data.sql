@@ -48,8 +48,6 @@ SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN syst
 
 --Populate Programs
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Cucumber', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Blueberry';
-INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
@@ -78,5 +76,21 @@ JOIN program ON program.name = 'Snacks';
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
 JOIN program ON program.name = 'Trail Mix';
+
+--Pass on Program IDs for BRAPI setup
+--SELECT id AS programId, name AS programName FROM program FOR JSON PATH, ROOT('Programs');
+--COPY (
+--  SELECT json_agg(row_to_json(program_data)) :: text
+--  FROM (
+--      SELECT
+--        name,
+--        id
+--      FROM program
+--        ) program_data
+--) TO :filepath;
+
+COPY (SELECT json_agg(program) FROM program) TO '/test2.json';
+--\copy (SELECT * FROM program) TO '/test.json';
+--\copy (SELECT json_agg(program) FROM program) TO '/test2.json';
 
 END $$;

@@ -11,7 +11,11 @@
     "test:firefox": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env firefox",
     "test:edge": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @debug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env edge",
     "test:sandbox.chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env sandbox.chrome",
+<<<<<<< HEAD
     "test:chromeDaily": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
+=======
+    "test:chromeDaily": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @BI-805 --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
+>>>>>>> d03d69107f426dce44937fb8707336d8f91eea5b
     "report": "node reporter.js"
   },
   "repository": {
