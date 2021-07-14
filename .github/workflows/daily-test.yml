@@ -152,7 +152,7 @@ jobs:
     - name: set up brapi data
       run: |
         npm install pg
-        snacksTest = (`docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM programs WHERE name='Snacks';"`)
+        snacksTest = docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM programs WHERE name='Snacks';"
         echo $snacksTest
         node brapi-taf-setup.mjs
         
