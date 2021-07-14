@@ -141,7 +141,7 @@ jobs:
     - name: set up required data for tests
       #shell: bash #'script -q -e -c "bash {0}"'    
       run: | 
-        echo $(ls)
+        #echo $(ls)
         #docker exec bidb ADD /taf/populate-taf-data.sql root/
         #/home/host
         #docker exec pwd
@@ -153,7 +153,7 @@ jobs:
       run: |
         echo `docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';"`
         trailMixTest=$(docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';")
-        echo $trailMixTest
+        echo ${trailMixTest}
         node brapi-taf-setup.mjs "$trailMixTest"
         
     - name: Run tests on Chrome
