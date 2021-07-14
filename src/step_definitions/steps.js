@@ -446,7 +446,7 @@ When(/^user clicks 'New User' button$/, async () => {
 
 When(/^user edits a user$/, async (table) => {
   await closeNotification();
-  await showAll();
+  await page.showAll();
 
   //go to the row with matching name
   const selector = {
@@ -476,14 +476,14 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await showAll();
+  await page.showAll();
   await page.assert.containsText("tr.is-new td[name='name']", user.userName);
   await page.assert.containsText("tr.is-new td[name='email']", user.email);
   await page.assert.containsText("tr.is-new td[name='roles']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {
-  await showAll();
+  await page.showAll();
   await page.assert.visible({
     selector: `//tr/td[normalize-space(.)='${user.userName}')]`,
     locateStrategy: "xpath",
@@ -531,7 +531,7 @@ Then(
 );
 
 When(/^user clicks Edit of a user$/, async () => {
-  await showAll();
+  await page.showAll();
   await page.pause(1000);
 
   const button = "#app > div > article:nth-of-type(1) > button";
@@ -548,7 +548,7 @@ When(/^user clicks Edit of a user$/, async () => {
 
 When(/^user can see "([^"]*)" as a program$/, async (args1) => {
   await page.navigateToPrograms();
-  await showAll();
+  await page.showAll();
   await page.waitForElementVisible({
     selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
@@ -892,7 +892,7 @@ Then(/^user can see "([^"]*)" column header$/, async (args1) => {
 });
 
 Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
-  await showAll();
+  await page.showAll();
   let rows;
 
   await client.elements("css selector", "tbody tr", ({ value }) => {
@@ -1017,7 +1017,7 @@ Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
 });
 
 Then(/^user can see new user added in User$/, async () => {
-  await showAll();
+  await page.showAll();
   await page.assert.visible("");
 });
 
@@ -1060,7 +1060,7 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 });
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
-  await showAll();
+  await page.showAll();
   await page.click({
     selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
@@ -1098,11 +1098,11 @@ async function setRole(role) {
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
-async function showAll() {
-  await page.moveToElement("@showAllButton", 1, 1);
-  await page.pause(1000);
-  await page.click("@showAllButton");
-}
+// async function showAll() {
+//   await page.moveToElement("@showAllButton", 1, 1);
+//   await page.pause(1000);
+//   await page.click("@showAllButton");
+// }
 
 async function closeNotification() {
   await page.pause(1000);

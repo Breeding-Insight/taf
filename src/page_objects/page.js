@@ -337,7 +337,7 @@ module.exports = {
         },
       },
     },
-    //Program Management
+    //Program Management --> Locations Tab
     locationForm: {
       selector: "#locationTableLabel",
       elements: {
@@ -369,8 +369,34 @@ module.exports = {
               }
             }
           },
+          isItemInNotNewRow: async function (list) {
+            for (var key in list) {
+              if (key == "Name") {
+                const selector = {
+                  selector: `.//tr[1]/td[@name='name']`,
+                  locateStrategy: "xpath",
+                };
+                await this.assert.not.containsText(selector, list[key]);
+              }
+            }
+          },
         },
       ],
+    },
+    modalBox: {
+      selector: "div.modal-card",
+      elements: {
+        alertMessage: "div.content h3",
+        message: "section p.has-text-dark",
+        yesRemoveButton: {
+          selector: ".//button[normalize-space(.)='Yes, remove']",
+          locateStrategy: "xpath",
+        },
+        cancelButton: {
+          selector: ".//button[normalize-space(.)='Cancel']",
+          locateStrategy: "xpath",
+        },
+      },
     },
   },
   commands: [
@@ -429,6 +455,11 @@ module.exports = {
           visible = value;
         });
         return visible;
+      },
+      showAll: async function () {
+        await this.moveToElement("@showAllButton", 1, 1);
+        await this.pause(1000);
+        await this.click("@showAllButton");
       },
     },
   ],

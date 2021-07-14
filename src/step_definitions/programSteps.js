@@ -340,6 +340,7 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
   async (args1) => {
+    await page.section.locationForm.clearValue("@nameField");
     await page.section.locationForm.setValue("@nameField", args1);
   }
 );
@@ -393,11 +394,73 @@ When(/^user selects 'Cancel' button in Program Management page$/, async () => {
   await page.section.programManagement.section.form.click("@cancelButton");
 });
 
-When(/^user user can not see Location form in Program Management page$/, async() => {
-	await page.section.programManagement.expect.section("@form").not.present;
+When(
+  /^user user can not see Location form in Program Management page$/,
+  async () => {
+    await page.section.programManagement.expect.section("@form").not.present;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" column header in Program Management page$/,
+  async (args1) => {
+    switch (args1) {
+      case "Name":
+        await page.section.programManagement.section.break;
+
+      default:
+        break;
+    }
+  }
+);
+
+When(/^user selects 'Edit' of "([^"]*)" in Location table$/, async (args1) => {
+  await page.showAll();
+  const selector = {
+    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
+    locateStrategy: "xpath",
+  };
+  await page.section.locationForm.moveToElement("@newLocationButton", 1, 1);
+  await page.moveToElement(selector, 1, 1);
+  await page.click(selector);
 });
 
+Then(
+  /^user can not see "([^"]*)" in Name column in Program Management page$/,
+  async (args1) => {
+    await page.section.locationForm.isItemInNotNewRow({ Name: args1 });
+  }
+);
 
-Then(/^user is her$/, () => {
-	return true;
+When(
+  /^user selects 'Deactivate' of "([^"]*)" in Location table$/,
+  async (args1) => {
+    await page.showAll();
+    const selector = {
+      selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Deactivate']`,
+      locateStrategy: "xpath",
+    };
+    await page.section.locationForm.moveToElement("@newLocationButton", 1, 1);
+    await page.moveToElement(selector, 1, 1);
+    await page.click(selector);
+  }
+);
+
+Then(/^user can see "([^"]*)" alert message in modal box$/, async (args1) => {
+  await page.section.modalBox.assert.containsText("@alertMessage", args1);
+});
+
+Then(
+  /^user can see "([^"]*)" message in modal box$/,
+  async (args1) => {
+    await page.section.modalBox.assert.containsText("@message", args1);
+  }
+);
+
+Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
+  await page.section.modalBox.assert.visible("@yesRemoveButton");
+});
+
+Then(/^user can sees 'Cancel' button in modal box$/, async () => {
+  await page.section.modalBox.assert.visible("@cancelButton");
 });
