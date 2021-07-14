@@ -154,7 +154,8 @@ jobs:
     
     - name: set up brapi data
       run: |
-        trailMixTest=$(docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';")
+        #trailMixTest=$(docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';")
+        trailMixTest=`docker exec bidb psql -U postgres -t -d bidb -c "SELECT * FROM program;"`
         node brapi-taf-setup.mjs atestinput "$trailMixTest" testinput
         
     - name: Run tests on Chrome
