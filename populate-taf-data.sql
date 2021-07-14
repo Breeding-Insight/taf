@@ -87,7 +87,7 @@ JOIN program ON program.name = 'Trail Mix';
         id
       FROM program
         ) program_data
-) TO 'programIds.json';
+) TO :filepath;
 
 
 
