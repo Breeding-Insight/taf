@@ -2,7 +2,7 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("cucumber");
 const path = require("path");
 const page = client.page.page();
-const importFolder = path.join(__basedir + "\\src\\files\\TraitImport_v03");
+const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -817,22 +817,21 @@ Then(
   /^user can see a button 'Download the Trait Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-right > div > div > a",
-      "Download the Trait Import Template"
+      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
     );
   }
 );
 
 Then(/^user can see a button 'Choose a file...'$/, async () => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > div > span:nth-child(2)",
+    "#fileselector-choose-file > span:nth-child(2)",
     "Choose a file..."
   );
 });
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > input[type=file]",
+    'input[type="file"]',
     path.resolve(importFolder, args1)
   );
 });
@@ -846,13 +845,13 @@ Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
 
 Then(/^user cans see 'Choose a different file...' button$/, async () => {
   await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(2) > div > label > div > span:nth-child(2)"
+    "#fileselector-choose-different-file"
   );
 });
 
 Then(/^user can see 'Import' button$/, async () => {
   await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+    "#fileselectmessagebox-import-button"
   );
 });
 
@@ -936,14 +935,13 @@ Then(
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong",
-    "Yes, abort"
+    "#traitsimport-yes-abort", "Yes, abort"
   );
 });
 
 When(/^user selects 'Import' button$/, async () => {
   await page.click(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+    "#fileselectmessagebox-import-button"
   );
   await page.pause(3000);
 });
@@ -964,7 +962,7 @@ Then(
 
 When(/^user selects 'Yes, abort' button$/, async () => {
   await page.click(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong"
+    "#traitsimport-yes-abort"
   );
 });
 
