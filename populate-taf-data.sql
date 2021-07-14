@@ -90,6 +90,7 @@ JOIN program ON program.name = 'Trail Mix';
 --) TO :filepath;
 
 --COPY (SELECT json_agg(t) from program) TO :filepath;
-\copy (SELECT json_agg(program) FROM (SELECT name, id FROM program)) TO '~/test.json';
+\copy (SELECT * FROM program) TO '/test.json';
+\copy (SELECT json_agg(program) FROM program) TO '/test2.json';
 
 END $$;
