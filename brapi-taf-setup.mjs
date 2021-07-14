@@ -36,7 +36,9 @@ fs.readFile('./programIds.json', 'utf8', (err, jsonString) => {
   let programInfo = JSON.parse(data);
 })*/
 
-console.log(process.argv);
+const core = require('@actions/core');
+
+core.info(process.argv);
 let programInfo = process.argv.slice(2);
 //axios.all( []); for calling multiple post
 //make a loop
