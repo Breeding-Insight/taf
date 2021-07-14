@@ -27,7 +27,7 @@ await pgClient.end();
 
 //json retrieval 
 import fs from 'fs';
-fs.readFile('./something.json', 'utf8', (err, jsonString) => {
+fs.readFile('./programIds.json', 'utf8', (err, jsonString) => {
   if (err) {
     console.log("File read failed:", err);
     return;
