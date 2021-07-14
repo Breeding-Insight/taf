@@ -147,15 +147,13 @@ jobs:
         #docker exec pwd
         #docker exec cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
-        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb #eventually remove a cause output messy
+        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb -v filePath="${{ github.workspace }}/programIds.json"  #eventually remove a cause output messy
     
     - name: set up brapi data
       run: |
         npm install pg
+        
         node brapi-taf-setup.mjs
-      env:
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: 5432
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
