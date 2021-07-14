@@ -3,7 +3,7 @@ Feature: Logging with Breeder
 	@BI-821
 	Scenario: Logging in as a breeder of multiple programs
 		Given user logs in as "Cucumber Breeder"
-		Then user can see "Welcome, Cucumber Breeder !" on program-selection page
+		Then user can see "Welcome, Cucumber Breeder!" on program-selection page
 		And user can see 'Which program are you working with today'
 		And user can see "Snacks" is in the list
 		And user can see "Trail Mix" is in the list

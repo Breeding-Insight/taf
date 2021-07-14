@@ -346,6 +346,7 @@ When(/^user creates a new program$/, async (table) => {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
   await page.click("@newProgramButton");
+  let programForm = page.section.programForm;
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
@@ -354,18 +355,18 @@ When(/^user creates a new program$/, async (table) => {
             "*",
             Date.now().toString()
           );
-          await page.setValue("@programNameField", this.program.name);
+          await programForm.setValue("@programNameField", this.program.name);
           break;
         case "Species":
           this.program.species = hash["Species"];
-          await page.setValue("@speciesSelect", this.program.species);
+          await programForm.setValue("@speciesSelect", this.program.species);
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
       }
     }
   }
-  await page.click("@saveButton");
+  await programForm.click("@saveButton");
 });
 
 Then(/^user can see a new program is created$/, async () => {
