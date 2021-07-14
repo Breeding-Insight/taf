@@ -1,7 +1,8 @@
 import axios from 'axios';
-import core from '@actions/core';
+//import core from '@actions/core';
 
 //const core = require('@actions/core');
+import * as core from '@actions/core';
 
 core.info(process.argv);
 let programInfo = process.argv.slice(2);
