@@ -151,11 +151,11 @@ jobs:
     
     - name: set up brapi data
       run: |
-        npm install pg
+        #npm install pg
         echo `docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';"`
         trailMixTest=`docker exec bidb psql -U postgres -t -d bidb -c "SELECT id FROM program WHERE name='TrailMix';"`
         echo $trailMixTest
-        node brapi-taf-setup.mjs
+        node brapi-taf-setup.mjs "$trailMixTest"
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
