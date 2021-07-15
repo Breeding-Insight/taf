@@ -160,7 +160,7 @@ jobs:
         #sudo netstat -plnt
         #docker exec brapiserver node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
         docker exec brapiserver netstat -tlpen | grep 8080
-        docker exec brapiserver curl --header "Content-Type: application/json" -d "{\"programName\":\"Snacks\",\"externalReferences\":{\"referenceSource\":\"breeding-insight.org\",\"referenceID\":\"$snacksId\"}}" http://localhost:8080/brapi/v2/programs
+        docker exec brapi-server curl --header "Content-Type: application/json" -d "{\"programName\":\"Snacks\",\"externalReferences\":{\"referenceSource\":\"breeding-insight.org\",\"referenceID\":\"$snacksId\"}}" http://localhost:8080/brapi/v2/programs
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
