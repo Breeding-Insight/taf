@@ -15,7 +15,7 @@ let programInfo = process.argv.slice(2).map(str => str.trim());
 //try a get for testing?
 
 //process.env.__OW_API_HOST
-axios.get(`http://${process.env.__OW_API_HOST}/brapi/v2/programs`).then((response) => {
+axios.get(`http://172.17.0.1/brapi/v2/programs`).then((response) => {
     console.log(response);
 }, (error) => {
     console.log(error);
