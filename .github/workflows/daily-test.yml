@@ -158,7 +158,8 @@ jobs:
         snacksId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Snacks'" )
         #netstat -a
         sudo netstat -plnt
-        node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
+        #docker exec brapiserver node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
+        curl --header "Content-Type: application/json" -d "{\"programName\":\"Snacks\",\"externalReferences\":{\"referenceSource\":\"breeding-insight.org\",\"referenceID\":\"$snacksId\"}}" http://localhost:8080/brapi/v2/programs
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
