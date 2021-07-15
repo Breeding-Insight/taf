@@ -7,13 +7,12 @@ let programInfo = process.argv.slice(2);
 //axios.all( []); for calling multiple post
 //make a loop
 
-/*
 await axios.post('http://brapiserver:8080/brapi/v2/programs', {
-    "programName": programInfo[0].name,
+    "programName": "Snacks",
     "externalReferences": [
         {
             "referenceSource": "breeding-insight.org",
-            "referenceID": programInfo[0].id
+            "referenceID": programInfo[0]
         }
     ]
 })
@@ -22,4 +21,3 @@ await axios.post('http://brapiserver:8080/brapi/v2/programs', {
 }, (error) => {
     console.log(error);
 });
-*/
