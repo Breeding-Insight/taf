@@ -205,7 +205,7 @@ Feature: Breeder User Management
 		Then user can see user is in users list
 
 	@BI-900
-	#TODO
+	@debug
 	Scenario: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -233,6 +233,7 @@ Feature: Breeder User Management
 		And user can see 'Cancel' button
 		Then user can see user is in users list
 
+@BI-902
 	Scenario: Deactivate link - Yes, deactivate
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

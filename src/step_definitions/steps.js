@@ -174,23 +174,16 @@ Then(/^user can see each row has an Edit link$/, async () => {
 });
 
 Then(/^user can see each row doesn't have an Edit link$/, async () => {
+  await page.showAll();
   const selector = {
     selector: "//a[contains(text(),'Edit')]",
     locateStrategy: "xpath",
   };
-
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+  await page.expect.elements(selector).count.equal(0);
 });
 
 Then(/^user can see each row has a Deactivate link$/, async () => {
+  await page.showAll();
   const selector = {
     selector: "//a[contains(text(),'Deactivate')]",
     locateStrategy: "xpath",
@@ -207,19 +200,12 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
 });
 
 Then(/^user can see each row doesn't have a Deactivate link$/, async () => {
+  await page.showAll();
   const selector = {
     selector: "//a[contains(text(),'Deactivate')]",
     locateStrategy: "xpath",
   };
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+  await page.expect.elements(selector).count.equal(0);
 });
 
 Then(/^user can see Previous page button$/, async () => {

@@ -384,7 +384,7 @@ Then(
 Then(
   /^user can see 'Name is required' below the Name field in Program Management page$/,
   async () => {
-    await page.section.programManagement.section.form.visible(
+    await page.section.programManagement.section.form.assert.visible(
       "@nameIsRequiredText"
     );
   }
@@ -464,3 +464,12 @@ Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
 Then(/^user can sees 'Cancel' button in modal box$/, async () => {
   await page.section.modalBox.assert.visible("@cancelButton");
 });
+
+Then(/^user selects 'Cancel' button in modal box$/, async() => {
+	await page.section.modalBox.click("@cancelButton");
+});
+
+Then(/^user selects 'Yes, remove' button in modal box$/, async() => {
+  await page.section.modalBox.click("@yesRemoveButton");
+});
+

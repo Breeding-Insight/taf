@@ -90,7 +90,6 @@ Feature: Program Location Management
 			| location100   | location200 |
 
 	@BI-911
-	@debug
 	Scenario Outline: Location Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
@@ -106,7 +105,58 @@ Feature: Program Location Management
 		Then user can sees 'Cancel' button in modal box
 
 		Examples:
-			| Location Name | 
-			| location100   | 
+			| Location Name |
+			| location100   |
+
+	@BI-912
+	Scenario Outline: Location Deactivate link - Cancel
+		Given user logs in as "Cucumber Breeder"
+		When user selects "Snacks" on program-selection page
+		When user selects "Program Management" in navigation
+		When user selects "Locations" in navigation
+		When user selects 'New Location' button in Program Management page
+		When user sets "<Location Name>" in Name field in Program Management page
+		When user selects 'Save' button in Program Management page
+		When user selects 'Deactivate' of "<Location Name>" in Location table
+		Then user can see "Remove <Location Name> from Snacks" alert message in modal box
+		Then user can see "Program-related data referencing this location will not be affected by this change." message in modal box
+		Then user selects 'Cancel' button in modal box
+		Then user can not see a modal box
+		Then user can see "<Location Name>" in Name column in Program Management page
+
+		Examples:
+			| Location Name |
+			| location101   |
+
+	@BI-913
+	Scenario Outline: Location Deactivate link - Yes, remove
+		Given user logs in as "Cucumber Breeder"
+		When user selects "Snacks" on program-selection page
+		When user selects "Program Management" in navigation
+		When user selects "Locations" in navigation
+		When user selects 'New Location' button in Program Management page
+		When user sets "<Location Name>" in Name field in Program Management page
+		When user selects 'Save' button in Program Management page
+		When user selects 'Deactivate' of "<Location Name>" in Location table
+		Then user can see "Remove <Location Name> from Snacks" alert message in modal box
+		Then user can see "Program-related data referencing this location will not be affected by this change." message in modal box
+		Then user selects 'Yes, remove' button in modal box
+		Then user can not see a modal box
+		Then user can see "<Location Name> removed from program" in banner
+		Then user can not see "<Location Name>" in Name column in Program Management page
+
+		Examples:
+			| Location Name |
+			| BI913         |
+
+	@BI-915
+	Scenario:  Program Location Management page - member
+		Given user logs in as "Cucumber Member"
+		When user selects "Snacks" on program-selection page
+		When user selects "Program Management" in navigation
+		When user selects "Locations" in navigation
+		Then user can see each row doesn't have an Edit link
+		Then user can see each row doesn't have a Deactivate link
+
 
 
