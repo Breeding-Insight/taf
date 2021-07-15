@@ -14,12 +14,14 @@ let programInfo = process.argv.slice(2).map(str => str.trim());
 */
 //try a get for testing?
 
-axios.get('http://localhost:8080/brapi/v2/programs').then((response) => {
+//process.env.__OW_API_HOST
+axios.get(`http://${process.env.__OW_API_HOST}/brapi/v2/programs`).then((response) => {
     console.log(response);
 }, (error) => {
     console.log(error);
 });
 
+/*
 await axios.post('http://localhost:8080/brapi/v2/programs', {
     "programName": "Snacks",
     "externalReferences": [
@@ -34,3 +36,4 @@ await axios.post('http://localhost:8080/brapi/v2/programs', {
 }, (error) => {
     console.log(error);
 });
+*/
