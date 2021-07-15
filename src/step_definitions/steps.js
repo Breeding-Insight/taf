@@ -1084,12 +1084,6 @@ async function setRole(role) {
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
-// async function showAll() {
-//   await page.moveToElement("@showAllButton", 1, 1);
-//   await page.pause(1000);
-//   await page.click("@showAllButton");
-// }
-
 async function closeNotification() {
   await page.pause(1000);
   const button = "#app > div > article:nth-of-type(1) > button";

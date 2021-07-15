@@ -66,12 +66,7 @@ Feature: Smoke Tests (11)
 			| location name |
 			| location1     |
 
-	@BI-808
-	Scenario: Program Location Management page
-		Given user logs in as "sysad"
-		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
-		When user selects "Locations" in navigation
+	
 # When user selects "New Location" in Locations
 
 

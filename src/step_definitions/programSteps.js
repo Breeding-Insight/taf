@@ -450,12 +450,9 @@ Then(/^user can see "([^"]*)" alert message in modal box$/, async (args1) => {
   await page.section.modalBox.assert.containsText("@alertMessage", args1);
 });
 
-Then(
-  /^user can see "([^"]*)" message in modal box$/,
-  async (args1) => {
-    await page.section.modalBox.assert.containsText("@message", args1);
-  }
-);
+Then(/^user can see "([^"]*)" message in modal box$/, async (args1) => {
+  await page.section.modalBox.assert.containsText("@message", args1);
+});
 
 Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
   await page.section.modalBox.assert.visible("@yesRemoveButton");
@@ -465,11 +462,17 @@ Then(/^user can sees 'Cancel' button in modal box$/, async () => {
   await page.section.modalBox.assert.visible("@cancelButton");
 });
 
-Then(/^user selects 'Cancel' button in modal box$/, async() => {
-	await page.section.modalBox.click("@cancelButton");
+Then(/^user selects 'Cancel' button in modal box$/, async () => {
+  await page.section.modalBox.click("@cancelButton");
 });
 
-Then(/^user selects 'Yes, remove' button in modal box$/, async() => {
+Then(/^user selects 'Yes, remove' button in modal box$/, async () => {
   await page.section.modalBox.click("@yesRemoveButton");
 });
 
+Then(
+  /^user can not see 'New Location' button in Program Management page$/,
+  async function () {
+    await page.section.locationForm.assert.not.elementPresent("@newLocationButton");
+  }
+);

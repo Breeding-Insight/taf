@@ -205,22 +205,25 @@ Feature: Breeder User Management
 		Then user can see user is in users list
 
 	@BI-900
-	@debug
-	Scenario: Deactivate link - modal
+	Scenario Outline: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		And user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| Name   | Email   | Role   |
+			| <Name> | <Email> | <Role> |
 		When user selects Deactivate of user
-		Then user can see a modal with Deactivate message
+		Then user can see "Deactivate <Name> from program Snacks?" message in modal box
 		Then user can see 'Yes, deactivate' button
 		And user can see 'Cancel' button
 		And user can see Save button
 
-@BI-901
+		Examples:
+			| Name    | Email                  | Role    |
+			| TestCV* | cvtest*@mailinator.com | breeder |
+
+	@BI-901
 	Scenario: Deactivate link - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -233,7 +236,7 @@ Feature: Breeder User Management
 		And user can see 'Cancel' button
 		Then user can see user is in users list
 
-@BI-902
+	@BI-902
 	Scenario: Deactivate link - Yes, deactivate
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

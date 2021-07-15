@@ -71,6 +71,7 @@ Feature: Program Location Management
 			| location100   | location200 |
 
 	@BI-910
+	@BI-808
 	Scenario Outline: Edit Location form - Save
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
