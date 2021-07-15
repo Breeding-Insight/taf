@@ -3,7 +3,9 @@ import * as core from '@actions/core';
 
 core.warning(`${process.argv}  warning test`);
 core.info(`${process.argv}  info test`);
-let programInfo = process.argv.slice(2);
+let programInfo = process.argv.slice(2).filter(entry => entry.trim() != '');
+//arr = arr.filter(entry => entry.trim() != '');
+
 //axios.all( []); for calling multiple post
 //make a loop
 
