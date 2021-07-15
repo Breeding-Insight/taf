@@ -12,6 +12,13 @@ let programInfo = process.argv.slice(2).map(str => str.trim());
 //make a loop
 //`${process.env.VUE_APP_BI_API_V1_PATH}/programs/${programId}/brapi/v2/search/studies`
 */
+//try a get for testing?
+
+axios.get('http://localhost:8080/brapi/v2/programs').then((response) => {
+    console.log(response);
+}, (error) => {
+    console.log(error);
+});
 
 await axios.post('http://localhost:8080/brapi/v2/programs', {
     "programName": "Snacks",
