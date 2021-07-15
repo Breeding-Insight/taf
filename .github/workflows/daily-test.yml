@@ -161,7 +161,7 @@ jobs:
         #docker exec brapiserver node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
         #docker exec brapi-server netstat -tlpen | grep 8080
         #docker exec brapi-server curl --header "Content-Type: application/json" -v -d "[{\"programName\":\"Snacks\",\"externalReferences\":{\"referenceSource\":\"breeding-insight.org\",\"referenceID\":\"$snacksId\"}}]" http://localhost:8080/brapi/v2/programs
-        docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d \''[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.org","referenceID":"'"$snacksId"'"}]}]'\' http://localhost:8080/brapi/v2/programs
+        docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.org","referenceID":"'"$snacksId"'"}]}]' http://localhost:8080/brapi/v2/programs
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
