@@ -16,10 +16,7 @@ global.__basedir = __dirname;
 
 Before(async()=>{
   await createSession();
-  //await client.maximizeWindow();
   await client.resizeWindow(1024,768);
-  //browser.setWindowRect(x, y, width, height)
-  //fullscreenWindow
 })
 
 BeforeAll(async () => {
@@ -70,8 +67,5 @@ AfterAll(async () => {
 
 After(function () {
   getNewScreenshots().forEach(file => this.attach(fs.readFileSync(file), 'image/png'));
-  //this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
-  //this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
-  //this.attach('attach test');
   // closeSession();
 });
