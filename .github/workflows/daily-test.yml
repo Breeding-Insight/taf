@@ -156,8 +156,7 @@ jobs:
       run: |
         trailMixId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Trail Mix'" )
         snacksId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Snacks'" )
-        #node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
-        docker exec bidb node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
+        node brapi-taf-setup.mjs "$snacksId" "$trailMixId"
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
