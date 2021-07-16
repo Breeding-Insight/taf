@@ -360,7 +360,8 @@ When(/^user creates a new program$/, async function (table) {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
   await page.click("@newProgramButton").saveScreenshot(`./screenshots/newprogrambutton.png`);
-    this.attach(fs.readFileSync(`./screenshots/newprogrambutton.png`), 'image/png');
+  this.attach(fs.readFileSync(`./screenshots/newprogrambutton.png`), 'image/png');
+  let programForm = page.section.programForm;
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
