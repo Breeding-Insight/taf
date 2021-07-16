@@ -381,7 +381,7 @@ When(/^user creates a new program$/, async function (table) {
       }
     }
   }
-  await page.click("@saveButton").saveScreenshot(`./screenshots/newprogramsave.png`);
+  await programForm.click("@saveButton").saveScreenshot(`./screenshots/newprogramsave.png`);
     this.attach(fs.readFileSync(`./screenshots/newprogramsave.png`), 'image/png');
 });
 
