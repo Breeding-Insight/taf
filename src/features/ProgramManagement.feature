@@ -44,22 +44,24 @@ Feature: Program Management (15)
 		Then user can see 'Save' button in Programs page
 		Then user can see 'Cancel' button in Programs page
 
+	@banner
 	@BI-849
 	Scenario: New Program form, entering program name only
 		When user is on the program-management page
 		When user selects 'New Program' button in Programs page
 		When user sets "Tests" in Program Name field in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains 'Fix Invalid Fields'
 		Then user can see 'Program Form' in Programs page
 
+	@banner
 	@BI-850
 	Scenario: New Program form, selecting species only
 		When user is on the program-management page
 		When user selects 'New Program' button in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains 'Fix Invalid Fields'
 		Then user can see 'Program Form' in Programs page
 		Then user can see 'Program Name is required' text in Programs page
 
@@ -73,6 +75,7 @@ Feature: Program Management (15)
 		Then user can not see 'Program Form' in Programs page
 		Then user can not see "Test" Program in Programs page
 
+	@banner
 	@BI-852
 	Scenario Outline: New Program form, Save
 		When user is on the program-management page
@@ -81,7 +84,7 @@ Feature: Program Management (15)
 		When user selects "<Species>" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
+		Then user can see banner contains 'Success! <Name> added.'
 		Then user can see new program in Programs page
 			| Name    | Species      | # Users | BrAPI URL      |
 			| Program | Sweet Potato | 0       | System Default |
@@ -90,6 +93,7 @@ Feature: Program Management (15)
 			| Name    | Species      |
 			| Program | Sweet Potato |
 
+	@banner
 	@BI-853
 	Scenario Outline: New Program, invalid url in custom storage location
 		When user is on the program-management page
@@ -100,7 +104,7 @@ Feature: Program Management (15)
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
+		Then user can see banner contains 'Success! <Name> added.'
 		Then user can see new program in Programs page
 			| Name   | Species   | # Users | BrAPI URL                            |
 			| <Name> | <Species> | 0       | https://<BrAPI URL>-server.brapi.org |
@@ -125,6 +129,7 @@ Feature: Program Management (15)
 			| Name    | Species      | BrAPI URL                |
 			| Program | Sweet Potato | http://brapiserver:8080/ |
 
+	@banner
 	@BI-855
 	Scenario Outline: New Program, valid custom storage location
 		When user is on the program-management page
@@ -135,7 +140,7 @@ Feature: Program Management (15)
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> is added." in banner
+		Then user can see banner contains 'Success! <Name> is added.'
 		Then user can see new program in Programs page
 			| Name   | Species   | # Users | BrAPI URL   |
 			| <Name> | <Species> | 0       | <BrAPI URL> |
@@ -261,6 +266,7 @@ Feature: Program Management (15)
 			| Name     |
 			| Program* |
 
+	@banner
 	@BI-863
 	Scenario Outline: Deactivate, Remove
 		When user is on the program-management page

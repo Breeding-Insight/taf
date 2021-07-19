@@ -144,10 +144,11 @@ module.exports = {
 
     //top alert
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
-    fixInvalidFieldsText: {
-      selector: "//*[@id='app']//div[contains(text(), 'Fix Invalid Fields')]",
+    //danger banner
+    dangerBannerText: {
+      selector: "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
       locateStrategy: "xpath",
-    },
+    },    
 
     //program list
     topProgramButton:
@@ -163,10 +164,6 @@ module.exports = {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
       locateStrategy: "xpath",
     },
-
-    //banner
-    bannerText:
-      "#app > div:nth-child(1) > article:nth-child(1) > div > div > div > div > div:nth-child(2)",
 
     //location
     newLocationButton: {

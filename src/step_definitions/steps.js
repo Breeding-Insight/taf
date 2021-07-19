@@ -256,24 +256,11 @@ When(/^user selects New User button$/, async () => {
 });
 
 Then(
-  /^user can see banner appears with an error message 'Error creating user, a user with this email already exists'$/,
-  async () => {
+  /^user can see banner appears with an error message '([^']*)'$/,
+  async (args1) => {
     await page.assert.visible("@topAlertDangerArticle");
-    const selector =
-      "#app > div:nth-child(1) > article.notification.is-marginless.is-danger > div > div > div > div:nth-child(2)";
-    await page.assert.visible(selector);
-    await page.assert.containsText(
-      selector,
-      "Error creating user, a user with this email already exists"
-    );
-  }
-);
-
-Then(
-  /^user can see banner appears with an error message 'Fix Invalid Fields'$/,
-  async () => {
-    await page.assert.visible("@topAlertDangerArticle");
-    await page.assert.visible("@fixInvalidFieldsText");
+    await page.assert.visible("@dangerBannerText");
+    await page.assert.containsText("@dangerBannerText", args1);
   }
 );
 
@@ -947,20 +934,6 @@ When(/^user selects 'Import' button$/, async () => {
   await page.pause(3000);
 });
 
-Then(/^user can see 'Imported cancelled' in banner$/, async () => {
-  await page.assert.containsText("@bannerText", "Import cancelled");
-});
-
-Then(
-  /^user can see 'Imported traits have been added to Snacks.' in banner$/,
-  async () => {
-    await page.assert.containsText(
-      "@bannerText",
-      "Imported traits have been added to Snacks."
-    );
-  }
-);
-
 When(/^user selects 'Yes, abort' button$/, async () => {
   await page.click(
     "#traitsimport-yes-abort"
@@ -994,16 +967,9 @@ When(/^user click 'Save' button in User$/, async () => {
   await page.click("@saveUserButton");
 });
 
-Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
+Then(/^user can see banner contains '([^']*)'$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
-    locateStrategy: "xpath",
-  });
-});
-
-Then(/^user can see "([^"]*)" in banner$/, async (args1) => {
-  await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
+    selector: `//article//div[contains(text(), normalize-space('${args1}')) and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });

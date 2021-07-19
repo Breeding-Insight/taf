@@ -38,6 +38,7 @@ Feature: System User Management (15)
 		And user can see Save button
 		And user can see Cancel button
 
+	@banner
 	@BI-827
 	Scenario: Entering Name only and selecting Save - error message
 		Given user is on the user-management page
@@ -47,6 +48,7 @@ Feature: System User Management (15)
 		Then user can see banner appears with an error message 'Fix Invalid Fields'
 		And user can see 'Email is required' below the Email field
 
+	@banner
 	@BI-828
 	Scenario: Entering Email only and selecting Save - error message
 		Given user is on the user-management page
@@ -152,6 +154,7 @@ Feature: System User Management (15)
 		When user selects 'Yes, deactivate' button
 		Then user can not see user is in users list
 
+	@banner
 	@BI-836
 	Scenario Outline: Editing self
 		Given user is on the user-management page
@@ -160,8 +163,8 @@ Feature: System User Management (15)
 		And user sets "<New Email>" in Email field
 		And user sets "<New Role>" in Role dropdown
 		And user selects 'Save' button in Users
-		Then user can see banner contains "User info (name/email/program) successfully updated"
-		Then user can see banner contains "You don't have permissions to edit the roles of this user."
+		Then user can see banner contains 'User info (name/email/program) successfully updated'
+		Then user can see banner contains 'You don't have permissions to edit the roles of this user.'
 
 		Examples:
 			| Email                    | New Name | New Email              | New Role |
@@ -175,7 +178,7 @@ Feature: System User Management (15)
 	#           And changes  newuser@mail.com to edituser@mail.com in the Email field
 	#           And selects admin for role
 	#           And selects Save button
-	#          Then a banner appears with a success message "User successfully updated".
+	#          Then a banner appears with a success message 'User successfully updated'.
 	#           And the form closes
 	#           And TestNewUser is not in the list of users
 	#           And EditNewUser is in the list of users
@@ -190,8 +193,8 @@ Feature: System User Management (15)
 #       And changes own email
 #       And selects no role
 #       And selects Save button
-#      Then a banner appears with a success message "User info (name/email/program) successfully updated"
-#       And a banner appears with a fail message "You don't have permissions to edit the roles of this user"
+#      Then a banner appears with a success message 'User info (name/email/program) successfully updated'
+#       And a banner appears with a fail message 'You don't have permissions to edit the roles of this user'
 #       And the form closes
 #       And TestNewUser is not in the list of users
 #       And EditNewUser is in the list of users

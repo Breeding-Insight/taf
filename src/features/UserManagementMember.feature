@@ -70,6 +70,7 @@ Feature: Breeder User Management
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 
+	@banner
 	Scenario: New User form - enter nothing and select Save
 		Given user logs in as "Cucumber Member"
 		And user selects "Snacks" on program-selection page
@@ -115,6 +116,7 @@ Feature: Breeder User Management
 			| Test * | test*@mailinator.com | breeder |
 		Then user can see a new user is added in User
 
+	@banner
 	Scenario: NEW User form - enter existing email address - Save
 		Given user logs in as "Cucumber Member"
 		And user selects "Snacks" on program-selection page
