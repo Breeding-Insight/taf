@@ -138,7 +138,7 @@ Feature: Smoke Tests (11)
 #               And enter Target into "Name"
 #               And select "Save"
 #              Then the form closes
-#               And there is a success banner which states "Success! Target added."
+#               And there is a success banner which states 'Success! Target added.'
 #               And the headers of the locations table are "Name" And "# Experiments"
 #               And Target is in the list of Locations
 #               And there is an edit link
