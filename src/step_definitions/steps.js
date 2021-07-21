@@ -839,7 +839,7 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(1) > div",
+    "#fileselectmessagebox-import-filename",
     args1
   );
 });
