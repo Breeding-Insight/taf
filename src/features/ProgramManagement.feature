@@ -87,8 +87,8 @@ Feature: Program Management (15)
 			| Program | Sweet Potato | 0       | System Default |
 
 		Examples:
-			| Name    | Species      |
-			| Program | Sweet Potato |
+			| Name     | Species      |
+			| Program* | Sweet Potato |
 
 	@BI-853
 	Scenario Outline: New Program, invalid url in custom storage location
@@ -99,15 +99,13 @@ Feature: Program Management (15)
 		When user checks 'Specify custom program data storage location' checkbox in Programs page
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
-		Then user can see new program in Programs page
-			| Name   | Species   | # Users | BrAPI URL                            |
-			| <Name> | <Species> | 0       | https://<BrAPI URL>-server.brapi.org |
+		Then user can see 'Program Form' in Programs page
+		Then user can see "BrAPI URL must be in url format, ex: https://test-server.brapi.org" text under BrAPI URL field in Programs page
+		Then user can see banner contains 'Fix Invalid Fields'
 
 		Examples:
-			| Name    | Species      | BrAPI URL |
-			| Program | Sweet Potato | test      |
+			| Name     | Species      | BrAPI URL |
+			| Program* | Sweet Potato | test      |
 
 	@BI-854
 	Scenario Outline: New Program, invalid BrAPI storage location
@@ -122,8 +120,8 @@ Feature: Program Management (15)
 		Then user can see "BrAPI URL specified is not supported" text under BrAPI URL field in Programs page
 
 		Examples:
-			| Name    | Species      | BrAPI URL                |
-			| Program | Sweet Potato | http://brapiserver:8080/ |
+			| Name     | Species      | BrAPI URL                |
+			| Program* | Sweet Potato | http://brapiserver:8080/ |
 
 	@BI-855
 	Scenario Outline: New Program, valid custom storage location
@@ -141,8 +139,8 @@ Feature: Program Management (15)
 			| <Name> | <Species> | 0       | <BrAPI URL> |
 
 		Examples:
-			| Name    | Species      | BrAPI URL                                |
-			| Program | Sweet Potato | http://qa-test1.breedinginsight.net:7080 |
+			| Name     | Species      | BrAPI URL                               |
+			| Program* | Sweet Potato | http://qa-test.breedinginsight.net:7080 |
 
 	@BI-856
 	Scenario Outline: Edit Program form
