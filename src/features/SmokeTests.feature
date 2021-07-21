@@ -64,7 +64,7 @@ Feature: Smoke Tests (11)
 		And user can see each row has a Deactivate link
 		Examples:
 			| location name |
-			| location1     |
+			| Location*     |
 
 	@BI-808
 	Scenario: Program Location Management page
