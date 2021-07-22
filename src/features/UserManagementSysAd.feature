@@ -44,7 +44,7 @@ Feature: System User Management (15)
 		When user selects New User button
 		And user sets "TestNewUser" in Name field
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Email is required' below the Email field
 
 	@BI-828
@@ -53,7 +53,7 @@ Feature: System User Management (15)
 		When user selects New User button
 		And user sets "newuser@mail.com" in Email field
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Name is required' below the Name field
 
 	@BI-829
@@ -155,18 +155,24 @@ Feature: System User Management (15)
 	@BI-836
 	Scenario Outline: Editing self
 		Given user is on the user-management page
-		When user selects 'Edit' of "<Email>" of Users
+		When user selects 'Edit' of "<Original Email>" of Users
 		And user sets "<New Name>" in Name field
 		And user sets "<New Email>" in Email field
 		And user sets "<New Role>" in Role dropdown
 		And user selects 'Save' button in Users
-		Then user can see banner contains 'User info (name/email/program) successfully updated'
-		Then user can see banner contains 'You don't have permissions to edit the roles of this user.'
+		Then user can see banner contains "User info (name/email/program) successfully updated"
+		Then user can see banner contains "You don't have permissions to edit the roles of this user."
+		#CLEANUP
+		When user selects 'Edit' of "<New Email>" of Users
+		And user sets "<Original Name>" in Name field
+		And user sets "<Original Email>" in Email field
+		And user sets "<Original Role>" in Role dropdown
+		And user selects 'Save' button in Users 
 
 		Examples:
-			| Email                    | New Name | New Email              | New Role |
-			| christian@mailinator.com | TestNew *  | testnew*@mailinator.com | No Role  |
-
+			| Original Email           | Original Name | Original Role | New Name   | New Email               | New Role |
+			| christian@mailinator.com | Christian     | admin         | TestNew *  | testnew*@mailinator.com | No Role  |
+	
 
 	#     Scenario: Editing form and selecting Save
 	#         Given a system administrator is on the user-management page

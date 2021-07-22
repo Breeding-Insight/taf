@@ -256,7 +256,7 @@ When(/^user selects New User button$/, async () => {
 });
 
 Then(
-  /^user can see banner appears with an error message '([^']*)'$/,
+  /^user can see banner appears with an error message "([^"]*)"$/,
   async (args1) => {
     await page.assert.visible("@topAlertDangerArticle");
     await page.assert.visible("@dangerBannerText");
@@ -966,9 +966,9 @@ When(/^user click 'Save' button in User$/, async () => {
   await page.click("@saveUserButton");
 });
 
-Then(/^user can see banner contains '(.*)'$/, async (args1) => {
+Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[contains(text(), normalize-space('${args1}')) and contains(@class, 'banner-text')]`,
+    selector: `//article//div[contains(text(), normalize-space("${args1}")) and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });
@@ -1020,8 +1020,14 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   await showAll();
+  let userEmail;
+  if ((args1.includes("*")) && (user.email != null)) {
+    userEmail = user.email;
+  } else {
+    userEmail = args1;
+  }
   await page.click({
-    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
+    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${userEmail}')]//a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   });
 });

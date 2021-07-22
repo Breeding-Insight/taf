@@ -21,7 +21,7 @@ Feature: Smoke Tests (11)
 		When user sets "<Email>" in Email field of User
 		When user sets "<Role>" in Role dropdown of User
 		When user click 'Save' button in User
-		Then user can see banner contains 'Success!'
+		Then user can see banner contains "Success!"
 		Then user can see "Name" column in Users
 		Then user can see "Email" column in Users
 		Then user can see "Roles" column in Users
@@ -56,7 +56,7 @@ Feature: Smoke Tests (11)
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
-		Then user can see banner contains 'Success!'
+		Then user can see banner contains "Success!"
 		Then user can see "Name" column header
 		Then user can see "# Experiments" column header
 		Then user can see "<location name>" in Name column in Program Management page
