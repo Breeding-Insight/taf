@@ -10,7 +10,6 @@ Feature: Smoke Tests (11)
 			| Test *       | Sweet Potato |
 		Then user can see a new program is created
 
-	@banner
 	@BI-806
 	Scenario Outline: New Program User
 		Given user logs in as "Cucumber Breeder"
@@ -47,7 +46,6 @@ Feature: Smoke Tests (11)
 		Then user can see 'per page' label
 		Then user can see Results Per Page dropdown
 
-	@banner
 	@BI-807
 	Scenario Outline: Program Location Management page
 		Given user logs in as "Cucumber Breeder"
@@ -58,7 +56,7 @@ Feature: Smoke Tests (11)
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
-		Then user can see banner contains 'Success! <location name> added.'
+		Then user can see banner contains 'Success!'
 		Then user can see "Name" column header
 		Then user can see "# Experiments" column header
 		Then user can see "<location name>" in Name column in Program Management page

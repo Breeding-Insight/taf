@@ -60,7 +60,6 @@ Feature: Trait Import (10 Scenarios)
 		Then user can not see a modal box
 		Then user can see 'Curate And Confirm New Traits' header
 
-	@banner
 	@BI-921
 	Scenario: Traits - Abort Import, Yes, Abort
 		And user uploads "test_import-xls.xls" file
@@ -69,7 +68,6 @@ Feature: Trait Import (10 Scenarios)
 		When user selects 'Yes, abort' button
 		Then user can see banner contains 'Import cancelled'
 
-	@banner
 	@BI-922
 	@BI-811
 	Scenario: Traits - Confirm Import for xls file
@@ -91,7 +89,6 @@ Feature: Trait Import (10 Scenarios)
 		Then user can see "test_import-csv.csv" displayed
 		And user can see 'Import' button
 
-	@banner
 	@BI-924
 	Scenario: Traits - Confirm Import for csv file
 		And user uploads "test_import-csv.csv" file

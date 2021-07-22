@@ -73,7 +73,6 @@ Feature: Breeder User Management
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 
-	@banner
 	@BI-889
 	Scenario: New User form - enter nothing and select Save
 		Given user logs in as "Cucumber Breeder"
@@ -99,7 +98,6 @@ Feature: Breeder User Management
 		And user can see 'Email is required' below the Email field
 		And user can see 'Role is required' below the Role field
 
-	@banner
 	@BI-891
 	Scenario: ew Program User form - enter name and email only - Save
 		Given user logs in as "Cucumber Breeder"
@@ -137,7 +135,6 @@ Feature: Breeder User Management
 			| Test * | test*@mailinator.com | breeder |
 		Then user can see a new user is added in User
 
-	@banner
 	@BI-894
 	Scenario: NEW Program User form - enter invalid email address - Save
 		Given user logs in as "Cucumber Breeder"
@@ -152,7 +149,6 @@ Feature: Breeder User Management
 		Then user can see banner appears with an error message 'Fix Invalid Fields'
 		Then user can see 'Email must be in email format' below the Email field
 
-	@banner
 	@BI-896
 	Scenario: NEW User form - enter existing email address - Save
 		Given user logs in as "Cucumber Breeder"

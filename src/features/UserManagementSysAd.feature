@@ -38,7 +38,6 @@ Feature: System User Management (15)
 		And user can see Save button
 		And user can see Cancel button
 
-	@banner
 	@BI-827
 	Scenario: Entering Name only and selecting Save - error message
 		Given user is on the user-management page
@@ -48,7 +47,6 @@ Feature: System User Management (15)
 		Then user can see banner appears with an error message 'Fix Invalid Fields'
 		And user can see 'Email is required' below the Email field
 
-	@banner
 	@BI-828
 	Scenario: Entering Email only and selecting Save - error message
 		Given user is on the user-management page
@@ -154,7 +152,6 @@ Feature: System User Management (15)
 		When user selects 'Yes, deactivate' button
 		Then user can not see user is in users list
 
-	@banner
 	@BI-836
 	Scenario Outline: Editing self
 		Given user is on the user-management page
