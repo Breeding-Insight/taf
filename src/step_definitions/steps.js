@@ -156,24 +156,18 @@ Then(/^user can see New User button$/, async () => {
   await page.assert.visible("@newUserButton");
 });
 
-Then(/^user can see each row has an Edit link$/, async () => {
-  const selector = {
-    selector: "//a[contains(text(),'Edit')]",
-    locateStrategy: "xpath",
-  };
-
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+Then(/^user can not see New User button$/, async () => {
+  await page.assert.not.elementPresent("@newUserButton");
 });
 
-Then(/^user can see each row doesn't have an Edit link$/, async () => {
+Then(/^user can not see "([^"]*)" link$/, async () => {
+  await page.assert.not.elementPresent({
+    selector: "//a[contains(text(),'Edit')]",
+    locateStrategy: "xpath"
+  });
+});
+
+Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
     selector: "//a[contains(text(),'Edit')]",
     locateStrategy: "xpath",
@@ -206,20 +200,12 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
   await page.expect.elements(selector).count.equal(rows);
 });
 
-Then(/^user can see each row doesn't have a Deactivate link$/, async () => {
+Then(/^user can see each row does not have an? "([^"]*)" link$/, async (args1) => {
   const selector = {
-    selector: "//a[contains(text(),'Deactivate')]",
+    selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   };
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+  await page.expect.elements(selector).count.equal(0);
 });
 
 Then(/^user can see Previous page button$/, async () => {
