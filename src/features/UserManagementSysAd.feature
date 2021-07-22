@@ -165,7 +165,7 @@ Feature: System User Management (15)
 
 		Examples:
 			| Email                    | New Name | New Email              | New Role |
-			| christian@mailinator.com | TestNew  | testnew@mailinator.com | No Role  |
+			| christian@mailinator.com | TestNew *  | testnew*@mailinator.com | No Role  |
 
 
 	#     Scenario: Editing form and selecting Save

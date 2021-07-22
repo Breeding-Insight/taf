@@ -966,7 +966,7 @@ When(/^user click 'Save' button in User$/, async () => {
   await page.click("@saveUserButton");
 });
 
-Then(/^user can see banner contains '([^']*)'$/, async (args1) => {
+Then(/^user can see banner contains '(.*)'$/, async (args1) => {
   await page.assert.visible({
     selector: `//article//div[contains(text(), normalize-space('${args1}')) and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
