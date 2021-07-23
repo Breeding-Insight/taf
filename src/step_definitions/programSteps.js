@@ -195,17 +195,17 @@ Then(
 );
 
 When(/^user selects 'Edit' of "([^"]*)" in Programs page$/, async (args1) => {
-  let program;
+  let programName;
   if (program.Name != null) {
-    program = program.Name;
+    programName = program.Name;
   } else {
-    program = args1;
+    programName = args1;
   }
   const selector = {
-    selector: `.//td[@name='name'][normalize-space(.)='${program}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+    selector: `.//td[@name='name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   };
-  await this.click(selector);
+  await page.click(selector);
 });
 
 Then(
@@ -329,7 +329,7 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
 When(
   /^user selects 'New Location' button in Program Management page$/,
   async () => {
-    await page.section.locationForm.click("@newLocationButton");
+    await page.click("@newLocationButtonNoLocsPresent");
   }
 );
 
@@ -340,7 +340,11 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
   async (args1) => {
-    await page.section.locationForm.setValue("@nameField", args1);
+    this.location = {};
+    this.location.Name = args1.replace("*", Date.now().toString());
+    await page.section.locationForm.setValue(
+      "@nameField", 
+      this.location.Name)
   }
 );
 
@@ -354,7 +358,14 @@ Then(
 Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
-    await page.section.locationForm.isItemInNewRow({ Name: args1 });
+    let locationName;
+    if (typeof this.location !== 'undefined') {
+      locationName = this.location.Name;
+    }
+    else {
+      locationName=args1;
+    }
+    await page.section.locationForm.isItemInNewRow({ Name: locationName });
   }
 );
 
@@ -383,7 +394,7 @@ Then(
 Then(
   /^user can see 'Name is required' below the Name field in Program Management page$/,
   async () => {
-    await page.section.programManagement.section.form.visible(
+    await page.section.programManagement.section.form.assert.visible(
       "@nameIsRequiredText"
     );
   }

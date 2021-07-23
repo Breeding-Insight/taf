@@ -366,15 +366,15 @@ When(/^user creates a new program$/, async function (table) {
     for (hash of table.hashes()) {
       switch (column) {
         case "Program Name":
-          this.program.name = hash["Program Name"].replace(
+          this.program.Name = hash["Program Name"].replace(
             "*",
             Date.now().toString()
           );
-          await programForm.setValue("@programNameField", this.program.name);
+          await programForm.setValue("@programNameField", this.program.Name);
           break;
         case "Species":
-          this.program.species = hash["Species"];
-          await programForm.setValue("@speciesSelect", this.program.species);
+          this.program.Species = hash["Species"];
+          await programForm.setValue("@speciesSelect", this.program.Species);
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
@@ -388,13 +388,13 @@ When(/^user creates a new program$/, async function (table) {
 Then(/^user can see a new program is created$/, async () => {
   await page.assert.containsText(
     "#adminProgramTableLabel table tr.is-new td:nth-child(1)",
-    this.program.name
+    this.program.Name
   );
   await page.assert.containsText(
     "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
-    this.program.species
+    this.program.Species
   );
-  console.log("and this" + this.program.name);
+  console.log("and this" + this.program.Name);
 });
 
 When(/^user selects Cancel button$/, async () => {
@@ -493,7 +493,6 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await showAll();
   await page.assert.containsText("tr.is-new td[name='name']", user.userName);
   await page.assert.containsText("tr.is-new td[name='email']", user.email);
   await page.assert.containsText("tr.is-new td[name='roles']", user.role);
@@ -856,7 +855,7 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(1) > div",
+    "#fileselectmessagebox-import-filename",
     args1
   );
 });
@@ -1032,11 +1031,6 @@ Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
   });
 });
 
-Then(/^user can see new user added in User$/, async () => {
-  await showAll();
-  await page.assert.visible("");
-});
-
 Then(/^user can see 'Previous' button$/, async () => {
   await page.assert.visible("@previousButton");
 });
@@ -1057,7 +1051,7 @@ Then(/^user can see Results Per Page dropdown$/, async () => {
 });
 
 Then(/^user can see 'New Location' in Locations$/, async () => {
-  await page.assert.visible("@newLocationButton");
+  await page.assert.visible("@newLocationButtonNoLocsPresent");
 });
 
 Then(/^user can see 'System Administration' title on Programs$/, async () => {

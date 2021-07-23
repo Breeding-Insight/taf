@@ -169,9 +169,14 @@ module.exports = {
       "#app > div:nth-child(1) > article:nth-child(1) > div > div > div > div > div:nth-child(2)",
 
     //location
-    newLocationButton: {
+    newLocationButtonNoLocsPresent: {
       selector:
         "//*[@id='emptyTableMessage']//button[normalize-space(.)='New Location']",
+      locateStrategy: "xpath",
+    },
+    newLocationButtonLocsPresent: {
+      selector:
+        "//*[@id='locationTableLabel']//button[normalize-space(.)='New Location']",
       locateStrategy: "xpath",
     },
 
@@ -342,10 +347,6 @@ module.exports = {
       selector: "#locationTableLabel",
       elements: {
         form: "form.new-form",
-        newLocationButton: {
-          selector: ".//button[normalize-space(.)='New Location']",
-          locateStrategy: "xpath",
-        },
         nameField: "#Name",
         saveButton: {
           selector: ".//span[normalize-space(.)='Save']/ancestor::button",
