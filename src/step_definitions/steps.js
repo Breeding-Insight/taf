@@ -106,7 +106,6 @@ Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.click("@signInButton");
 });
 
-//temp turn not arrow fxn?
 When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
@@ -563,6 +562,7 @@ When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
+    
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
     await page.waitForElementVisible("@userLeftMenu");
