@@ -50,7 +50,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "Tests" in Program Name field in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains "Fix Invalid Fields"
 		Then user can see 'Program Form' in Programs page
 
 	@BI-850
@@ -59,7 +59,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains "Fix Invalid Fields"
 		Then user can see 'Program Form' in Programs page
 		Then user can see 'Program Name is required' text in Programs page
 
@@ -81,7 +81,7 @@ Feature: Program Management (15)
 		When user selects "<Species>" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
+		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name    | Species      | # Users | BrAPI URL      |
 			| Program | Sweet Potato | 0       | System Default |
@@ -101,7 +101,7 @@ Feature: Program Management (15)
 		When user selects 'Save' button in Programs page
 		Then user can see 'Program Form' in Programs page
 		Then user can see "BrAPI URL must be in url format, ex: https://test-server.brapi.org" text under BrAPI URL field in Programs page
-		Then user can see banner contains 'Fix Invalid Fields'
+		Then user can see banner contains "Fix Invalid Fields"
 
 		Examples:
 			| Name     | Species      | BrAPI URL |
@@ -133,7 +133,7 @@ Feature: Program Management (15)
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> is added." in banner
+		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name   | Species   | # Users | BrAPI URL   |
 			| <Name> | <Species> | 0       | <BrAPI URL> |

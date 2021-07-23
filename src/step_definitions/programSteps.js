@@ -321,7 +321,7 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
   else programName = program.Name;
 
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${programName} archived in system' and @class='level-item']`,
+    selector: `//article//div[normalize-space(.)='${programName} archived in system' and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });

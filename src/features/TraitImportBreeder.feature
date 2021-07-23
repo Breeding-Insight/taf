@@ -66,7 +66,7 @@ Feature: Trait Import (10 Scenarios)
 		And user selects 'Import' button
 		And user selects "Abort" button
 		When user selects 'Yes, abort' button
-		Then user can see 'Imported cancelled' in banner
+		Then user can see banner contains "Import cancelled"
 
 	@BI-922
 	@BI-811
@@ -74,7 +74,7 @@ Feature: Trait Import (10 Scenarios)
 		And user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
-		Then user can see 'Imported traits have been added to Snacks.' in banner
+		Then user can see banner contains "Imported traits have been added to Snacks."
 		And user can see Traits table
 		And user can see "Name" column header
 		And user can see "Level" column header
@@ -94,7 +94,7 @@ Feature: Trait Import (10 Scenarios)
 		And user uploads "test_import-csv.csv" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
-		Then user can see 'Imported traits have been added to Snacks.' in banner
+		Then user can see banner contains "Imported traits have been added to Snacks."
 		And user can see Traits table
 		And user can see "Name" column header
 		And user can see "Level" column header

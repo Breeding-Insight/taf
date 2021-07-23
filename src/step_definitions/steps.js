@@ -256,24 +256,11 @@ When(/^user selects New User button$/, async () => {
 });
 
 Then(
-  /^user can see banner appears with an error message 'Error creating user, a user with this email already exists'$/,
-  async () => {
+  /^user can see banner appears with an error message "([^"]*)"$/,
+  async (args1) => {
     await page.assert.visible("@topAlertDangerArticle");
-    const selector =
-      "#app > div:nth-child(1) > article.notification.is-marginless.is-danger > div > div > div > div:nth-child(2)";
-    await page.assert.visible(selector);
-    await page.assert.containsText(
-      selector,
-      "Error creating user, a user with this email already exists"
-    );
-  }
-);
-
-Then(
-  /^user can see banner appears with an error message 'Fix Invalid Fields'$/,
-  async () => {
-    await page.assert.visible("@topAlertDangerArticle");
-    await page.assert.visible("@fixInvalidFieldsText");
+    await page.assert.visible("@dangerBannerText");
+    await page.assert.containsText("@dangerBannerText", args1);
   }
 );
 
@@ -946,20 +933,6 @@ When(/^user selects 'Import' button$/, async () => {
   await page.pause(3000);
 });
 
-Then(/^user can see 'Imported cancelled' in banner$/, async () => {
-  await page.assert.containsText("@bannerText", "Import cancelled");
-});
-
-Then(
-  /^user can see 'Imported traits have been added to Snacks.' in banner$/,
-  async () => {
-    await page.assert.containsText(
-      "@bannerText",
-      "Imported traits have been added to Snacks."
-    );
-  }
-);
-
 When(/^user selects 'Yes, abort' button$/, async () => {
   await page.click(
     "#traitsimport-yes-abort"
@@ -995,14 +968,7 @@ When(/^user click 'Save' button in User$/, async () => {
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
-    locateStrategy: "xpath",
-  });
-});
-
-Then(/^user can see "([^"]*)" in banner$/, async (args1) => {
-  await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
+    selector: `//article//div[contains(text(), normalize-space("${args1}")) and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });
@@ -1054,8 +1020,14 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   await showAll();
+  let userEmail;
+  if ((args1.includes("*")) && (user.email != null)) {
+    userEmail = user.email;
+  } else {
+    userEmail = args1;
+  }
   await page.click({
-    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
+    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${userEmail}')]//a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   });
 });
