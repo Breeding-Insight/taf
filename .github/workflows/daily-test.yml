@@ -1,20 +1,3 @@
-#
-#    See the NOTICE file distributed with this work for additional information
-#    regarding copyright ownership.
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
-#
-
 name: daily run for taf
 
 on:
@@ -65,10 +48,6 @@ jobs:
       EMAIL_RELAY_HOST: mailhog
       EMAIL_RELAY_PORT: 1025
       EMAIL_FROM: bidevteam@cornell.edu
-    
-    #services:
-    #  selenium:
-    #    image: selenium/standalone-chrome
 
     steps:
     - uses: actions/checkout@v2
@@ -78,7 +57,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     
-    #check out docker stuff
+    #check out docker
     - name: Docker checkout (private)
       uses: actions/checkout@v2
       with:
@@ -101,36 +80,11 @@ jobs:
           
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@latest
-      #run: |
-      #  sudo apt-get update
-      #  sudo apt-get --only-upgrade install google-chrome-stable
-      #  google-chrome --version
-      #uses: browser-actions/setup-chrome@90.0.4430
-      #run: |
-      #    VERSION_STRING="88.0.4324.96-1"
-      #    wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_90.0.4430_amd64.deb"
-      #    sudo dpkg -i "google-chrome-stable_90.0.4430_amd64.deb"
       if: matrix.os == 'ubuntu-latest'
-      
-    #- name: Get chrome stable
-    #  uses: ./dist/
-    #  with:
-    #   chrome-version: stable
       
     - name: Run Chrome
       if: matrix.os == 'ubuntu-latest'
       run: chrome --version
-      
-    #- name: Set up compatible chromedriver
-    #  uses: nanasess/setup-chromedriver@master
-      #with:
-      #  chromedriver-version: '91.0.4472'
-        
-    #- name: Run compatible chromedriver
-      #run: |
-        #export DISPLAY=:99
-        #chromedriver --url-base=/wd/hub &
-        #sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       
     - name: Set up Edge
       uses: browser-actions/setup-edge@latest
@@ -144,11 +98,6 @@ jobs:
     - name: set up required bidb data for tests
       #shell: bash #'script -q -e -c "bash {0}"'    
       run: | 
-        #echo $(ls)
-        #docker exec bidb ADD /taf/populate-taf-data.sql root/
-        #/home/host
-        #docker exec pwd
-        #docker exec cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb -v filePath="${{ github.workspace }}/programIds.json"  #eventually remove a cause output messy
     
@@ -163,24 +112,11 @@ jobs:
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
-    #- run: npm ci #unclear if needed
-    #- run: npm run build --if-present #unclear if needed
-      #run: npm run test:chrome
-      #run: |
-      #  $Env:CHROMIUM_BIN = "chrome"
-      #  npm run test:chrome --headless --no-sandbox
-      run: npm run test:chromeDaily --headless --no-sandbox
+      run: npm run test:chromeDaily --headless --disable-gpu
       
     - name: Run tests on Edge
       if: matrix.os == 'windows-latest'
       run: npm run test:edge
-    
-    #- name: Create Report Folder
-    #  if: always()
-    #  run: |	
-    #    mkdir -p ${{ github.workspace }}/artifact/reports
-    #    cd ${{ github.workspace }}/artifact/reports
-    #    echo 'cucumber_report.html' > ${{ github.workspace }}/artifact/reports/cucumber_report.html
       
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
