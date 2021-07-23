@@ -562,7 +562,7 @@ When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
-    
+
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
     await page.waitForElementVisible("@userLeftMenu");
