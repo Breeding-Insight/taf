@@ -71,7 +71,7 @@ Then(/^user selects the user$/, () => {
   return true;
 });
 
-Given(/^user logs in as "([^"]*)"$/, async function (args1) {
+Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.navigate();
   await waitReady();
   await page.click("@iUnderstandButton");
@@ -103,25 +103,14 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   }
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
-  await page.click("@signInButton").saveScreenshot(`./screenshots/login.png`);
-  await this.attach(fs.readFileSync(`./screenshots/login.png`), 'image/png');
+  await page.click("@signInButton");
 });
 
 //temp turn not arrow fxn?
-When(/user selects "([^"]*)" on program-selection page$/, async function (args1) {
-  //await page.saveScreenshot(`./screenshots/shouldhaveoptions.png`);
-  //this.attach(fs.readFileSync(`./screenshots/shouldhaveoptions.png`), 'image/png');
+When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   await page.click({
     selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
-  });
-  //.saveScreenshot(`./screenshots/program-selecton.png`);
-  //await this.attach(fs.readFileSync(`./screenshots/program-selecton.png`), 'image/png');
-  await new Promise(resolve => {
-      setTimeout(function () {
-        console.log('waited');
-        resolve(true);
-    }, 50000); 
   });
 });
 
@@ -356,11 +345,10 @@ Then(
   }
 );
 
-When(/^user creates a new program$/, async function (table) {
+When(/^user creates a new program$/, async (table) => {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
-  await page.click("@newProgramButton").saveScreenshot(`./screenshots/newprogrambutton.png`);
-  this.attach(fs.readFileSync(`./screenshots/newprogrambutton.png`), 'image/png');
+  await page.click("@newProgramButton");
   let programForm = page.section.programForm;
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
@@ -381,8 +369,7 @@ When(/^user creates a new program$/, async function (table) {
       }
     }
   }
-  await programForm.click("@saveButton").saveScreenshot(`./screenshots/newprogramsave.png`);
-    this.attach(fs.readFileSync(`./screenshots/newprogramsave.png`), 'image/png');
+  await programForm.click("@saveButton");
 });
 
 Then(/^user can see a new program is created$/, async () => {
@@ -574,16 +561,14 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 
 When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
-  async function (args1, args2) {
+  async (args1, args2) => {
     await page.navigateToProgram(args2);
-    await page.saveScreenshot(`./screenshots/usercheck.png`);
-    this.attach(fs.readFileSync(`./screenshots/usercheck.png`), 'image/png');
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
     await page.waitForElementVisible("@userLeftMenu");
     await page.click("@userLeftMenu");
     await page.waitForElementVisible("@showAllButton");
-    await page.click("@showAllButton");	  
+    await page.click("@showAllButton");
     await page.waitForElementVisible({
       selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
