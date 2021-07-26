@@ -84,7 +84,7 @@ Feature: Breeder User Management
 		And user can see 'Name is required' below the Name field
 		And user can see 'Email is required' below the Email field
 		And user can see 'Role is required' below the Role field
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 
 	@BI-890
 	Scenario: New User form - enter name only - Save
@@ -108,7 +108,7 @@ Feature: Breeder User Management
 		And user sets "Tester Breeder" in Name field
 		And user sets "testnewuser@mail.com" in Email field
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Role is required' below the Role field
 
 	@BI-892
@@ -146,7 +146,7 @@ Feature: Breeder User Management
 		And user sets "testnewuser" in Email field
 		And user sets "breeder" in Role dropdown
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		Then user can see 'Email must be in email format' below the Email field
 
 	@BI-896
@@ -160,7 +160,7 @@ Feature: Breeder User Management
 		And user sets "cucumberbreeder@mailinator.com" in Email field
 		And user sets "breeder" in Role dropdown
 		And user selects Save button
-		Then user can see banner appears with an error message 'Error creating user, a user with this email already exists'
+		Then user can see banner appears with an error message "Error creating user, a user with this email already exists"
 		Then user can see new user form
 
 	@BI-897
