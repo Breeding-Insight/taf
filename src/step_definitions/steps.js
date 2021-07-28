@@ -502,11 +502,11 @@ Then(/^user can not see user is in users list$/, async () => {
 
 Then(/^user can see edited user in users list$/, async () => {
   await page.assert.visible({
-    selector: `//td[contains(text(),'${user.userName}']`,
+    selector: `//td[contains(text(),'${user.userName}')]`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//td[contains(text(),'${user.email}']`,
+    selector: `//td[contains(text(),'${user.email}')]`,
     locateStrategy: "xpath",
   });
 });
