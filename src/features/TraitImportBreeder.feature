@@ -39,18 +39,20 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
+	@modal
 	@BI-919
 	Scenario: Traits - Abort Import, Modal
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		And user selects "Abort" button
 		Then user can see a modal box
-		And user can sees 'Abort This Import' in modal box
+		And user can see 'Abort This Import' in modal box
 		And user can see 'No traits will be added, and the import in progress will be completely removed.' in modal box
 		And user can see 'Yes, abort' button
 		And user can see "Cancel" button
 		And user selects "Cancel" button
 
+	@modal
 	@BI-920
 	Scenario: Traits - Abort Import, Cancel
 		When user uploads "test_import-xls.xls" file

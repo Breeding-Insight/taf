@@ -184,9 +184,19 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    //modal card
-    modalCard:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card",
+    //modal
+    modalCard: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']",
+      locateStrategy: "xpath",
+    },
+    modalHeader: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      locateStrategy: "xpath",
+    },
+    modalText: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']//p[contains(@class, 'modal-text')]",
+      locateStrategy: "xpath",
+    },
   },
   sections: {
     newUserForm: {

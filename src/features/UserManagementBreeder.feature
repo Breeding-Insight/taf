@@ -204,8 +204,8 @@ Feature: Breeder User Management
 			| member |
 		Then user can see user is in users list
 
+	@modal
 	@BI-900
-	#TODO
 	Scenario: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

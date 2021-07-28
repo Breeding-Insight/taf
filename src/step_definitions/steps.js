@@ -713,25 +713,30 @@ When(/^user selects Deactivate of user$/, async () => {
 });
 
 Then(/^user can see a modal with Deactivate message$/, async () => {
-  const selector =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3";
+  const selector="@modalHeader";
   await page.assert.visible(selector);
+
+  page.getText(selector, function(result) {
+    console.log(result.value);
+  });
+  
   await page.assert.containsText(
     selector,
-    `Deactivate ${user.userName} from the system?`
+    `Deactivate ${user.userName} from program`
   );
 
-  const messageText1 =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(1)";
-  await page.assert.containsText(
-    messageText1,
-    "Access for this user will be removed system wide."
-  );
+  const messageText="@modalText";
 
-  const messageText2 =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(2)";
+  page.getText(messageText, function(result) {
+    console.log(result.value);
+  });
   await page.assert.containsText(
-    messageText2,
+    messageText,
+    "Access for this user will be removed system wide"
+  );
+  
+  await page.assert.containsText(
+    messageText,
     "Program-related data collected by this user will not be affected by this change."
   );
 });
@@ -880,28 +885,23 @@ Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
 });
 
 Then(/^user can see a modal box$/, async () => {
-  await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card"
-  );
+  await page.assert.visible("@modalCard");
 });
 
 Then(/^user can not see a modal box$/, async () => {
   await page.assert.not.elementPresent("@modalCard");
 });
 
-Then(/^user can sees 'Abort This Import' in modal box$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3",
-    "Abort This Import"
-  );
+Then(/^user can see 'Abort This Import' in modal box$/, async () => {
+  await page.assert.containsText("@modalHeader", "Abort This Import");
 });
 
+//Todo maybe simplify steps checking for modal text
 Then(
   /^user can see 'No traits will be added, and the import in progress will be completely removed.' in modal box$/,
   async () => {
     await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p",
-      "No traits will be added, and the import in progress will be completely removed."
+      "@modalText", "No traits will be added, and the import in progress will be completely removed."
     );
   }
 );

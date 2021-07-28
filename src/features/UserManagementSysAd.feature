@@ -128,6 +128,7 @@ Feature: System User Management (15)
 		And user can see 'Cancel' button
 		And user selects 'Cancel' button
 
+	@modal
 	@BI-839
 	Scenario: User Deactivate link and Cancel
 		Given user is on the user-management page
