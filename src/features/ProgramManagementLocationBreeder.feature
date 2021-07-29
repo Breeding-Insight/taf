@@ -31,17 +31,6 @@ Feature: Program Location Management
 		When user selects 'Cancel' button in Program Management page
 		When user user can not see Location form in Program Management page
 
-
-
-
-
-
-
-
-
-
-
-
 	@BI-864
 	@BI-888
 	Scenario: Program Users Table
@@ -51,7 +40,7 @@ Feature: Program Location Management
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 		And user can see Users page
-		And user can see table header contains
+		And user can see "Program User Management" table header contains
 			| Header |
 			| Name   |
 			| Email  |

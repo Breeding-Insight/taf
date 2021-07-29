@@ -387,7 +387,7 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 Then(
   /^user can see 'New Location' button in Program Management page$/,
   async () => {
-    await page.section.programManagement.assert.visible("@newLocationButton");
+    await page.assert.visible("@newLocationButtonNoLocsPresent");
   }
 );
 
