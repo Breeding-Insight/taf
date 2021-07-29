@@ -712,37 +712,12 @@ When(/^user selects Deactivate of user$/, async () => {
   });
 });
 
-Then(/^user can see a modal with Deactivate message$/, async () => {
-  const selector="@modalHeader";
-  await page.assert.visible(selector);
-
-  page.getText(selector, function(result) {
-    console.log(result.value);
-  });
-  
-  await page.assert.containsText(
-    selector,
-    `Deactivate ${user.userName} from program`
-  );
-
-  const messageText="@modalText";
-
-  page.getText(messageText, function(result) {
-    console.log(result.value);
-  });
-  await page.assert.containsText(
-    messageText,
-    "Access for this user will be removed system wide"
-  );
-  
-  await page.assert.containsText(
-    messageText,
-    "Program-related data collected by this user will not be affected by this change."
-  );
-});
-
 Then(/^user can see 'Yes, deactivate' button$/, async () => {
   await page.assert.visible("@deactivateButton");
+});
+
+Then(/^user can see 'Yes, archive' button$/, async () => {
+  await page.assert.visible("@archiveButton");
 });
 
 Then(/^user can see 'Cancel' button$/, async () => {
@@ -760,10 +735,7 @@ When(/^user selects 'Cancel' button$/, async () => {
 });
 
 When(/^user selects modal Yes, archive button$/, async () => {
-  await page.click({
-    selector: "//strong[normalize-space(.)='Yes, archive']/..",
-    locateStrategy: "xpath",
-  });
+  await page.click("@archiveButton");
 });
 
 Then(/^user can see "([^"]*)" in the the Role dropdown$/, async (args1) => {
@@ -892,19 +864,39 @@ Then(/^user can not see a modal box$/, async () => {
   await page.assert.not.elementPresent("@modalCard");
 });
 
-Then(/^user can see 'Abort This Import' in modal box$/, async () => {
-  await page.assert.containsText("@modalHeader", "Abort This Import");
+Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
+  let headerText;
+  if (args1.includes("User*")) {
+    headerText = user.userName;
+  } else if(args1.includes("Program*")) {
+    headerText = this.program.Name;
+  } else {
+    headerText=args1;
+  }
+  await page.assert.containsText("@modalHeader", headerText);
 });
 
-//Todo maybe simplify steps checking for modal text
-Then(
-  /^user can see 'No traits will be added, and the import in progress will be completely removed.' in modal box$/,
-  async () => {
-    await page.assert.containsText(
-      "@modalText", "No traits will be added, and the import in progress will be completely removed."
+When(
+  /^user sets "([^"]*)" in Program Name field in Programs page$/,
+  async (args1) => {
+    await page.section.programForm.clearValue("@programNameField");
+    this.program = {};
+    this.program.Name = args1.replace("*", Date.now().toString());
+    await page.section.programForm.setValue(
+      "@programNameField",
+      this.program.Name
     );
   }
 );
+
+
+Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
+    //Multiple text lines can exist, so selector needs to be specific to text
+    await page.assert.visible({
+      selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
+      locateStrategy: "xpath",
+    });
+});
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
   await page.assert.containsText(

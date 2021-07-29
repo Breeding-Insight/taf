@@ -183,6 +183,11 @@ module.exports = {
         "//*[@id='app']//main//section//button[normalize-space(.)='Yes, deactivate']",
       locateStrategy: "xpath",
     },
+    archiveButton: {
+      selector:
+        "//*[@id='app']//main//section//button[normalize-space(.)='Yes, archive']",
+      locateStrategy: "xpath",
+    },
 
     //modal
     modalCard: {
@@ -191,10 +196,6 @@ module.exports = {
     },
     modalHeader: {
       selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
-      locateStrategy: "xpath",
-    },
-    modalText: {
-      selector: "//div[@class='modal is-active']/div[@class='modal-card']//p[contains(@class, 'modal-text')]",
       locateStrategy: "xpath",
     },
   },
@@ -251,8 +252,6 @@ module.exports = {
           selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
           locateStrategy: "xpath",
         },
-        modalAlertMessage: "div.modal-card article h3",
-        modalMessage: "section p",
         yesRemoveButton: {
           selector:
             ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",

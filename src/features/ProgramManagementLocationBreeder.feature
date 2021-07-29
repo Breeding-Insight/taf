@@ -237,21 +237,27 @@ Feature: Program Location Management
 			| member |
 		Then user can see user is in users list
 
-	@modal
 	@BI-900
-	Scenario: Deactivate link - modal
+	Scenario Outline: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| User* | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		Then user can see a modal with Deactivate message
-		Then user can see 'Yes, deactivate' button
+		Then user can see "Deactivate" in modal box header
+		Then user can see "<NameToDeactivate>" in modal box header
+		Then user can see "from program Snacks?" in modal box header
+		Then user can see "This will only remove the user's access to your program and will not affect their account." in modal box text
+		Then user can see "Program-related data collected by this user will not be affected by this change." in modal box text
+		Then user can see 'Yes, archive' button
 		And user can see 'Cancel' button
-		And user can see Save button
+
+	Examples: 
+    	| NameToDeactivate |
+		| User*       |
 
 	@BI-901
 	Scenario: Deactivate link - Cancel
