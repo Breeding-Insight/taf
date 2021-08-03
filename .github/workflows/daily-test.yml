@@ -109,8 +109,7 @@ jobs:
         trailMixId="$(echo -e "${trailMixId}" | sed -e 's/^[[:space:]]*//')"
         docker ps -a
         docker logs brapi-server
-        docker inspect --format "{{json .State.Health }}" brapi-server | jq
-        curl --fail http://localhost:3000 || exit 1 
+        curl --fail http://localhost:8080/brapi/v2/serverinfo || exit 1
         docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$snacksId"'"}]}]' http://localhost:8080/brapi/v2/programs
         docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Trail Mix","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$trailMixId"'"}]}]' http://localhost:8080/brapi/v2/programs
         
