@@ -316,10 +316,6 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
-        newLocationButton: {
-          selector: ".//button[normalize-space(.)='New Location']",
-          locateStrategy: "xpath",
-        },
         nameIsRequiredText: {
           selector: ".//span[normalize-space(.)='Name is required']",
           locateStrategy: "xpath",

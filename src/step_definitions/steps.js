@@ -154,6 +154,28 @@ Then(/^user can see table header contains$/, async (table) => {
   }
 });
 
+//For Buefy tables
+Then(/^user can see "([^"]*)" table header contains$/, async (args1, table) => {
+  for (column of table.raw()[0]) {
+    for (i = 0; i < table.hashes().length; i++) {
+      switch (column) {
+        case "Header":
+          const select = {
+            selector:
+              "//th//span[contains(text(),'" +
+              table.hashes()[i][column] +
+              "')]",
+            locateStrategy: "xpath",
+          };
+          await page.assert.visible(select);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+});
+
 Then(/^user can see New User button$/, async () => {
   await page.assert.visible("@newUserButton");
 });
@@ -452,23 +474,23 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
-  await page.assert.containsText("tr.is-new td[name='email']", user.email);
-  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
+  await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
+  await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
+  await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {
   await showAll();
   await page.assert.visible({
-    selector: `//tr/td[normalize-space(.)='${user.userName}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.userName}']`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//tr/td[normalize-space(.)='${user.email}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.email}']`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//td[contains(text(), '${user.email}')]/..//td[normalize-space(.)='${user.role}')]`,
+    selector: `//td[contains(text(), '${user.email}')]/..//td[normalize-space(.)='${user.role}']`,
     locateStrategy: "xpath",
   });
 });
@@ -985,10 +1007,6 @@ Then(/^user can see 'per page' label$/, async () => {
 
 Then(/^user can see Results Per Page dropdown$/, async () => {
   await page.assert.visible("@paginationComboBox");
-});
-
-Then(/^user can see 'New Location' in Locations$/, async () => {
-  await page.assert.visible("@newLocationButtonNoLocsPresent");
 });
 
 Then(/^user can see 'System Administration' title on Programs$/, async () => {
