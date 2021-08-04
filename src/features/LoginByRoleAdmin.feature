@@ -6,7 +6,7 @@ Feature: Logging with Sys Administration
 		And user can see "Cucumber Breeder" has been added to "Snacks" as a breeder
 		And user can see "Cucumber Breeder" has been added to "Trail Mix" as a member
 		And user can see "TrailMix Breeder" has been added to "Trail Mix" as a breeder
-		And user can see "Snacks" as a program
+		
 
 	@BI-817
 	Scenario: Logging in as an admin - program selection
@@ -16,6 +16,7 @@ Feature: Logging with Sys Administration
 		And user can see "System Administration" is top of the list
 		And user can see "Snacks" is in the list
 		And user can see "Trail Mix" is in the list
+		
 
 	@BI-803
 	@BI-818
