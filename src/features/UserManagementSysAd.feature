@@ -163,11 +163,12 @@ Feature: System User Management (15)
 		Then user can see banner contains "User info (name/email/program) successfully updated"
 		Then user can see banner contains "You don't have permissions to edit the roles of this user."
 		#CLEANUP
-		#When user selects 'Edit' of "<New Email>" of Users
-		#And user sets "<Original Name>" in Name field
-		#And user sets "<Original Email>" in Email field
-		#And user sets "<Original Role>" in Role dropdown
-		#And user selects 'Save' button in Users 
+		When user selects 'Edit' of "<New Email>" of Users
+		And user sets "<Original Name>" in Name field
+		And user sets "<Original Email>" in Email field
+		And user sets "<Original Role>" in Role dropdown
+		And user selects 'Save' button in Users 
+		#investigate
 
 		Examples:
 			| Original Email           | Original Name | Original Role | New Name   | New Email               | New Role |
