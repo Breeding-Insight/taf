@@ -13,7 +13,7 @@
     "test:sandbox.chrome": "mkdirp report && cucumber-js src/features --require cucumber.conf.js  --tags @bug --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env sandbox.chrome",
     "test:chromeDaily": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
     "test:chromeWeekly": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
-    "test:chromeSingle": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @BI-836 --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
+    "test:chromeSingle": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @BI-858 --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report",
     "report": "node reporter.js"
   },
   "repository": {
