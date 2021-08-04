@@ -1,23 +1,46 @@
-Feature: Breeder User Management
+Feature: Program Location Management
 
-	Scenario: User Program Welcome Page
-		Given user logs in as "Cucumber Member"
-		Then user can see "Welcome, Cucumber Member!" on program-selection page
-		And user can see 'Which program are you working with today'
+	@BI-905
+	Scenario: Program Location Management page - admin
+		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		Then user can see "Home" in navigation
-		And user can see "Traits" in navigation
-		And user can see "Program Management" in navigation
+		And user selects "Program Management" in navigation
+		When user can see Program Management header in Program Management page
+		Then user can see 'Locations' tab in Program Management page
+		Then user can see 'Users' tab in Program Management page
+		Then user can see 'New Location' button in Program Management page
 
-	@BI-887
-	Scenario: Users Table
-		Given user logs in as "Cucumber Member"
+	@BI-906
+	Scenario: New Location form - enter nothing and select Save
+		Given user logs in as "Cucumber Breeder"
+		When user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		When user selects 'New Location' button in Program Management page
+		When user selects 'Save' button in Program Management page
+		Then user can see banner appears with an error message "Fix Invalid Fields"
+		And user can see 'Name is required' below the Name field in Program Management page
+
+	@BI-907
+	@debug
+	Scenario: New Location form - enter location - Cancel
+		Given user logs in as "Cucumber Breeder"
+		When user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		When user selects 'New Location' button in Program Management page
+		When user sets "TestCancel" in Name field in Program Management page
+		When user selects 'Cancel' button in Program Management page
+		When user user can not see Location form in Program Management page
+
+	@BI-864
+	@BI-888
+	Scenario: Program Users Table
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 		And user can see Users page
-		And user can see table header contains
+		And user can see "Program User Management" table header contains
 			| Header |
 			| Name   |
 			| Email  |
@@ -31,8 +54,10 @@ Feature: Breeder User Management
 		And user can see Label per page
 		And user can see Show All button
 
+	@BI-805
+	@SmokeTests
 	Scenario: User Management page
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -49,29 +74,30 @@ Feature: Breeder User Management
 			| Email  |
 			| Role   |
 
-	Scenario: No System Role and Program Member - Program User Management
-		Given user logs in as "Cucumber Member"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
-		Then user can see page of Users
-		And user can see table header contains
-			| Header |
-			| Name   |
-			| Email  |
-			| Role   |
-		And user can see each row doesn't have an Edit link
-		And user can see each row doesn't have a Deactivate link
+	# 	Scenario: No System Role and Program Member - Program User Management
+	# 		Given user logs in as "Cucumber Breeder"
+	# 		And user selects "Snacks" on program-selection page
+	# 		And user selects "Program Management" in navigation
+	# 		And user selects "Users" in navigation
+	# 		Then user can see page of Users
+	# 		And user can see table header contains
+	# 			| Header |
+	# 			| Name   |
+	# 			| Email  |
+	# 			| Role   |
+	# 		And user can see each row doesn't have an Edit link
+	# 		And user can see each row doesn't have a Deactivate link
 
 	Scenario: ???
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 
+	@BI-889
 	Scenario: New User form - enter nothing and select Save
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -80,10 +106,11 @@ Feature: Breeder User Management
 		And user can see 'Name is required' below the Name field
 		And user can see 'Email is required' below the Email field
 		And user can see 'Role is required' below the Role field
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 
+	@BI-890
 	Scenario: New User form - enter name only - Save
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -93,8 +120,22 @@ Feature: Breeder User Management
 		And user can see 'Email is required' below the Email field
 		And user can see 'Role is required' below the Role field
 
+	@BI-891
+	Scenario: ew Program User form - enter name and email only - Save
+		Given user logs in as "Cucumber Breeder"
+		And user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		And user selects "Users" in navigation
+		And user selects New User button
+		And user sets "Tester Breeder" in Name field
+		And user sets "testnewuser@mail.com" in Email field
+		And user selects Save button
+		Then user can see banner appears with an error message "Fix Invalid Fields"
+		And user can see 'Role is required' below the Role field
+
+	@BI-892
 	Scenario: New User form - enter all required, valid fields - Cancel
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -105,8 +146,9 @@ Feature: Breeder User Management
 		Then user does not see new user form
 		And user does not see a new user in Users list
 
+	@BI-893
 	Scenario: New User form - enter all required, valid fields - Save
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -115,8 +157,23 @@ Feature: Breeder User Management
 			| Test * | test*@mailinator.com | breeder |
 		Then user can see a new user is added in User
 
+	@BI-894
+	Scenario: NEW Program User form - enter invalid email address - Save
+		Given user logs in as "Cucumber Breeder"
+		And user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		And user selects "Users" in navigation
+		And user selects New User button
+		And user sets "Tester Breeder" in Name field
+		And user sets "testnewuser" in Email field
+		And user sets "breeder" in Role dropdown
+		And user selects Save button
+		Then user can see banner appears with an error message "Fix Invalid Fields"
+		Then user can see 'Email must be in email format' below the Email field
+
+	@BI-896
 	Scenario: NEW User form - enter existing email address - Save
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -125,11 +182,12 @@ Feature: Breeder User Management
 		And user sets "cucumberbreeder@mailinator.com" in Email field
 		And user sets "breeder" in Role dropdown
 		And user selects Save button
-		Then user can see banner appears with an error message 'Error creating user, a user with this email already exists'
+		Then user can see banner appears with an error message "Error creating user, a user with this email already exists"
 		Then user can see new user form
 
+	@BI-897
 	Scenario: Edit Form elements
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -138,9 +196,12 @@ Feature: Breeder User Management
 			| Test * | test*@mailinator.com | breeder |
 		And user clicks Edit of a user
 		Then user can see "breeder" in the the Role dropdown
+		Then user can see Save button
+		Then user can see Cancel button
 
+	@BI-898
 	Scenario: Edit Form - change role - Cancel
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -151,8 +212,9 @@ Feature: Breeder User Management
 		And user selects Cancel button
 		Then user can see user is in users list
 
+	@BI-899
 	Scenario: Edit Form - change role - Save
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -164,22 +226,31 @@ Feature: Breeder User Management
 			| member |
 		Then user can see user is in users list
 
-	Scenario: Deactivate link - modal
-		Given user logs in as "Cucumber Member"
+	@BI-900
+	Scenario Outline: Deactivate link - modal
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| User* | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		Then user can see a modal with Deactivate message
-		And user can see Yes, archive button
-		And user can see modal Cancel button
-		And user selects modal Cancel button
+		Then user can see "Deactivate" in modal box header
+		Then user can see "<NameToDeactivate>" in modal box header
+		Then user can see "from program Snacks?" in modal box header
+		Then user can see "This will only remove the user's access to your program and will not affect their account." in modal box text
+		Then user can see "Program-related data collected by this user will not be affected by this change." in modal box text
+		Then user can see 'Yes, archive' button
+		And user can see 'Cancel' button
 
+	Examples: 
+    	| NameToDeactivate |
+		| User*       |
+
+	@BI-901
 	Scenario: Deactivate link - Cancel
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
@@ -187,11 +258,11 @@ Feature: Breeder User Management
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		And user selects modal Cancel button
+		And user can see 'Cancel' button
 		Then user can see user is in users list
 
 	Scenario: Deactivate link - Yes, deactivate
-		Given user logs in as "Cucumber Member"
+		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation

@@ -65,7 +65,7 @@ module.exports = {
     loggedInAsLabel:
       "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
     logoutButton:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(2) > button",
+      "#basesidebarlayout-logout-button",
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -144,10 +144,11 @@ module.exports = {
 
     //top alert
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
-    fixInvalidFieldsText: {
-      selector: "//*[@id='app']//div[contains(text(), 'Fix Invalid Fields')]",
+    //danger banner
+    dangerBannerText: {
+      selector: "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
       locateStrategy: "xpath",
-    },
+    },    
 
     //program list
     topProgramButton:
@@ -164,14 +165,15 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    //banner
-    bannerText:
-      "#app > div:nth-child(1) > article:nth-child(1) > div > div > div > div > div:nth-child(2)",
-
     //location
-    newLocationButton: {
+    newLocationButtonNoLocsPresent: {
       selector:
         "//*[@id='emptyTableMessage']//button[normalize-space(.)='New Location']",
+      locateStrategy: "xpath",
+    },
+    newLocationButtonLocsPresent: {
+      selector:
+        "//*[@id='locationTableLabel']//button[normalize-space(.)='New Location']",
       locateStrategy: "xpath",
     },
 
@@ -181,10 +183,21 @@ module.exports = {
         "//*[@id='app']//main//section//button[normalize-space(.)='Yes, deactivate']",
       locateStrategy: "xpath",
     },
+    archiveButton: {
+      selector:
+        "//*[@id='app']//main//section//button[normalize-space(.)='Yes, archive']",
+      locateStrategy: "xpath",
+    },
 
-    //modal card
-    modalCard:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card",
+    //modal
+    modalCard: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']",
+      locateStrategy: "xpath",
+    },
+    modalHeader: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      locateStrategy: "xpath",
+    },
   },
   sections: {
     newUserForm: {
@@ -239,8 +252,6 @@ module.exports = {
           selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
           locateStrategy: "xpath",
         },
-        modalAlertMessage: "div.modal-card article h3",
-        modalMessage: "section p",
         yesRemoveButton: {
           selector:
             ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",
@@ -314,10 +325,6 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
-        newLocationButton: {
-          selector: ".//button[normalize-space(.)='New Location']",
-          locateStrategy: "xpath",
-        },
         nameIsRequiredText: {
           selector: ".//span[normalize-space(.)='Name is required']",
           locateStrategy: "xpath",
@@ -342,10 +349,6 @@ module.exports = {
       selector: "#locationTableLabel",
       elements: {
         form: "form.new-form",
-        newLocationButton: {
-          selector: ".//button[normalize-space(.)='New Location']",
-          locateStrategy: "xpath",
-        },
         nameField: "#Name",
         saveButton: {
           selector: ".//span[normalize-space(.)='Save']/ancestor::button",

@@ -56,7 +56,7 @@ Feature: Smoke Tests (11)
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
-		Then user can see banner contains "Success! <location name> added."
+		Then user can see banner contains "Success!"
 		Then user can see "Name" column header
 		Then user can see "# Experiments" column header
 		Then user can see "<location name>" in Name column in Program Management page
@@ -64,7 +64,7 @@ Feature: Smoke Tests (11)
 		And user can see each row has a Deactivate link
 		Examples:
 			| location name |
-			| location1     |
+			| Location*     |
 
 	
 # When user selects "New Location" in Locations
@@ -131,7 +131,7 @@ Feature: Smoke Tests (11)
 #               And enter Target into "Name"
 #               And select "Save"
 #              Then the form closes
-#               And there is a success banner which states "Success! Target added."
+#               And there is a success banner which states 'Success! Target added.'
 #               And the headers of the locations table are "Name" And "# Experiments"
 #               And Target is in the list of Locations
 #               And there is an edit link

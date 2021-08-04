@@ -50,7 +50,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "Tests" in Program Name field in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains "Fix Invalid Fields"
 		Then user can see 'Program Form' in Programs page
 
 	@BI-850
@@ -59,7 +59,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can see "Fix Invalid Fields" in banner
+		Then user can see banner contains "Fix Invalid Fields"
 		Then user can see 'Program Form' in Programs page
 		Then user can see 'Program Name is required' text in Programs page
 
@@ -81,14 +81,14 @@ Feature: Program Management (15)
 		When user selects "<Species>" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
+		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name    | Species      | # Users | BrAPI URL      |
 			| Program | Sweet Potato | 0       | System Default |
 
 		Examples:
-			| Name    | Species      |
-			| Program | Sweet Potato |
+			| Name     | Species      |
+			| Program* | Sweet Potato |
 
 	@BI-853
 	Scenario Outline: New Program, invalid url in custom storage location
@@ -99,15 +99,13 @@ Feature: Program Management (15)
 		When user checks 'Specify custom program data storage location' checkbox in Programs page
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
-		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> added." in banner
-		Then user can see new program in Programs page
-			| Name   | Species   | # Users | BrAPI URL                            |
-			| <Name> | <Species> | 0       | https://<BrAPI URL>-server.brapi.org |
+		Then user can see 'Program Form' in Programs page
+		Then user can see "BrAPI URL must be in url format, ex: https://test-server.brapi.org" text under BrAPI URL field in Programs page
+		Then user can see banner contains "Fix Invalid Fields"
 
 		Examples:
-			| Name    | Species      | BrAPI URL |
-			| Program | Sweet Potato | test      |
+			| Name     | Species      | BrAPI URL |
+			| Program* | Sweet Potato | test      |
 
 	@BI-854
 	Scenario Outline: New Program, invalid BrAPI storage location
@@ -122,8 +120,8 @@ Feature: Program Management (15)
 		Then user can see "BrAPI URL specified is not supported" text under BrAPI URL field in Programs page
 
 		Examples:
-			| Name    | Species      | BrAPI URL                |
-			| Program | Sweet Potato | http://brapiserver:8080/ |
+			| Name     | Species      | BrAPI URL                |
+			| Program* | Sweet Potato | http://brapiserver:8080/ |
 
 	@BI-855
 	Scenario Outline: New Program, valid custom storage location
@@ -135,14 +133,14 @@ Feature: Program Management (15)
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
-		Then user can see "Success! <Name> is added." in banner
+		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name   | Species   | # Users | BrAPI URL   |
 			| <Name> | <Species> | 0       | <BrAPI URL> |
 
 		Examples:
-			| Name    | Species      | BrAPI URL                                |
-			| Program | Sweet Potato | http://qa-test1.breedinginsight.net:7080 |
+			| Name     | Species      | BrAPI URL                               |
+			| Program* | Sweet Potato | http://qa-test.breedinginsight.net:7080 |
 
 	@BI-856
 	Scenario Outline: Edit Program form
@@ -221,7 +219,10 @@ Feature: Program Management (15)
 		When user selects "Sweet Potato" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
-		Then user can see 'Remove Alert' in modal in Programs page
+		Then user can see "Remove" in modal box header
+		Then user can see "<Name>" in modal box header
+		Then user can see "from the system?" in modal box header
+		Then user can see "Program-related data will not be affected by this change." in modal box text
 		Then user can see 'Yes, remove' button in modal in Programs page
 		Then user can see 'Cancel' button in modal in Programs page
 
@@ -238,7 +239,7 @@ Feature: Program Management (15)
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Cancel' button in modal in Programs page
-		Then user can not see 'Remove Alert' in modal in Programs page
+		Then user can not see a modal box
 		Then user can see "<Name>" in Name column in Program page
 
 		Examples:
@@ -246,22 +247,6 @@ Feature: Program Management (15)
 			| Program* |
 
 	@BI-862
-	Scenario Outline: Deactivate, Cancel
-		When user is on the program-management page
-		When user selects 'New Program' button in Programs page
-		When user sets "<Name>" in Program Name field in Programs page
-		When user selects "Sweet Potato" in Species dropdown in Programs page
-		When user selects 'Save' button in Programs page
-		When user selects 'Deactivate' of "<Name>" in Programs page
-		When user selects 'Cancel' button in modal in Programs page
-		Then user can not see 'Remove Alert' in modal in Programs page
-		Then user can see "<Name>" in Name column in Program page
-
-		Examples:
-			| Name     |
-			| Program* |
-
-	@BI-863
 	Scenario Outline: Deactivate, Remove
 		When user is on the program-management page
 		When user selects 'New Program' button in Programs page
@@ -270,6 +255,7 @@ Feature: Program Management (15)
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Yes, remove' button in modal in Programs page
+		Then user can not see a modal box
 		Then user can see "<Name>" archived in system in banner
 		Then user can not see "<Name>" in Name column in Program page
 
