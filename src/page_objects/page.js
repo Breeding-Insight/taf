@@ -183,10 +183,21 @@ module.exports = {
         "//*[@id='app']//main//section//button[normalize-space(.)='Yes, deactivate']",
       locateStrategy: "xpath",
     },
+    archiveButton: {
+      selector:
+        "//*[@id='app']//main//section//button[normalize-space(.)='Yes, archive']",
+      locateStrategy: "xpath",
+    },
 
-    //modal card
-    modalCard:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card",
+    //modal
+    modalCard: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']",
+      locateStrategy: "xpath",
+    },
+    modalHeader: {
+      selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      locateStrategy: "xpath",
+    },
   },
   sections: {
     newUserForm: {
@@ -241,8 +252,6 @@ module.exports = {
           selector: ".//button[normalize-space(.)='Cancel'][@data-testid]",
           locateStrategy: "xpath",
         },
-        modalAlertMessage: "div.modal-card article h3",
-        modalMessage: "section p",
         yesRemoveButton: {
           selector:
             ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",

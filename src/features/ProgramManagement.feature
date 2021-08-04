@@ -219,7 +219,10 @@ Feature: Program Management (15)
 		When user selects "Sweet Potato" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
-		Then user can see 'Remove Alert' in modal in Programs page
+		Then user can see "Remove" in modal box header
+		Then user can see "<Name>" in modal box header
+		Then user can see "from the system?" in modal box header
+		Then user can see "Program-related data will not be affected by this change." in modal box text
 		Then user can see 'Yes, remove' button in modal in Programs page
 		Then user can see 'Cancel' button in modal in Programs page
 
@@ -236,7 +239,7 @@ Feature: Program Management (15)
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Cancel' button in modal in Programs page
-		Then user can not see 'Remove Alert' in modal in Programs page
+		Then user can not see a modal box
 		Then user can see "<Name>" in Name column in Program page
 
 		Examples:
@@ -244,22 +247,6 @@ Feature: Program Management (15)
 			| Program* |
 
 	@BI-862
-	Scenario Outline: Deactivate, Cancel
-		When user is on the program-management page
-		When user selects 'New Program' button in Programs page
-		When user sets "<Name>" in Program Name field in Programs page
-		When user selects "Sweet Potato" in Species dropdown in Programs page
-		When user selects 'Save' button in Programs page
-		When user selects 'Deactivate' of "<Name>" in Programs page
-		When user selects 'Cancel' button in modal in Programs page
-		Then user can not see 'Remove Alert' in modal in Programs page
-		Then user can see "<Name>" in Name column in Program page
-
-		Examples:
-			| Name     |
-			| Program* |
-
-	@BI-863
 	Scenario Outline: Deactivate, Remove
 		When user is on the program-management page
 		When user selects 'New Program' button in Programs page
@@ -268,6 +255,7 @@ Feature: Program Management (15)
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Yes, remove' button in modal in Programs page
+		Then user can not see a modal box
 		Then user can see "<Name>" archived in system in banner
 		Then user can not see "<Name>" in Name column in Program page
 
