@@ -134,7 +134,7 @@ jobs:
     - name: test end of run container status 
       run: |
         docker logs brapi-server
-        docker logs biapi-server
+        docker logs biapi
         docker logs biweb
     
     
