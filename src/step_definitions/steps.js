@@ -189,12 +189,8 @@ Then(/^user can not see "([^"]*)" link$/, async () => {
   });
 });
 
-<<<<<<< HEAD
 Then(/^user can see each row doesn't have an Edit link$/, async () => {
   await page.showAll();
-=======
-Then(/^user can see each row has an Edit link$/, async () => {
->>>>>>> main
   const selector = {
     selector: "//a[contains(text(),'Edit')]",
     locateStrategy: "xpath",
@@ -219,12 +215,9 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
   await page.expect.elements(selector).count.equal(rows);
 });
 
-<<<<<<< HEAD
 Then(/^user can see each row doesn't have a Deactivate link$/, async () => {
   await page.showAll();
-=======
-Then(/^user can see each row does not have an? "([^"]*)" link$/, async (args1) => {
->>>>>>> main
+Then(/^user can see each row does not have a "([^"]*)" link$/, async (args1) => {
   const selector = {
     selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
@@ -474,16 +467,9 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-<<<<<<< HEAD
-  await page.showAll();
-  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
-  await page.assert.containsText("tr.is-new td[name='email']", user.email);
-  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
-=======
   await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
   await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
   await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
->>>>>>> main
 });
 
 Then(/^user can see user is in users list$/, async () => {
@@ -1089,8 +1075,6 @@ async function waitReady() {
   let stopWatch = new StopWatch();
   stopWatch.startTimer();
 
-  // let text;
-  // const selector = "#versionInfo > span > span > a:nth-child(2)";
   let found = false;
   while (!found && stopWatch.getTimeElapsedInMs < 300000) {
     try {
