@@ -50,17 +50,6 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@cancelButton");
 });
 
-When(
-  /^user sets "([^"]*)" in Program Name field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programNameField");
-    await page.section.programForm.setValue(
-      "@programNameField",
-      args1.replace("*", Date.now().toString())
-    );
-  }
-);
-
 When(/^user selects 'Save' button in Programs page$/, async () => {
   //read the final values of the fields and save it
   await page.section.programForm.getValue("@programNameField", ({ value }) => {
@@ -265,13 +254,6 @@ When(
   }
 );
 
-Then(/^user can see 'Remove Alert' in modal in Programs page$/, async () => {
-  await page.section.programForm.assert.containsText(
-    "@modalAlertMessage",
-    `Remove ${program.Name} from the system ?`
-  );
-});
-
 Then(
   /^user can see 'Yes, remove' button in modal in Programs page$/,
   async () => {
@@ -286,13 +268,6 @@ Then(/^user can see 'Cancel' button in modal in Programs page$/, async () => {
 When(/^user selects 'Cancel' button in modal in Programs page$/, async () => {
   await page.section.programForm.click("@cancelModalButton");
 });
-
-Then(
-  /^user can not see 'Remove Alert' in modal in Programs page$/,
-  async () => {
-    await page.section.programForm.assert.not.visible("@modalAlertMessage");
-  }
-);
 
 When(
   /^user selects 'Yes, remove' button in modal in Programs page$/,
