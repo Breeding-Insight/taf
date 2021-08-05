@@ -184,6 +184,11 @@ Feature: System User Management (15)
 			| christian@mailinator.com | Christian     | admin         | TestNew *  | testnew*@mailinator.com | No Role  |
 	
 
+	@dummyTest
+	Scenario: Final Test: should pass to get cucumber json working
+		Given user logs in as "Cucumber Breeder"
+		Then user can see "Welcome, Cucumber Breeder!" on program-selection page
+
 	#     Scenario: Editing form and selecting Save
 	#         Given a system administrator is on the user-management page
 	#          When the sysad selects 'Edit' for TestNewUser
@@ -238,8 +243,3 @@ Feature: System User Management (15)
 #           And selects "Yes, deactivate"
 #          Then the modal closes
 #           And TestNewUser is not in the list of users
-
-	@dummyTest
-	Scenario: Final Dummy Test, should pass (due to cucumber-report failing to generate when last test fails)
-		Given user logs in as "Cucumber Breeder"
-		Then user can see "Welcome, Cucumber Breeder!" on program-selection page
