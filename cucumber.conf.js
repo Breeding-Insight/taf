@@ -17,7 +17,7 @@ global.__basedir = __dirname;
 Before(async()=>{
   await createSession();
   //await client.resizeWindow(1024,768);
-  //await client.resizeWindow(1900,1200);
+  await client.resizeWindow(1900,1200);
 })
 
 BeforeAll(async () => {
