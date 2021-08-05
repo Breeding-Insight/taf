@@ -238,3 +238,8 @@ Feature: System User Management (15)
 #           And selects "Yes, deactivate"
 #          Then the modal closes
 #           And TestNewUser is not in the list of users
+
+	@dummyTest
+	Scenario: Final Dummy Test, should pass (due to cucumber-report failing to generate when last test fails)
+		Given user logs in as "Cucumber Breeder"
+		Then user can see "Welcome, Cucumber Breeder!" on program-selection page
