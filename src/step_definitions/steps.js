@@ -477,6 +477,12 @@ Then(/^user can see a new user is added in User$/, async () => {
   await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
 });
 
+Then(/^user can see a new user is added in system Users table$/, async () => {
+  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
+  await page.assert.containsText("tr.is-new td[name='email']", user.email);
+  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
+});
+
 Then(/^user can see user is in users list$/, async () => {
   await showAll();
   await page.assert.visible({
