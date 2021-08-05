@@ -185,7 +185,7 @@ Then(/^user can not see New User button$/, async () => {
 Then(/^user can not see "([^"]*)" link$/, async () => {
   await page.assert.not.elementPresent({
     selector: "//a[contains(text(),'Edit')]",
-    locateStrategy: "xpath"
+    locateStrategy: "xpath",
   });
 });
 
@@ -217,7 +217,6 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
 
 Then(/^user can see each row doesn't have a Deactivate link$/, async () => {
   await page.showAll();
-Then(/^user can see each row does not have a "([^"]*)" link$/, async (args1) => {
   const selector = {
     selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
@@ -388,7 +387,7 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
 
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
   await page.click({
-    selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
+    selector: `//*[@id="sideMenu"]//nav//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -467,8 +466,14 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
-  await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
+  await page.assert.containsText(
+    "tr.is-new td[data-label='Name']",
+    user.userName
+  );
+  await page.assert.containsText(
+    "tr.is-new td[data-label='Email']",
+    user.email
+  );
   await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
 });
 
@@ -784,7 +789,8 @@ Then(
   /^user can see a button 'Download the Trait Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
+      "#traitimporttemplatemessagebox-download-trait-template",
+      "Download the Trait Import Template"
     );
   }
 );
@@ -797,10 +803,7 @@ Then(/^user can see a button 'Choose a file...'$/, async () => {
 });
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
-  await page.setValue(
-    'input[type="file"]',
-    path.resolve(importFolder, args1)
-  );
+  await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -811,15 +814,11 @@ Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
 });
 
 Then(/^user cans see 'Choose a different file...' button$/, async () => {
-  await page.assert.visible(
-    "#fileselector-choose-different-file"
-  );
+  await page.assert.visible("#fileselector-choose-different-file");
 });
 
 Then(/^user can see 'Import' button$/, async () => {
-  await page.assert.visible(
-    "#fileselectmessagebox-import-button"
-  );
+  await page.assert.visible("#fileselectmessagebox-import-button");
 });
 
 When(/^user selects "([^"]*)" button$/, async (args1) => {
@@ -885,10 +884,10 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
   let headerText;
   if (args1.includes("User*")) {
     headerText = user.userName;
-  } else if(args1.includes("Program*")) {
+  } else if (args1.includes("Program*")) {
     headerText = this.program.Name;
   } else {
-    headerText=args1;
+    headerText = args1;
   }
   await page.assert.containsText("@modalHeader", headerText);
 });
@@ -906,32 +905,25 @@ When(
   }
 );
 
-
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
-    //Multiple text lines can exist, so selector needs to be specific to text
-    await page.assert.visible({
-      selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
-      locateStrategy: "xpath",
-    });
+  //Multiple text lines can exist, so selector needs to be specific to text
+  await page.assert.visible({
+    selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
-  await page.assert.containsText(
-    "#traitsimport-yes-abort", "Yes, abort"
-  );
+  await page.assert.containsText("#traitsimport-yes-abort", "Yes, abort");
 });
 
 When(/^user selects 'Import' button$/, async () => {
-  await page.click(
-    "#fileselectmessagebox-import-button"
-  );
+  await page.click("#fileselectmessagebox-import-button");
   await page.pause(3000);
 });
 
 When(/^user selects 'Yes, abort' button$/, async () => {
-  await page.click(
-    "#traitsimport-yes-abort"
-  );
+  await page.click("#traitsimport-yes-abort");
 });
 
 Then(/^user can see Traits table$/, async () => {
@@ -1018,7 +1010,7 @@ When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   await page.showAll();
   await showAll();
   let userEmail;
-  if ((args1.includes("*")) && (user.email != null)) {
+  if (args1.includes("*") && user.email != null) {
     userEmail = user.email;
   } else {
     userEmail = args1;

@@ -64,8 +64,7 @@ module.exports = {
 
     loggedInAsLabel:
       "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
-    logoutButton:
-      "#basesidebarlayout-logout-button",
+    logoutButton: "#basesidebarlayout-logout-button",
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -146,9 +145,10 @@ module.exports = {
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
     //danger banner
     dangerBannerText: {
-      selector: "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
+      selector:
+        "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
       locateStrategy: "xpath",
-    },    
+    },
 
     //program list
     topProgramButton:
@@ -195,7 +195,8 @@ module.exports = {
       locateStrategy: "xpath",
     },
     modalHeader: {
-      selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      selector:
+        "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
       locateStrategy: "xpath",
     },
   },
@@ -350,6 +351,10 @@ module.exports = {
       elements: {
         form: "form.new-form",
         nameField: "#Name",
+        newLocationButton: {
+          selector: "//button[normalize-space(.)='New Location']",
+          locateStrategy: "xpath",
+        },
         saveButton: {
           selector: ".//span[normalize-space(.)='Save']/ancestor::button",
           locateStrategy: "xpath",

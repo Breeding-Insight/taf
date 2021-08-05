@@ -36,6 +36,7 @@ Feature: Logging with Member
 		When user selects "Program Management" in navigation
 		When user selects "Locations" in navigation
 		Then user can not see 'New Location' button in Program Management page
+		
 	@BI-887
 	Scenario: No Admin role, Program Member - Program User Management
 		Given user logs in as "Cucumber Member"
