@@ -29,7 +29,6 @@ Feature: Logging with Member
 		Then user can not see "Import Traits" in navigation
 
 	@BI-980
-	@debug
 	Scenario:  Logging in as a member - no '+New Location' button
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
