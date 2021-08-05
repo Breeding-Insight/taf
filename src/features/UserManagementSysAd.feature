@@ -172,22 +172,21 @@ Feature: System User Management (15)
 		Then user can see banner contains "User info (name/email/program) successfully updated"
 		Then user can see banner contains "You don't have permissions to edit the roles of this user."
 		#CLEANUP
-		When user selects 'Edit' of "<New Email>" of Users
-		And user sets "<Original Name>" in Name field
-		And user sets "<Original Email>" in Email field
-		And user sets "<Original Role>" in Role dropdown
-		And user selects 'Save' button in Users 
-		#investigate
+		#When user selects 'Edit' of "<New Email>" of Users
+		#And user sets "<Original Name>" in Name field
+		#And user sets "<Original Email>" in Email field
+		#And user sets "<Original Role>" in Role dropdown
+		#And user selects 'Save' button in Users 
 
 		Examples:
 			| Original Email           | Original Name | Original Role | New Name   | New Email               | New Role |
 			| christian@mailinator.com | Christian     | admin         | TestNew *  | testnew*@mailinator.com | No Role  |
 	
 
-	@dummyTest
-	Scenario: Final Test: should pass to get cucumber json working
-		Given user logs in as "Cucumber Breeder"
-		Then user can see "Welcome, Cucumber Breeder!" on program-selection page
+	#@dummyTest
+	#Scenario: Final Test: should pass to get cucumber json working
+	#	Given user logs in as "Cucumber Breeder"
+	#	Then user can see "Welcome, Cucumber Breeder!" on program-selection page
 
 	#     Scenario: Editing form and selecting Save
 	#         Given a system administrator is on the user-management page
