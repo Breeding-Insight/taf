@@ -73,7 +73,7 @@ Feature: System User Management (15)
 		When user creates a new user
 			| Name   | Email                | Role |
 			| Test * | test*@mailinator.com |      |
-		Then user can see a new user is added in User
+		Then user can see a new user is added in System User table
 
 	@BI-831
 	Scenario:  Adding new user with admin role
@@ -81,7 +81,7 @@ Feature: System User Management (15)
 		When user creates a new user
 			| Name   | Email                | Role  |
 			| Test * | test*@mailinator.com | admin |
-		Then user can see a new user is added in User
+		Then user can see a new user is added in System User table
 
 	@BI-832
 	Scenario: Filling out new user form and selecting Cancel
