@@ -95,7 +95,7 @@ jobs:
       shell: bash
       
     - name: try setting up species again
-      run: docker exec brapi-server psql -U postgres -a -f bi-docker-stack/brapi-server/sql/species.sql -d brapi-server
+      run: docker exec brapi-server psql -U postgres -a -f bi-docker-stack/brapi-server/sql/species.sql -d postgres
       
     #- uses: actions/checkout@v2
     - name: set up required bidb data for tests
