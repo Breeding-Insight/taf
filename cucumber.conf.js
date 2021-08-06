@@ -12,7 +12,10 @@ const {
   startWebDriver,
   stopWebDriver,
   getNewScreenshots,
+<<<<<<< HEAD
   saveScreenshot,
+=======
+>>>>>>> 1a174e0 (Update to cucumber 7.)
 } = require("nightwatch-api");
 const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
