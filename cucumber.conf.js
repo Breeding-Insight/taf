@@ -68,5 +68,5 @@ AfterAll(async () => {
 
 After(function () {
   getNewScreenshots().forEach(file => this.attach(fs.readFileSync(file), 'image/png'));
-  // closeSession();
+  closeSession();
 });
