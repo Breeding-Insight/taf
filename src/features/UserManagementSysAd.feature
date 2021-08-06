@@ -143,7 +143,8 @@ Feature: System User Management (15)
 			| Name       | Email                | Role    |
 			| User* | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		And user selects 'Cancel' button
+		Then user can see a modal box
+		When user selects 'Cancel' button
 		Then user can not see a modal box
 		Then user can see edited user in users list
 
