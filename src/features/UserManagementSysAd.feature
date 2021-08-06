@@ -117,39 +117,35 @@ Feature: System User Management (15)
 		Then user can see user is in users list
 
 	@BI-838
-	Scenario: Deactivate link - modal
+	Scenario Outline: Deactivate link - modal
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		Then user can see a modal with Deactivate message
+		Then user can see "Deactivate" in modal box header
+		And user can see "<NameToDeactivate>" in modal box header
+		And user can see "from the system?" in modal box header
+		And user can see "Access for this user will be removed system wide." in modal box text
+		And user can see "Program-related data collected by this user will not be affected by this change." in modal box text
 		And user can see 'Yes, deactivate' button
 		And user can see 'Cancel' button
 		And user selects 'Cancel' button
-
-	@BI-839
-	Scenario Outline: User Deactivate link and Cancel
-		Given user is on the user-management page
-		And user creates a new user
-			| Name       | Email                | Role    |
-			| User* | test*@mailinator.com | breeder |
-		When user selects Deactivate of user
-		Then user can see "Deactivate" in modal box header
-		Then user can see "<NameToDeactivate>" in modal box header
-		Then user can see "from the system?" in modal box header
-		Then user can see "Access for this user will be removed system wide." in modal box text
-		Then user can see "Program-related data collected by this user will not be affected by this change." in modal box text
-		And user can see 'Yes, deactivate' button
-		And user can see 'Cancel' button
-		When user selects 'Cancel' button
-		Then user can not see a modal box
-		Then user can see edited user in users list
 
 		Examples: 
     		| NameToDeactivate |
 			| User*       |
 
+	@BI-839
+	Scenario: User Deactivate link and Cancel
+		Given user is on the user-management page
+		And user creates a new user
+			| Name       | Email                | Role    |
+			| User* | test*@mailinator.com | breeder |
+		When user selects Deactivate of user
+		And user selects 'Cancel' button
+		Then user can not see a modal box
+		Then user can see edited user in users list
 
 	@BI-840
 	Scenario: Deactivate link - Yes, deactivate
