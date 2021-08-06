@@ -35,6 +35,17 @@ When(
   }
 );
 
+When(
+  /^user sets "([^"]*)" in fifth scale field on traits list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@fifthScaleField", args1);
+  }
+);
+
+When(/^user selects 'x' button for second scale category$/, async () => {
+ await traitsPage.section.allTraitsForm.click("@secondScaleDeleteButton");
+});
+
 Then(
   /^user can see "([^"]*)" in the first Ordinal field on traits list page$/,
   async (args1) => {
@@ -66,6 +77,16 @@ Then(
 );
 
 Then(
+  /^user can see "([^"]*)" in the fifth Ordinal field on traits list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@fifthOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
   /^user can see "([^"]*)" in first Scale field on traits list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
@@ -90,6 +111,16 @@ Then(
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@thirdScaleField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in fifth Scale field on traits list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@fifthScaleField",
       args1
     );
   }

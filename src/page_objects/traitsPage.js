@@ -1,7 +1,7 @@
 module.exports = {
   elements: {
     newTraitButton: {
-      selector: "//button[@data-testid='newDataForm']",
+      selector: "//button[starts-with(normalize-space(.),'New Trait') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
   },
@@ -41,6 +41,23 @@ module.exports = {
           selector: "div.column.is-four-fifths input",
           index: 3,
         },
+        fifthScaleField: {
+          selector: "div.column.is-four-fifths input",
+          index: 4,
+        },
+        firstScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 0,
+        },
+        secondScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 1,
+        },
+        fourthScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 3,
+        },
+
         firstOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 0,
@@ -52,6 +69,10 @@ module.exports = {
         thirdOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 2,
+        },
+        fifthOrdinalField: {
+          selector: "div.column.is-2 div.field-body input",
+          index: 4,
         },
       },
     },
