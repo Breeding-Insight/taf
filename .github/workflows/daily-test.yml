@@ -94,10 +94,10 @@ jobs:
       run: sleep 60s
       shell: bash
       
-    #- name: try setting up species again
-    #  run: |
-    #    docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
-    #    docker exec bidb psql -U postgres -a -f species.sql -d postgres
+    - name: try setting up species again
+      run: |
+        docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
+        docker exec bidb psql -U postgres -a -f species.sql -d postgres
       
     #- uses: actions/checkout@v2
     - name: set up required bidb data for tests
