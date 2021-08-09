@@ -1,9 +1,15 @@
 name: daily run for taf
 
 on:
-  #schedule:
-  #  - cron: 0 5 * * *
+  schedule:
+    - cron: '0 5 * * 2-5'
+    - cron: '0 5 * * 1'
   workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Test suite to run: "full" for full run, "smoke" for smoke tests'
+        required: true
+        default: 'full'
 
 jobs:
   test:
@@ -11,7 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        #os: [ubuntu-latest, windows-latest]
         node-version: [16.x]
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
@@ -95,9 +100,7 @@ jobs:
         docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
         docker exec bidb psql -U postgres -a -f species.sql -d postgres
       
-    #- uses: actions/checkout@v2
-    - name: set up required bidb data for tests
-      #shell: bash #'script -q -e -c "bash {0}"'    
+    - name: set up required bidb data for tests    
       run: | 
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb 
