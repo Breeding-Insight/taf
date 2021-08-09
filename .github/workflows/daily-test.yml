@@ -85,11 +85,7 @@ jobs:
     - name: Run Chrome
       if: matrix.os == 'ubuntu-latest'
       run: chrome --version
-      
-    - name: Set up Edge
-      uses: browser-actions/setup-edge@latest
-      if: matrix.os == 'windows-latest'
-    
+
     - name: Sleep to ensure docker set up
       run: sleep 60s
       shell: bash
@@ -105,8 +101,6 @@ jobs:
       run: | 
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb 
-        
-    #-v filePath="${{ github.workspace }}/programIds.json"  #eventually remove a cause output messy
     
     - name: set up brapi data
       run: |
@@ -124,21 +118,16 @@ jobs:
         
     - name: Run tests on Chrome
       if: matrix.os == 'ubuntu-latest'
-      run: npm run test:chromeSingle
-      
-    - name: Run tests on Edge
-      if: matrix.os == 'windows-latest'
-      run: npm run test:edge
+      run: npm run test:chromeWeekly
       
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
       if: always()
       with:
-        name: cucumber-report-${{ matrix.os }}-${{ github.run_number }} #TODO modify matrix to have file name be chrome/edge
+        name: cucumber-report-${{ matrix.os }}-${{ github.run_number }}
         path: ${{ github.workspace }}/report/*
-        #path: ${{ github.workspace }}/artifact/reports
         
-    - name: test end of run container status 
+    - name: Test end of run container status 
       run: |
         docker logs brapi-server
         docker logs biapi
