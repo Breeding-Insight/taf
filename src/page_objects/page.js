@@ -10,6 +10,11 @@ module.exports = {
         "//button[starts-with(normalize-space(.),'I understand, close this message')]",
       locateStrategy: "xpath",
     },
+    yesRemoveButton: {
+      selector:
+        ".//div[@class='modal-card']//button[normalize-space(.)='Yes, remove']",
+      locateStrategy: "xpath",
+    },
     loginButton: {
       selector: "//button[starts-with(normalize-space(.),'LOG IN')]",
       locateStrategy: "xpath",

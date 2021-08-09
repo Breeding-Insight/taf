@@ -991,6 +991,14 @@ When(/^user selects 'New Program' button in Programs page$/, async () => {
   await page.click("@newProgramButton");
 });
 
+When(/^user selects 'Yes, remove' button in modal box$/, async () => {
+  await page.click("@yesRemoveButton");
+});
+Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
+//  await page.section.modalBox.assert.visible("@yesRemoveButton");
+  await page.assert.visible("@yesRemoveButton");
+});
+
 //functions
 async function setUserName(name) {
   this.user = {};
