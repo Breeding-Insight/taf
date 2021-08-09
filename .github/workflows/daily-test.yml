@@ -72,7 +72,7 @@ jobs:
     
     - run: npm install
     
-    - name: set up debug for github actions
+    - name: Set up debug for github actions
       run: npm install --save-prod @actions/github @actions/core
     
     - name: Set up JDK 13
@@ -95,17 +95,17 @@ jobs:
       run: sleep 60s
       shell: bash
       
-    - name: try setting up species again
+    - name: Try setting up species again
       run: |
         docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
         docker exec bidb psql -U postgres -a -f species.sql -d postgres
       
-    - name: set up required bidb data for tests    
+    - name: Set up required bidb data for tests    
       run: | 
         docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
         docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb 
     
-    - name: set up brapi data
+    - name: Set up brapi data
       run: |
         trailMixId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Trail Mix'" )
         snacksId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Snacks'" )
