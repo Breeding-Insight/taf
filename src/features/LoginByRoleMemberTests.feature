@@ -28,3 +28,12 @@ Feature: Logging with Member
 		When user selects "Traits" in navigation
 		Then user can not see "Import Traits" in navigation
 
+	@BI-887
+	Scenario: No Admin role, Program Member - Program User Management
+		Given user logs in as "Cucumber Member"
+		And user selects "Program Management" in navigation
+		And user selects "Users" in navigation
+		Then user can not see New User button
+		And user can see each row does not have an "Edit" link
+		And user can see each row does not have a "Deactivate" link
+

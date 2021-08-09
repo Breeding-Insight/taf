@@ -17,7 +17,7 @@ Feature: Program Location Management
 		And user selects "Program Management" in navigation
 		When user selects 'New Location' button in Program Management page
 		When user selects 'Save' button in Program Management page
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Name is required' below the Name field in Program Management page
 
 	@BI-907
@@ -31,17 +31,6 @@ Feature: Program Location Management
 		When user selects 'Cancel' button in Program Management page
 		When user user can not see Location form in Program Management page
 
-
-
-
-
-
-
-
-
-
-
-
 	@BI-864
 	@BI-888
 	Scenario: Program Users Table
@@ -51,7 +40,7 @@ Feature: Program Location Management
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 		And user can see Users page
-		And user can see table header contains
+		And user can see "Program User Management" table header contains
 			| Header |
 			| Name   |
 			| Email  |
@@ -117,7 +106,7 @@ Feature: Program Location Management
 		And user can see 'Name is required' below the Name field
 		And user can see 'Email is required' below the Email field
 		And user can see 'Role is required' below the Role field
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 
 	@BI-890
 	Scenario: New User form - enter name only - Save
@@ -141,7 +130,7 @@ Feature: Program Location Management
 		And user sets "Tester Breeder" in Name field
 		And user sets "testnewuser@mail.com" in Email field
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Role is required' below the Role field
 
 	@BI-892
@@ -179,7 +168,7 @@ Feature: Program Location Management
 		And user sets "testnewuser" in Email field
 		And user sets "breeder" in Role dropdown
 		And user selects Save button
-		Then user can see banner appears with an error message 'Fix Invalid Fields'
+		Then user can see banner appears with an error message "Fix Invalid Fields"
 		Then user can see 'Email must be in email format' below the Email field
 
 	@BI-896
@@ -193,7 +182,7 @@ Feature: Program Location Management
 		And user sets "cucumberbreeder@mailinator.com" in Email field
 		And user sets "breeder" in Role dropdown
 		And user selects Save button
-		Then user can see banner appears with an error message 'Error creating user, a user with this email already exists'
+		Then user can see banner appears with an error message "Error creating user, a user with this email already exists"
 		Then user can see new user form
 
 	@BI-897
@@ -238,20 +227,26 @@ Feature: Program Location Management
 		Then user can see user is in users list
 
 	@BI-900
-	#TODO
-	Scenario: Deactivate link - modal
+	Scenario Outline: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| User* | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
-		Then user can see a modal with Deactivate message
-		Then user can see 'Yes, deactivate' button
+		Then user can see "Deactivate" in modal box header
+		Then user can see "<NameToDeactivate>" in modal box header
+		Then user can see "from program Snacks?" in modal box header
+		Then user can see "This will only remove the user's access to your program and will not affect their account." in modal box text
+		Then user can see "Program-related data collected by this user will not be affected by this change." in modal box text
+		Then user can see 'Yes, archive' button
 		And user can see 'Cancel' button
-		And user can see Save button
+
+	Examples: 
+    	| NameToDeactivate |
+		| User*       |
 
 	@BI-901
 	Scenario: Deactivate link - Cancel

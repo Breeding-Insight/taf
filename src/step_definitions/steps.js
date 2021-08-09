@@ -2,7 +2,7 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("cucumber");
 const path = require("path");
 const page = client.page.page();
-const importFolder = path.join(__basedir + "\\src\\files\\TraitImport_v03");
+const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -152,28 +152,44 @@ Then(/^user can see table header contains$/, async (table) => {
   }
 });
 
+//For Buefy tables
+Then(/^user can see "([^"]*)" table header contains$/, async (args1, table) => {
+  for (column of table.raw()[0]) {
+    for (i = 0; i < table.hashes().length; i++) {
+      switch (column) {
+        case "Header":
+          const select = {
+            selector:
+              "//th//span[contains(text(),'" +
+              table.hashes()[i][column] +
+              "')]",
+            locateStrategy: "xpath",
+          };
+          await page.assert.visible(select);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+});
+
 Then(/^user can see New User button$/, async () => {
   await page.assert.visible("@newUserButton");
 });
 
-Then(/^user can see each row has an Edit link$/, async () => {
-  const selector = {
-    selector: "//a[contains(text(),'Edit')]",
-    locateStrategy: "xpath",
-  };
-
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+Then(/^user can not see New User button$/, async () => {
+  await page.assert.not.elementPresent("@newUserButton");
 });
 
-Then(/^user can see each row doesn't have an Edit link$/, async () => {
+Then(/^user can not see "([^"]*)" link$/, async () => {
+  await page.assert.not.elementPresent({
+    selector: "//a[contains(text(),'Edit')]",
+    locateStrategy: "xpath"
+  });
+});
+
+Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
     selector: "//a[contains(text(),'Edit')]",
     locateStrategy: "xpath",
@@ -206,20 +222,12 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
   await page.expect.elements(selector).count.equal(rows);
 });
 
-Then(/^user can see each row doesn't have a Deactivate link$/, async () => {
+Then(/^user can see each row does not have an? "([^"]*)" link$/, async (args1) => {
   const selector = {
-    selector: "//a[contains(text(),'Deactivate')]",
+    selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   };
-  let rows;
-  await client.elements(
-    "css selector",
-    "#app div.sidebarlayout main table tbody tr",
-    ({ value }) => {
-      rows = value.length;
-    }
-  );
-  await page.expect.elements(selector).count.equal(rows);
+  await page.expect.elements(selector).count.equal(0);
 });
 
 Then(/^user can see Previous page button$/, async () => {
@@ -256,24 +264,11 @@ When(/^user selects New User button$/, async () => {
 });
 
 Then(
-  /^user can see banner appears with an error message 'Error creating user, a user with this email already exists'$/,
-  async () => {
+  /^user can see banner appears with an error message "([^"]*)"$/,
+  async (args1) => {
     await page.assert.visible("@topAlertDangerArticle");
-    const selector =
-      "#app > div:nth-child(1) > article.notification.is-marginless.is-danger > div > div > div > div:nth-child(2)";
-    await page.assert.visible(selector);
-    await page.assert.containsText(
-      selector,
-      "Error creating user, a user with this email already exists"
-    );
-  }
-);
-
-Then(
-  /^user can see banner appears with an error message 'Fix Invalid Fields'$/,
-  async () => {
-    await page.assert.visible("@topAlertDangerArticle");
-    await page.assert.visible("@fixInvalidFieldsText");
+    await page.assert.visible("@dangerBannerText");
+    await page.assert.containsText("@dangerBannerText", args1);
   }
 );
 
@@ -346,38 +341,39 @@ When(/^user creates a new program$/, async (table) => {
   this.program = {};
   await page.waitForElementVisible("@newProgramButton");
   await page.click("@newProgramButton");
+  let programForm = page.section.programForm;
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
         case "Program Name":
-          this.program.name = hash["Program Name"].replace(
+          this.program.Name = hash["Program Name"].replace(
             "*",
             Date.now().toString()
           );
-          await page.setValue("@programNameField", this.program.name);
+          await programForm.setValue("@programNameField", this.program.Name);
           break;
         case "Species":
-          this.program.species = hash["Species"];
-          await page.setValue("@speciesSelect", this.program.species);
+          this.program.Species = hash["Species"];
+          await programForm.setValue("@speciesSelect", this.program.Species);
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
       }
     }
   }
-  await page.click("@saveButton");
+  await programForm.click("@saveButton");
 });
 
 Then(/^user can see a new program is created$/, async () => {
   await page.assert.containsText(
     "#adminProgramTableLabel table tr.is-new td:nth-child(1)",
-    this.program.name
+    this.program.Name
   );
   await page.assert.containsText(
     "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
-    this.program.species
+    this.program.Species
   );
-  console.log("and this" + this.program.name);
+  console.log("and this" + this.program.Name);
 });
 
 When(/^user selects Cancel button$/, async () => {
@@ -476,24 +472,23 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await showAll();
-  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
-  await page.assert.containsText("tr.is-new td[name='email']", user.email);
-  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
+  await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
+  await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
+  await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {
   await showAll();
   await page.assert.visible({
-    selector: `//tr/td[normalize-space(.)='${user.userName}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.userName}']`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//tr/td[normalize-space(.)='${user.email}')]`,
+    selector: `//tr/td[normalize-space(.)='${user.email}']`,
     locateStrategy: "xpath",
   });
   await page.assert.visible({
-    selector: `//td[contains(text(), '${user.email}')]/..//td[normalize-space(.)='${user.role}')]`,
+    selector: `//td[contains(text(), '${user.email}')]/..//td[normalize-space(.)='${user.role}']`,
     locateStrategy: "xpath",
   });
 });
@@ -739,32 +734,12 @@ When(/^user selects Deactivate of user$/, async () => {
   });
 });
 
-Then(/^user can see a modal with Deactivate message$/, async () => {
-  const selector =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3";
-  await page.assert.visible(selector);
-  await page.assert.containsText(
-    selector,
-    `Deactivate ${user.userName} from the system?`
-  );
-
-  const messageText1 =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(1)";
-  await page.assert.containsText(
-    messageText1,
-    "Access for this user will be removed system wide."
-  );
-
-  const messageText2 =
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p:nth-child(2)";
-  await page.assert.containsText(
-    messageText2,
-    "Program-related data collected by this user will not be affected by this change."
-  );
-});
-
 Then(/^user can see 'Yes, deactivate' button$/, async () => {
   await page.assert.visible("@deactivateButton");
+});
+
+Then(/^user can see 'Yes, archive' button$/, async () => {
+  await page.assert.visible("@archiveButton");
 });
 
 Then(/^user can see 'Cancel' button$/, async () => {
@@ -782,10 +757,7 @@ When(/^user selects 'Cancel' button$/, async () => {
 });
 
 When(/^user selects modal Yes, archive button$/, async () => {
-  await page.click({
-    selector: "//strong[normalize-space(.)='Yes, archive']/..",
-    locateStrategy: "xpath",
-  });
+  await page.click("@archiveButton");
 });
 
 Then(/^user can see "([^"]*)" in the the Role dropdown$/, async (args1) => {
@@ -817,42 +789,41 @@ Then(
   /^user can see a button 'Download the Trait Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-right > div > div > a",
-      "Download the Trait Import Template"
+      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
     );
   }
 );
 
 Then(/^user can see a button 'Choose a file...'$/, async () => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > div > span:nth-child(2)",
+    "#fileselector-choose-file > span:nth-child(2)",
     "Choose a file..."
   );
 });
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div > div > label > input[type=file]",
+    'input[type="file"]',
     path.resolve(importFolder, args1)
   );
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(1) > div",
+    "#fileselectmessagebox-import-filename",
     args1
   );
 });
 
 Then(/^user cans see 'Choose a different file...' button$/, async () => {
   await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-left > div:nth-child(2) > div > label > div > span:nth-child(2)"
+    "#fileselector-choose-different-file"
   );
 });
 
 Then(/^user can see 'Import' button$/, async () => {
   await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+    "#fileselectmessagebox-import-button"
   );
 });
 
@@ -908,63 +879,63 @@ Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
 });
 
 Then(/^user can see a modal box$/, async () => {
-  await page.assert.visible(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card"
-  );
+  await page.assert.visible("@modalCard");
 });
 
 Then(/^user can not see a modal box$/, async () => {
   await page.assert.not.elementPresent("@modalCard");
 });
 
-Then(/^user can sees 'Abort This Import' in modal box$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > article > div > div > h3",
-    "Abort This Import"
-  );
+Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
+  let headerText;
+  if (args1.includes("User*")) {
+    headerText = user.userName;
+  } else if(args1.includes("Program*")) {
+    headerText = this.program.Name;
+  } else {
+    headerText=args1;
+  }
+  await page.assert.containsText("@modalHeader", headerText);
 });
 
-Then(
-  /^user can see 'No traits will be added, and the import in progress will be completely removed.' in modal box$/,
-  async () => {
-    await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > section > p",
-      "No traits will be added, and the import in progress will be completely removed."
+When(
+  /^user sets "([^"]*)" in Program Name field in Programs page$/,
+  async (args1) => {
+    await page.section.programForm.clearValue("@programNameField");
+    this.program = {};
+    this.program.Name = args1.replace("*", Date.now().toString());
+    await page.section.programForm.setValue(
+      "@programNameField",
+      this.program.Name
     );
   }
 );
 
+
+Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
+    //Multiple text lines can exist, so selector needs to be specific to text
+    await page.assert.visible({
+      selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
+      locateStrategy: "xpath",
+    });
+});
+
 Then(/^user can see 'Yes, abort' button$/, async () => {
   await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong",
-    "Yes, abort"
+    "#traitsimport-yes-abort", "Yes, abort"
   );
 });
 
 When(/^user selects 'Import' button$/, async () => {
   await page.click(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.file-select > div > article > nav > div.level-right > div > div > a"
+    "#fileselectmessagebox-import-button"
   );
   await page.pause(3000);
 });
 
-Then(/^user can see 'Imported cancelled' in banner$/, async () => {
-  await page.assert.containsText("@bannerText", "Import cancelled");
-});
-
-Then(
-  /^user can see 'Imported traits have been added to Snacks.' in banner$/,
-  async () => {
-    await page.assert.containsText(
-      "@bannerText",
-      "Imported traits have been added to Snacks."
-    );
-  }
-);
-
 When(/^user selects 'Yes, abort' button$/, async () => {
   await page.click(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.modal.is-active > div.modal-card > section > div > div > div > div > button.button.is-danger > strong"
+    "#traitsimport-yes-abort"
   );
 });
 
@@ -997,14 +968,7 @@ When(/^user click 'Save' button in User$/, async () => {
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
-    locateStrategy: "xpath",
-  });
-});
-
-Then(/^user can see "([^"]*)" in banner$/, async (args1) => {
-  await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1}' and @class='level-item']`,
+    selector: `//article//div[contains(text(), normalize-space("${args1}")) and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });
@@ -1014,11 +978,6 @@ Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
     selector: `//*[@id='programUserTableLabel']//th[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
-});
-
-Then(/^user can see new user added in User$/, async () => {
-  await showAll();
-  await page.assert.visible("");
 });
 
 Then(/^user can see 'Previous' button$/, async () => {
@@ -1040,10 +999,6 @@ Then(/^user can see Results Per Page dropdown$/, async () => {
   await page.assert.visible("@paginationComboBox");
 });
 
-Then(/^user can see 'New Location' in Locations$/, async () => {
-  await page.assert.visible("@newLocationButton");
-});
-
 Then(/^user can see 'System Administration' title on Programs$/, async () => {
   await page.assert.visible("@systemAdministrationLabel");
 });
@@ -1061,8 +1016,14 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   await showAll();
+  let userEmail;
+  if ((args1.includes("*")) && (user.email != null)) {
+    userEmail = user.email;
+  } else {
+    userEmail = args1;
+  }
   await page.click({
-    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${args1}')]//a[normalize-space(.)='Edit']`,
+    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${userEmail}')]//a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   });
 });

@@ -6,7 +6,7 @@ const page = client.page.page();
 const program = {};
 
 Then(/^user can see 'Program Name' label in Programs page$/, async () => {
-  await programForm.assert.visible("@programNameLabel");
+  await page.section.programForm.assert.visible("@programNameLabel");
 });
 
 Then(/^user can see 'Program Name' field in Programs page$/, async () => {
@@ -49,17 +49,6 @@ Then(/^user can see 'Save' button in Programs page$/, async () => {
 Then(/^user can see 'Cancel' button in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@cancelButton");
 });
-
-When(
-  /^user sets "([^"]*)" in Program Name field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programNameField");
-    await page.section.programForm.setValue(
-      "@programNameField",
-      args1.replace("*", Date.now().toString())
-    );
-  }
-);
 
 When(/^user selects 'Save' button in Programs page$/, async () => {
   //read the final values of the fields and save it
@@ -195,17 +184,17 @@ Then(
 );
 
 When(/^user selects 'Edit' of "([^"]*)" in Programs page$/, async (args1) => {
-  let program;
+  let programName;
   if (program.Name != null) {
-    program = program.Name;
+    programName = program.Name;
   } else {
-    program = args1;
+    programName = args1;
   }
   const selector = {
-    selector: `.//td[@name='name'][normalize-space(.)='${program}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+    selector: `.//td[@name='name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   };
-  await this.click(selector);
+  await page.click(selector);
 });
 
 Then(
@@ -265,13 +254,6 @@ When(
   }
 );
 
-Then(/^user can see 'Remove Alert' in modal in Programs page$/, async () => {
-  await page.section.programForm.assert.containsText(
-    "@modalAlertMessage",
-    `Remove ${program.Name} from the system ?`
-  );
-});
-
 Then(
   /^user can see 'Yes, remove' button in modal in Programs page$/,
   async () => {
@@ -286,13 +268,6 @@ Then(/^user can see 'Cancel' button in modal in Programs page$/, async () => {
 When(/^user selects 'Cancel' button in modal in Programs page$/, async () => {
   await page.section.programForm.click("@cancelModalButton");
 });
-
-Then(
-  /^user can not see 'Remove Alert' in modal in Programs page$/,
-  async () => {
-    await page.section.programForm.assert.not.visible("@modalAlertMessage");
-  }
-);
 
 When(
   /^user selects 'Yes, remove' button in modal in Programs page$/,
@@ -321,7 +296,7 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
   else programName = program.Name;
 
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${programName} archived in system' and @class='level-item']`,
+    selector: `//article//div[normalize-space(.)='${programName} archived in system' and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });
@@ -329,7 +304,7 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
 When(
   /^user selects 'New Location' button in Program Management page$/,
   async () => {
-    await page.section.locationForm.click("@newLocationButton");
+    await page.click("@newLocationButtonNoLocsPresent");
   }
 );
 
@@ -340,7 +315,11 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
   async (args1) => {
-    await page.section.locationForm.setValue("@nameField", args1);
+    this.location = {};
+    this.location.Name = args1.replace("*", Date.now().toString());
+    await page.section.locationForm.setValue(
+      "@nameField", 
+      this.location.Name)
   }
 );
 
@@ -354,7 +333,14 @@ Then(
 Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
-    await page.section.locationForm.isItemInNewRow({ Name: args1 });
+    let locationName;
+    if (typeof this.location !== 'undefined') {
+      locationName = this.location.Name;
+    }
+    else {
+      locationName=args1;
+    }
+    await page.section.locationForm.isItemInNewRow({ Name: locationName });
   }
 );
 
@@ -376,14 +362,14 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 Then(
   /^user can see 'New Location' button in Program Management page$/,
   async () => {
-    await page.section.programManagement.assert.visible("@newLocationButton");
+    await page.assert.visible("@newLocationButtonNoLocsPresent");
   }
 );
 
 Then(
   /^user can see 'Name is required' below the Name field in Program Management page$/,
   async () => {
-    await page.section.programManagement.section.form.visible(
+    await page.section.programManagement.section.form.assert.visible(
       "@nameIsRequiredText"
     );
   }
