@@ -3,6 +3,8 @@ const { Given, Then, When } = require("cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
+const fs = require("fs");
+const reporter = require("cucumber-html-reporter");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -475,6 +477,12 @@ Then(/^user can see a new user is added in User$/, async () => {
   await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
   await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
   await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
+});
+
+Then(/^user can see a new user is added in System User table$/, async () => {
+  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
+  await page.assert.containsText("tr.is-new td[name='email']", user.email);
+  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {
