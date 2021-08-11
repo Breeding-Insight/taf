@@ -194,8 +194,8 @@ Feature: System User Management (15)
 	#           And edituser@mail.com in the Email field
 	#           And admin in the Role field
 
-	Scenario: SysAd can't edit own account
-		Given user is on the user-management page
+	#Scenario: SysAd can't edit own account
+	#	Given user is on the user-management page
 
 #      When the sysad selects 'Edit' for TestNewUser
 #       And changes own name

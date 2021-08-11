@@ -5,7 +5,8 @@ const {
   closeSession,
   startWebDriver,
   stopWebDriver,
-  getNewScreenshots
+  getNewScreenshots,
+  saveScreenshot
 } = require("nightwatch-api");
 const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
@@ -15,7 +16,7 @@ global.__basedir = __dirname;
 
 Before(async()=>{
   await createSession();
-  await client.maximizeWindow();
+  await client.resizeWindow(1900,1200);
 })
 
 BeforeAll(async () => {
@@ -66,5 +67,6 @@ AfterAll(async () => {
 
 After(function () {
   getNewScreenshots().forEach(file => this.attach(fs.readFileSync(file), 'image/png'));
-  // closeSession();
+  //Note: The following line can be commented out to keep browsers open for debugging purposes on local
+  closeSession();
 });

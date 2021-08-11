@@ -47,6 +47,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
+          args: ["headless", "no-sandbox", "disable-gpu"],
           w3c: false,
         },
       },
