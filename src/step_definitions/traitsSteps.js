@@ -49,7 +49,16 @@ When(/^user selects 'x' button for second scale category$/, async () => {
 When(/^user selects 'x' button for third scale category$/, async () => {
   await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
  });
- 
+
+ Then(
+  /^user can not see an Ordinal field on traits list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@ordinalFields"
+    );
+  }
+);
+
  Then(
   /^user can see "([^"]*)" in the first Ordinal field on traits list page$/,
   async (args1) => {
@@ -60,14 +69,6 @@ When(/^user selects 'x' button for third scale category$/, async () => {
   }
 );
 
-Then(
-  /^user can not see an Ordinal field on traits list page$/,
-  async () => {
-    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
-      "@ordinalFields"
-    );
-  }
-);
 Then(
   /^user can see "([^"]*)" in the second Ordinal field on traits list page$/,
   async (args1) => {

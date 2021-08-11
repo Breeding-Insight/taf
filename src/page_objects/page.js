@@ -395,6 +395,21 @@ module.exports = {
         },
       ],
     },
+    // modalBox: {
+    //   selector: "div.modal-card",
+    //   elements: {
+    //     alertMessage: "div.content h3",
+    //     message: "section p.has-text-dark",
+    //     yesRemoveButton: {
+    //       selector: "button[normalize-space(.)='Yes, remove']",
+    //       locateStrategy: "xpath",
+    //     },
+    //     cancelButton: {
+    //       selector: ".//button[normalize-space(.)='Cancel']",
+    //       locateStrategy: "xpath",
+    //     },
+    //   },
+    // },
   },
   commands: [
     {
