@@ -44,11 +44,18 @@ Users
 | ------ | ------ | ------ |
 | Christian | christian@mailinator.com | admin |
 | Cucumber Breeder | cucumberbreeder@mailinator.com | |
+| Cucumber Member | cucumbermember@mailinator.com| |
+| TrailMix Breeder | trailmix@mailinator.com | |
+
 Programs
 | Name | Species | Users (role) |
 | ------ | ------ | ------ |
-| Snacks | Grape | Cucumber Breeder (breeder) |
-| Trail Mix | Grape | Cucumber Breeder (member) |
+| Snacks | Grape | Cucumber Breeder (breeder)
+Cucumber Member (member)
+Christian (breeder) |
+| Trail Mix | Grape | Cucumber Breeder (member) 
+TrailMix Breeder (breeder)
+Christian (breeder) |
 
 # Gherkin Conventions
 ## Setting Values
