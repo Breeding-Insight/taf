@@ -41,10 +41,12 @@ Scripts
 The implemented scenarios assume the following data is set up on BI:
 Users
 | Name | Email | System Role |
+| ------ | ------ | ------ |
 | Christian | christian@mailinator.com | admin |
 | Cucumber Breeder | cucumberbreeder@mailinator.com | |
 Programs
 | Name | Species | Users (role) |
+| ------ | ------ | ------ |
 | Snacks | Grape | Cucumber Breeder (breeder) |
 | Trail Mix | Grape | Cucumber Breeder (member) |
 
