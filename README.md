@@ -17,7 +17,7 @@ To run tests locally, you need to install the following:
 [Java JRE or JDK](https://www.java.com/en/)
 Version Control Client 
 [Visual Studio Code](https://code.visualstudio.com/)
-| Visuatl Studio Code Plugin | Configuration |
+| Visual Studio Code Plugin | Configuration |
 | ------ | ------ |
 | Cucumber (Gherkin) Full Support | Edit settings.json file and include the following:<br>"cucumberautocomplete.steps":["src/step_definitions/*.js"],<br>"cucumberautocomplete.strictGherkinCompletion": true, |
 | Cuke Step Definition Generator | none |
@@ -33,6 +33,20 @@ npm install
 ```sh
 npm run test:chrome
 ```
+## Running Tests Locally
+Files to change
+Scripts
+
+## Database Assumptions
+The implemented scenarios assume the following data is set up on BI:
+Users
+| Name | Email | System Role |
+| Christian | christian@mailinator.com | admin |
+| Cucumber Breeder | cucumberbreeder@mailinator.com | |
+Programs
+| Name | Species | Users (role) |
+| Snacks | Grape | Cucumber Breeder (breeder) |
+| Trail Mix | Grape | Cucumber Breeder (member) |
 
 # Gherkin Conventions
 ## Setting Values
