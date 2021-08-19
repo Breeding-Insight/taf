@@ -35,15 +35,20 @@ npm run test:chrome
 ```
 ## Running Tests Locally
 Files to change
+nightwatch.conf.js (change launch_url to local)
+workspace.code-workspace (change server to local)
 
-Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie:
+Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie running all scenarios tagged as @SmokeTests:
 ```sh
-"test:chromeSmokeTests": "mkdirp report && cucumber-js src/features --require cucumber.conf.js **--tags @SmokeTests** --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report"
+"test:chromeSmokeTests": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report"
 ```
 and then run it in terminal as
 ```sh
 npm run test:chromeSmokeTests
 ```
+
+Cucumber report by default will be saved to a folder and be overwritten with subsequent runs.
+
 ## Database Assumptions
 The implemented scenarios assume the following data is set up on BI:
 
