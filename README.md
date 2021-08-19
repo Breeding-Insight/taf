@@ -34,11 +34,9 @@ npm install
 npm run test:chrome
 ```
 ## Running Tests Locally
-Files to change
-
-nightwatch.conf.js (change launch_url to local)
-
-workspace.code-workspace (change server to local)
+Files to change:
+- nightwatch.conf.js (change launch_url to local)
+- workspace.code-workspace (change server to local)
 
 Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie running all scenarios tagged as @SmokeTests:
 ```sh
