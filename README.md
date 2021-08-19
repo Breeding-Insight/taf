@@ -35,7 +35,14 @@ npm run test:chrome
 ```
 ## Running Tests Locally
 Files to change
-Scripts
+
+Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie:
+
+"test:chromeSmokeTests": "mkdirp report && cucumber-js src/features --require cucumber.conf.js **--tags @SmokeTests** --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report"
+
+and then run it in terminal as
+
+npm run test:chromeSmokeTests
 
 ## Database Assumptions
 The implemented scenarios assume the following data is set up on BI:
@@ -50,12 +57,8 @@ Users
 Programs
 | Name | Species | Users (role) |
 | ------ | ------ | ------ |
-| Snacks | Grape | Cucumber Breeder (breeder)
-Cucumber Member (member)
-Christian (breeder) |
-| Trail Mix | Grape | Cucumber Breeder (member) 
-TrailMix Breeder (breeder)
-Christian (breeder) |
+| Snacks | Grape | Cucumber Breeder (breeder) <br> Cucumber Member (member) <br> Christian (breeder) |
+| Trail Mix | Grape | Cucumber Breeder (member) <br> TrailMix Breeder (breeder) <br> Christian (breeder) |
 
 # Gherkin Conventions
 ## Setting Values
