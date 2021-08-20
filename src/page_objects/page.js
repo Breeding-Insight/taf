@@ -120,12 +120,12 @@ module.exports = {
     usersTable: "#app section table",
 
     nextButton: {
-      selector: "//*[@id='app']//a[normalize-space(.)='Next']",
+      selector: "//*[@id='app']//button[normalize-space(.)='Next']",
       locateStrategy: "xpath",
     },
 
     previousButton: {
-      selector: "//*[@id='app']//a[normalize-space(.)='Previous']",
+      selector: "//*[@id='app']//button[normalize-space(.)='Previous']",
       locateStrategy: "xpath",
     },
 
@@ -138,7 +138,7 @@ module.exports = {
       locateStrategy: "xpath",
     },
     showAllButton: {
-      selector: "//nav//a[normalize-space(.)='Show All']",
+      selector: "//nav//button[normalize-space(.)='Show All']",
       locateStrategy: "xpath",
     },
 
