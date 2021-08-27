@@ -109,7 +109,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "Name":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@name='name']`,
+              selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
               locateStrategy: "xpath",
             },
             program.Name
@@ -118,7 +118,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "Species":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@name='species']`,
+              selector: `.//tr[@class='is-new']/td[@data-label='Species']`,
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -127,7 +127,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "# Users":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@name='numUsers']`,
+              selector: `.//tr[@class='is-new']/td[@data-label='# Users']`,
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -136,7 +136,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "BrAPI URL":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@name='brapiUrl']`,
+              selector: `.//tr[@class='is-new']/td[@data-label='BrAPI URL']`,
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -190,7 +190,7 @@ When(/^user selects 'Edit' of "([^"]*)" in Programs page$/, async (args1) => {
     programName = args1;
   }
   const selector = {
-    selector: `.//td[@name='name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+    selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
     locateStrategy: "xpath",
   };
   await page.click(selector);
@@ -222,9 +222,9 @@ Then(
   async (args1) => {
     //will find match on 1st row only
     if (program.Name == null) {
-      await page.section.programForm.isItemInNewRow({ Name: args1 });
+      await page.section.programForm.isItemInRow({ Name: args1 });
     } else
-      await page.section.programForm.isItemInNewRow({ Name: program.Name });
+      await page.section.programForm.isItemInRow({ Name: program.Name });
   }
 );
 
@@ -232,7 +232,7 @@ Then(
   /^user can see "([^"]*)" in Species column in Program page$/,
   async (args1) => {
     //will find match on new row only
-    await page.section.programForm.isItemInNewRow({ Species: args1 });
+    await page.section.programForm.isItemInRow({ Species: args1 });
   }
 );
 
@@ -246,7 +246,7 @@ When(
       programName = args1;
     }
     const selector = {
-      selector: `.//td[@name='name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Deactivate']`,
+      selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Deactivate']`,
       locateStrategy: "xpath",
     };
     await page.section.programForm.click(selector);
@@ -282,7 +282,7 @@ Then(
     if (program.Name == null) programName = args1;
     else programName = program.Name;
     const selector = {
-      selector: `.//tr/td[@name='name'][normalize-space(.)='${programName}']`,
+      selector: `.//tr/td[@data-label='Name'][normalize-space(.)='${programName}']`,
       locateStrategy: "xpath",
     };
     await page.section.programForm.assert.not.elementPresent(selector);
@@ -303,7 +303,7 @@ Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
 When(
   /^user selects 'New Location' button in Program Management page$/,
   async () => {
-    await page.click("@newLocationButtonNoLocsPresent");
+    await page.click("@newLocationButton");
   }
 );
 
@@ -361,7 +361,7 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 Then(
   /^user can see 'New Location' button in Program Management page$/,
   async () => {
-    await page.assert.visible("@newLocationButtonNoLocsPresent");
+    await page.assert.visible("@newLocationButton");
   }
 );
 

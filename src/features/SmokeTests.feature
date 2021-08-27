@@ -24,7 +24,7 @@ Feature: Smoke Tests (11)
 		Then user can see banner contains "Success!"
 		Then user can see "Name" column in Users
 		Then user can see "Email" column in Users
-		Then user can see "Roles" column in Users
+		Then user can see "Role" column in Users
 		Then user can see a new user is added in User
 
 		Examples:
@@ -39,7 +39,7 @@ Feature: Smoke Tests (11)
 		When user selects "Users" in navigation
 		Then user can see "Name" column in Users
 		Then user can see "Email" column in Users
-		Then user can see "Roles" column in Users
+		Then user can see "Role" column in Users
 		Then user can see 'Previous' button
 		Then user can see 'Next' button
 		Then user can see 'Show All' button
@@ -57,8 +57,10 @@ Feature: Smoke Tests (11)
 		When user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
 		Then user can see banner contains "Success!"
-		Then user can see "Name" column header
-		Then user can see "# Experiments" column header
+		Then user can see table header contains
+			| Header        |
+			| Name          |
+			| # Experiments |
 		Then user can see "<location name>" in Name column in Program Management page
 		And user can see each row has an Edit link
 		And user can see each row has a Deactivate link

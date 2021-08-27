@@ -18,11 +18,11 @@ Feature: Breeder User Management
 		And user selects "Users" in navigation
 		Then user can see Program User Management page
 		And user can see Users page
-		And user can see "Program User Management" table header contains
+		And user can see table header contains
 			| Header |
 			| Name   |
 			| Email  |
-			| Roles  |
+			| Role  |
 		And user can see each row has an Edit link
 		And user can see each row has a Deactivate link
 		And user can see Previous page button
