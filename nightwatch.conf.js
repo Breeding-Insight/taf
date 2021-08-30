@@ -21,7 +21,11 @@ module.exports = {
 
   test_settings: {
     default: {
-      launch_url: "http://localhost",
+<<<<<<< HEAD
+      launch_url:"http://localhost:8080",
+=======
+      launch_url: "http://localhost:8080",
+>>>>>>> 01218e4 (WIP)
       screenshots: {
         enabled: true,
         path: "./screenshots",
@@ -31,7 +35,7 @@ module.exports = {
       launch_url: "http://sandbox.breedinginsight.net/",
     },
     docker: {
-      launch_url: "http://biproxy",
+      launch_url: "http://localhost:8080",
     },
     ie: {
       desiredCapabilities: {

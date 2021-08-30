@@ -3,7 +3,7 @@ Feature: Trait Create
 
     Background: Trait Create
         Given user logs in as "Cucumber Breeder"
-        And Start to type your And step here user selects "Snacks" on program-selection page
+        And user selects "Snacks" on program-selection page
         And user selects "Traits" in navigation
         And user selects "Trait List" in navigation
 
@@ -38,8 +38,11 @@ Feature: Trait Create
         And user sets "<second scale category>" in second scale field on traits list page
         And user sets "<third scale category>" in third scale field on traits list page
         And user selects "Nominal" in scale dropdown on traits list page
-        Then user can see "<first scale category>" in first Scale field on traits list page
+        Then user can not see the first "ordinal label" on traits list page
+        And user can see "<first scale category>" in first Scale field on traits list page
+        And user can not see the second "ordinal label" on traits list page
         And user can see "<second scale category>" in second Scale field on traits list page
+        And user can not see the third "ordinal label" on traits list page
         And user can see "<third scale category>" in third Scale field on traits list page
 
     @BI-992
@@ -71,8 +74,10 @@ Feature: Trait Create
         And user sets "<third scale category>" in third scale field on traits list page
         And user selects "Ordinal" in scale dropdown on traits list page
         And user selects "Nominal" in scale dropdown on traits list page
-        Then user can not see an Ordinal field on traits list page
+        Then user can not see the first "ordinal label" on traits list page
         And user can see "<first scale category>" in first Scale field on traits list page
+        And user can not see the second "ordinal label" on traits list page
         And user can see "<second scale category>" in second Scale field on traits list page
+        And user can not see the third "ordinal label" on traits list page
         And user can see "<third scale category>" in third Scale field on traits list page
 

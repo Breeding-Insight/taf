@@ -12,7 +12,10 @@ module.exports = {
         traitNameField: "#Trait-name",
         isCollectedOnField: "div.control.is-clearfix input",
         byMethodSelect: "#Method",
-        byScaleSelect: "#Scale",
+        byScaleSelect: {
+          selector: "#Class",
+          index: 2,
+        },
         descriptionCollectionMethodField:
           "div.control input[placeholder='Method Description']",
         abbreviationField: "div.control input[placeholder='Abbreviation(s)']",

@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("cucumber");
+const { Given, Then, When } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
 When(/^user selects 'New Trait' button on traits list page$/, async () => {
@@ -50,8 +50,9 @@ When(/^user selects 'x' button for third scale category$/, async () => {
   await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
  });
 
- Then(
-  /^user can not see an Ordinal field on traits list page$/,
+ 
+Then(
+  /^user can not see the .* "ordinal label" on traits list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.not.elementPresent(
       "@ordinalFields"
