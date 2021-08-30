@@ -74,20 +74,6 @@ Feature: Program Location Management
 			| Email  |
 			| Role   |
 
-	# 	Scenario: No System Role and Program Member - Program User Management
-	# 		Given user logs in as "Cucumber Breeder"
-	# 		And user selects "Snacks" on program-selection page
-	# 		And user selects "Program Management" in navigation
-	# 		And user selects "Users" in navigation
-	# 		Then user can see page of Users
-	# 		And user can see table header contains
-	# 			| Header |
-	# 			| Name   |
-	# 			| Email  |
-	# 			| Role   |
-	# 		And user can see each row doesn't have an Edit link
-	# 		And user can see each row doesn't have a Deactivate link
-
 	Scenario: ???
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
