@@ -31,6 +31,9 @@ module.exports = {
     sandbox: {
       launch_url:"http://sandbox.breedinginsight.net/",
     },
+	docker:{
+		launch_url:"http://biproxy",
+	},
     ie: {
       desiredCapabilities: {
         browserName: "internet explorer",
@@ -66,6 +69,16 @@ module.exports = {
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
+          w3c: false,
+        },
+      },
+    },
+	'docker.chrome': {
+      extends: 'docker',
+      desiredCapabilities: {
+        browserName: "chrome",
+        chromeOptions: {
+          args: ["headless", "no-sandbox", "disable-gpu"],
           w3c: false,
         },
       },
