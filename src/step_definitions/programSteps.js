@@ -1,7 +1,6 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("cucumber");
+const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
-const { default: cli } = require("cucumber/lib/cli");
 const page = client.page.page();
 const program = {};
 
