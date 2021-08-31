@@ -13,8 +13,7 @@ module.exports = {
       "webdriver.gecko.driver": require("geckodriver").path,
       "webdriver.chrome.driver": require("chromedriver").path,
       //don't use the 64bit driver. it is really slow
-      "webdriver.edge.driver":
-      "./src/driver/msedgedriver.exe",
+      "webdriver.edge.driver": "./src/driver/msedgedriver.exe",
       "webdriver.ie.driver":
         "./node_modules/iedriver/lib/iedriver/IEDriverServer.exe",
     },
@@ -22,18 +21,18 @@ module.exports = {
 
   test_settings: {
     default: {
-      launch_url:"http://localhost",
+      launch_url: "http://localhost",
       screenshots: {
         enabled: true,
         path: "./screenshots",
       },
     },
     sandbox: {
-      launch_url:"http://sandbox.breedinginsight.net/",
+      launch_url: "http://sandbox.breedinginsight.net/",
     },
-	docker:{
-		launch_url:"http://biproxy",
-	},
+    docker: {
+      launch_url: "http://biproxy",
+    },
     ie: {
       desiredCapabilities: {
         browserName: "internet explorer",
@@ -57,15 +56,15 @@ module.exports = {
     },
     edge: {
       selenium: {
-      start_process: false,
-      port: 9515,
+        start_process: false,
+        port: 9515,
       },
       desiredCapabilities: {
         browserName: "MicrosoftEdge",
       },
     },
-    'sandbox.chrome': {
-      extends: 'sandbox',
+    "sandbox.chrome": {
+      extends: "sandbox",
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
@@ -73,8 +72,8 @@ module.exports = {
         },
       },
     },
-	'docker.chrome': {
-      extends: 'docker',
+    "docker.chrome": {
+      extends: "docker",
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
