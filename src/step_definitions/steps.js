@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("cucumber");
+const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
