@@ -1,4 +1,4 @@
-Feature: Trait Import (10 Scenarios)
+Feature: Ontology Import (10 Scenarios)
 
 	Background: Setup
 		Given user logs in as "Cucumber Breeder"
@@ -6,30 +6,33 @@ Feature: Trait Import (10 Scenarios)
 		And user selects "Traits" in navigation
 		And user selects "Import Traits" in navigation
 
+	@trait
 	@BI-916
 	@BI-809
 	@SmokeTests
-	Scenario: Import Traits page
-		Then user can header "Import Traits"
+	Scenario: Import Ontology page
+		Then user can header "Import Ontology"
 		And user can see a message 'Before You Import...'
-		And user can see a message 'Prepare trait information for import using the provided template.'
-		And user can see a button 'Download the Trait Import Template'
+		And user can see a message 'Prepare ontology information for import using the provided template.'
+		And user can see a button 'Download the Ontology Import Template'
 		And user can see a button 'Choose a file...'
 
+	@trait
 	@BI-917
-	Scenario: Traits - choosing a file
+	Scenario: Ontology - choosing a file
 		When user uploads "test_import-xls.xls" file
 		Then user can see "test_import-xls.xls" displayed
 		And user cans see 'Choose a different file...' button
 		And user can see 'Import' button
 
+	@trait
 	@BI-918
 	@BI-810
 	@SmokeTests
-	Scenario: Traits - choosing an xls file And selecting Import
+	Scenario: Ontology - choosing an xls file And selecting Import
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
-		Then user can see 'Curate And Confirm New Traits' header
+		Then user can see 'Confirm New Ontology Term' header
 		And user can see "Confirm" button
 		And user can see "Abort" button
 		And user see a list of traits in a table
@@ -39,6 +42,7 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
+	@trait
 	@BI-919
 	Scenario: Traits - Abort Import, Modal
 		When user uploads "test_import-xls.xls" file
@@ -51,27 +55,30 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Cancel" button
 		And user selects "Cancel" button
 
+	@trait
 	@BI-920
-	Scenario: Traits - Abort Import, Cancel
+	Scenario: Ontology - Abort Import, Cancel
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		And user selects "Abort" button
 		And user selects "Cancel" button
 		Then user can not see a modal box
-		Then user can see 'Curate And Confirm New Traits' header
+		Then user can see 'Confirm New Ontology Term' header
 
+	@trait
 	@BI-921
-	Scenario: Traits - Abort Import, Yes, Abort
+	Scenario: Ontology - Abort Import, Yes, Abort
 		And user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		And user selects "Abort" button
 		When user selects 'Yes, abort' button
 		Then user can see banner contains "Import cancelled"
 
+	@trait
 	@taf-bug
 	@BI-922
 	@BI-811
-	Scenario: Traits - Confirm Import for xls file
+	Scenario: Ontology - Confirm Import for xls file
 		And user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
@@ -83,16 +90,18 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
+	@trait
 	@BI-923
-	Scenario: Traits - choosing a different file - xls, Then a csv file
+	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
 		And user uploads "test_import-csv.csv" file
 		Then user can see "test_import-csv.csv" displayed
 		And user can see 'Import' button
 
+	@trait
 	@taf-bug
 	@BI-924
-	Scenario: Traits - Confirm Import for csv file
+	Scenario: Ontology - Confirm Import for csv file
 		And user uploads "test_import-csv.csv" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
@@ -104,56 +113,64 @@ Feature: Trait Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
+	@trait
 	@BI-926
-	Scenario: Traits - Duplicate Trait Name
+	Scenario: Ontology - Duplicate Trait Name
 		And user uploads "test_traits_dupTraitNames.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 2"
 		And user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 3"
 
+	@trait
 	@BI-927
 	@bug
-	Scenario: Traits - missing column
+	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Error parsing excel: Missing expected columns [Trait status]"
 
+	@trait
 	@BI-928
 	@bug
-	Scenario: Traits - duplicate column
+	Scenario: Ontology - duplicate column
 		And user uploads "test_traits_dupCol.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Error parsing excel: Found duplicate column names"
 
+	@trait
 	@BI-929
-	Scenario: Traits - missing formula
+	Scenario: Ontology - missing formula
 		And user uploads "test_traits_missingFormula.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Method formula: Missing method formula for Computation method in row 2"
 
+	@trait
 	@BI-930
-	Scenario: Traits - missing scale categories
+	Scenario: Ontology - missing scale categories
 		And user uploads "test_traits_missingScaleCat.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 3"
 		And user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 5"
 
+	@trait
 	@BI-931
 	@bug
-	Scenario: Traits - missing method And scale names
+	Scenario: Ontology - missing method And scale names
 		And user uploads "test_traits_MissingNames.xlsx" file
 		And user selects 'Import' button
 		And user can see an error message "Scale name: Missing scale name in row 3"
 		Then user can see an error message "Method name: Missing method name in row 3"
 
+	@trait
 	@BI-932
-	Scenario: Traits - case sensitivity
+	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file
 		And user selects 'Import' button
-		Then user can see 'Curate And Confirm New Traits' header
+		Then user can see 'Confirm New Ontology Term' header
 
+	@trait
 	@BI-933l
-	Scenario: Traits - extra columns
+	Scenario: Ontology - extra columns
 		And user uploads "test_traits_extraCols.xlsx" file
 		And user selects 'Import' button
-		Then user can see 'Curate And Confirm New Traits' header
+		Then user can see 'Confirm New Ontology Term' header

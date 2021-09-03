@@ -784,20 +784,20 @@ Then(/^user can see a message 'Before You Import...'$/, async () => {
 });
 
 Then(
-  /^user can see a message 'Prepare trait information for import using the provided template.'$/,
+  /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
     await page.assert.containsText(
       "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div",
-      "Prepare trait information for import using the provided template."
+      "Prepare ontology information for import using the provided template."
     );
   }
 );
 
 Then(
-  /^user can see a button 'Download the Trait Import Template'$/,
+  /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
+      "#traitimporttemplatemessagebox-download-trait-template", "Download the Ontology Import Template"
     );
   }
 );
@@ -845,10 +845,10 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.click(selector);
 });
 
-Then(/^user can see 'Curate And Confirm New Traits' header$/, async () => {
+Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
   await page.assert.containsText(
     "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > h1",
-    "Curate and Confirm New Traits"
+    "Confirm New Ontology Term"
   );
 });
 
