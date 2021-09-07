@@ -83,3 +83,37 @@ The implemented scenarios assume the following data is set up on BI:
 - Visibility of a control, use "see" and "not see"
 <br>_Then user can see "Snacks" button_
 <br>_Then user can not see "Cancel" link_
+
+# Running Tests With Selenium Docker and BI-Docker-Stack
+TAF can launch browser on a Selenium docker container and run tests on bi-docker-stack.
+
+## Prerequisite:
+* Docker Desktop
+
+## Clone the following repositories:
+* https://github.com/Breeding-Insight/bi-docker-stack.git
+* https://github.com/Breeding-Insight/taf.git
+
+## Configuration:
+* In b-docker-stack folder, go to /bi-web/.env.development.
+Update the line with "VUE_APP_BI_API_ROOT=http://biproxy"
+
+* Update the host's host file 
+Windows : C:\Windows\System32\drivers\etc\host 
+Unix: /etc/hosts
+Add the following line "127.0.0.1 biproxy"
+
+* Set the browser to "docker.chrome".
+In package.json, set browser to "docker.chrome".
+e.g. "--world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\""
+
+## Starting the containers
+* Go to bi-docker-stack folder and execute
+```sh
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
+* Go to TAF folder and execute
+```sh
+docker-compose -f docker-compose.yml -d
+```
+
