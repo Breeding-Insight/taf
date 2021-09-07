@@ -37,9 +37,10 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Abort" button
 		And user see a list of traits in a table
 		And user can see "Name" column header
-		And user can see "Level" column header
+		And user can see "Trait" column header
 		And user can see "Method" column header
-		And user can see "Scale" column header
+		And user can see "Scale Class" column header
+		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 
 	@trait
