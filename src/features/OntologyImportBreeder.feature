@@ -6,7 +6,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects "Traits" in navigation
 		And user selects "Import Traits" in navigation
 
-	@trait
 	@BI-916
 	@BI-809
 	@SmokeTests
@@ -17,7 +16,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see a button 'Download the Ontology Import Template'
 		And user can see a button 'Choose a file...'
 
-	@trait
 	@BI-917
 	Scenario: Ontology - choosing a file
 		When user uploads "test_import-xls.xls" file
@@ -25,7 +23,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user cans see 'Choose a different file...' button
 		And user can see 'Import' button
 
-	@trait
 	@BI-918
 	@BI-810
 	@SmokeTests
@@ -43,9 +40,8 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 
-	@trait
 	@BI-919
-	Scenario: Traits - Abort Import, Modal
+	Scenario: Ontology - Abort Import, Modal
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		And user selects "Abort" button
@@ -56,7 +52,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Cancel" button
 		And user selects "Cancel" button
 
-	@trait
 	@BI-920
 	Scenario: Ontology - Abort Import, Cancel
 		When user uploads "test_import-xls.xls" file
@@ -66,7 +61,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can not see a modal box
 		Then user can see 'Confirm New Ontology Term' header
 
-	@trait
 	@BI-921
 	Scenario: Ontology - Abort Import, Yes, Abort
 		And user uploads "test_import-xls.xls" file
@@ -75,7 +69,6 @@ Feature: Ontology Import (10 Scenarios)
 		When user selects 'Yes, abort' button
 		Then user can see banner contains "Import cancelled"
 
-	@trait
 	@taf-bug
 	@BI-922
 	@BI-811
@@ -91,7 +84,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
-	@trait
 	@BI-923
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
@@ -99,7 +91,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "test_import-csv.csv" displayed
 		And user can see 'Import' button
 
-	@trait
 	@taf-bug
 	@BI-924
 	Scenario: Ontology - Confirm Import for csv file
@@ -114,7 +105,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Scale" column header
 		And user can see each row has a "Show Details" link
 
-	@trait
 	@BI-926
 	Scenario: Ontology - Duplicate Trait Name
 		And user uploads "test_traits_dupTraitNames.xlsx" file
@@ -122,7 +112,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 2"
 		And user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 3"
 
-	@trait
 	@BI-927
 	@bug
 	Scenario: Ontology - missing column
@@ -130,7 +119,6 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		Then user can see an error message "Error parsing excel: Missing expected columns [Trait status]"
 
-	@trait
 	@BI-928
 	@bug
 	Scenario: Ontology - duplicate column
@@ -138,14 +126,12 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		Then user can see an error message "Error parsing excel: Found duplicate column names"
 
-	@trait
 	@BI-929
 	Scenario: Ontology - missing formula
 		And user uploads "test_traits_missingFormula.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Method formula: Missing method formula for Computation method in row 2"
 
-	@trait
 	@BI-930
 	Scenario: Ontology - missing scale categories
 		And user uploads "test_traits_missingScaleCat.xlsx" file
@@ -153,7 +139,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 3"
 		And user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 5"
 
-	@trait
 	@BI-931
 	@bug
 	Scenario: Ontology - missing method And scale names
@@ -162,14 +147,12 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see an error message "Scale name: Missing scale name in row 3"
 		Then user can see an error message "Method name: Missing method name in row 3"
 
-	@trait
 	@BI-932
 	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file
 		And user selects 'Import' button
 		Then user can see 'Confirm New Ontology Term' header
 
-	@trait
 	@BI-933l
 	Scenario: Ontology - extra columns
 		And user uploads "test_traits_extraCols.xlsx" file

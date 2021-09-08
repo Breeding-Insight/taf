@@ -953,7 +953,7 @@ Then(/^user can see Traits table$/, async () => {
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id="app"]//li[contains(text(), "${args1}")]`,
+    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
     locateStrategy: "xpath",
   });
 });
