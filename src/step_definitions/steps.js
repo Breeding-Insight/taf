@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("cucumber");
+const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
@@ -133,29 +133,8 @@ Then(/^user can see page of Programs$/, async () => {
   await page.assert.visible("#adminProgramTableLabel");
 });
 
-Then(/^user can see table header contains$/, async (table) => {
-  for (column of table.raw()[0]) {
-    for (i = 0; i < table.hashes().length; i++) {
-      switch (column) {
-        case "Header":
-          const select = {
-            selector:
-              "//*[@id='app']//th[contains(text(),'" +
-              table.hashes()[i][column] +
-              "')]",
-            locateStrategy: "xpath",
-          };
-          await page.assert.visible(select);
-          break;
-        default:
-          throw new Error(`Unexpected ${column} name.`);
-      }
-    }
-  }
-});
-
 //For Buefy tables
-Then(/^user can see "([^"]*)" table header contains$/, async (args1, table) => {
+Then(/^user can see table header contains$/, async (table) => {
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
@@ -476,13 +455,7 @@ When(/^user edits a user$/, async (table) => {
 Then(/^user can see a new user is added in User$/, async () => {
   await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
   await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
-  await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
-});
-
-Then(/^user can see a new user is added in System User table$/, async () => {
-  await page.assert.containsText("tr.is-new td[name='name']", user.userName);
-  await page.assert.containsText("tr.is-new td[name='email']", user.email);
-  await page.assert.containsText("tr.is-new td[name='roles']", user.role);
+  await page.assert.containsText("tr.is-new td[data-label='Role']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {

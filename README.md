@@ -17,7 +17,7 @@ To run tests locally, you need to install the following:
 [Java JRE or JDK](https://www.java.com/en/)
 Version Control Client 
 [Visual Studio Code](https://code.visualstudio.com/)
-| Visuatl Studio Code Plugin | Configuration |
+| Visual Studio Code Plugin | Configuration |
 | ------ | ------ |
 | Cucumber (Gherkin) Full Support | Edit settings.json file and include the following:<br>"cucumberautocomplete.steps":["src/step_definitions/*.js"],<br>"cucumberautocomplete.strictGherkinCompletion": true, |
 | Cuke Step Definition Generator | none |
@@ -33,6 +33,39 @@ npm install
 ```sh
 npm run test:chrome
 ```
+## Running Tests Locally
+Files to change:
+- nightwatch.conf.js (change launch_url to local)
+- workspace.code-workspace (change server to local)
+
+Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie running all scenarios tagged as @SmokeTests:
+```sh
+"test:chromeSmokeTests": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\"; npm run report"
+
+```
+and then run it in terminal as
+```sh
+npm run test:chromeSmokeTests
+```
+
+Cucumber report by default will be saved to a folder and be overwritten with subsequent runs.
+
+## Database Assumptions
+The implemented scenarios assume the following data is set up on BI:
+
+**Users**
+| Name | Email | System Role |
+| ------ | ------ | ------ |
+| Christian | christian@mailinator.com | admin |
+| Cucumber Breeder | cucumberbreeder@mailinator.com | |
+| Cucumber Member | cucumbermember@mailinator.com| |
+| TrailMix Breeder | trailmix@mailinator.com | |
+
+**Programs**
+| Name | Species | Users (role) |
+| ------ | ------ | ------ |
+| Snacks | Grape | Cucumber Breeder (breeder) <br> Cucumber Member (member) <br> Christian (breeder) |
+| Trail Mix | Grape | Cucumber Breeder (member) <br> TrailMix Breeder (breeder) <br> Christian (breeder) |
 
 # Gherkin Conventions
 ## Setting Values
@@ -51,3 +84,37 @@ npm run test:chrome
 - Visibility of a control, use "see" and "not see"
 <br>_Then user can see "Snacks" button_
 <br>_Then user can not see "Cancel" link_
+
+# Running Tests With Selenium Docker and BI-Docker-Stack
+TAF can launch browser on a Selenium docker container and run tests on bi-docker-stack.
+
+## Prerequisite:
+* Docker Desktop
+
+## Clone the following repositories:
+* https://github.com/Breeding-Insight/bi-docker-stack.git
+* https://github.com/Breeding-Insight/taf.git
+
+## Configuration:
+* In b-docker-stack folder, go to /bi-web/.env.development.
+Update the line with "VUE_APP_BI_API_ROOT=http://biproxy"
+
+* Update the host's host file 
+Windows : C:\Windows\System32\drivers\etc\host 
+Unix: /etc/hosts
+Add the following line "127.0.0.1 biproxy"
+
+* Set the browser to "docker.chrome".
+In package.json, set browser to "docker.chrome".
+e.g. "--world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\""
+
+## Starting the containers
+* Go to bi-docker-stack folder and execute
+```sh
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
+* Go to TAF folder and execute
+```sh
+docker-compose -f docker-compose.yml -d
+```
+

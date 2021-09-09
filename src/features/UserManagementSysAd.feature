@@ -73,7 +73,7 @@ Feature: System User Management (15)
 		When user creates a new user
 			| Name   | Email                | Role |
 			| Test * | test*@mailinator.com |      |
-		Then user can see a new user is added in System User table
+		Then user can see a new user is added in User
 
 	@BI-831
 	Scenario:  Adding new user with admin role
@@ -81,7 +81,7 @@ Feature: System User Management (15)
 		When user creates a new user
 			| Name   | Email                | Role  |
 			| Test * | test*@mailinator.com | admin |
-		Then user can see a new user is added in System User table
+		Then user can see a new user is added in User
 
 	@BI-832
 	Scenario: Filling out new user form and selecting Cancel
@@ -164,73 +164,15 @@ Feature: System User Management (15)
 		When user selects 'Edit' of "<Original Email>" of Users
 		And user sets "<New Name>" in Name field
 		And user sets "<New Email>" in Email field
-		And user sets "<New Role>" in Role dropdown
 		And user selects 'Save' button in Users
 		Then user can see banner contains "User info (name/email/program) successfully updated"
-		Then user can see banner contains "You don't have permissions to edit the roles of this user."
 		#CLEANUP
 		When user selects 'Edit' of "<New Email>" of Users
 		And user sets "<Original Name>" in Name field
 		And user sets "<Original Email>" in Email field
-		And user sets "<Original Role>" in Role dropdown
 		And user selects 'Save' button in Users 
 
 		Examples:
-			| Original Email           | Original Name | Original Role | New Name   | New Email               | New Role |
-			| christian@mailinator.com | Christian     | admin         | TestNew *  | testnew*@mailinator.com | No Role  |
+			| Original Email           | Original Name | New Name   | New Email               |
+			| christian@mailinator.com | Christian     | TestNew *  | testnew*@mailinator.com |
 	
-
-	#     Scenario: Editing form and selecting Save
-	#         Given a system administrator is on the user-management page
-	#          When the sysad selects 'Edit' for TestNewUser
-	#           And changes TestNewUser to TestEditUser in the Name field
-	#           And changes  newuser@mail.com to edituser@mail.com in the Email field
-	#           And selects admin for role
-	#           And selects Save button
-	#          Then a banner appears with a success message 'User successfully updated'.
-	#           And the form closes
-	#           And TestNewUser is not in the list of users
-	#           And EditNewUser is in the list of users
-	#           And edituser@mail.com in the Email field
-	#           And admin in the Role field
-
-	#Scenario: SysAd can't edit own account
-	#	Given user is on the user-management page
-
-#      When the sysad selects 'Edit' for TestNewUser
-#       And changes own name
-#       And changes own email
-#       And selects no role
-#       And selects Save button
-#      Then a banner appears with a success message 'User info (name/email/program) successfully updated'
-#       And a banner appears with a fail message 'You don't have permissions to edit the roles of this user'
-#       And the form closes
-#       And TestNewUser is not in the list of users
-#       And EditNewUser is in the list of users
-#       And edituser@mail.com in the Email field
-#       And admin in the Role field
-
-#     Scenario: User Deactivate modal
-#         Given a system administrator is on the user-management page
-#           And selects 'Deactivate' for TestNewUser
-#          Then a modal opens with message "Deactivate testDelete from the system?
-#           Access for this user will be removed system wide. Program-related data collected by this user will not be affected by this change."
-#           And there is a buttom for "Yes, deactivate"
-#           And there is a button for "Cancel"
-# click "Cancel"
-
-#     Scenario: User Deactivate link and Cancel
-#         Given a system administrator logs into http://sandbox.breedinginsight.net/ with valid credentials
-#          When sysad selects Users in the left navigation pane
-#           And selects 'Deactivate' for TestNewUser
-#           And selects "Cancel"
-#          Then the modal closes
-#           And TestNewUser is still in the list of users
-
-#     Scenario: User Deactivate link and 'Yes, deactivate'
-#         Given a system administrator logs into http://sandbox.breedinginsight.net/ with valid credentials
-#          When sysad selects Users in the left navigation pane
-#           And selects 'Deactivate' for TestNewUser
-#           And selects "Yes, deactivate"
-#          Then the modal closes
-#           And TestNewUser is not in the list of users
