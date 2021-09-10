@@ -55,7 +55,10 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    programsTable: "table.is-striped.is-narrow.is-hoverable.is-fullwidth",
+    programsTable: {
+      selector: "//*[@id='adminProgramTableLabel']//table",
+      locateStrategy: "xpath",
+    },
 
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
@@ -166,12 +169,7 @@ module.exports = {
     },
 
     //location
-    newLocationButtonNoLocsPresent: {
-      selector:
-        "//*[@id='emptyTableMessage']//button[normalize-space(.)='New Location']",
-      locateStrategy: "xpath",
-    },
-    newLocationButtonLocsPresent: {
+    newLocationButton: {
       selector:
         "//*[@id='locationTableLabel']//button[normalize-space(.)='New Location']",
       locateStrategy: "xpath",
@@ -286,18 +284,18 @@ module.exports = {
             };
             await this.assert.visible(selector);
           },
-          isItemInNewRow: async function (list) {
+          isItemInRow: async function (list) {
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='name']`,
+                  selector: `.//tr/td[@data-label='Name']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
               }
               if (key == "Species") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='species']`,
+                  selector: `.//tr/td[@data-label='Species']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
@@ -365,7 +363,7 @@ module.exports = {
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='name']`,
+                  selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);

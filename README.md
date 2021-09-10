@@ -35,12 +35,13 @@ npm run test:chrome
 ```
 ## Running Tests Locally
 Files to change:
-- nightwatch.conf.js (change launch_url to local)
-- workspace.code-workspace (change server to local)
+- nightwatch.conf.js (change launch_url under default to your local url)
+- workspace.code-workspace (change server to local:<your local bi-web port>)
 
 Scripts to run tests are in package.json. One can add additional scripts locally to run a subset of scenarios with a particular tag, ie running all scenarios tagged as @SmokeTests:
 ```sh
-"test:chromeSmokeTests": "mkdirp report && cucumber-js src/features --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json --env chrome; npm run report"
+"test:chromeSmokeTests": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\"; npm run report"
+
 ```
 and then run it in terminal as
 ```sh
