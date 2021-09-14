@@ -96,8 +96,7 @@ TAF can launch browser on a Selenium docker container and run tests on bi-docker
 * https://github.com/Breeding-Insight/taf.git
 
 ## Configuration:
-* In b-docker-stack folder, go to /bi-web/.env.development.
-Update the line with "VUE_APP_BI_API_ROOT=http://biproxy"
+* Set API_BASE_URL environmental variable to http://biproxy
 
 * Update the host's host file 
 Windows : C:\Windows\System32\drivers\etc\host 
@@ -109,10 +108,15 @@ In package.json, set browser to "docker.chrome".
 e.g. "--world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\""
 
 ## Starting the containers
-* Go to bi-docker-stack folder and execute
+* For running specific branch code, make sure code is checked out in bi-docker-stack sub repo and go to the bi-docker-stack folder and execute
 ```sh
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 ```
+* For running latest development branch, go to the bi-docker-stack folder and execute
+```sh
+docker-compose -f docker-compose.yml -f docker-compose-qa.yml up -d
+```
+
 * Go to TAF folder and execute
 ```sh
 docker-compose -f docker-compose.yml up -d
