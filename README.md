@@ -101,6 +101,9 @@ TAF can launch browser on a Selenium docker container and run tests on bi-docker
 
 ## Configuration:
 * Set `API_BASE_URL` environmental variable to http://biproxy
+* Set `WEB_BASE_URL` environmental variable to http://biproxy
+* Set `JWT_DOMAIN` environmental variable to biproxy
+* Set `REGISTERED_DOMAIN` environmental variable to biproxy
 
 * Update the host's host file 
 Windows : C:\Windows\System32\drivers\etc\host 
