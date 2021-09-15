@@ -157,8 +157,10 @@ module.exports = {
     topProgramButton:
       "#app > div.sidebarlayout > div > div > main > section > div > div > div > div > a:nth-child(1)",
 
-    programSelectorDropDownButton:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
+    programSelectorDropDownButton: {
+      selector: "//button[@aria-controls='program-menu']",
+      locateStrategy: "xpath"
+    },
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
