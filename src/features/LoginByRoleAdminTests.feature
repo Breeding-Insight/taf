@@ -23,7 +23,7 @@ Feature: Logging with Sys Administration
 	Scenario: Logging in as an admin - program-management page
 		And user selects "System Administration" on program-selection page
 		Then user can see "System Administration" in the upper right corner
-		And user can see System Administration combo box
+		And user can see Program Selection combo box
 		And user can see 'Logged in as'
 		And user can see a Log out button
 		And user can see a header 'Programs'

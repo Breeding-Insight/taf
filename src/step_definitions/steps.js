@@ -603,11 +603,11 @@ Then(/^user can see System Administration combo box$/, async () => {
 });
 
 Then(/^user can see Program Selection combo box$/, async () => {
-  await page.assert.visible("@systemAdministrationDropDownIcon");
+  await page.assert.visible("@programSelectorDropDownButton");
 });
 
 Then(/^user cannot see Program Selection combo box$/, async () => {
-  await page.assert.not.elementPresent("@systemAdministrationDropDownIcon");
+  await page.assert.not.elementPresent("@programSelectorDropDownButton");
 });
 
 Then(/^user can see 'Logged in as'$/, async () => {

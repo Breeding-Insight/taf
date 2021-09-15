@@ -62,8 +62,6 @@ module.exports = {
 
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
-    systemAdministrationDropDownIcon:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button > span > svg.feather.feather-chevron-down",
 
     loggedInAsLabel:
       "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
