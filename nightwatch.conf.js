@@ -82,5 +82,11 @@ module.exports = {
         },
       },
     },
+    "docker.firefox": {
+      extends: "docker",
+      desiredCapabilities: {
+        browserName: "firefox"
+      },
+    },
   },
 };
