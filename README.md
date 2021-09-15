@@ -67,7 +67,8 @@ The implemented scenarios assume the following data is set up on BI:
 | Snacks | Grape | Cucumber Breeder (breeder) <br> Cucumber Member (member) <br> Christian (breeder) |
 | Trail Mix | Grape | Cucumber Breeder (member) <br> TrailMix Breeder (breeder) <br> Christian (breeder) |
 
-** Automated Database Setup **
+**Automated Database Setup**
+
 There is a script `setup_local_db.sh` that will setup your bidb and brapi-server databases assuming bi-docker-stack and taf repos are at the same level in the filesystem and default docker services/ports are used. 
 
 # Gherkin Conventions
