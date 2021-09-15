@@ -100,7 +100,7 @@ TAF can launch browser on a Selenium docker container and run tests on bi-docker
 * https://github.com/Breeding-Insight/taf.git
 
 ## Configuration:
-* Set API_BASE_URL environmental variable to http://biproxy
+* Set `API_BASE_URL` environmental variable to http://biproxy
 
 * Update the host's host file 
 Windows : C:\Windows\System32\drivers\etc\host 
