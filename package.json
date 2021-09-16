@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "debug": "node --inspect-brk=1337 node_modules/cucumber/bin/cucumber-js",
+    "test:failing": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @BI-819 --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\"; npm run report",
+    "test:bug": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @BI-819 --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\"; npm run report",
     "test:debug": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\"",
     "test:pipeline": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json",
     "test:chrome": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @bug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\"",
@@ -30,7 +32,7 @@
     "@cucumber/cucumber": "^7.3.1",
     "@cucumber/pretty-formatter": "*",
     "@slime/stopwatch": "^1.0.5",
-    "chromedriver": "^91.0.0",
+    "chromedriver": "^93.0.0",
     "cucumber-html-reporter": "^5.2.0",
     "edgedriver": "^4.17134.1",
     "geckodriver": "^2.0.3",
