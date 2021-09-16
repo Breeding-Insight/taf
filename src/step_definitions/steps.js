@@ -750,19 +750,13 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div > strong",
-    "Before You Import..."
-  );
+  await page.assert.containsText("@beforeImportMessage", "Before You Import...");
 });
 
 Then(
   /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
-    await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div",
-      "Prepare ontology information for import using the provided template."
-    );
+    await page.assert.containsText( "@beforeImportMessageDetails", "Prepare ontology information for import using the provided template.");
   }
 );
 
@@ -770,7 +764,7 @@ Then(
   /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#traitimporttemplatemessagebox-download-trait-template", "Download the Ontology Import Template"
+      "@downloadImportTemplateButton", "Download the Ontology Import Template"
     );
   }
 );
@@ -819,10 +813,7 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
 });
 
 Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > h1",
-    "Confirm New Ontology Term"
-  );
+  await page.assert.containsText("@confirmOntologyHeader", "Confirm New Ontology Term");
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
