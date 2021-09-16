@@ -30,26 +30,7 @@ BeforeAll(async () => {
 });
 
 AfterAll(async () => {
-  let version, browserName, platform;
-
-  await client.sessions((result) => {
-    browserName = result.value[0]["capabilities"]["browserName"];
-    switch (browserName) {
-      case "chrome":
-        version = result.value[0]["capabilities"]["version"];
-        platform = result.value[0]["capabilities"]["platform"];
-        break;
-      case "firefox":
-        version = result.value[0]["capabilities"]["browserVersion"];
-        platform = result.value[0]["capabilities"]["platformName"];
-        break;
-      case "internet explorer":
-        platform = result.value[0]["capabilities"]["platformName"];
-        version = result.value[0]["capabilities"]["browserVersion"];
-        break;
-    }
-  });
-
+  let version, browserName, platform; 
   await stopWebDriver();
 
   setTimeout(() => {

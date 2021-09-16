@@ -1,0 +1,21 @@
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# Add the `-d` flag at the end for detached execution
+version: '3'
+services:
+  edge:
+    image: selenium/standalone-edge:94.0-20210914
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: '2gb'
+    environment:
+      - SCREEN_WIDTH=1920
+      - SCREEN_HEIGHT=1080
+      - SCREEN_DEPTH=24
+      - NODE_MAX_INSTANCES=5 
+      - NODE_MAX_SESSION=5
+networks:
+    default:
+        external: true
+        name: bi-docker-stack_upstream
+      

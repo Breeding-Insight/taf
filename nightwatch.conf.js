@@ -13,7 +13,6 @@ module.exports = {
       "webdriver.gecko.driver": require("geckodriver").path,
       "webdriver.chrome.driver": require("chromedriver").path,
       //don't use the 64bit driver. it is really slow
-      "webdriver.edge.driver": "./src/driver/msedgedriver.exe",
       "webdriver.ie.driver":
         "./node_modules/iedriver/lib/iedriver/IEDriverServer.exe",
     },
@@ -55,6 +54,7 @@ module.exports = {
       },
     },
     edge: {
+      extends: "docker",
       selenium: {
         start_process: false,
         port: 9515,
@@ -80,6 +80,16 @@ module.exports = {
           args: ["headless", "no-sandbox", "disable-gpu"],
           w3c: false,
         },
+      },
+    },
+    "docker.edge": {
+      extends: "docker",
+      desiredCapabilities: {
+        browserName: "MicrosoftEdge",
+        // chromeOptions: {
+        //   args: ["headless", "no-sandbox", "disable-gpu"],
+        //   w3c: false,
+        // },
       },
     },
   },
