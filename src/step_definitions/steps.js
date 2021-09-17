@@ -823,7 +823,7 @@ Then(/^user can see "([^"]*)" button$/, async (args1) => {
   });
 });
 
-Then(/^user see a list of traits in a table$/, async () => {
+Then(/^user see a list of ontology terms in a table$/, async () => {
   await page.assert.visible("#traitsImportTableLabel");
 });
 
@@ -911,7 +911,7 @@ When(/^user selects 'Yes, abort' button$/, async () => {
   );
 });
 
-Then(/^user can see Traits table$/, async () => {
+Then(/^user can see Ontology table$/, async () => {
   await page.assert.visible("#traitTableLabel");
 });
 
