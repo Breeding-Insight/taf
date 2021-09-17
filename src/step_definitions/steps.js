@@ -663,16 +663,6 @@ Then(
   }
 );
 
-Then(
-  /^user can see "([^"]*)" as link in the bottom of the navigation menu$/,
-  async (args1) => {
-    await page.assert.visible({
-      selector: `//aside//ul[2]//a[normalize-space(.)='${args1}']`,
-      locateStrategy: "xpath",
-    });
-  }
-);
-
 Then(/^user can see Welcome page of program$/, async () => {
   await page.assert.visible("@programWelcomeText");
 });
