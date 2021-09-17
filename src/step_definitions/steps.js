@@ -598,10 +598,6 @@ When(/^user navigates to Program Selection$/, async () => {
   await page.navigateToProgramSelection();
 });
 
-Then(/^user can see System Administration combo box$/, async () => {
-  await page.assert.visible("@systemAdministrationDropDownIcon");
-});
-
 Then(/^user can see Program Selection combo box$/, async () => {
   await page.assert.visible("@programSelectorDropDownButton");
 });
@@ -612,10 +608,6 @@ Then(/^user cannot see Program Selection combo box$/, async () => {
 
 Then(/^user can see 'Logged in as'$/, async () => {
   await page.assert.visible("@loggedInAsLabel");
-});
-
-Then(/^user can see a Log out button$/, async () => {
-  await page.assert.visible("@logoutButton");
 });
 
 Then(/^user can see a header 'Programs'$/, async () => {
@@ -673,13 +665,6 @@ Then(/^user can see Welcome page of program$/, async () => {
   await page.assert.visible("@programWelcomeText");
 });
 
-Then(/^user can see "([^"]*)" as logged in$/, async (args1) => {
-  await page.assert.visible("@loggedInAsLabel");
-  await page.getText("@loggedInAsLabel", ({ value }) => {
-    console.log("text value is " + value);
-  });
-  await page.assert.containsText("@loggedInAsLabel", args1);
-});
 
 Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   switch (args1) {

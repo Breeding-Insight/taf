@@ -63,10 +63,7 @@ module.exports = {
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
 
-    loggedInAsLabel:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
-    logoutButton:
-      "#basesidebarlayout-logout-button",
+    
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -159,6 +156,11 @@ module.exports = {
       selector: "//button[@aria-controls='program-menu']",
       locateStrategy: "xpath"
     },
+
+    // user status menu
+    loggedInAsLabel: "#userstatusmenu-username",
+    logoutButton: "#userstatusmenu-logout-button",
+    userStatusMenuDropDownButton: "#userstatusmenu-dropdown-button",
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
