@@ -750,27 +750,21 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div > strong",
-    "Before You Import..."
-  );
+  await page.assert.containsText("@beforeImportMessage", "Before You Import...");
 });
 
 Then(
-  /^user can see a message 'Prepare trait information for import using the provided template.'$/,
+  /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
-    await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div",
-      "Prepare trait information for import using the provided template."
-    );
+    await page.assert.containsText( "@beforeImportMessageDetails", "Prepare ontology information for import using the provided template.");
   }
 );
 
 Then(
-  /^user can see a button 'Download the Trait Import Template'$/,
+  /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
+      "@downloadImportTemplateButton", "Download the Ontology Import Template"
     );
   }
 );
@@ -818,11 +812,8 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.click(selector);
 });
 
-Then(/^user can see 'Curate And Confirm New Traits' header$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > h1",
-    "Curate and Confirm New Traits"
-  );
+Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
+  await page.assert.containsText("@confirmOntologyHeader", "Confirm New Ontology Term");
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
@@ -832,7 +823,7 @@ Then(/^user can see "([^"]*)" button$/, async (args1) => {
   });
 });
 
-Then(/^user see a list of traits in a table$/, async () => {
+Then(/^user see a list of ontology terms in a table$/, async () => {
   await page.assert.visible("#traitsImportTableLabel");
 });
 
@@ -920,13 +911,13 @@ When(/^user selects 'Yes, abort' button$/, async () => {
   );
 });
 
-Then(/^user can see Traits table$/, async () => {
+Then(/^user can see Ontology table$/, async () => {
   await page.assert.visible("#traitTableLabel");
 });
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id="app"]//li[contains(text(), "${args1}")]`,
+    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
     locateStrategy: "xpath",
   });
 });
