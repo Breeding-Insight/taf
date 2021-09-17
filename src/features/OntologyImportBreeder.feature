@@ -3,8 +3,8 @@ Feature: Ontology Import (10 Scenarios)
 	Background: Setup
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		And user selects "Traits" in navigation
-		And user selects "Import Traits" in navigation
+		And user selects "Ontology" in navigation
+		And user selects "Import Ontology" in navigation
 
 	@BI-916
 	@BI-809
@@ -79,9 +79,10 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
-		And user can see "Level" column header
+		And user can see "Trait" column header
 		And user can see "Method" column header
-		And user can see "Scale" column header
+		And user can see "Scale Class" column header
+		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 
 	@BI-923

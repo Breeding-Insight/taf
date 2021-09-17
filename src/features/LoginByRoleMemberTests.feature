@@ -8,7 +8,7 @@ Feature: Logging with Member
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
-		And user can see "Traits" in navigation
+		And user can see "Ontology" in navigation
 		And user can see "Program Management" in navigation
 
 	@BI-823
@@ -19,14 +19,14 @@ Feature: Logging with Member
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
-		And user can see "Traits" in navigation
+		And user can see "Ontology" in navigation
 		And user can see "Program Management" in navigation
 
 	@BI-845
 	Scenario: Logging in as a breeder of one program
 		Given user logs in as "Cucumber Member"
-		When user selects "Traits" in navigation
-		Then user can not see "Import Traits" in navigation
+		When user selects "Ontology" in navigation
+		Then user can not see "Import Ontology" in navigation
 
 	@BI-887
 	Scenario: No Admin role, Program Member - Program User Management
