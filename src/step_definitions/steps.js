@@ -373,10 +373,14 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
 });
 
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  await page.click({
-    selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
-    locateStrategy: "xpath",
-  });
+  if (args1==="Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
 });
 
 Then(/^user does not see new user form$/, async () => {
@@ -686,8 +690,8 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Home":
       await page.assert.visible("@homeMenu");
       break;
-    case "Traits":
-      await page.assert.visible("@traitsMenu");
+    case "Ontology":
+      await page.assert.visible("@ontologyMenu");
       break;
     case "Program Management":
       await page.assert.visible("@programManagementMenu");

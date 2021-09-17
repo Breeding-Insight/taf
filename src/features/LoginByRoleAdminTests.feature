@@ -58,5 +58,5 @@ Feature: Logging with Sys Administration
 		Then user can see "Trail Mix" in the upper right corner
 		And user can see "Trail Mix" as label in the bottom of the navigation menu
 		And user can see "Home" as link in the bottom of the navigation menu
-		And user can see "Traits" as link in the bottom of the navigation menu
+		And user can see "Ontology" as link in the bottom of the navigation menu
 		And user can see "Program Management" as link in the bottom of the navigation menu

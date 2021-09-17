@@ -161,7 +161,7 @@ module.exports = {
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
-    traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
+    ontologyMenu: "#usersidebarlayout-ontology-menu",
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
