@@ -34,7 +34,7 @@ module.exports = {
 
     welcomeText: {
       selector:
-        "//*[@id='app']//div/main/section/div/h1[contains(text(), 'Welcome,')]",
+        "//*[@id='main']//*[contains(text(),'Welcome,')]",
       locateStrategy: "xpath",
     },
 

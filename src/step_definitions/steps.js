@@ -649,7 +649,7 @@ Then(
   /^user can see "([^"]*)" as label in the bottom of the navigation menu$/,
   async (args1) => {
     await page.assert.visible({
-      selector: `//aside/nav/p[normalize-space(.)='${args1}']`,
+      selector: `//*[@id="sideMenu"]/nav/p[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
   }
