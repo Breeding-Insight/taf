@@ -19,7 +19,7 @@ Feature: Logging with Breeder
 		And user can see "Logged in as Cucumber Breeder" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
-		And user can see "Traits" in navigation
+		And user can see "Ontology" in navigation
 		And user can see "Program Management" in navigation
 		When user navigates to Program Selection
 		And user selects "Trail Mix" on program-selection page
@@ -29,7 +29,7 @@ Feature: Logging with Breeder
 		And user can see "Logged in as Cucumber Breeder" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
-		And user can see "Traits" in navigation
+		And user can see "Ontology" in navigation
 		And user can see "Program Management" in navigation
 
 	
