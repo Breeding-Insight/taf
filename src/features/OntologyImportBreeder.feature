@@ -47,7 +47,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects "Abort" button
 		Then user can see a modal box
 		And user can see "Abort This Import" in modal box header
-		And user can see "No traits will be added, and the import in progress will be completely removed." in modal box text
+		And user can see "No ontology terms will be added, and the import in progress will be completely removed." in modal box text
 		And user can see 'Yes, abort' button
 		And user can see "Cancel" button
 		And user selects "Cancel" button
@@ -76,8 +76,8 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
-		Then user can see banner contains "Imported traits have been added to Snacks."
-		And user can see Traits table
+		Then user can see banner contains "Imported ontology terms have been added to Snacks."
+		And user can see Ontology table
 		And user can see "Name" column header
 		And user can see "Trait" column header
 		And user can see "Method" column header
@@ -98,8 +98,8 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_import-csv.csv" file
 		And user selects 'Import' button
 		When user selects "Confirm" button
-		Then user can see banner contains "Imported traits have been added to Snacks."
-		And user can see Traits table
+		Then user can see banner contains "Imported ontology terms have been added to Snacks."
+		And user can see Ontology table
 		And user can see "Name" column header
 		And user can see "Level" column header
 		And user can see "Method" column header
