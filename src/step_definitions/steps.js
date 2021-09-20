@@ -677,10 +677,10 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
 });
 
 Then(/^user can see Program User Management page$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > h1",
-    "Program Management"
-  );
+  await page.assert.visible({
+    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see Users page$/, async () => {
