@@ -164,7 +164,7 @@ module.exports = {
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     ontologyMenu: "#usersidebarlayout-ontology-menu",
-    programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+    programManagementMenu: "#usersidebarlayout-program-management-menu",
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
       locateStrategy: "xpath",
