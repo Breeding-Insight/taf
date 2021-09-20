@@ -50,6 +50,19 @@ npm run test:chromeSmokeTests
 
 Cucumber report by default will be saved to a folder and be overwritten with subsequent runs.
 
+NOTE: If you are not using docker you may need to modify nightwatch.conf.js to change the "launch_url" in the test_settings/docker, to your local host and port. Example:
+```
+docker: {
+  launch_url: "http://biproxy",
+},
+```
+TO
+```
+docker: {
+  launch_url: "http://localhost:8080",
+},
+```
+
 ## Database Assumptions
 The implemented scenarios assume the following data is set up on BI:
 
