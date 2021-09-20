@@ -2,10 +2,10 @@ Feature: Logging with Member
 
 	Scenario: Logging in as a member of one program
 		Given user logs in as "Cucumber Member"
-		And user selects User Status menu dropdown
 		Then user can see Welcome page of program
 		Then user can see "Snacks" in the upper right corner
 		And user cannot see Program Selection combo box
+		And user selects User Status menu dropdown
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
@@ -15,9 +15,9 @@ Feature: Logging with Member
 	@BI-823
 	Scenario: Logging in as a breeder of one program
 		Given user logs in as "Cucumber Member"
-		And user selects User Status menu dropdown
 		Then user can see Welcome page of program
 		Then user can see "Snacks" in the upper right corner
+		And user selects User Status menu dropdown
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
