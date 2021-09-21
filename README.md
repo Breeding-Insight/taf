@@ -50,6 +50,19 @@ npm run test:chromeSmokeTests
 
 Cucumber report by default will be saved to a folder and be overwritten with subsequent runs.
 
+NOTE: If you are not using docker you may need to modify nightwatch.conf.js to change the "launch_url" in the test_settings/docker, to your local host and port. Example:
+```
+docker: {
+  launch_url: "http://biproxy",
+},
+```
+TO
+```
+docker: {
+  launch_url: "http://localhost:8080",
+},
+```
+
 ## Database Assumptions
 The implemented scenarios assume the following data is set up on BI:
 
@@ -67,7 +80,8 @@ The implemented scenarios assume the following data is set up on BI:
 | Snacks | Grape | Cucumber Breeder (breeder) <br> Cucumber Member (member) <br> Christian (breeder) |
 | Trail Mix | Grape | Cucumber Breeder (member) <br> TrailMix Breeder (breeder) <br> Christian (breeder) |
 
-** Automated Database Setup **
+**Automated Database Setup**
+
 There is a script `setup_local_db.sh` that will setup your bidb and brapi-server databases assuming bi-docker-stack and taf repos are at the same level in the filesystem and default docker services/ports are used. 
 
 # Gherkin Conventions
@@ -99,7 +113,10 @@ TAF can launch browser on a Selenium docker container and run tests on bi-docker
 * https://github.com/Breeding-Insight/taf.git
 
 ## Configuration:
-* Set API_BASE_URL environmental variable to http://biproxy
+* Set `API_BASE_URL` environmental variable to http://biproxy
+* Set `WEB_BASE_URL` environmental variable to http://biproxy
+* Set `JWT_DOMAIN` environmental variable to biproxy
+* Set `REGISTERED_DOMAIN` environmental variable to biproxy
 
 * Update the host's host file 
 Windows : C:\Windows\System32\drivers\etc\host 
@@ -122,6 +139,6 @@ docker-compose -f docker-compose.yml -f docker-compose-qa.yml up -d
 
 * Go to TAF folder and execute
 ```sh
-docker-compose -f docker-compose.yml up -d
+docker-compose up -d
 ```
 
