@@ -367,20 +367,23 @@ When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
 
 When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
   await page.click({
-    selector: `//*[@id='sideMenu']//nav//ul//a[contains(text(), '${args1}')]`,
+    selector: `//*[@id='sideMenu']//nav/ul/li/a[contains(text(), '${args1}')]`,
     locateStrategy: "xpath",
   });
 });
 
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  if (args1==="Ontology") {
-    await page.click("#usersidebarlayout-ontology-menu");
-  } else {
-    await page.click({
-      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
-      locateStrategy: "xpath",
-    });
-  }
+  await page.click({
+    selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects "([^"]*)" in a submenu in navigation$/, async (args1) => {
+  await page.click({
+    selector: `//*[@id="sideMenu"]//nav/ul/li/ul/li/a[contains(text(), '${args1}')]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user does not see new user form$/, async () => {

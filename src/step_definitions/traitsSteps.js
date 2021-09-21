@@ -2,7 +2,7 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
-When(/^user selects 'New Trait' button on traits list page$/, async () => {
+When(/^user selects 'New Term' button on traits list page$/, async () => {
   await traitsPage.waitForElementPresent("@newTraitButton");
   await traitsPage.click("@newTraitButton");
 });

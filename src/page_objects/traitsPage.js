@@ -1,7 +1,7 @@
 module.exports = {
   elements: {
     newTraitButton: {
-      selector: "//button[starts-with(normalize-space(.),'New Trait') and not(contains(@style,'display: none'))]",
+      selector: "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
   },
@@ -14,7 +14,7 @@ module.exports = {
         byMethodSelect: "#Method",
         byScaleSelect: {
           selector: "#Class",
-          index: 2,
+          index: 1,
         },
         descriptionCollectionMethodField:
           "div.control input[placeholder='Method Description']",
@@ -60,8 +60,8 @@ module.exports = {
           selector: "div.column.is-one-fifth button.delete",
           index: 2,
         },
-        ordinalFields: { selector: "div.column.is-2 div.field-body input"},
-        
+        ordinalFields: { selector: "div.column.is-2 div.field-body input" },
+
         firstOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 0,

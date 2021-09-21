@@ -15,7 +15,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		Then user can see Program User Management page
 		And user can see Users page
 		And user can see table header contains
@@ -38,13 +38,13 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		Then user can see Program User Management page
 
 	Scenario: System Admin and Program Member - Program User Management
 		Given user logs in as "sysad"
 		And user selects "System Administration" on program-selection page
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		Then user can see page of Users
 		And user can see table header contains
 			| Header |
@@ -56,7 +56,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		Then user can see Program User Management page
 
 	@BI-889
@@ -64,7 +64,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user selects New User button
 		And user selects Save button
 		And user can see 'Name is required' below the Name field
@@ -77,7 +77,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user selects New User button
 		And user sets "Tester Breeder" in Name field
 		And user selects Save button
@@ -89,7 +89,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user selects New User button
 		And user sets "Tester Breeder" in Name field
 		And user sets "testnewuser@mail.com" in Email field
@@ -102,7 +102,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user sets "Tester Breeder" in Name field
 		And user sets "testnewuser@mail.com" in Email field
 		And user sets "breeder" in Role dropdown
@@ -115,7 +115,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
@@ -126,7 +126,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user selects New User button
 		And user sets "Tester Breeder" in Name field
 		And user sets "testnewuser" in Email field
@@ -140,7 +140,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user selects New User button
 		And user sets "TestNewUser" in Name field
 		And user sets "cucumberbreeder@mailinator.com" in Email field
@@ -154,7 +154,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
@@ -168,7 +168,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
@@ -181,7 +181,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		When user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
@@ -195,7 +195,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
 			| User* | test*@mailinator.com | breeder |
@@ -217,7 +217,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |
@@ -229,7 +229,7 @@ Feature: Breeder User Management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
-		And user selects "Users" in navigation
+		And user selects "Users" in a submenu in navigation
 		And user creates a new user
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | breeder |

@@ -4,12 +4,12 @@ Feature: Trait Create
     Background: Trait Create
         Given user logs in as "Cucumber Breeder"
         And user selects "Snacks" on program-selection page
-        And user selects "Traits" in navigation
-        And user selects "Trait List" in navigation
+        And user selects "Ontology" in navigation
+        And user selects "Ontology List" in a submenu in navigation
 
     @BI-988
     Scenario: Switching scale class from nominal to ordinal - form behavior
-        When user selects 'New Trait' button on traits list page
+        When user selects 'New Term' button on traits list page
         And user selects "Nominal" in scale dropdown on traits list page
         And user sets "<first scale category>" in first scale field on traits list page
         And user sets "<second scale category>" in second scale field on traits list page
@@ -24,7 +24,7 @@ Feature: Trait Create
 
     @BI-991
     Scenario: Select scale class ordinal
-        When user selects 'New Trait' button on traits list page
+        When user selects 'New Term' button on traits list page
         And user selects "Ordinal" in scale dropdown on traits list page
         Then user can see "1" in the first Ordinal field on traits list page
         And user can see "2" in the second Ordinal field on traits list page
@@ -32,7 +32,7 @@ Feature: Trait Create
 
     @BI-991
     Scenario: Switching scale class from ordinal to nominal - form behavior
-        When user selects 'New Trait' button on traits list page
+        When user selects 'New Term' button on traits list page
         And user selects "Ordinal" in scale dropdown on traits list page
         And user sets "<first scale category>" in first scale field on traits list page
         And user sets "<second scale category>" in second scale field on traits list page
@@ -47,7 +47,7 @@ Feature: Trait Create
 
     @BI-992
     Scenario: Switching scale class from ordinal to nominal and back to ordinal - form behavior
-        When user selects 'New Trait' button on traits list page
+        When user selects 'New Term' button on traits list page
         And user selects "Ordinal" in scale dropdown on traits list page
         And user sets "<first scale category>" in first scale field on traits list page
         And user selects 'x' button for second scale category
@@ -67,7 +67,7 @@ Feature: Trait Create
 
     @BI-993
     Scenario: Switching scale class from nominal to ordinal and back to nominal - form behavior
-        When user selects 'New Trait' button on traits list page
+        When user selects 'New Term' button on traits list page
         And user selects "Nominal" in scale dropdown on traits list page
         And user sets "<first scale category>" in first scale field on traits list page
         And user sets "<second scale category>" in second scale field on traits list page
