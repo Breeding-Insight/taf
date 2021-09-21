@@ -5,6 +5,7 @@ Feature: Logging with Member
 		Then user can see Welcome page of program
 		Then user can see "Snacks" in the upper right corner
 		And user cannot see Program Selection combo box
+		And user selects User Status menu dropdown
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation
@@ -16,6 +17,7 @@ Feature: Logging with Member
 		Given user logs in as "Cucumber Member"
 		Then user can see Welcome page of program
 		Then user can see "Snacks" in the upper right corner
+		And user selects User Status menu dropdown
 		And user can see "Logged in as Cucumber Member" as logged in
 		And user can see a Log out button
 		And user can see "Home" in navigation

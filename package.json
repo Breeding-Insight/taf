@@ -4,6 +4,7 @@
   "description": "Breeding Insight Test Automation",
   "main": "index.js",
   "scripts": {
+    "test:chromeWeeklyDocker": "mkdirp report && cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\"; npm run report",
     "debug": "node --inspect-brk=1337 node_modules/cucumber/bin/cucumber-js",
     "test:debug": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"docker.chrome\\\"}\"",
     "test:pipeline": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json",
