@@ -139,6 +139,6 @@ docker-compose -f docker-compose.yml -f docker-compose-qa.yml up -d
 
 * Go to TAF folder and execute
 ```sh
-docker-compose -f docker-compose.yml up -d
+docker-compose up -d
 ```
 
