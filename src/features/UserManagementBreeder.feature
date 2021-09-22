@@ -6,7 +6,7 @@ Feature: Breeder User Management
 		And user can see 'Which program are you working with today'
 		When user selects "Snacks" on program-selection page
 		Then user can see "Home" in navigation
-		And user can see "Traits" in navigation
+		And user can see "Ontology" in navigation
 		And user can see "Program Management" in navigation
 
 	@BI-864

@@ -161,7 +161,7 @@ module.exports = {
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
-    traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
+    ontologyMenu: "#usersidebarlayout-ontology-menu",
     programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
@@ -194,6 +194,21 @@ module.exports = {
     },
     modalHeader: {
       selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      locateStrategy: "xpath",
+    },
+
+    //ontology
+    beforeImportMessage: {
+      selector: "//main//div[@class='import-template mb-5']/article//strong",
+      locateStrategy: "xpath",
+    },
+    beforeImportMessageDetails: {
+      selector: "//main//div[@class='import-template mb-5']/article//div",
+      locateStrategy: "xpath",
+    },
+    downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
+    confirmOntologyHeader: {
+      selector: "//main/section//h1",
       locateStrategy: "xpath",
     },
   },
