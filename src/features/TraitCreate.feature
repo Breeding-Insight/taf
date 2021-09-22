@@ -4,8 +4,8 @@ Feature: Trait Create
     Background: Trait Create
         Given user logs in as "Cucumber Breeder"
         And user selects "Snacks" on program-selection page
-        And user selects "Ontology" in navigation
-        And user selects "Ontology List" in a submenu in navigation
+        And user selects "Ontology" in top-level navigation
+        And user selects "Ontology List" in sub-level navigation
 
     @BI-988
     Scenario: Switching scale class from nominal to ordinal - form behavior

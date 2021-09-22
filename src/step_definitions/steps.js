@@ -372,14 +372,33 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
   });
 });
 
+//Deprecated:  
+//  Use 'user selects "([^"]*)" in top-level navigation'
+//   OR
+//  'user selects "([^"]*)" in sub-level navigation'
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  await page.click({
-    selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
-    locateStrategy: "xpath",
-  });
+  if (args1==="Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
 });
 
-When(/^user selects "([^"]*)" in a submenu in navigation$/, async (args1) => {
+When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
+  if (args1==="Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
+});
+
+When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
   await page.click({
     selector: `//*[@id="sideMenu"]//nav/ul/li/ul/li/a[contains(text(), '${args1}')]`,
     locateStrategy: "xpath",

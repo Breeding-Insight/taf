@@ -34,7 +34,7 @@ Feature: Logging with Member
 	Scenario: No Admin role, Program Member - Program User Management
 		Given user logs in as "Cucumber Member"
 		And user selects "Program Management" in navigation
-		And user selects "Users" in a submenu in navigation
+		And user selects "Users" in sub-level navigation
 		Then user can not see New User button
 		And user can see each row does not have an "Edit" link
 		And user can see each row does not have a "Deactivate" link

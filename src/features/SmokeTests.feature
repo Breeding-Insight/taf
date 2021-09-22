@@ -15,7 +15,7 @@ Feature: Smoke Tests (11)
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
-		When user selects "Users" in a submenu in navigation
+		When user selects "Users" in sub-level navigation
 		When user clicks 'New User' button
 		When user sets "<Name>" in Name field of User
 		When user sets "<Email>" in Email field of User
@@ -36,7 +36,7 @@ Feature: Smoke Tests (11)
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
-		When user selects "Users" in a submenu in navigation
+		When user selects "Users" in sub-level navigation
 		Then user can see "Name" column in Users
 		Then user can see "Email" column in Users
 		Then user can see "Role" column in Users
@@ -51,7 +51,7 @@ Feature: Smoke Tests (11)
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
-		When user selects “Locations” in a submenu in navigation
+		When user selects “Locations” in sub-level navigation
 		When user selects 'New Location' button in Program Management page
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
@@ -73,4 +73,4 @@ Feature: Smoke Tests (11)
 		Given user logs in as "sysad"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
-		When user selects “Locations” in a submenu in navigation
+		When user selects “Locations” in sub-level navigation
