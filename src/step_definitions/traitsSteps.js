@@ -2,41 +2,41 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
-When(/^user selects 'New Term' button on traits list page$/, async () => {
+When(/^user selects 'New Term' button on ontology list page$/, async () => {
   await traitsPage.waitForElementPresent("@newTraitButton");
   await traitsPage.click("@newTraitButton");
 });
 
 When(
-  /^user selects "([^"]*)" in scale dropdown on traits list page$/,
+  /^user selects "([^"]*)" in scale dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@byScaleSelect", args1);
   }
 );
 
 When(
-  /^user sets "([^"]*)" in first scale field on traits list page$/,
+  /^user sets "([^"]*)" in first scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@firstScaleField", args1);
   }
 );
 
 When(
-  /^user sets "([^"]*)" in second scale field on traits list page$/,
+  /^user sets "([^"]*)" in second scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
   }
 );
 
 When(
-  /^user sets "([^"]*)" in third scale field on traits list page$/,
+  /^user sets "([^"]*)" in third scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
   }
 );
 
 When(
-  /^user sets "([^"]*)" in fifth scale field on traits list page$/,
+  /^user sets "([^"]*)" in fifth scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@fifthScaleField", args1);
   }
@@ -52,7 +52,7 @@ When(/^user selects 'x' button for third scale category$/, async () => {
 
  
 Then(
-  /^user can not see the .* "ordinal label" on traits list page$/,
+  /^user can not see the .* "ordinal label" on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.not.elementPresent(
       "@ordinalFields"
@@ -61,7 +61,7 @@ Then(
 );
 
  Then(
-  /^user can see "([^"]*)" in the first Ordinal field on traits list page$/,
+  /^user can see "([^"]*)" in the first Ordinal field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@firstOrdinalField",
@@ -71,7 +71,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in the second Ordinal field on traits list page$/,
+  /^user can see "([^"]*)" in the second Ordinal field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@secondOrdinalField",
@@ -81,7 +81,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in the third Ordinal field on traits list page$/,
+  /^user can see "([^"]*)" in the third Ordinal field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@thirdOrdinalField",
@@ -91,7 +91,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in the fifth Ordinal field on traits list page$/,
+  /^user can see "([^"]*)" in the fifth Ordinal field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@fifthOrdinalField",
@@ -101,7 +101,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in first Scale field on traits list page$/,
+  /^user can see "([^"]*)" in first Scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@firstScaleField",
@@ -111,7 +111,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in second Scale field on traits list page$/,
+  /^user can see "([^"]*)" in second Scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@secondScaleField",
@@ -121,7 +121,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in third Scale field on traits list page$/,
+  /^user can see "([^"]*)" in third Scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@thirdScaleField",
@@ -131,7 +131,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in fifth Scale field on traits list page$/,
+  /^user can see "([^"]*)" in fifth Scale field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@fifthScaleField",
