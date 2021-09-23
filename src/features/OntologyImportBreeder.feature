@@ -86,14 +86,28 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see each row has a "Show Details" link
 
 	@BI-923
+	Scenario: Ontology - Confirm Import for xlsx file
+		And user uploads "test_import-xlsx.xlsx" file
+		And user selects 'Import' button
+		When user selects "Confirm" button
+		Then user can see banner contains "Imported ontology terms have been added to Snacks."
+		And user can see Ontology table
+		And user can see "Name" column header
+		And user can see "Level" column header
+		And user can see "Method" column header
+		And user can see "Scale" column header
+		And user can see each row has a "Show Details" link
+	
+	@BI-924
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
 		And user uploads "test_import-csv.csv" file
 		Then user can see "test_import-csv.csv" displayed
 		And user can see 'Import' button
 
+
 	@taf-bug
-	@BI-924
+	@BI-925
 	Scenario: Ontology - Confirm Import for csv file
 		And user uploads "test_import-csv.csv" file
 		And user selects 'Import' button
@@ -153,7 +167,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		Then user can see 'Confirm New Ontology Term' header
 
-	@BI-933l
+	@BI-933
 	Scenario: Ontology - extra columns
 		And user uploads "test_traits_extraCols.xlsx" file
 		And user selects 'Import' button
