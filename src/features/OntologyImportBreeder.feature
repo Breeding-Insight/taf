@@ -146,8 +146,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_MissingNames.xlsx" file
 		And user selects 'Import' button
 		And user can see an error message "Scale name: Missing scale name in row 3"
-		Then user can see an error message "Method name: Missing method name in row 3"
-
+		
 	@BI-932
 	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file

@@ -121,7 +121,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Species      | BrAPI URL                |
-			| Program* | Sweet Potato | http://brapiserver:8080/ |
+			| Program* | Sweet Potato | https://invalid.brapi.org |
 
 	@BI-855
 	Scenario Outline: New Program, valid custom storage location
