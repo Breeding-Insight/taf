@@ -34,7 +34,7 @@ module.exports = {
 
     welcomeText: {
       selector:
-        "//*[@id='app']//div/main/section/div/h1[contains(text(), 'Welcome,')]",
+        "//*[@id='main']//*[contains(text(),'Welcome,')]",
       locateStrategy: "xpath",
     },
 
@@ -55,17 +55,15 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    programsTable: "table.is-striped.is-narrow.is-hoverable.is-fullwidth",
+    programsTable: {
+      selector: "//*[@id='adminProgramTableLabel']//table",
+      locateStrategy: "xpath",
+    },
 
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
-    systemAdministrationDropDownIcon:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button > span > svg.feather.feather-chevron-down",
 
-    loggedInAsLabel:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
-    logoutButton:
-      "#basesidebarlayout-logout-button",
+    
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -120,12 +118,12 @@ module.exports = {
     usersTable: "#app section table",
 
     nextButton: {
-      selector: "//*[@id='app']//a[normalize-space(.)='Next']",
+      selector: "//*[@id='app']//button[normalize-space(.)='Next']",
       locateStrategy: "xpath",
     },
 
     previousButton: {
-      selector: "//*[@id='app']//a[normalize-space(.)='Previous']",
+      selector: "//*[@id='app']//button[normalize-space(.)='Previous']",
       locateStrategy: "xpath",
     },
 
@@ -138,7 +136,7 @@ module.exports = {
       locateStrategy: "xpath",
     },
     showAllButton: {
-      selector: "//nav//a[normalize-space(.)='Show All']",
+      selector: "//nav//button[normalize-space(.)='Show All']",
       locateStrategy: "xpath",
     },
 
@@ -154,24 +152,26 @@ module.exports = {
     topProgramButton:
       "#app > div.sidebarlayout > div > div > main > section > div > div > div > div > a:nth-child(1)",
 
-    programSelectorDropDownButton:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
+    programSelectorDropDownButton: {
+      selector: "//button[@aria-controls='program-menu']",
+      locateStrategy: "xpath"
+    },
+
+    // user status menu
+    loggedInAsLabel: "#userstatusmenu-username",
+    logoutButton: "#userstatusmenu-logout-button",
+    userStatusMenuDropDownButton: "#userstatusmenu-dropdown-button",
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
-    traitsMenu: "#sideMenu > nav > ul > li:nth-child(2) > a",
-    programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+    ontologyMenu: "#usersidebarlayout-ontology-menu",
+    programManagementMenu: "#usersidebarlayout-program-management-menu",
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
       locateStrategy: "xpath",
     },
 
     //location
-    newLocationButtonNoLocsPresent: {
-      selector:
-        "//*[@id='emptyTableMessage']//button[normalize-space(.)='New Location']",
-      locateStrategy: "xpath",
-    },
-    newLocationButtonLocsPresent: {
+    newLocationButton: {
       selector:
         "//*[@id='locationTableLabel']//button[normalize-space(.)='New Location']",
       locateStrategy: "xpath",
@@ -196,6 +196,21 @@ module.exports = {
     },
     modalHeader: {
       selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      locateStrategy: "xpath",
+    },
+
+    //ontology
+    beforeImportMessage: {
+      selector: "//main//div[@class='import-template mb-5']/article//strong",
+      locateStrategy: "xpath",
+    },
+    beforeImportMessageDetails: {
+      selector: "//main//div[@class='import-template mb-5']/article//div",
+      locateStrategy: "xpath",
+    },
+    downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
+    confirmOntologyHeader: {
+      selector: "//main/section//h1",
       locateStrategy: "xpath",
     },
   },
@@ -286,18 +301,18 @@ module.exports = {
             };
             await this.assert.visible(selector);
           },
-          isItemInNewRow: async function (list) {
+          isItemInRow: async function (list) {
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='name']`,
+                  selector: `.//tr/td[@data-label='Name']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
               }
               if (key == "Species") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='species']`,
+                  selector: `.//tr/td[@data-label='Species']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
@@ -365,7 +380,7 @@ module.exports = {
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[1]/td[@name='name']`,
+                  selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);

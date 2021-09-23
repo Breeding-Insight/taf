@@ -1,8 +1,10 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("cucumber");
+const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport_v03");
+const fs = require("fs");
+const reporter = require("cucumber-html-reporter");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -131,29 +133,8 @@ Then(/^user can see page of Programs$/, async () => {
   await page.assert.visible("#adminProgramTableLabel");
 });
 
-Then(/^user can see table header contains$/, async (table) => {
-  for (column of table.raw()[0]) {
-    for (i = 0; i < table.hashes().length; i++) {
-      switch (column) {
-        case "Header":
-          const select = {
-            selector:
-              "//*[@id='app']//th[contains(text(),'" +
-              table.hashes()[i][column] +
-              "')]",
-            locateStrategy: "xpath",
-          };
-          await page.assert.visible(select);
-          break;
-        default:
-          throw new Error(`Unexpected ${column} name.`);
-      }
-    }
-  }
-});
-
 //For Buefy tables
-Then(/^user can see "([^"]*)" table header contains$/, async (args1, table) => {
+Then(/^user can see table header contains$/, async (table) => {
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
@@ -392,10 +373,14 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
 });
 
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  await page.click({
-    selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
-    locateStrategy: "xpath",
-  });
+  if (args1==="Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
 });
 
 Then(/^user does not see new user form$/, async () => {
@@ -474,7 +459,7 @@ When(/^user edits a user$/, async (table) => {
 Then(/^user can see a new user is added in User$/, async () => {
   await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
   await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
-  await page.assert.containsText("tr.is-new td[data-label='Roles']", user.role);
+  await page.assert.containsText("tr.is-new td[data-label='Role']", user.role);
 });
 
 Then(/^user can see user is in users list$/, async () => {
@@ -617,24 +602,16 @@ When(/^user navigates to Program Selection$/, async () => {
   await page.navigateToProgramSelection();
 });
 
-Then(/^user can see System Administration combo box$/, async () => {
-  await page.assert.visible("@systemAdministrationDropDownIcon");
-});
-
 Then(/^user can see Program Selection combo box$/, async () => {
-  await page.assert.visible("@systemAdministrationDropDownIcon");
+  await page.assert.visible("@programSelectorDropDownButton");
 });
 
 Then(/^user cannot see Program Selection combo box$/, async () => {
-  await page.assert.not.elementPresent("@systemAdministrationDropDownIcon");
+  await page.assert.not.elementPresent("@programSelectorDropDownButton");
 });
 
 Then(/^user can see 'Logged in as'$/, async () => {
   await page.assert.visible("@loggedInAsLabel");
-});
-
-Then(/^user can see a Log out button$/, async () => {
-  await page.assert.visible("@logoutButton");
 });
 
 Then(/^user can see a header 'Programs'$/, async () => {
@@ -672,17 +649,7 @@ Then(
   /^user can see "([^"]*)" as label in the bottom of the navigation menu$/,
   async (args1) => {
     await page.assert.visible({
-      selector: `//aside/nav/p[normalize-space(.)='${args1}']`,
-      locateStrategy: "xpath",
-    });
-  }
-);
-
-Then(
-  /^user can see "([^"]*)" as link in the bottom of the navigation menu$/,
-  async (args1) => {
-    await page.assert.visible({
-      selector: `//aside//ul[2]//a[normalize-space(.)='${args1}']`,
+      selector: `//*[@id="sideMenu"]/nav/p[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
   }
@@ -692,21 +659,14 @@ Then(/^user can see Welcome page of program$/, async () => {
   await page.assert.visible("@programWelcomeText");
 });
 
-Then(/^user can see "([^"]*)" as logged in$/, async (args1) => {
-  await page.assert.visible("@loggedInAsLabel");
-  await page.getText("@loggedInAsLabel", ({ value }) => {
-    console.log("text value is " + value);
-  });
-  await page.assert.containsText("@loggedInAsLabel", args1);
-});
 
 Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   switch (args1) {
     case "Home":
       await page.assert.visible("@homeMenu");
       break;
-    case "Traits":
-      await page.assert.visible("@traitsMenu");
+    case "Ontology":
+      await page.assert.visible("@ontologyMenu");
       break;
     case "Program Management":
       await page.assert.visible("@programManagementMenu");
@@ -717,10 +677,10 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
 });
 
 Then(/^user can see Program User Management page$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > h1",
-    "Program Management"
-  );
+  await page.assert.visible({
+    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see Users page$/, async () => {
@@ -769,27 +729,21 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div > strong",
-    "Before You Import..."
-  );
+  await page.assert.containsText("@beforeImportMessage", "Before You Import...");
 });
 
 Then(
-  /^user can see a message 'Prepare trait information for import using the provided template.'$/,
+  /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
-    await page.assert.containsText(
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > div.trait-import-template.mb-5 > article > div > nav > div.level-left > div > div",
-      "Prepare trait information for import using the provided template."
-    );
+    await page.assert.containsText( "@beforeImportMessageDetails", "Prepare ontology information for import using the provided template.");
   }
 );
 
 Then(
-  /^user can see a button 'Download the Trait Import Template'$/,
+  /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "#traitimporttemplatemessagebox-download-trait-template", "Download the Trait Import Template"
+      "@downloadImportTemplateButton", "Download the Ontology Import Template"
     );
   }
 );
@@ -837,11 +791,8 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.click(selector);
 });
 
-Then(/^user can see 'Curate And Confirm New Traits' header$/, async () => {
-  await page.assert.containsText(
-    "#app > div.sidebarlayout > div > div:nth-child(2) > main > section > div > div > h1",
-    "Curate and Confirm New Traits"
-  );
+Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
+  await page.assert.containsText("@confirmOntologyHeader", "Confirm New Ontology Term");
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
@@ -851,7 +802,7 @@ Then(/^user can see "([^"]*)" button$/, async (args1) => {
   });
 });
 
-Then(/^user see a list of traits in a table$/, async () => {
+Then(/^user see a list of ontology terms in a table$/, async () => {
   await page.assert.visible("#traitsImportTableLabel");
 });
 
@@ -939,13 +890,13 @@ When(/^user selects 'Yes, abort' button$/, async () => {
   );
 });
 
-Then(/^user can see Traits table$/, async () => {
+Then(/^user can see Ontology table$/, async () => {
   await page.assert.visible("#traitTableLabel");
 });
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id="app"]//li[contains(text(), "${args1}")]`,
+    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
     locateStrategy: "xpath",
   });
 });

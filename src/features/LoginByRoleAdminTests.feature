@@ -22,8 +22,9 @@ Feature: Logging with Sys Administration
 	@SmokeTests
 	Scenario: Logging in as an admin - program-management page
 		And user selects "System Administration" on program-selection page
+		And user selects User Status menu dropdown
 		Then user can see "System Administration" in the upper right corner
-		And user can see System Administration combo box
+		And user can see Program Selection combo box
 		And user can see 'Logged in as'
 		And user can see a Log out button
 		And user can see a header 'Programs'
@@ -57,6 +58,6 @@ Feature: Logging with Sys Administration
 		When user selects "Trail Mix" the program selector
 		Then user can see "Trail Mix" in the upper right corner
 		And user can see "Trail Mix" as label in the bottom of the navigation menu
-		And user can see "Home" as link in the bottom of the navigation menu
-		And user can see "Traits" as link in the bottom of the navigation menu
-		And user can see "Program Management" as link in the bottom of the navigation menu
+		And user can see "Home" in navigation
+		And user can see "Ontology" in navigation
+		And user can see "Program Management" in navigation
