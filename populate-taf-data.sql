@@ -35,6 +35,12 @@ SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE 
 INSERT INTO program (species_id, name, created_by, updated_by, active) 
 SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
 
+--Populate program_ontology
+INSERT INTO program_ontology (program_id, created_by, updated_by) 
+SELECT id, by_user_id, by_user_id FROM program WHERE name = 'Trail Mix';
+INSERT INTO program_ontology (program_id, created_by, updated_by) 
+SELECT id, by_user_id, by_user_id FROM program WHERE name = 'Snacks';
+
 --Add Users To Programs
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'breeder'
