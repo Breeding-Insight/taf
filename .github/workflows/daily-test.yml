@@ -10,6 +10,10 @@ on:
         description: 'Test suite to run: "full" for full run, "smoke" for smoke tests'
         required: true
         default: 'full'
+      tag:
+        description: 'The docker tag to use for running the tests.  Default is the "develop" tag.'
+        required: true
+        default: 'develop'
 
 jobs:
   test:
@@ -79,9 +83,21 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
           java-version: 13
-          
+
+
+    - run: |
+        cat > docker-compose.bi-tag.yml <<EOF
+        version: "3.7"
+
+        services:
+          biweb:
+            image: breedinginsight/biweb:${{ github.event.inputs.tag }}
+          biapi:
+            image: breedinginsight/biapi:${{ github.event.inputs.tag }}
+        EOF
+
       #from bi-docker-stack
-    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml -f docker-compose.bi-tag.yml up -d
           
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@latest
