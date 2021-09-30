@@ -34,7 +34,7 @@ module.exports = {
 
     welcomeText: {
       selector:
-        "//*[@id='app']//div/main/section/div/h1[contains(text(), 'Welcome,')]",
+        "//*[@id='main']//*[contains(text(),'Welcome,')]",
       locateStrategy: "xpath",
     },
 
@@ -62,13 +62,8 @@ module.exports = {
 
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
-    systemAdministrationDropDownIcon:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button > span > svg.feather.feather-chevron-down",
 
-    loggedInAsLabel:
-      "#app > div.sidebarlayout > div > div:nth-child(2) > main > div > div.level-right > div:nth-child(1) > p",
-    logoutButton:
-      "#basesidebarlayout-logout-button",
+    
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -157,12 +152,19 @@ module.exports = {
     topProgramButton:
       "#app > div.sidebarlayout > div > div > main > section > div > div > div > div > a:nth-child(1)",
 
-    programSelectorDropDownButton:
-      "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > div > div.dropdown-trigger > button",
+    programSelectorDropDownButton: {
+      selector: "//button[@aria-controls='program-menu']",
+      locateStrategy: "xpath"
+    },
+
+    // user status menu
+    loggedInAsLabel: "#userstatusmenu-username",
+    logoutButton: "#userstatusmenu-logout-button",
+    userStatusMenuDropDownButton: "#userstatusmenu-dropdown-button",
 
     homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
     ontologyMenu: "#usersidebarlayout-ontology-menu",
-    programManagementMenu: "#sideMenu > nav > ul > li:nth-child(3) > a",
+    programManagementMenu: "#usersidebarlayout-program-management-menu",
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
       locateStrategy: "xpath",

@@ -12,6 +12,7 @@ Feature: Logging with Breeder
 	Scenario: User in multiple programs
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
+		And user selects User Status menu dropdown
 		Then user can see Welcome page of program
 		Then user can see "Snacks" in the upper right corner
 		And user can see Program Selection combo box
@@ -22,6 +23,7 @@ Feature: Logging with Breeder
 		And user can see "Program Management" in navigation
 		When user navigates to Program Selection
 		And user selects "Trail Mix" on program-selection page
+		And user selects User Status menu dropdown
 		Then user can see Welcome page of program
 		Then user can see "Trail Mix" in the upper right corner
 		And user can see Program Selection combo box
