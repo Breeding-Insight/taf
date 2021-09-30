@@ -86,10 +86,6 @@ module.exports = {
       extends: "docker",
       desiredCapabilities: {
         browserName: "MicrosoftEdge",
-        // chromeOptions: {
-        //   args: ["headless", "no-sandbox", "disable-gpu"],
-        //   w3c: false,
-        // },
       },
     },
   },
