@@ -3,8 +3,8 @@ const { Given, Then, When } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
-  await traitsPage.waitForElementPresent("@newTraitButton");
-  await traitsPage.click("@newTraitButton");
+  await traitsPage.waitForElementPresent("@newTermButton");
+  await traitsPage.click("@newTermButton");
 });
 
 When(

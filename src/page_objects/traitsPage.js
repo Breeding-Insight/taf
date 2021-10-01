@@ -1,6 +1,6 @@
 module.exports = {
   elements: {
-    newTraitButton: {
+    newTermButton: {
       selector: "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
