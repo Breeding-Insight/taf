@@ -55,6 +55,7 @@ module.exports = {
       },
     },
     edge: {
+      extends: "docker",
       selenium: {
         start_process: false,
         port: 9515,
@@ -86,6 +87,12 @@ module.exports = {
       extends: "docker",
       desiredCapabilities: {
         browserName: "firefox"
+      },
+    },
+    "docker.edge": {
+      extends: "docker",
+      desiredCapabilities: {
+        browserName: "MicrosoftEdge",
       },
     },
   },
