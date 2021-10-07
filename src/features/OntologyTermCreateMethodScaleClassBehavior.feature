@@ -1,4 +1,4 @@
-Feature: Trait Create - Trait Create Method & Scale Class Behavior
+Feature: Ontology Term Create - Method & Scale Class Behavior
 
     Background: Required Setup
         Given user logs in as "Cucumber Breeder"
@@ -8,8 +8,8 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
    
     @BI-1108
     Scenario: Computation Method Class / Numerical Scale Class form elements
-        When user sets "Computation" in "Method Class" text box
-        Then user can see "Numerical" in "Scale Class"
+        When user sets "Computation" in "Method Class" dropdown
+        Then user can see "Numerical" in "Scale Class" dropdown
         And user can see "Formula" text box
         And user can see "Unit" text box
         And user can see "Decimal Places" text box
@@ -23,7 +23,7 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
         And user sets "<trait_entity>" in "Entity" text box
         And user sets "<trait_attribute>" in "Attribute" text box
         And user sets "<method_description>" in "Method Description" text box
-        When user sets "Computation" in "Method Class" text box
+        When user sets "Computation" in "Method Class" dropdown
         And user selects "Save" button
         Then user can see "Missing method formula for Computation method" below the Formula field
         And user can see "Missing unit" below the Unit field
@@ -40,7 +40,7 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
         And user sets "<trait_entity>" in "Entity" text box
         And user sets "<trait_attribute>" in "Attribute" text box
         And user sets "<method_description>" in "Method Description" text box
-        And user sets "Computation" in "Method Class" text box
+        And user sets "Computation" in "Method Class" dropdown
         And user sets "<formula>"in "Formula" text box
         And user set "<unit>" in Unit text box
         And user sets "5" in "Minimum Valid Value" text box
@@ -55,12 +55,12 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
 
     @BI-1111
     Scenario: Date Scale Class
-        When user sets "Date" in Scale text box
+        When user sets "Date" in "Scale Class" dropdown
         Then user can see "No options are available for configuring this field."
 
     @BI-1112
     Scenario: Duration Scale class form elements
-        When user sets "Duration" in Scale text box
+        When user sets "Duration" in "Scale Class" dropdown
         Then user can see "Unit of time" text box
         And user can see "Minimum Valid Value" text box
         And user can see "Maximum Valid Value" text box
@@ -72,8 +72,8 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
         And user sets "<trait_entity>" in "Entity" text box
         And user sets "<trait_attribute>" in "Attribute" text box
         And user sets "<method_description>" in "Method Description" text box
-        And user sets "Observation" in "Method Class" text box
-        And user sets "Duration" in "Scale Class"
+        And user sets "Observation" in "Method Class" dropdown
+        And user sets "Duration" in "Scale Class" dropdown
         And user set "<unit>" in Unit text box
         When user sets "5" in "Minimum Valid Value" text box
         And user sets "3" in "Maximum Valid Value" text box
@@ -111,8 +111,8 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
         And user sets "<trait_entity>" in "Entity" text box
         And user sets "<trait_attribute>" in "Attribute" text box
         And user sets "<method_description>" in "Method Description" text box
-        And user sets "Observation" in "Method Class" text box
-        And user sets "Nominal" in "Scale Class"
+        And user sets "Observation" in "Method Class" dropdown
+        And user sets "Nominal" in "Scale Class" dropdown
         And user selects "Save" button
         Then user can see "Value missing." under "value" field
         And user can see "Error creating trait. Scale categories contain errors;" in banner
@@ -155,8 +155,8 @@ Feature: Trait Create - Trait Create Method & Scale Class Behavior
         And user sets "<trait_entity>" in "Entity" text box
         And user sets "<trait_attribute>" in "Attribute" text box
         And user sets "<method_description>" in "Method Description" text box
-        And user sets "Observation" in "Method Class" text box
-        When user sets "Ordinal" in "Scale Class"
+        And user sets "Observation" in "Method Class" dropdown
+        When user sets "Ordinal" in "Scale Class" dropdown
         And user selects "Save" button
         Then user can see "Label missing." under "label" field
         And user can see "Error creating trait. Scale categories contain errors;" in banner
