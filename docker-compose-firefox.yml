@@ -3,9 +3,10 @@
 version: '3'
 services:
   firefox:
-    image: selenium/standalone-firefox:3.141.59-20210607
+    image: selenium/standalone-firefox:93.0
     ports:
       - "4444:4444"
+      - "7900:7900"
     shm_size: '2gb'
     environment:
       - SCREEN_WIDTH=1920

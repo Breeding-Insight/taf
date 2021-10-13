@@ -16,6 +16,12 @@ const {
 } = require("nightwatch-api");
 const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
+const run = {
+  browserName: "",
+  platform: "",
+  version: "",
+  BreedingInsight: "",
+};
 
 setDefaultTimeout(300000);
 global.__basedir = __dirname;
@@ -30,49 +36,51 @@ BeforeAll(async () => {
 });
 
 AfterAll(async () => {
-  let version, browserName, platform;
+  run.browserName = client.capabilities.browserName;
+  switch (client.capabilities.browserName) {
+    case "chrome":
+      run.version = client.capabilities.version;
+      run.platform = client.capabilities.platform;
+      break;
+    case "firefox":
+      run.version = client.capabilities.browserVersion;
+      run.platform = client.capabilities.platformName;
 
-  await client.sessions((result) => {
-    browserName = result.value[0]["capabilities"]["browserName"];
-    switch (browserName) {
-      case "chrome":
-        version = result.value[0]["capabilities"]["version"];
-        platform = result.value[0]["capabilities"]["platform"];
-        break;
-      case "firefox":
-        version = result.value[0]["capabilities"]["browserVersion"];
-        platform = result.value[0]["capabilities"]["platformName"];
-        break;
-      case "internet explorer":
-        platform = result.value[0]["capabilities"]["platformName"];
-        version = result.value[0]["capabilities"]["browserVersion"];
-        break;
+      break;
+    case "msedge":
+      run.version = client.capabilities.version;
+      run.platform = client.capabilities.platform;
+      break;
+    default:
+      throw new Error("Unrecognized browser.");
+  }
+
+  const fs = require("fs");
+
+  // convert JSON object to string
+  const data = JSON.stringify(run);
+
+  // write JSON string to a file
+  fs.writeFile("run.json", data, (err) => {
+    if (err) {
+      throw err;
     }
+    console.log("JSON data is saved.");
   });
-
   await stopWebDriver();
-
-  setTimeout(() => {
-    reporter.generate({
-      theme: "bootstrap",
-      jsonFile: "report/cucumber_report.json",
-      output: "report/cucumber_report.html",
-      reportSuiteAsScenarios: true,
-      launchReport: false,
-      metadata: {
-        OS: platform,
-        Browser: browserName,
-        Version: version,
-        "BreedInsight Version": "1.0.0",
-      },
-    });
-  }, 0);
 });
 
 After(function () {
-  getNewScreenshots().forEach((file) =>
-    this.attach(fs.readFileSync(file), "image/png")
-  );
+  if (run.BreedingInsight == "") {
+    run.BreedingInsight = client.globals.breedingInsightVersion;
+  }
+  try {
+    getNewScreenshots().forEach((file) =>
+      this.attach(fs.readFileSync(file), "image/png")
+    );
+  } catch (err) {
+    console.log("No screenshot");
+  }
   //Note: The following line can be commented out to keep browsers open for debugging purposes on local
   closeSession();
 });

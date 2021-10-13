@@ -74,7 +74,7 @@ Then(/^user selects the user$/, () => {
 Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.navigate();
   await waitReady();
-  await page.click("@iUnderstandButton");
+  //await page.click("@iUnderstandButton");
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
 
@@ -1048,6 +1048,15 @@ async function waitReady() {
     }
   }
   stopWatch.stopTimer();
+
+  
+
+  await page.getText("#versionInfo > span",({ value }) => {
+    if (client.globals.breedingInsightVersion == undefined)  
+    client.globals.breedingInsightVersion =String(value).trim();
+    }
+  );
+
   if (!found) {
     throw new Error("Application version failed to load. Unable to login.");
   }

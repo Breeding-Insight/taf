@@ -1,4 +1,5 @@
 var reporter = require("cucumber-html-reporter");
+const run = require('./run.json')
 
 var options = {
   theme: "bootstrap",
@@ -7,9 +8,10 @@ var options = {
   reportSuiteAsScenarios: true,
   launchReport: true,
   metadata: {
-    OS: "Window",
-    Browser: "Chrome",
-    "Breeding Insight": "1.0",
+    "Breeding Insight": run.BreedingInsight,
+    Browser: run.browserName,
+    "Browser Version": run.version,
+    OS: run.platform,
   },
 };
 
