@@ -367,11 +367,15 @@ When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
 
 When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
   await page.click({
-    selector: `//*[@id='sideMenu']//nav//ul//a[contains(text(), '${args1}')]`,
+    selector: `//*[@id='sideMenu']//nav/ul/li/a[contains(text(), '${args1}')]`,
     locateStrategy: "xpath",
   });
 });
 
+//Deprecated:  
+//  Use 'user selects "([^"]*)" in top-level navigation'
+//   OR
+//  'user selects "([^"]*)" in sub-level navigation'
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
   if (args1==="Ontology") {
     await page.click("#usersidebarlayout-ontology-menu");
@@ -381,6 +385,24 @@ When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
       locateStrategy: "xpath",
     });
   }
+});
+
+When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
+  if (args1==="Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
+});
+
+When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
+  await page.click({
+    selector: `//*[@id="sideMenu"]//nav/ul/li/ul/li/a[contains(text(), '${args1}')]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user does not see new user form$/, async () => {
@@ -989,6 +1011,13 @@ Then(/^user can see 'New Program' button on Program$/, async () => {
 
 When(/^user selects 'New Program' button in Programs page$/, async () => {
   await page.click("@newProgramButton");
+});
+
+When(/^user selects 'Yes, remove' button in modal box$/, async () => {
+  await page.click("@yesRemoveButton");
+});
+Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
+  await page.assert.visible("@yesRemoveButton");
 });
 
 //functions
