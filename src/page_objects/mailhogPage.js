@@ -2,18 +2,6 @@ module.exports = {
   url: "http://sandbox.breedinginsight.net:8025",
   // commands: [commands.commands],
   elements: {
-    
-
-
-
-
-
-
-
-
-
-
-    
     //program page
     systemAdministrationLabel: {
       selector: "//*[@id='app']//a[contains(text(), 'System Administration')]",

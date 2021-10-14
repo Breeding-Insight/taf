@@ -25,11 +25,11 @@ Feature: Program Location Management
 	Scenario: New Location form - enter location - Cancel
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		When user selects 'New Location' button in Program Management page
-		When user sets "TestCancel" in Name field in Program Management page
-		When user selects 'Cancel' button in Program Management page
-		When user user can not see Location form in Program Management page
+		# And user selects "Program Management" in navigation
+		# When user selects 'New Location' button in Program Management page
+		# When user sets "TestCancel" in Name field in Program Management page
+		# When user selects 'Cancel' button in Program Management page
+		# When user user can not see Location form in Program Management page
 
 	@BI-864
 	@BI-888
