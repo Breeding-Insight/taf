@@ -93,9 +93,10 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
-		And user can see "Level" column header
+		And user can see "Trait" column header
 		And user can see "Method" column header
-		And user can see "Scale" column header
+		And user can see "Scale Class" column header
+		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 	
 	@BI-924
@@ -115,9 +116,10 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
-		And user can see "Level" column header
+		And user can see "Trait" column header
 		And user can see "Method" column header
-		And user can see "Scale" column header
+		And user can see "Scale Class" column header
+		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 
 	@BI-926
