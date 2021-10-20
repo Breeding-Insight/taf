@@ -4,22 +4,30 @@ module.exports = {
       selector: "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
+    traitNameField: "#Name",
+    fullNameField: "#Full-name",
+    termDescription: "#Description",
+    tagsField: "#tags input",
+    entityField: "#entity input",
+    attributeField: "#attribute input",
+    methodDescriptionField: "#methodDescription input",
+    methodClassField: "#Class",
+    scaleClassField: "#Scale-Class",
+    unitField: "#Unit",
+    minValueField: "#Minimum-Valid-Value",
+    maxValueField: "#Maximum-Valid-Value",
+    formulaField: "#Formula",
   },
   sections: {
     allTraitsForm: {
       selector: "#traitTableLabel",
       elements: {
-        traitNameField: "#Trait-name",
         isCollectedOnField: "div.control.is-clearfix input",
         byMethodSelect: "#Method",
         byScaleSelect: {
           selector: "#Class",
           index: 1,
         },
-        descriptionCollectionMethodField:
-          "div.control input[placeholder='Method Description']",
-        abbreviationField: "div.control input[placeholder='Abbreviation(s)']",
-        synonymsField: "#Synonyms",
         saveButton: {
           selector: "//span[normalize-space(.)='Save']",
           locateStrategy: "xpath",
@@ -77,7 +85,7 @@ module.exports = {
         fifthOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 4,
-        },
+        }
       },
     },
   },

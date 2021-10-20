@@ -139,3 +139,28 @@ Then(
     );
   }
 );
+
+// Generic field fillers
+//TODO: Need to fix all of these after my changes
+
+// TODO: Try to make even more generic (no hard coded page) in the future
+When(/^user sets "([^"]*)" in ([^\s]+) field$/, async (valueArg, fieldSelector) => {
+  // Set the element
+  await traitsPage.setValue(`@${fieldSelector}`, valueArg);
+});
+
+When(/^user selects "([^"]*)" in ([^\s]+) dropdown field$/, async (valueArg, fieldSelector) => {
+  // Set the element
+  await traitsPage.setValue(`@${fieldSelector}`, valueArg);
+});
+
+Then(/^user can see "([^"]*)" error below the ([^\s]+) field$/, async(errorMsg, fieldSelector) => {
+  var field = traitsPage.elements[fieldSelector];
+  // All our error selector css paths are the same
+  // Not ideal placement, would rather it be in the traitsPage.js file
+  const errorSelector = {
+    selector: `.//input[@id='${field.selector.replace('#', '')}']/following-sibling::span[contains(text() ,'${errorMsg}')]`,
+    locateStrategy: "xpath",
+  };
+  await traitsPage.assert.visible(errorSelector);
+});
