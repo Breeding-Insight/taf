@@ -9,7 +9,14 @@ module.exports = {
     allTraitsForm: {
       selector: "#traitTableLabel",
       elements: {
-        traitNameField: "#Trait-name",
+        nameField:"#Name",
+        fullNameField:"#Full-name",
+        descriptionField:"#Description",
+        synonymsLabel:"//span[normalize-space(.)='Synonyms']",
+        //tagsField:"input[placeholder='Start typing to see suggestions']",
+        //entityField:"input[placeholder='Start typing to see suggestions']",
+        //attributeField:"input[placeholder='Start typing to see suggestions']",
+        //methodDescription:
         isCollectedOnField: "div.control.is-clearfix input",
         byMethodSelect: "#Method",
         byScaleSelect: {

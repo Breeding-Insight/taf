@@ -26,6 +26,7 @@ Feature: Ontology Import (10 Scenarios)
 	@BI-918
 	@BI-810
 	@SmokeTests
+	@debug
 	Scenario: Ontology - choosing an xls file And selecting Import
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
