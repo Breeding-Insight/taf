@@ -39,6 +39,30 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > div > select",
         scaleClassErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > span",
+        scaleClassNoOptionsText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > p",
+        formulaField: "#Formula",
+        formulaErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > div > div.field-body > div > div > span",
+        unitField: "#Unit",
+        unitErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > span",
+        // minValidValueField: "#Minimum-Valid Value",
+        unitofTimeField:"form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        minValidValueField: {
+          selector: "//input[contains(@id, 'Minimum-Valid Value')]",
+          locateStrategy: "xpath",
+        },
+        minValidValueErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(4) > div > div.field-body > div > div > span:nth-child(3)",
+        // maxValidValueField: "#Maximum-Valid Value",
+        maxValidValueField: {
+          selector: "//input[contains(@id, 'Maximum-Valid Value')]",
+          locateStrategy: "xpath",
+        },
+        maxValidValueErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(6) > div > div.field-body > div > div > span:nth-child(3)",
+        decimalPlacesField: "#Decimal-Places",
         byMethodSelect: "#Method",
         byScaleSelect: {
           selector: "#Class",

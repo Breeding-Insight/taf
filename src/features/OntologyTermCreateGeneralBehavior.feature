@@ -83,7 +83,6 @@ Feature: Ontology Term Create - General Behavior
             | *             | TestTraitDesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-948
-    @debug
     Scenario: Ontology Term Create - Enter Values, Save
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page

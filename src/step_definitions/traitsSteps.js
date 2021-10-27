@@ -396,7 +396,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in 'Trait' column on ontology list page$/,
-  async function(args1) {
+  async function (args1) {
     await traitsPage.assert.visible({
       selector:
         "//td[@name='trait'][normalize-space(.)='" +
@@ -409,7 +409,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in 'Method' column on ontology list page$/,
-  async function(args1) {
+  async function (args1) {
     await traitsPage.assert.visible({
       selector:
         "//td[@name='method'][normalize-space(.)='" +
@@ -422,7 +422,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in 'Scale Class' column on ontology list page$/,
-  async function(args1) {
+  async function (args1) {
     await traitsPage.assert.visible({
       selector:
         "//td[@name='scaleClass'][normalize-space(.)='" +
@@ -441,92 +441,157 @@ Then(
   }
 );
 
-Then(/^user can see 'Formula' field on ontology list page$/, () => {
-  return true;
+Then(/^user can see 'Formula' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@formulaField");
 });
 
-Then(/^user can see 'Unit' field on ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Decimal Places' field on ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Minimum Valid Value' field on ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Maximum Valid Value' field on ontology list page$/, () => {
-  return true;
+Then(/^user can see 'Unit' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@unitField");
 });
 
 Then(
+  /^user can see 'Decimal Places' field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@decimalPlacesField"
+    );
+  }
+);
+
+Then(
+  /^user can see 'Minimum Valid Value' field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@minValidValueField"
+    );
+  }
+);
+
+Then(
+  /^user can see 'Maximum Valid Value' field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@maxValidValueField"
+    );
+  }
+);
+
+Then(
   /^user can see "([^"]*)" below the 'Formula' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@formulaErrorText");
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@formulaErrorText",
+      args1
+    );
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Unit' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@unitErrorText");
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@unitErrorText",
+      args1
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in 'Formula' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@formulaField",
+      args1.replace("*", this.parameters.random)
+    );
   }
 );
 
-When(/^user sets "([^"]*)" in 'Unit' field on ontology list page$/, (args1) => {
-  console.log(args1);
-  return true;
-});
+When(
+  /^user sets "([^"]*)" in 'Unit' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@unitField",
+      args1.replace("*", this.parameters.random)
+    );
+  }
+);
 
 When(
   /^user sets "([^"]*)" in 'Minimum Valid Value' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@minValidValueField",
+      args1
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in 'Maximum Valid Value' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@maxValidValueField",
+      args1
+    );
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Max' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@maxValidValueErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@maxValidValueErrorText",
+      args1
+    );
   }
 );
 
-Then(/^user can see 'Unit of time' field on ontology list page$/, () => {
-  return true;
+Then(
+  /^user can see "([^"]*)" below the 'Min' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@minValidValueErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@minValidValueErrorText",
+      args1
+    );
+  }
+);
+
+Then(/^user can see 'Unit of time' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@unitofTimeField");
 });
 
-When(/^user set "([^"]*)" in 'Unit' field on ontology list page$/, (args1) => {
-  console.log(args1);
-  return true;
-});
+When(
+  /^user set "([^"]*)" in 'Unit' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@unitofTimeField", args1);
+  }
+);
 
 When(
   /^user sets "([^"]*)" in 'Scale' field on ontology list page$/,
   (args1) => {
     console.log(args1);
     return true;
+  }
+);
+
+Then(
+  /^user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@scaleClassNoOptionsText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@scaleClassNoOptionsText",
+      "No options are available for configuring this field."
+    );
   }
 );
