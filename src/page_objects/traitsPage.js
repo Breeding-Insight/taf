@@ -1,7 +1,8 @@
 module.exports = {
   elements: {
     newTermButton: {
-      selector: "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
+      selector:
+        "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
   },
@@ -9,15 +10,35 @@ module.exports = {
     allTraitsForm: {
       selector: "#traitTableLabel",
       elements: {
-        nameField:"#Name",
-        fullNameField:"#Full-name",
-        descriptionField:"#Description",
-        synonymsLabel:"//span[normalize-space(.)='Synonyms']",
-        //tagsField:"input[placeholder='Start typing to see suggestions']",
-        //entityField:"input[placeholder='Start typing to see suggestions']",
-        //attributeField:"input[placeholder='Start typing to see suggestions']",
-        //methodDescription:
-        isCollectedOnField: "div.control.is-clearfix input",
+        nameField: "#Name",
+        nameErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(5) > div > div.field-body > div > div > span:nth-child(3)",
+        fullNameField: "#Full-name",
+        descriptionField: "#Description",
+        desriptionErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
+        tagsField:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(13) > div > div.field-body > div > div > div > div > div > div.control.is-clearfix > input",
+        entityField:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        entityErrorText:
+          "#traitTableLabel > form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
+        attributeField:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        attributeErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > span:nth-child(3)",
+        methodDescription:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(23) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        methodDescriptionErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(23) > div > div.field-body > div > div > span:nth-child(3)",
+        methodClass:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",
+        methodClassErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > span",
+        scaleClass:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > div > select",
+        scaleClassErrorText:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > span",
         byMethodSelect: "#Method",
         byScaleSelect: {
           selector: "#Class",
@@ -28,11 +49,12 @@ module.exports = {
         abbreviationField: "div.control input[placeholder='Abbreviation(s)']",
         synonymsField: "#Synonyms",
         saveButton: {
-          selector: "//span[normalize-space(.)='Save']",
+          selector: ".//span[normalize-space(.)='Save']",
           locateStrategy: "xpath",
         },
         cancelButton: {
-          selector: "//button[normalize-space(.)='Cancel']",
+          selector:
+            ".//button[@data-testid='cancel'][normalize-space(.)='Cancel']",
           locateStrategy: "xpath",
         },
         firstScaleField: {

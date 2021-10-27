@@ -23,6 +23,7 @@ global.__basedir = __dirname;
 Before(async function () {
   await createSession({ env: this.parameters.browser });
   await client.resizeWindow(1900, 1200);
+  this.parameters.timeStamp = Date.now();
 });
 
 BeforeAll(async () => {

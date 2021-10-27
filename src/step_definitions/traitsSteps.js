@@ -1,8 +1,9 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("@cucumber/cucumber");
+const { Then, When } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
+  await client.execute("window.scrollTo(0,0);");
   await traitsPage.waitForElementPresent("@newTermButton");
   await traitsPage.click("@newTermButton");
 });
@@ -140,268 +141,392 @@ Then(
 );
 
 Then(
-  /^user can see 'Ontology Term Name' field in ontology list page$/,
+  /^user can see 'Ontology Term Name' field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible("@nameField");
   }
 );
 
-Then(/^user can see 'Full Name' field in ontology list page$/, async () => {
+Then(/^user can see 'Full Name' field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@fullNameField");
 });
 
-Then(/^user can see 'Description' field in ontology list page$/, async () => {
+Then(/^user can see 'Description' field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@descriptionField");
 });
 
-Then(/^user can see 'Synonyms' label in ontology list page$/, async () => {
-  await traitsPage.section.allTraitsForm.assert.visible("@synonymsLabel");
+Then(/^user can see 'Tags' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@tagsField");
+});
+
+Then(/^user can see 'Entity' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@entityField");
+});
+
+Then(/^user can see 'Attribute' field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@entityField");
 });
 
 Then(
-  /^user can see 'Trait = Entity \+ Attribute' field in ontology list page$/,
-  () => {
+  /^user can see 'Method Class' dropdown on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible("@methodClass");
+  }
+);
+
+Then(
+  /^user can see 'Scale Class' dropdown on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible("@methodClass");
+  }
+);
+
+Then(/^user can see 'Save' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@saveButton");
+});
+
+Then(/^user can see 'Cancel' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@cancelButton");
+});
+
+When(
+  /^user sets "([^"]*)" in 'Entity' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@entityField",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" as suggested text in 'Entity' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.assert.containsText(
+      "#traitTableLabel > form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.dropdown-menu > div > a > span",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Name' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@nameField",
+      args1.replace("*", this.parameters.timeStamp).slice(-10)
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Full Name' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@fullNameField",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Description' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@descriptionField",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Attribute' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@attributeField",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Method Description' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@methodDescription",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user selects "([^"]*)" in 'Method Class' dropdown on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@methodClass", args1);
+  }
+);
+
+When(
+  /^user selects "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@scaleClass", args1);
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Name' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@nameErrorText");
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@nameErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Description' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@desriptionErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@desriptionErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Entity' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@entityErrorText");
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@entityErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Attribute' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@attributeErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@attributeErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Method Description' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@methodDescriptionErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@methodDescriptionErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Method Class' dropdown on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@methodClassErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@methodClassErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Scale Class' dropdown on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@scaleClassErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@scaleClassErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in 'Name' column on ontology list page$/,
+  async function (args1) {
+    await traitsPage.assert.not.elementPresent({
+      selector:
+        "//td[@name='name'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp).slice(-10) +
+        "']",
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(/^user selects 'Save' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.click("@saveButton");
+});
+
+When(/^user selects 'Cancel' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.click("@cancelButton");
+});
+
+Then(
+  /^user can see "([^"]*)" in 'Name' column on ontology list page$/,
+  async function (args1) {
+    await traitsPage.assert.visible({
+      selector:
+        "//td[@name='name'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp).slice(-10) +
+        "']",
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Trait' column on ontology list page$/,
+  async function(args1) {
+    await traitsPage.assert.visible({
+      selector:
+        "//td[@name='trait'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp) +
+        "']",
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Method' column on ontology list page$/,
+  async function(args1) {
+    await traitsPage.assert.visible({
+      selector:
+        "//td[@name='method'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp) +
+        "']",
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Scale Class' column on ontology list page$/,
+  async function(args1) {
+    await traitsPage.assert.visible({
+      selector:
+        "//td[@name='scaleClass'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp) +
+        "']",
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
+  (args1) => {
+    console.log(args1);
     return true;
   }
 );
 
-Then(/^user can see 'Entity' field in ontology list page$/, () => {
+Then(/^user can see 'Formula' field on ontology list page$/, () => {
   return true;
 });
 
-Then(/^user can see 'Attribute' field in ontology list page$/, () => {
+Then(/^user can see 'Unit' field on ontology list page$/, () => {
   return true;
 });
 
-Then(/^user can see 'Trait' field in ontology list page$/, () => {
+Then(/^user can see 'Decimal Places' field on ontology list page$/, () => {
+  return true;
+});
+
+Then(/^user can see 'Minimum Valid Value' field on ontology list page$/, () => {
+  return true;
+});
+
+Then(/^user can see 'Maximum Valid Value' field on ontology list page$/, () => {
   return true;
 });
 
 Then(
-  /^user can see 'Method = Description \\+ Class' field in ontology list page$/,
-  () => {
+  /^user can see "([^"]*)" below the 'Formula' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
     return true;
   }
 );
 
-Then(/^user can see 'Description' field in ontology list page$/, () => {
+Then(
+  /^user can see "([^"]*)" below the 'Unit' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Formula' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
+
+When(/^user sets "([^"]*)" in 'Unit' field on ontology list page$/, (args1) => {
+  console.log(args1);
   return true;
 });
 
-Then(/^user can see 'Method Class' dropdown in ontology list page$/, () => {
+When(
+  /^user sets "([^"]*)" in 'Minimum Valid Value' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in 'Maximum Valid Value' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Max' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
+
+Then(/^user can see 'Unit of time' field on ontology list page$/, () => {
   return true;
 });
 
-Then(/^user can see 'Scale' field in ontology list page$/, () => {
+When(/^user set "([^"]*)" in 'Unit' field on ontology list page$/, (args1) => {
+  console.log(args1);
   return true;
 });
 
-Then(/^user can see 'Scale Class' dropdown in ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Tags' field in ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Save' button in ontology list page$/, () => {
-  return true;
-});
-
-Then(/^user can see 'Cancel' button in ontology list page$/, () => {
-  return true;
-});
-
-When(/^user sets "([^"]*)" in the 'Entity' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" as suggested text in 'Entity' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user sets "([^"]*)" in 'Name' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user sets "([^"]*)" in 'Full Name' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user sets "([^"]*)" in 'Entity' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user sets "([^"]*)" in 'Attribute' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user sets "([^"]*)" in 'Method Description' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user selects "([^"]*)" in 'Method Class' dropdown in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user selects "([^"]*)" in 'Scale Class' dropdown in ontology list page$/, (args1,args2) => {
-	console.log(args1,args2);
-	return true;
-});
-
-Given(/^user selects "([^"]*)" button in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Given(/^user selects 'New Term' button in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Name' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Ontology Term Description' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Entity' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Attribute' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Method Description' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Method Class' dropdown in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Scale Class' dropdown in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can not see "([^"]*)" in 'Name' column in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user selects 'Save' button in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see "([^"]*)" in 'Name' column in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" in 'Trait' column in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" in 'Method' column in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" in 'Scale Class' column in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" in 'Scale Class' dropdown in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see 'Formula' field in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see 'Unit' field in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see 'Decimal Places' field in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see 'Minimum Valid Value' field in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see 'Maximum Valid Value' field in ontology list page$/, () => {
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Formula' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Unit' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user sets "([^"]*)" in 'Formula' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user sets "([^"]*)" in 'Unit' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-
-When(/^user sets "([^"]*)" in 'Minimum Valid Value' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user sets "([^"]*)" in 'Maximum Valid Value' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see "([^"]*)" below the 'Max' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-Then(/^user can see 'Unit of time' field in ontology list page$/, () => {
-	return true;
-});
-
-When(/^user set "([^"]*)" in 'Unit' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
-When(/^user sets "([^"]*)" in 'Scale' field in ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
-});
-
+When(
+  /^user sets "([^"]*)" in 'Scale' field on ontology list page$/,
+  (args1) => {
+    console.log(args1);
+    return true;
+  }
+);
