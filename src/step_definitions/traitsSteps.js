@@ -40,32 +40,32 @@ When(
 //   }
 // );
 
-Then(
-  /^user can not see Nominal first field on ontology list page$/,
-  async () => {
-    await traitsPage.section.allTraitsForm.assert.not.visible(
-      "@firstScaleField"
-    );
-  }
-);
+// Then(
+//   /^user can not see Nominal first field on ontology list page$/,
+//   async () => {
+//     await traitsPage.section.allTraitsForm.assert.not.visible(
+//       "@firstScaleField"
+//     );
+//   }
+// );
 
-Then(
-  /^user can not see Nominal second field on ontology list page$/,
-  async () => {
-    await traitsPage.section.allTraitsForm.assert.not.visible(
-      "@secondScaleField"
-    );
-  }
-);
+// Then(
+//   /^user can not see Nominal second field on ontology list page$/,
+//   async () => {
+//     await traitsPage.section.allTraitsForm.assert.not.visible(
+//       "@secondScaleField"
+//     );
+//   }
+// );
 
-Then(
-  /^user can not see Nominal third field on ontology list page$/,
-  async () => {
-    await traitsPage.section.allTraitsForm.assert.not.visible(
-      "@thirdScaleField"
-    );
-  }
-);
+// Then(
+//   /^user can not see Nominal third field on ontology list page$/,
+//   async () => {
+//     await traitsPage.section.allTraitsForm.assert.not.visible(
+//       "@thirdScaleField"
+//     );
+//   }
+// );
 
 Then(
   /^user can see "([^"]*)" placeholder in Ordinal first field on ontology list page$/,
