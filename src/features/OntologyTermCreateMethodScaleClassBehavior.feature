@@ -88,87 +88,99 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see banner appears with an error message "Error creating trait. Scale valid value max must be greater than valid value min.;"
 
         Examples:
-            | ont_term_name     | trait_description | trait_entity | trait_attribute | method_description | unit     |
+            | ont_term_name     | trait_description | trait_entity | trait_attribute | method_description | unit    |
             | TestOntTermName * | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     | seconds |
 
     @BI-1114
-    @debug
     Scenario: Text Scale Class
         Given user selects 'New Term' button on ontology list page
-        When  user sets "Text" in 'Scale' field on ontology list page
-        Then user can see "No options are available for configuring this field." below the 'Attribute' field on ontology list page
+        When  user selects "Text" in 'Scale Class' dropdown on ontology list page
+        Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
 
     @BI-1116
     Scenario: Nominal form elements
-        When user sets "Nominal" in Scale text box
-        Then user can see "Type A" in first "label' field on ontology list page
-        And user can see 'X' button
-        And user can see "Type B" in second "label' field on ontology list page
-        And user can see 'X' button
-        And user can see "Type C" in third "label' field on ontology list page
-        And user can see 'X' button
-        And user can see "Type D" in fourth "label' field on ontology list page
-        And user can see 'X' button
-        And user can see "Type E" in fifth "label' field on ontology list page
-        And user can see 'X' button
-        And user can see "Add Item" button
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        Then user can see "Type A" placeholder in Nominal first field on ontology list page
+        Then user can see X button in Nominal first field on ontology list page
+        Then user can see "Type B" placeholder in Nominal second field on ontology list page
+        Then user can see X button in Nominal second field on ontology list page
+        Then user can see "Type C" placeholder in Nominal third field on ontology list page
+        Then user can see X button in Nominal third field on ontology list page
+        Then user can see "Type D" placeholder in Nominal fourth field on ontology list page
+        Then user can see X button in Nominal fourth field on ontology list page
+        Then user can see "Type E" placeholder in Nominal fifth field on ontology list page
+        Then user can see X button in Nominal fifth field on ontology list page
+        Then user can see 'Add Item' button on ontology list page
 
     @BI-1117
     Scenario: Nominal Required Fields
-        Given user sets a "<ont_term_name>" in 'Name' field on ontology list page
-        And user sets "<trait_description>" in 'Full Name' text box
-        And user sets "<trait_entity>" in 'Entity' field on ontology list page
-        And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
-        And user sets "<method_description>" in 'Method Description' field on ontology list page
-        And user sets "Observation" in 'Method Class' dropdown on ontology list page
-        And user sets "Nominal" in 'Scale Class' dropdown
-        And user selects "Save" button
-        Then user can see "Value missing." under "value" field
-        And user can see "Error creating trait. Scale categories contain errors;" in banner
+        Given user selects 'New Term' button on ontology list page
+        When user sets "<ont_term_name>" in 'Name' field on ontology list page
+        When user sets "<trait_description>" in 'Description' field on ontology list page
+        When user sets "<trait_entity>" in 'Entity' field on ontology list page
+        When user sets "<trait_attribute>" in 'Attribute' field on ontology list page
+        When user sets "<method_description>" in 'Method Description' field on ontology list page
+        When user selects "Observation" in 'Method Class' dropdown on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Value missing." below Nominal first field on ontology list page
+        Then user can see "Value missing." below Nominal second field on ontology list page
+        Then user can see "Value missing." below Nominal third field on ontology list page
+        Then user can see "Value missing." below Nominal fourth field on ontology list page
+        Then user can see "Value missing." below Nominal fifth field on ontology list page
+        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
 
         Examples:
-            | ont_term_name     | trait_description | trait_entity | trait_attribute | method_description |
-            | TestOntTermName * | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
+            | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
+            | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1118
     Scenario: Nominal Add Scale Category
-        When  user sets "Nominal" in 'Scale' field on ontology list page
-        And user selects "Add Item" button
-        Then user can see a sixth "value" field
-        And user can see an 'X' button
+        Given user selects 'New Term' button on ontology list page
+        When  user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        Then user can see "Value" placeholder in Nominal sixth field on ontology list page
+        Then user can see X button in Nominal sixth field on ontology list page
 
     @BI-1119
     Scenario: Ordinal form elements
-        When user sets "Ordinal" in 'Scale' field on ontology list page
-        Then user can see "1" in the first "value' field on ontology list page
-        And use can see first label text box
-        And an 'X' button
-        And user can see "2" in the second "value' field on ontology list page
-        And use can see second label text box
-        And an 'X' button
-        And user can see "3" in the third "value' field on ontology list page
-        And use can see third label text box
-        And an 'X' button
-        And user can see "4" in the fourth "value' field on ontology list page
-        And use can see fourth label text box
-        And an 'X' button
-        And user can see "5" in the fifth "value' field on ontology list page
-        And use can see fifth label text box
-        And user can see an 'X' button
-        And user can see "Add Item" button
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        Then user can see "1" in Category first field on ontology list page
+        And user can see "ex. Very thin (< 4mm)" placeholder in Ordinal first field on ontology list page
+        Then user can see X button in Ordinal first field on ontology list page
+        And user can see "2" in Category second field on ontology list page
+        And user can see "ex. Thin (4 - 6mm)" placeholder in Ordinal second field on ontology list page
+        Then user can see X button in Ordinal second field on ontology list page
+        And user can see "3" in Category third field on ontology list page
+        And user can see "ex. Intermediate (7 - 9mm)" placeholder in Ordinal third field on ontology list page
+        Then user can see X button in Ordinal third field on ontology list page
+        And user can see "4" in Category fourth field on ontology list page
+        And user can see "ex. Thick (10 - 12mm)" placeholder in Ordinal fourth field on ontology list page
+        Then user can see X button in Ordinal fourth field on ontology list page
+        Then user can see "5" in Category fifth field on ontology list page
+        Then user can see "ex. Very Thick (> 12mm)" placeholder in Ordinal fifth field on ontology list page
+        Then user can see X button in Ordinal fifth field on ontology list page
+        Then user can see 'Add Item' button on ontology list page
 
     @BI-1120
     Scenario: Ordinal Required Fields
-        Given user sets "<ont_term_name>" in 'Name' field on ontology list page
-        And user sets "<trait_description>" in 'Full Name' text box
+        Given user selects 'New Term' button on ontology list page
+        When user sets "<ont_term_name>" in 'Name' field on ontology list page
+        And user sets "<trait_description>" in 'Description' field on ontology list page
         And user sets "<trait_entity>" in 'Entity' field on ontology list page
         And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
         And user sets "<method_description>" in 'Method Description' field on ontology list page
-        And user sets "Observation" in 'Method Class' dropdown on ontology list page
-        When user sets "Ordinal" in 'Scale Class' dropdown
-        And user selects "Save" button
-        Then user can see "Label missing." under "label" field
-        And user can see "Error creating trait. Scale categories contain errors;" in banner
+        And user selects "Observation" in 'Method Class' dropdown on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Label missing." below Ordinal first field on ontology list page
+        Then user can see "Label missing." below Ordinal second field on ontology list page
+        Then user can see "Label missing." below Ordinal third field on ontology list page
+        Then user can see "Label missing." below Ordinal fourth field on ontology list page
+        Then user can see "Label missing." below Ordinal fifth field on ontology list page
+        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
 
         Examples:
             | ont_term_name     | trait_description | trait_entity | trait_attribute | method_description |
@@ -176,28 +188,31 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
 
     @BI-1121
     Scenario: Ordinal Add Scale Category
-        When  user sets "Ordinal" in 'Scale' field on ontology list page
-        And user selects "Add Item" button
-        Then user can see sixth "value' field on ontology list page
-        And user can see a sixth "label' field on ontology list page
-        And user can see an 'X' button
+        Given user selects 'New Term' button on ontology list page
+        When  user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        Then user can see "Value" placeholder in Category sixth field on ontology list page
+        Then user can see "Label" placeholder in Ordinal sixth field on ontology list page
+        Then user can see X button in Ordinal sixth field on ontology list page
 
     @BI-1122
     Scenario: Nominal Delete Scale Category, w/o text
-        When user sets "Nominal" in 'Scale' field on ontology list page
-        And user selects 'X' button
-        Then user can see four "label' field on ontology list pagees
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user selects X button of Nominal first field on ontology list page
+        Then user can see not see Nominal fifth field on ontology list page
 
     @BI-1123
     Scenario: Nominal Delete Scale Category, w/text, cancel
-        When  user sets "Nominal" in 'Scale' field on ontology list page
-        And user sets "<text>" in first "label' field on ontology list page
-        And user selects 'X' button for first "label"
-        Then user can see "Remove category?"
-        And user can see "Please confirm that you would like to remove this category."
-        And user can see "Yes, remove" button
-        And user selects "Cancel" button
-        And user can see "<text>" in first "label' field on ontology list page
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user sets "<text>" in Nominal first field on ontology list page
+        When user selects X button of Nominal first field on ontology list page
+        Then user can see "Remove category?" in modal box header1
+        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        Then user can see "Yes, remove" button in modal box
+        When user selects "Cancel" button in modal box
+        Then user can see "<text>" in Nominal first field on ontology list page
 
         Examples:
             | text        |
@@ -205,11 +220,12 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
 
     @BI-1124
     Scenario: Nominal Delete Scale Category, w/text - Yes, Delete
-        When  user sets "Nominal" in 'Scale' field on ontology list page
-        And user sets "<text>" in first "label' field on ontology list page
-        And user selects 'X' button for first "label"
-        And user selects "Remove category?"
-        Then user can not see "<text>" in first "label' field on ontology list page
+        Given user selects 'New Term' button on ontology list page
+        When  user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        And user sets "<text>" in Nominal first field on ontology list page
+        And user selects X button of Nominal first field on ontology list page
+        When user selects "Yes, remove" button in modal box
+        Then user can not see "<text>" in Nominal first field on ontology list page
 
         Examples:
             | text        |
@@ -217,20 +233,19 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
 
     @BI-1125
     Scenario: Ordinal Delete Scale Category, cancel
-        When  user sets "Ordinal" in 'Scale' field on ontology list page
-        And user selects 'X' button for first "label"
-        Then user can see "Remove category?"
-        And user can see "Please confirm that you would like to remove this category."
-        And user can see "Yes, remove" button
-        And user selects "Cancel" button
-        And user sees "1" in first "value' field on ontology list page
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        Then user selects X button of Ordinal first field on ontology list page
+        Then user can see "Remove category?" in modal box header1
+        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        And user can see "Yes, remove" button in modal box
+        And user selects "Cancel" button in modal box
+        Then user can see "1" in Category first field on ontology list page
 
     @BI-1126
     Scenario: Ordinal Delete Scale Category - Yes, Delete
-        When  user sets "Ordinal" in 'Scale' field on ontology list page
-        And user selects 'X' button for first "label"
-        And user selects "Remove category?"
-        Then user can not see "1" in first "value' field on ontology list page
-
-
-
+        Given user selects 'New Term' button on ontology list page
+        When  user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects X button of Ordinal first field on ontology list page
+        When user selects "Yes, remove" button in modal box
+        Then user can not see "1" in Category first field on ontology list page

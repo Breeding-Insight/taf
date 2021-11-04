@@ -12,27 +12,7 @@ When(
   /^user selects "([^"]*)" in scale dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@byScaleSelect", args1);
-  }
-);
-
-When(
-  /^user sets "([^"]*)" in first scale field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@firstScaleField", args1);
-  }
-);
-
-When(
-  /^user sets "([^"]*)" in second scale field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
-  }
-);
-
-When(
-  /^user sets "([^"]*)" in third scale field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
+    await traitsPage.pause(2000);
   }
 );
 
@@ -61,47 +41,73 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in the first Ordinal field on ontology list page$/,
+  /^user can see "([^"]*)" placeholder in Ordinal first field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.assert.value(
-      "@firstOrdinalField",
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@firstScaleField",
+      "placeholder",
       args1
     );
   }
 );
 
 Then(
-  /^user can see "([^"]*)" in the second Ordinal field on ontology list page$/,
+  /^user can see "([^"]*)" placeholder in Ordinal second field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.assert.value(
-      "@secondOrdinalField",
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@secondScaleField",
+      "placeholder",
       args1
     );
   }
 );
 
 Then(
-  /^user can see "([^"]*)" in the third Ordinal field on ontology list page$/,
+  /^user can see "([^"]*)" placeholder in Ordinal third field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.assert.value(
-      "@thirdOrdinalField",
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@thirdScaleField",
+      "placeholder",
       args1
     );
   }
 );
 
 Then(
-  /^user can see "([^"]*)" in the fifth Ordinal field on ontology list page$/,
+  /^user can see "([^"]*)" placeholder in Ordinal fourth field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.assert.value(
-      "@fifthOrdinalField",
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@fourthScaleField",
+      "placeholder",
       args1
     );
   }
 );
 
 Then(
-  /^user can see "([^"]*)" in first Scale field on ontology list page$/,
+  /^user can see "([^"]*)" placeholder in Ordinal fifth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@fifthScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Ordinal sixth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@sixthScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Ordinal first field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@firstScaleField",
@@ -111,7 +117,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in second Scale field on ontology list page$/,
+  /^user can see "([^"]*)" in Ordinal second field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@secondScaleField",
@@ -121,7 +127,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in third Scale field on ontology list page$/,
+  /^user can see "([^"]*)" in Ordinal third field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
       "@thirdScaleField",
@@ -263,6 +269,36 @@ When(
   /^user selects "([^"]*)" in 'Method Class' dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@methodClass", args1);
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@firstScaleField",
+      args1
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@secondScaleField",
+      args1
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue(
+      "@thirdScaleField",
+      args1
+    );
   }
 );
 
@@ -575,14 +611,6 @@ When(
   }
 );
 
-When(
-  /^user sets "([^"]*)" in 'Scale' field on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
-  }
-);
-
 Then(
   /^user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page$/,
   async () => {
@@ -593,5 +621,476 @@ Then(
       "@scaleClassNoOptionsText",
       "No options are available for configuring this field."
     );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@firstScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@firstScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@firstScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@secondScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@secondScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@secondScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@thirdScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@thirdScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal third field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@thirdScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal fourth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@fourthScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@fourthScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal fourth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fourthScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal fifth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@fifthScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@fifthScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal fifth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fifthScaleDeleteButton"
+    );
+  }
+);
+
+Then(/^user can see 'Add Item' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@addItemButton");
+});
+
+Then(
+  /^user can see "([^"]*)" below Nominal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@firstScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@firstScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@secondScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@secondScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Nominal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@thirdScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@thirdScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Nominal fourth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fourthScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@fourthScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Nominal fifth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fifthScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@fifthScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Nominal sixth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible("@sixthScaleField");
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@sixthScaleField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Nominal sixth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@sixthScaleDeleteButton"
+    );
+  }
+);
+
+When(/^user selects 'Add Item' button on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.click("@addItemButton");
+});
+
+Then(
+  /^user can see "([^"]*)" in Category first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@firstOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in Category first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.value(
+      "@firstOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Category second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@secondOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Category third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@thirdOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Category fourth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@fourthOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Category fifth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@fifthOrdinalField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" placeholder in Category sixth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.attributeEquals(
+      "@sixthOrdinalField",
+      "placeholder",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@firstScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@secondScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal third field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@thirdScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal fourth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fourthScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal fifth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fifthScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see X button in Ordinal sixth field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@sixthScaleDeleteButton"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Ordinal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@firstScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@firstScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Ordinal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@secondScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@secondScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Ordinal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@thirdScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@thirdScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Ordinal fourth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fourthScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@fourthScaleErrorText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Ordinal fifth field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@fifthScaleErrorText"
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@fifthScaleErrorText",
+      args1
+    );
+  }
+);
+
+When(
+  /^user selects X button of Nominal first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click("@firstScaleDeleteButton");
+  }
+);
+
+Then(/^user can see not see Nominal fifth field on ontology list page$/, () => {
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@fifthScaleField"
+    );
+  };
+});
+
+When(
+  /^user sets "([^"]*)" in Nominal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@firstScaleField", args1);
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Nominal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@firstScaleField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@secondScaleField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@thirdScaleField",
+      args1
+    );
+  }
+);
+Then(
+  /^user can not see "([^"]*)" in Nominal first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.value(
+      "@firstScaleField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user selects X button of Ordinal first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click("@firstScaleDeleteButton");
   }
 );

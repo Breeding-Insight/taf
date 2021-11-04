@@ -38,8 +38,7 @@ module.exports = {
       "#traitTableLabel div.column.is-one-third-desktop.is-half-tablet.is-half-mobile.is-gapless.pl-0",
 
     welcomeText: {
-      selector:
-        "//*[@id='main']//*[contains(text(),'Welcome,')]",
+      selector: "//*[@id='main']//*[contains(text(),'Welcome,')]",
       locateStrategy: "xpath",
     },
 
@@ -67,8 +66,6 @@ module.exports = {
 
     systemAdministrationHeader:
       "#app > div.sidebarlayout > header > div > div.level-right.program-selection-level > h1",
-
-    
 
     programsLabel: {
       selector: "//*[@id='app']//main//section//h1[text()=' Programs ']",
@@ -149,9 +146,10 @@ module.exports = {
     topAlertDangerArticle: "#app article.notification.is-marginless.is-danger",
     //danger banner
     dangerBannerText: {
-      selector: "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
+      selector:
+        "//article[contains(@class, 'is-danger')]//div[contains(@class, 'banner-text')]",
       locateStrategy: "xpath",
-    },    
+    },
 
     //program list
     topProgramButton:
@@ -159,7 +157,7 @@ module.exports = {
 
     programSelectorDropDownButton: {
       selector: "//button[@aria-controls='program-menu']",
-      locateStrategy: "xpath"
+      locateStrategy: "xpath",
     },
 
     // user status menu
@@ -200,7 +198,8 @@ module.exports = {
       locateStrategy: "xpath",
     },
     modalHeader: {
-      selector: "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
+      selector:
+        "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
       locateStrategy: "xpath",
     },
 
@@ -394,6 +393,14 @@ module.exports = {
           },
         },
       ],
+    },
+    modal: {
+      selector: "//div[@class='modal is-active']",
+      locateStrategy: "xpath",
+      elements: {
+        header: { selector: ".//div/h3", locateStrategy: "xpath" },
+        message: { selector: ".//section//section", locateStrategy: "xpath" },
+      },
     },
   },
   commands: [

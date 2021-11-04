@@ -75,5 +75,5 @@ After(function () {
     this.attach(fs.readFileSync(file), "image/png")
   );
   //Note: The following line can be commented out to keep browsers open for debugging purposes on local
-  //closeSession();
+  closeSession();
 });

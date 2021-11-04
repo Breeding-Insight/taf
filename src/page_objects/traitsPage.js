@@ -48,7 +48,8 @@ module.exports = {
         unitErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > span",
         // minValidValueField: "#Minimum-Valid Value",
-        unitofTimeField:"form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        unitofTimeField:
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         minValidValueField: {
           selector: "//input[contains(@id, 'Minimum-Valid Value')]",
           locateStrategy: "xpath",
@@ -81,6 +82,7 @@ module.exports = {
             ".//button[@data-testid='cancel'][normalize-space(.)='Cancel']",
           locateStrategy: "xpath",
         },
+        addItemButton: "button[data-testid='new']",
         firstScaleField: {
           selector: "div.column.is-four-fifths input",
           index: 0,
@@ -101,6 +103,14 @@ module.exports = {
           selector: "div.column.is-four-fifths input",
           index: 4,
         },
+        sixthScaleField: {
+          selector: "div.column.is-four-fifths input",
+          index: 5,
+        },
+        sixthScaleField: {
+          selector: "div.column.is-four-fifths input",
+          index: 5,
+        },
         firstScaleDeleteButton: {
           selector: "div.column.is-one-fifth button.delete",
           index: 0,
@@ -113,8 +123,39 @@ module.exports = {
           selector: "div.column.is-one-fifth button.delete",
           index: 2,
         },
+        fourthScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 3,
+        },
+        fifthScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 4,
+        },
+        sixthScaleDeleteButton: {
+          selector: "div.column.is-one-fifth button.delete",
+          index: 5,
+        },
+        firstScaleErrorText: {
+          selector: "div.column.is-four-fifths span",
+          index: 0,
+        },
+        secondScaleErrorText: {
+          selector: "div.column.is-four-fifths span",
+          index: 1,
+        },
+        thirdScaleErrorText: {
+          selector: "div.column.is-four-fifths span",
+          index: 2,
+        },
+        fourthScaleErrorText: {
+          selector: "div.column.is-four-fifths span",
+          index: 3,
+        },
+        fifthScaleErrorText: {
+          selector: "div.column.is-four-fifths span",
+          index: 4,
+        },
         ordinalFields: { selector: "div.column.is-2 div.field-body input" },
-
         firstOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 0,
@@ -127,9 +168,17 @@ module.exports = {
           selector: "div.column.is-2 div.field-body input",
           index: 2,
         },
+        fourthOrdinalField: {
+          selector: "div.column.is-2 div.field-body input",
+          index: 3,
+        },
         fifthOrdinalField: {
           selector: "div.column.is-2 div.field-body input",
           index: 4,
+        },
+        sixthOrdinalField: {
+          selector: "div.column.is-2 div.field-body input",
+          index: 5,
         },
       },
     },
