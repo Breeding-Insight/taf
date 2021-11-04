@@ -102,15 +102,15 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         Then user can see "Type A" placeholder in Nominal first field on ontology list page
-        Then user can see X button in Nominal first field on ontology list page
+        Then user can see 'X' button in Nominal first field on ontology list page
         Then user can see "Type B" placeholder in Nominal second field on ontology list page
-        Then user can see X button in Nominal second field on ontology list page
+        Then user can see 'X' button in Nominal second field on ontology list page
         Then user can see "Type C" placeholder in Nominal third field on ontology list page
-        Then user can see X button in Nominal third field on ontology list page
+        Then user can see 'X' button in Nominal third field on ontology list page
         Then user can see "Type D" placeholder in Nominal fourth field on ontology list page
-        Then user can see X button in Nominal fourth field on ontology list page
+        Then user can see 'X' button in Nominal fourth field on ontology list page
         Then user can see "Type E" placeholder in Nominal fifth field on ontology list page
-        Then user can see X button in Nominal fifth field on ontology list page
+        Then user can see 'X' button in Nominal fifth field on ontology list page
         Then user can see 'Add Item' button on ontology list page
 
     @BI-1117
@@ -141,7 +141,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When  user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         When user selects 'Add Item' button on ontology list page
         Then user can see "Value" placeholder in Nominal sixth field on ontology list page
-        Then user can see X button in Nominal sixth field on ontology list page
+        Then user can see 'X' button in Nominal sixth field on ontology list page
 
     @BI-1119
     Scenario: Ordinal form elements
@@ -149,19 +149,19 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         Then user can see "1" in Category first field on ontology list page
         And user can see "ex. Very thin (< 4mm)" placeholder in Ordinal first field on ontology list page
-        Then user can see X button in Ordinal first field on ontology list page
+        Then user can see 'X' button in Ordinal first field on ontology list page
         And user can see "2" in Category second field on ontology list page
         And user can see "ex. Thin (4 - 6mm)" placeholder in Ordinal second field on ontology list page
-        Then user can see X button in Ordinal second field on ontology list page
+        Then user can see 'X' button in Ordinal second field on ontology list page
         And user can see "3" in Category third field on ontology list page
         And user can see "ex. Intermediate (7 - 9mm)" placeholder in Ordinal third field on ontology list page
-        Then user can see X button in Ordinal third field on ontology list page
+        Then user can see 'X' button in Ordinal third field on ontology list page
         And user can see "4" in Category fourth field on ontology list page
         And user can see "ex. Thick (10 - 12mm)" placeholder in Ordinal fourth field on ontology list page
-        Then user can see X button in Ordinal fourth field on ontology list page
+        Then user can see 'X' button in Ordinal fourth field on ontology list page
         Then user can see "5" in Category fifth field on ontology list page
         Then user can see "ex. Very Thick (> 12mm)" placeholder in Ordinal fifth field on ontology list page
-        Then user can see X button in Ordinal fifth field on ontology list page
+        Then user can see 'X' button in Ordinal fifth field on ontology list page
         Then user can see 'Add Item' button on ontology list page
 
     @BI-1120
@@ -193,13 +193,13 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects 'Add Item' button on ontology list page
         Then user can see "Value" placeholder in Category sixth field on ontology list page
         Then user can see "Label" placeholder in Ordinal sixth field on ontology list page
-        Then user can see X button in Ordinal sixth field on ontology list page
+        Then user can see 'X' button in Ordinal sixth field on ontology list page
 
     @BI-1122
     Scenario: Nominal Delete Scale Category, w/o text
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-        When user selects X button of Nominal first field on ontology list page
+        When user selects 'X' button of Nominal first field on ontology list page
         Then user can see not see Nominal fifth field on ontology list page
 
     @BI-1123
@@ -207,7 +207,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         When user sets "<text>" in Nominal first field on ontology list page
-        When user selects X button of Nominal first field on ontology list page
+        When user selects 'X' button of Nominal first field on ontology list page
         Then user can see "Remove category?" in modal box header1
         And user can see "Please confirm that you would like to remove this category." in modal box text1
         Then user can see "Yes, remove" button in modal box
@@ -223,7 +223,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When  user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         And user sets "<text>" in Nominal first field on ontology list page
-        And user selects X button of Nominal first field on ontology list page
+        And user selects 'X' button of Nominal first field on ontology list page
         When user selects "Yes, remove" button in modal box
         Then user can not see "<text>" in Nominal first field on ontology list page
 
@@ -235,7 +235,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Ordinal Delete Scale Category, cancel
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        Then user selects X button of Ordinal first field on ontology list page
+        Then user selects 'X' button in Ordinal first field on ontology list page
         Then user can see "Remove category?" in modal box header1
         And user can see "Please confirm that you would like to remove this category." in modal box text1
         And user can see "Yes, remove" button in modal box
@@ -246,6 +246,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Ordinal Delete Scale Category - Yes, Delete
         Given user selects 'New Term' button on ontology list page
         When  user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        When user selects X button of Ordinal first field on ontology list page
+        When user selects 'X' button in Ordinal first field on ontology list page
         When user selects "Yes, remove" button in modal box
         Then user can not see "1" in Category first field on ontology list page

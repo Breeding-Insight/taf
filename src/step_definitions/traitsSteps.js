@@ -16,26 +16,53 @@ When(
   }
 );
 
-When(
-  /^user sets "([^"]*)" in fifth scale field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@fifthScaleField", args1);
+// When(
+//   /^user sets "([^"]*)" in fifth scale field on ontology list page$/,
+//   async (args1) => {
+//     await traitsPage.section.allTraitsForm.setValue("@fifthScaleField", args1);
+//   }
+// );
+
+// When(/^user selects 'x' button for second scale category$/, async () => {
+//   await traitsPage.section.allTraitsForm.click("@secondScaleDeleteButton");
+// });
+
+// When(/^user selects 'x' button for third scale category$/, async () => {
+//   await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
+// });
+
+// Then(
+//   /^user can not see the .* "ordinal label" on ontology list page$/,
+//   async () => {
+//     await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+//       "@ordinalFields"
+//     );
+//   }
+// );
+
+Then(
+  /^user can not see Nominal first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.visible(
+      "@firstScaleField"
+    );
   }
 );
 
-When(/^user selects 'x' button for second scale category$/, async () => {
-  await traitsPage.section.allTraitsForm.click("@secondScaleDeleteButton");
-});
-
-When(/^user selects 'x' button for third scale category$/, async () => {
-  await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
-});
+Then(
+  /^user can not see Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.visible(
+      "@secondScaleField"
+    );
+  }
+);
 
 Then(
-  /^user can not see the .* "ordinal label" on ontology list page$/,
+  /^user can not see Nominal third field on ontology list page$/,
   async () => {
-    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
-      "@ordinalFields"
+    await traitsPage.section.allTraitsForm.assert.not.visible(
+      "@thirdScaleField"
     );
   }
 );
@@ -275,30 +302,21 @@ When(
 When(
   /^user sets "([^"]*)" in Ordinal first field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue(
-      "@firstScaleField",
-      args1
-    );
+    await traitsPage.section.allTraitsForm.setValue("@firstScaleField", args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal second field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue(
-      "@secondScaleField",
-      args1
-    );
+    await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal third field on ontology list page$/,
   async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue(
-      "@thirdScaleField",
-      args1
-    );
+    await traitsPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
   }
 );
 
@@ -637,7 +655,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal first field on ontology list page$/,
+  /^user can see 'X' button in Nominal first field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@firstScaleDeleteButton"
@@ -658,7 +676,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal second field on ontology list page$/,
+  /^user can see 'X' button in Nominal second field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@secondScaleDeleteButton"
@@ -679,7 +697,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal third field on ontology list page$/,
+  /^user can see 'X' button in Nominal third field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@thirdScaleDeleteButton"
@@ -700,7 +718,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal fourth field on ontology list page$/,
+  /^user can see 'X' button in Nominal fourth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@fourthScaleDeleteButton"
@@ -721,7 +739,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal fifth field on ontology list page$/,
+  /^user can see 'X' button in Nominal fifth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@fifthScaleDeleteButton"
@@ -811,7 +829,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Nominal sixth field on ontology list page$/,
+  /^user can see 'X' button in Nominal sixth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@sixthScaleDeleteButton"
@@ -895,7 +913,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal first field on ontology list page$/,
+  /^user can see 'X' button in Ordinal first field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@firstScaleDeleteButton"
@@ -904,7 +922,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal second field on ontology list page$/,
+  /^user can see 'X' button in Ordinal second field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@secondScaleDeleteButton"
@@ -913,7 +931,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal third field on ontology list page$/,
+  /^user can see 'X' button in Ordinal third field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@thirdScaleDeleteButton"
@@ -922,7 +940,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal fourth field on ontology list page$/,
+  /^user can see 'X' button in Ordinal fourth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@fourthScaleDeleteButton"
@@ -931,7 +949,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal fifth field on ontology list page$/,
+  /^user can see 'X' button in Ordinal fifth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@fifthScaleDeleteButton"
@@ -940,7 +958,7 @@ Then(
 );
 
 Then(
-  /^user can see X button in Ordinal sixth field on ontology list page$/,
+  /^user can see 'X' button in Ordinal sixth field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@sixthScaleDeleteButton"
@@ -1014,7 +1032,7 @@ Then(
 );
 
 When(
-  /^user selects X button of Nominal first field on ontology list page$/,
+  /^user selects 'X' button of Nominal first field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.click("@firstScaleDeleteButton");
   }
@@ -1089,8 +1107,15 @@ Then(
 );
 
 Then(
-  /^user selects X button of Ordinal first field on ontology list page$/,
+  /^user selects 'X' button in Ordinal first field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.click("@firstScaleDeleteButton");
+  }
+);
+
+When(
+  /^user selects 'X' button in Ordinal third field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
   }
 );
