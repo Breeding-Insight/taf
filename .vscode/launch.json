@@ -1,28 +1,27 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "Debug",
-        "program": "${workspaceRoot}/node_modules/cucumber/bin/cucumber-js",
-        "args": [
-          "${workspaceRoot}/src/features",
-          "--require",
-          "cucumber.conf.js",
-          "--require",
-          "src/step_definitions",
-          "--env",
-          "chrome",
-          "--format",
-          "json:report/cucumber_report.json",
-          "--tags",
-          "@debug"
-        ]
-      }
-    ]
-  }
-  
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug",
+      "program": "${workspaceRoot}/node_modules/@cucumber/cucumber/bin/cucumber-js",
+      "args": [
+        "${workspaceRoot}/src/features",
+        "--require",
+        "cucumber.conf.js",
+        "--require",
+        "src/step_definitions",
+        "--world-parameters",
+        "{\"browser\":\"chrome\",\"launch_url\":\"https://www.yahoo.com\"}",
+        "--format",
+        "json:report/cucumber_report.json",
+        "--tags",
+        "@debug"
+      ]
+    }
+  ]
+}
