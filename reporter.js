@@ -1,4 +1,5 @@
 var reporter = require("cucumber-html-reporter");
+const fs = require("fs");
 
 var options = {
   theme: "bootstrap",
@@ -12,5 +13,12 @@ var options = {
     "Breeding Insight": "1.0",
   },
 };
-
 reporter.generate(options);
+fs.readFile("report/cucumber_report.json", function (err, data) {
+  if (err) throw err;
+  if (data.includes(`"status": "failed"`)) {
+    console.log("Test failed.");
+    return 1;
+  }
+  return 0;
+});
