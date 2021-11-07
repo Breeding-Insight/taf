@@ -13,7 +13,14 @@ var options = {
     "Breeding Insight": "1.0",
   },
 };
-reporter.generate(options);
+
+try {
+  reporter.generate(options);
+} catch (err) {
+  console.log(err);
+  return 1;
+}
+
 fs.readFile("report/cucumber_report.json", function (err, data) {
   if (err) throw err;
   if (data.includes(`"status": "failed"`)) {
