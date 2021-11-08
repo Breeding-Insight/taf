@@ -8,16 +8,6 @@ const reporter = require("cucumber-html-reporter");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
-  await page.waitForElementPresent(
-    "@iUnderstandButton",
-    10000,
-    false,
-    async (result) => {
-      debugger;
-      let what = result;
-    }
-  );
-
   await page.waitForElementVisible(
     "@iUnderstandButton",
     10000,
@@ -91,16 +81,6 @@ Then(/^user selects the user$/, () => {
 Given(/^user logs in as "([^"]*)"$/, async (args1) => {
   await page.navigate();
   await waitReady();
-  await page.waitForElementPresent(
-    "@iUnderstandButton",
-    10000,
-    false,
-    async (result) => {
-      debugger;
-      let what = result;
-    }
-  );
-
   await page.waitForElementVisible(
     "@iUnderstandButton",
     10000,
@@ -200,7 +180,7 @@ Then(/^user can not see New User button$/, async () => {
 Then(/^user can not see "([^"]*)" link$/, async () => {
   await page.assert.not.elementPresent({
     selector: "//a[contains(text(),'Edit')]",
-    locateStrategy: "xpath"
+    locateStrategy: "xpath",
   });
 });
 
@@ -237,13 +217,16 @@ Then(/^user can see each row has a Deactivate link$/, async () => {
   await page.expect.elements(selector).count.equal(rows);
 });
 
-Then(/^user can see each row does not have an? "([^"]*)" link$/, async (args1) => {
-  const selector = {
-    selector: `//a[contains(text(),'${args1}')]`,
-    locateStrategy: "xpath",
-  };
-  await page.expect.elements(selector).count.equal(0);
-});
+Then(
+  /^user can see each row does not have an? "([^"]*)" link$/,
+  async (args1) => {
+    const selector = {
+      selector: `//a[contains(text(),'${args1}')]`,
+      locateStrategy: "xpath",
+    };
+    await page.expect.elements(selector).count.equal(0);
+  }
+);
 
 Then(/^user can see Previous page button$/, async () => {
   await page.assert.visible("@previousButton");
@@ -406,12 +389,12 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
   });
 });
 
-//Deprecated:  
+//Deprecated:
 //  Use 'user selects "([^"]*)" in top-level navigation'
 //   OR
 //  'user selects "([^"]*)" in sub-level navigation'
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  if (args1==="Ontology") {
+  if (args1 === "Ontology") {
     await page.click("#usersidebarlayout-ontology-menu");
   } else {
     await page.click({
@@ -422,7 +405,7 @@ When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
 });
 
 When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
-  if (args1==="Ontology") {
+  if (args1 === "Ontology") {
     await page.click("#usersidebarlayout-ontology-menu");
   } else {
     await page.click({
@@ -513,8 +496,14 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
-  await page.assert.containsText("tr.is-new td[data-label='Name']", user.userName);
-  await page.assert.containsText("tr.is-new td[data-label='Email']", user.email);
+  await page.assert.containsText(
+    "tr.is-new td[data-label='Name']",
+    user.userName
+  );
+  await page.assert.containsText(
+    "tr.is-new td[data-label='Email']",
+    user.email
+  );
   await page.assert.containsText("tr.is-new td[data-label='Role']", user.role);
 });
 
@@ -715,7 +704,6 @@ Then(/^user can see Welcome page of program$/, async () => {
   await page.assert.visible("@programWelcomeText");
 });
 
-
 Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   switch (args1) {
     case "Home":
@@ -785,13 +773,19 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText("@beforeImportMessage", "Before You Import...");
+  await page.assert.containsText(
+    "@beforeImportMessage",
+    "Before You Import..."
+  );
 });
 
 Then(
   /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
-    await page.assert.containsText( "@beforeImportMessageDetails", "Prepare ontology information for import using the provided template.");
+    await page.assert.containsText(
+      "@beforeImportMessageDetails",
+      "Prepare ontology information for import using the provided template."
+    );
   }
 );
 
@@ -799,7 +793,8 @@ Then(
   /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
     await page.assert.containsText(
-      "@downloadImportTemplateButton", "Download the Ontology Import Template"
+      "@downloadImportTemplateButton",
+      "Download the Ontology Import Template"
     );
   }
 );
@@ -812,10 +807,7 @@ Then(/^user can see a button 'Choose a file...'$/, async () => {
 });
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
-  await page.setValue(
-    'input[type="file"]',
-    path.resolve(importFolder, args1)
-  );
+  await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -826,15 +818,11 @@ Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
 });
 
 Then(/^user cans see 'Choose a different file...' button$/, async () => {
-  await page.assert.visible(
-    "#fileselector-choose-different-file"
-  );
+  await page.assert.visible("#fileselector-choose-different-file");
 });
 
 Then(/^user can see 'Import' button$/, async () => {
-  await page.assert.visible(
-    "#fileselectmessagebox-import-button"
-  );
+  await page.assert.visible("#fileselectmessagebox-import-button");
 });
 
 When(/^user selects "([^"]*)" button$/, async (args1) => {
@@ -848,7 +836,10 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
 });
 
 Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
-  await page.assert.containsText("@confirmOntologyHeader", "Confirm New Ontology Term");
+  await page.assert.containsText(
+    "@confirmOntologyHeader",
+    "Confirm New Ontology Term"
+  );
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
@@ -897,10 +888,10 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
   let headerText;
   if (args1.includes("User*")) {
     headerText = user.userName;
-  } else if(args1.includes("Program*")) {
+  } else if (args1.includes("Program*")) {
     headerText = this.program.Name;
   } else {
-    headerText=args1;
+    headerText = args1;
   }
   await page.assert.containsText("@modalHeader", headerText);
 });
@@ -918,32 +909,25 @@ When(
   }
 );
 
-
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
-    //Multiple text lines can exist, so selector needs to be specific to text
-    await page.assert.visible({
-      selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
-      locateStrategy: "xpath",
-    });
+  //Multiple text lines can exist, so selector needs to be specific to text
+  await page.assert.visible({
+    selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
-  await page.assert.containsText(
-    "#traitsimport-yes-abort", "Yes, abort"
-  );
+  await page.assert.containsText("#traitsimport-yes-abort", "Yes, abort");
 });
 
 When(/^user selects 'Import' button$/, async () => {
-  await page.click(
-    "#fileselectmessagebox-import-button"
-  );
+  await page.click("#fileselectmessagebox-import-button");
   await page.pause(3000);
 });
 
 When(/^user selects 'Yes, abort' button$/, async () => {
-  await page.click(
-    "#traitsimport-yes-abort"
-  );
+  await page.click("#traitsimport-yes-abort");
 });
 
 Then(/^user can see Ontology table$/, async () => {
@@ -1024,7 +1008,7 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   await showAll();
   let userEmail;
-  if ((args1.includes("*")) && (user.email != null)) {
+  if (args1.includes("*") && user.email != null) {
     userEmail = user.email;
   } else {
     userEmail = args1;
