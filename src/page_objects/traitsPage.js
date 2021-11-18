@@ -107,10 +107,6 @@ module.exports = {
           selector: "div.column.is-four-fifths input",
           index: 5,
         },
-        sixthScaleField: {
-          selector: "div.column.is-four-fifths input",
-          index: 5,
-        },
         firstScaleDeleteButton: {
           selector: "div.column.is-one-fifth button.delete",
           index: 0,
@@ -157,28 +153,22 @@ module.exports = {
         },
         ordinalFields: { selector: "div.column.is-2 div.field-body input" },
         firstOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 0,
+          selector: "div:nth-child(31) div:nth-child(2) div.column.is-2  div.field-body input",
         },
         secondOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 1,
+          selector: "div:nth-child(31) div:nth-child(3) div.column.is-2  div.field-body input",
         },
         thirdOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 2,
+          selector: "div:nth-child(31) div:nth-child(4) div.column.is-2  div.field-body input",
         },
         fourthOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 3,
+          selector: "div:nth-child(31) div:nth-child(5) div.column.is-2  div.field-body input",
         },
         fifthOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 4,
+          selector: "div:nth-child(31) div:nth-child(6) div.column.is-2  div.field-body input",
         },
         sixthOrdinalField: {
-          selector: "div.column.is-2 div.field-body input",
-          index: 5,
+          selector: "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
         },
       },
     },

@@ -39,7 +39,9 @@ Feature: Trait Create
         And user sets "<second scale category>" in Ordinal second field on ontology list page
         And user sets "<third scale category>" in Ordinal third field on ontology list page
         And user selects "Nominal" in scale dropdown on ontology list page
-        Then user can not see "dff" in Nominal first field on ontology list page
+        Then user can not see Category first field on ontology list page
+        Then user can not see Category second field on ontology list page
+        Then user can not see Category third field on ontology list page
         And user can see "<first scale category>" in Nominal first field on ontology list page
         And user can see "<second scale category>" in Nominal second field on ontology list page
         And user can see "<third scale category>" in Nominal third field on ontology list page

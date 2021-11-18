@@ -811,6 +811,33 @@ Then(
 );
 
 Then(
+  /^user can not see Category first field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@firstOrdinalField"
+    );
+  }
+);
+
+Then(
+  /^user can not see Category second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@ordinalFields"
+    );
+  }
+);
+
+Then(
+  /^user can not see Category third field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@ordinalFields"
+    );
+  }
+);
+
+Then(
   /^user can see "([^"]*)" in Category second field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
