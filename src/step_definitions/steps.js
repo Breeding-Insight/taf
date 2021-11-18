@@ -8,7 +8,14 @@ const reporter = require("cucumber-html-reporter");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
-  await page.click("@iUnderstandButton");
+  await page.waitForElementVisible(
+    "@iUnderstandButton",
+    10000,
+    false,
+    async (result) => {
+      if (result.status == -1) await page.click("@iUnderstandButton");
+    }
+  );
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
 
@@ -79,7 +86,14 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     await page.navigate();
   }
   await waitReady();
-  await page.click("@iUnderstandButton");
+  await page.waitForElementVisible(
+    "@iUnderstandButton",
+    10000,
+    false,
+    async (result) => {
+      if (result.status == -1) await page.click("@iUnderstandButton");
+    }
+  );
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
 
