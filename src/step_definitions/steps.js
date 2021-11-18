@@ -920,11 +920,6 @@ When(
 
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
   //Multiple text lines can exist, so selector needs to be specific to text
-  await page.assert.visible("div.modal-card section section");
-});
-
-Then(/^user can see "([^"]*)" in modal box text1$/, async (args1) => {
-  //Multiple text lines can exist, so selector needs to be specific to text
   await page.section.modal.assert.visible("@message");
   await page.section.modal.assert.containsText("@message", args1);
 });

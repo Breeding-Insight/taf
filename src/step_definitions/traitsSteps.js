@@ -16,57 +16,6 @@ When(
   }
 );
 
-// When(
-//   /^user sets "([^"]*)" in fifth scale field on ontology list page$/,
-//   async (args1) => {
-//     await traitsPage.section.allTraitsForm.setValue("@fifthScaleField", args1);
-//   }
-// );
-
-// When(/^user selects 'x' button for second scale category$/, async () => {
-//   await traitsPage.section.allTraitsForm.click("@secondScaleDeleteButton");
-// });
-
-// When(/^user selects 'x' button for third scale category$/, async () => {
-//   await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
-// });
-
-// Then(
-//   /^user can not see the .* "ordinal label" on ontology list page$/,
-//   async () => {
-//     await traitsPage.section.allTraitsForm.assert.not.elementPresent(
-//       "@ordinalFields"
-//     );
-//   }
-// );
-
-// Then(
-//   /^user can not see Nominal first field on ontology list page$/,
-//   async () => {
-//     await traitsPage.section.allTraitsForm.assert.not.visible(
-//       "@firstScaleField"
-//     );
-//   }
-// );
-
-// Then(
-//   /^user can not see Nominal second field on ontology list page$/,
-//   async () => {
-//     await traitsPage.section.allTraitsForm.assert.not.visible(
-//       "@secondScaleField"
-//     );
-//   }
-// );
-
-// Then(
-//   /^user can not see Nominal third field on ontology list page$/,
-//   async () => {
-//     await traitsPage.section.allTraitsForm.assert.not.visible(
-//       "@thirdScaleField"
-//     );
-//   }
-// );
-
 Then(
   /^user can see "([^"]*)" placeholder in Ordinal first field on ontology list page$/,
   async (args1) => {
