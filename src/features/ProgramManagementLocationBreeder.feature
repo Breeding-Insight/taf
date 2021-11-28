@@ -21,7 +21,6 @@ Feature: Program Location Management
 		And user can see 'Name is required' below the Name field in Program Management page
 
 	@BI-907
-	@debug
 	Scenario: New Location form - enter location - Cancel
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
