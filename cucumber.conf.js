@@ -29,6 +29,7 @@ global.__basedir = __dirname;
 Before(async function () {
   await createSession({ env: this.parameters.browser });
   await client.resizeWindow(1900, 1200);
+  this.parameters.timeStamp = Date.now();
   if (process.env.npm_config_url != undefined) {
     this.parameters.launch_url = process.env.npm_config_url;
   }
@@ -81,5 +82,5 @@ After(function () {
     console.log("No screenshot");
   }
   //Note: The following line can be commented out to keep browsers open for debugging purposes on local
-  closeSession();
+  // closeSession();
 });

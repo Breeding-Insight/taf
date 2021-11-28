@@ -849,7 +849,7 @@ Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[contains(@class,'button')][contains(text(),'${args1}')]`,
+    selector: `//button[contains(normalize-space(.),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
@@ -901,6 +901,10 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
   await page.assert.containsText("@modalHeader", headerText);
 });
 
+Then(/^user can see "([^"]*)" in modal box header1$/, async (args1) => {
+  await page.section.modal.assert.containsText("@header", args1);
+});
+
 When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async (args1) => {
@@ -916,10 +920,8 @@ When(
 
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
   //Multiple text lines can exist, so selector needs to be specific to text
-  await page.assert.visible({
-    selector: `//div[@class="modal is-active"]/div[@class="modal-card"]//p[contains(@class, "modal-text") and contains(text(), "${args1}")]`,
-    locateStrategy: "xpath",
-  });
+  await page.section.modal.assert.visible("@message");
+  await page.section.modal.assert.containsText("@message", args1);
 });
 
 Then(/^user can see 'Yes, abort' button$/, async () => {
@@ -1041,6 +1043,20 @@ When(/^user selects 'Yes, remove' button in modal box$/, async () => {
 });
 Then(/^user can sees 'Yes, remove' button in modal box$/, async () => {
   await page.assert.visible("@yesRemoveButton");
+});
+
+Then(/^user can see "([^"]*)" button in modal box$/, async (args1) => {
+  await page.section.modal.assert.visible({
+    selector: `.//button[contains(@class,'button')][contains(normalize-space(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects "([^"]*)" button in modal box$/, async (args1) => {
+  await page.section.modal.click({
+    selector: `.//button[contains(@class,'button')][contains(normalize-space(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
 });
 
 //functions
