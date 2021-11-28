@@ -184,8 +184,8 @@ When(
 Then(
   /^user can see "([^"]*)" as suggested text in 'Entity' field on ontology list page$/,
   async function (args1) {
-    await traitsPage.assert.containsText(
-      "#traitTableLabel > form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.dropdown-menu > div > a > span",
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@entitySelectField",
       args1.replace("*", this.parameters.timeStamp)
     );
   }

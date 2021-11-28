@@ -31,7 +31,6 @@ Feature: Trait Create
         And user can see "3" in Category third field on ontology list page
 
     @BI-991
-    @debug
     Scenario: Switching scale class from ordinal to nominal - form behavior
         When user selects 'New Term' button on ontology list page
         And user selects "Ordinal" in scale dropdown on ontology list page
