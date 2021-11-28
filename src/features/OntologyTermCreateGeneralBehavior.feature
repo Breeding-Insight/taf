@@ -21,7 +21,6 @@ Feature: Ontology Term Create - General Behavior
         Then user can see 'Cancel' button on ontology list page
 
     @BI-939
-    @debug
     # a record needs to be previously inserted into bidb program_observation_level, for program Snacks where program_observation_level[name] = "testEntity"
     Scenario: Ontology Term Create - Trait entity auto-complete behavior, already in db
         Given user selects "New Term" button
