@@ -359,6 +359,13 @@ When(/^user creates a new program$/, async (table) => {
           this.program.Species = hash["Species"];
           await programForm.setValue("@speciesSelect", this.program.Species);
           break;
+        case "Program Key":
+          this.program.Key = hash["Program Key"].replace(
+            "*",
+            generateRandomAlphaString(5)
+          );
+          await programForm.setValue("@programKeyField", this.program.Key);
+          break;
         default:
           throw new Error(`Unexpected ${column} name.`);
       }
@@ -373,8 +380,12 @@ Then(/^user can see a new program is created$/, async () => {
     this.program.Name
   );
   await page.assert.containsText(
-    "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
+    "#adminProgramTableLabel table tr.is-new td:nth-child(3)",
     this.program.Species
+  );
+  await page.assert.containsText(
+    "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
+    this.program.Key
   );
   console.log("and this" + this.program.Name);
 });
@@ -918,6 +929,18 @@ When(
   }
 );
 
+When(
+  /^user sets "([^"]*)" in Program Key field in Programs page$/,
+  async (args1) => {
+    await page.section.programForm.clearValue("@programKeyField");
+    this.program.Key = args1.replace("*", generateRandomAlphaString(4));
+    await page.section.programForm.setValue(
+      "@programKeyField",
+      this.program.Key
+    );
+  }
+);
+
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
   //Multiple text lines can exist, so selector needs to be specific to text
   await page.section.modal.assert.visible("@message");
@@ -1076,6 +1099,15 @@ async function setEmail(email) {
 async function setRole(role) {
   user.role = role;
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
+}
+
+function generateRandomAlphaString(length){
+  let generated = "";
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i=0; i < length; i++){
+    generated += letters[Math.floor(Math.random() * letters.length)];
+  }
+  return generated;
 }
 
 async function showAll() {

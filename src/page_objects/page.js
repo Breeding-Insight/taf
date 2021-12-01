@@ -256,9 +256,22 @@ module.exports = {
           selector: ".//input[@id='Program-Name']/../p",
           locateStrategy: "xpath",
         },
-        programNameRequired: "span[class='form-error has-text-danger']",
+        programNameRequired: {
+          selector: ".//form/div[1]/div[1]//span[@class='form-error has-text-danger']",
+          locateStrategy: "xpath",
+        },
         speciesSelect: "#Species",
         speciesLabel: "label[for='Species']",
+        programKeyField: "#Program-Key",
+        programKeyLabel: "label[for='Program Key']",
+        programKeyMessageText: {
+          selector: ".//input[@id='Program-Key']/../p",
+          locateStrategy: "xpath",
+        },
+        programKeyRequired: {
+          selector: ".//form/div[1]/div[3]//span[@class='form-error has-text-danger']",
+          locateStrategy: "xpath",
+        },
         specifyCustomDataCheckbox: "#checkbox",
         brAPIURLField: "#BrAPI-URL",
         brAPIURLErrorMessage: "span[class='form-error has-text-danger']",
