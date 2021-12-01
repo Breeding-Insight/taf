@@ -833,7 +833,7 @@ Then(/^user can see 'Import' button$/, async () => {
 When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.pause(1000);
   const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')]`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //button//span[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   };
   await page.waitForElementVisible(selector);
