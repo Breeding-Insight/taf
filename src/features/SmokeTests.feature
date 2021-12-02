@@ -6,8 +6,8 @@ Feature: Smoke Tests (11)
 		Given user logs in as "sysad"
 		And user selects "System Administration" on program-selection page
 		When user creates a new program
-			| Program Name | Species      |
-			| Test *       | Sweet Potato |
+			| Program Name | Species      |  Program Key |
+			| Test *       | Sweet Potato |  T*          |
 		Then user can see a new program is created
 
 	@BI-806

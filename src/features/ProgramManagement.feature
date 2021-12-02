@@ -13,6 +13,7 @@ Feature: Program Management (15)
 		And user can see table header contains
 			| Header    |
 			| Name      |
+			| Key       |
 			| Species   |
 			| # Users   |
 			| BrAPI URL |
@@ -40,6 +41,9 @@ Feature: Program Management (15)
 		Then user can see "Salmon" in 'Species' dropdown in Programs page
 		Then user can see "Grape" in 'Species' dropdown in Programs page
 		Then user can see "Alfalfa" in 'Species' dropdown in Programs page
+		Then user can see 'Program Key' label in Programs page
+		Then user can see 'Program Key' field in Programs page
+		Then user can see 'Unique 2-6 character key representing the program. Alphabetic characters only.' text in Programs page
 		Then user can see 'Specify custom program data storage location' checkbox in Programs page
 		Then user can see 'Save' button in Programs page
 		Then user can see 'Cancel' button in Programs page
@@ -62,6 +66,7 @@ Feature: Program Management (15)
 		Then user can see banner contains "Fix Invalid Fields"
 		Then user can see 'Program Form' in Programs page
 		Then user can see 'Program Name is required' text in Programs page
+		Then user can see 'Program Key is required' text in Programs page
 
 	@BI-851
 	Scenario: New Program form, Cancel
@@ -69,6 +74,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "Test" in Program Name field in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "TEST" in Program Key field in Programs page
 		When user selects 'Cancel' button in Programs page
 		Then user can not see 'Program Form' in Programs page
 		Then user can not see "Test" Program in Programs page
@@ -79,16 +85,17 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name    | Species      | # Users | BrAPI URL      |
-			| Program | Sweet Potato | 0       | System Default |
+			| Name    | Species      | # Users | BrAPI URL      | Key  |
+			| Program | Sweet Potato | 0       | System Default | TST  |
 
 		Examples:
-			| Name     | Species      |
-			| Program* | Sweet Potato |
+			| Name     | Species      | Key |
+			| Program* | Sweet Potato | T*  |
 
 	@BI-853
 	Scenario Outline: New Program, invalid url in custom storage location
@@ -96,6 +103,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user checks 'Specify custom program data storage location' checkbox in Programs page
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
@@ -104,8 +112,8 @@ Feature: Program Management (15)
 		Then user can see banner contains "Fix Invalid Fields"
 
 		Examples:
-			| Name     | Species      | BrAPI URL |
-			| Program* | Sweet Potato | test      |
+			| Name     | Species      | BrAPI URL | Key |
+			| Program* | Sweet Potato | test      | T*  |
 
 	@BI-854
 	Scenario Outline: New Program, invalid BrAPI storage location
@@ -113,6 +121,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user checks 'Specify custom program data storage location' checkbox in Programs page
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
@@ -120,8 +129,8 @@ Feature: Program Management (15)
 		Then user can see "BrAPI URL specified is not supported" text under BrAPI URL field in Programs page
 
 		Examples:
-			| Name     | Species      | BrAPI URL                |
-			| Program* | Sweet Potato | https://invalid.brapi.org |
+			| Name     | Species      | BrAPI URL                 | Key |
+			| Program* | Sweet Potato | https://invalid.brapi.org | T*  |
 
 	@BI-855
 	Scenario Outline: New Program, valid custom storage location
@@ -129,18 +138,19 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user checks 'Specify custom program data storage location' checkbox in Programs page
 		When user sets "<BrAPI URL>" in BrAPI URL field in Programs page
 		When user selects 'Save' button in Programs page
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name   | Species   | # Users | BrAPI URL   |
-			| <Name> | <Species> | 0       | <BrAPI URL> |
+			| Name   | Species   | # Users | BrAPI URL   | Key    |
+			| <Name> | <Species> | 0       | <BrAPI URL> | <Key>  |
 
 		Examples:
-			| Name     | Species      | BrAPI URL                               |
-			| Program* | Sweet Potato | https://qa-testbase.breedinginsight.net |
+			| Name     | Species      | BrAPI URL                               | Key |
+			| *        | Sweet Potato | https://qa-testbase.breedinginsight.net | *   |
 
 	@BI-856
 	Scenario Outline: Edit Program form
@@ -148,17 +158,19 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Edit' of "<Name>" in Programs page
 		Then user can see 'Program Form' in Programs page
 		Then user can see "<Name>" in Program Name field in Programs page
 		Then user can see "Sweet Potato" in Species dropdown in Programs page
+		Then user can not see 'Program Key' field in Programs page
 		Then user can see 'Save' button in Programs page
 		Then user can see 'Cancel' button in Programs page
 
 		Examples:
-			| Name     | Species      |
-			| Program* | Sweet Potato |
+			| Name     | Species      | Key |
+			| Program* | Sweet Potato | T*  |
 
 	@BI-857
 	Scenario Outline: Edit Program form
@@ -166,6 +178,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Edit' of "<Name>" in Programs page
 		When user sets "NewName" in Program Name field in Programs page
@@ -174,8 +187,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      |
-			| Program* | Sweet Potato |
+			| Name     | Species      | Key |
+			| Program* | Sweet Potato | T*  |
 
 	@BI-858
 	Scenario Outline: Edit Program form, change Program Name, Save
@@ -183,6 +196,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Edit' of "<Name>" in Programs page
 		When user sets "<New Name>" in Program Name field in Programs page
@@ -191,8 +205,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      | New Name    |
-			| Program* | Sweet Potato | NewProgram* |
+			| Name     | Species      | New Name    | Key |
+			| Program* | Sweet Potato | NewProgram* | T*  |
 
 	@BI-859
 	Scenario Outline: Edit Program form, change Species, Save
@@ -200,6 +214,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Edit' of "<Name>" in Programs page
 		When user selects "<New Species>" in Species dropdown in Programs page
@@ -208,8 +223,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      | New Species |
-			| Program* | Sweet Potato | Grape       |
+			| Name     | Species      | New Species | Key |
+			| Program* | Sweet Potato | Grape       | T*  |
 
 	@BI-860
 	Scenario Outline: Deactivate modal
@@ -217,6 +232,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		Then user can see "Remove" in modal box header
@@ -227,8 +243,8 @@ Feature: Program Management (15)
 		Then user can see 'Cancel' button in modal in Programs page
 
 		Examples:
-			| Name     |
-			| Program* |
+			| Name     | Key |
+			| Program* | D*  |
 
 	@BI-861
 	Scenario Outline: Deactivate, Cancel
@@ -236,6 +252,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Cancel' button in modal in Programs page
@@ -243,8 +260,8 @@ Feature: Program Management (15)
 		Then user can see "<Name>" in Name column in Program page
 
 		Examples:
-			| Name     |
-			| Program* |
+			| Name     | Key |
+			| Program* | D*  |
 
 	@BI-862
 	Scenario Outline: Deactivate, Remove
@@ -252,6 +269,7 @@ Feature: Program Management (15)
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
 		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
 		When user selects 'Yes, remove' button in modal in Programs page
@@ -260,6 +278,6 @@ Feature: Program Management (15)
 		Then user can not see "<Name>" in Name column in Program page
 
 		Examples:
-			| Name     |
-			| Program* |
+			| Name     | Key |
+			| Program* | D*  |
 

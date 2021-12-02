@@ -12,10 +12,29 @@ Then(/^user can see 'Program Name' field in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@programNameField");
 });
 
+Then(/^user can see 'Program Key' label in Programs page$/, async () => {
+  await page.section.programForm.assert.visible("@programKeyLabel");
+});
+
+Then(/^user can see 'Program Key' field in Programs page$/, async () => {
+  await page.section.programForm.assert.visible("@programKeyField");
+});
+
+Then(/^user can not see 'Program Key' field in Programs page$/, async () => {
+  await page.section.programForm.assert.not.elementPresent("@programKeyField");
+});
+
 Then(
   /^user can see 'Name of program. All Unicode special characters accepted.' text in Programs page$/,
   async () => {
     await page.section.programForm.assert.visible("@programNameMessageText");
+  }
+);
+
+Then(
+  /^user can see 'Unique 2-6 character key representing the program. Alphabetic characters only.' text in Programs page$/,
+  async () => {
+    await page.section.programForm.assert.visible("@programKeyMessageText");
   }
 );
 
@@ -65,6 +84,17 @@ When(/^user selects 'Save' button in Programs page$/, async () => {
       program.Species = String(value).trim();
     }
   );
+  //Key only present for create, not edit
+  let keyPresent;
+  await page.section.programForm.api.element('css selector', "@programKeyField", function(result) {
+    keyPresent = result.value;
+  });
+
+  if (keyPresent) {
+    await page.section.programForm.getValue("@programKeyField", ({ value }) => {
+      program.Key = value;
+    });
+  }
   await page.section.programForm.click("@saveButton");
 });
 
@@ -83,6 +113,15 @@ Then(
   /^user can see 'Program Name is required' text in Programs page$/,
   async () => {
     await page.section.programForm.assert.visible("@programNameRequired");
+    await page.section.programForm.assert.containsText("@programNameRequired", 'Program Name is required');
+  }
+);
+
+Then(
+  /^user can see 'Program Key is required' text in Programs page$/,
+  async () => {
+    await page.section.programForm.assert.visible("@programKeyRequired");
+    await page.section.programForm.assert.containsText("@programKeyRequired", 'Program Key is required');
   }
 );
 
@@ -115,6 +154,15 @@ Then(/^user can see new program in Programs page$/, async (table) => {
             program.Name
           );
           break;
+        case "Key":
+            await page.section.programForm.assert.containsText(
+              {
+                selector: `.//tr[@class='is-new']/td[@data-label='Program Key']`,
+                locateStrategy: "xpath",
+              },
+              program.Key
+            );
+            break;
         case "Species":
           await page.section.programForm.assert.containsText(
             {
