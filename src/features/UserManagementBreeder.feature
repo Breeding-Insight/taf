@@ -22,7 +22,7 @@ Feature: Breeder User Management
 			| Header |
 			| Name   |
 			| Email  |
-			| Role  |
+			| Role   |
 		And user can see each row has an Edit link
 		And user can see each row has a Deactivate link
 		And user can see Previous page button
@@ -197,7 +197,7 @@ Feature: Breeder User Management
 		And user selects "Program Management" in navigation
 		And user selects "Users" in sub-level navigation
 		And user creates a new user
-			| Name   | Email                | Role    |
+			| Name  | Email                | Role    |
 			| User* | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
 		Then user can see "Deactivate" in modal box header
@@ -208,11 +208,11 @@ Feature: Breeder User Management
 		Then user can see 'Yes, archive' button
 		And user can see 'Cancel' button
 
-	Examples: 
-    	| NameToDeactivate |
-		| User*       |
+		Examples:
+			| NameToDeactivate |
+			| User*            |
 
-@BI-901
+	@BI-901
 	Scenario: Deactivate link - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -223,8 +223,10 @@ Feature: Breeder User Management
 			| Test * | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
 		And user can see 'Cancel' button
+		And user selects "Cancel" button
 		Then user can see user is in users list
 
+	@BI-902
 	Scenario: Deactivate link - Yes, deactivate
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -236,3 +238,29 @@ Feature: Breeder User Management
 		When user selects Deactivate of user
 		And user selects modal Yes, archive button
 		Then user can not see user is in users list
+
+	@BI-903
+	Scenario: admin editing self - Program User management
+		Given user logs in as "sysad"
+		And user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		And user selects "Users" in sub-level navigation
+		When user selects "Edit" of Name "Christian"
+		When user selects "member" in Role dropdown
+		When user selects "Save" button
+		Then user can see Name "Christian" with Role as "member"
+		When user selects "Edit" of Name "Christian"
+		When user selects "breeder" in Role dropdown
+		When user selects "Save" button
+
+	@BI-904
+	@debug
+	Scenario: breeder with no admin role editing self - Program User management
+		Given user logs in as "Cucumber Breeder"
+		And user selects "Snacks" on program-selection page
+		And user selects "Program Management" in navigation
+		And user selects "Users" in sub-level navigation
+		When user selects "Edit" of Name "Cucumber Breeder"
+		When user selects "member" in Role dropdown
+		When user selects "Save" button
+		Then user can see banner contains "You do not have permissions to edit this user"
