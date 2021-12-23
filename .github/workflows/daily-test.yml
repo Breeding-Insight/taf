@@ -2,8 +2,8 @@ name: daily run for taf
 
 on:
   schedule:
-    - cron: '0 5 * * 2-5'
-    - cron: '0 5 * * 1'
+    - cron: '0 5 * * 1-5'
+#     - cron: '0 5 * * 1'
   workflow_dispatch:
     inputs:
       suite:
@@ -120,11 +120,13 @@ jobs:
         docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Trail Mix","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$trailMixId"'"}]}]' http://localhost:8080/brapi/v2/programs
         
     - name: Run tests on Chrome (full)
-      if: matrix.os == 'ubuntu-latest'  && (contains(github.event.schedule, '0 5 * * 1') || (github.event.inputs.suite=='full'))
+#       if: matrix.os == 'ubuntu-latest'  && (contains(github.event.schedule, '0 5 * * 1') || (github.event.inputs.suite=='full'))
+      if: (github.event.inputs.suite=='full'))
       run: npm run test:chromeWeekly
       
     - name: Run tests on Chrome (smoke tests)
-      if: matrix.os == 'ubuntu-latest' && (contains(github.event.schedule, '0 5 * * 2-5') || (github.event.inputs.suite=='smoke'))
+#       if: matrix.os == 'ubuntu-latest' && (contains(github.event.schedule, '0 5 * * 2-5') || (github.event.inputs.suite=='smoke'))
+      if: (github.event.inputs.suite=='smoke'))
       run: npm run test:chromeDaily
       
     - name: Publish Report Artifact
