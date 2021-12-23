@@ -10,6 +10,10 @@ on:
         description: 'Test suite to run: "full" for full run, "smoke" for smoke tests'
         required: true
         default: 'full'
+      target:
+        description: 'Specify a target URL to test an already existing BI server'
+        required: false
+        default: ''
 
 jobs:
   test:
@@ -119,14 +123,24 @@ jobs:
         docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$snacksId"'"}]}]' http://localhost:8080/brapi/v2/programs
         docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Trail Mix","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$trailMixId"'"}]}]' http://localhost:8080/brapi/v2/programs
         
+    - name: Run tests on Chrome (full, custom URL)
+#       if: matrix.os == 'ubuntu-latest'  && (contains(github.event.schedule, '0 5 * * 1') || (github.event.inputs.suite=='full'))
+      if: (github.event.inputs.suite=='full' && github.event.inputs.target != '')
+      run: npm run test:chromeWeekly --url="${github.event.inputs.target}"
+      
     - name: Run tests on Chrome (full)
 #       if: matrix.os == 'ubuntu-latest'  && (contains(github.event.schedule, '0 5 * * 1') || (github.event.inputs.suite=='full'))
-      if: (github.event.inputs.suite=='full'))
+      if: (github.event.inputs.suite=='full')
       run: npm run test:chromeWeekly
+      
+    - name: Run tests on Chrome (smoke tests, custom URL)
+#       if: matrix.os == 'ubuntu-latest' && (contains(github.event.schedule, '0 5 * * 2-5') || (github.event.inputs.suite=='smoke'))
+      if: (github.event.inputs.suite=='smoke' && github.event.inputs.target != '')
+      run: npm run test:chromeDaily --url="${github.event.inputs.target}"
       
     - name: Run tests on Chrome (smoke tests)
 #       if: matrix.os == 'ubuntu-latest' && (contains(github.event.schedule, '0 5 * * 2-5') || (github.event.inputs.suite=='smoke'))
-      if: (github.event.inputs.suite=='smoke'))
+      if: (github.event.inputs.suite=='smoke')
       run: npm run test:chromeDaily
       
     - name: Publish Report Artifact
