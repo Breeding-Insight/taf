@@ -13,20 +13,20 @@
     "test:edge": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"edge\\\"}\"",
     "test:sandbox.chrome": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @bug --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"sandbox.chrome\\\"}\"",
     "test:chromeDaily": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\" && npm run report",
-    "test:chromeWeekly": "mkdirp report && cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\"; npm run report",
+    "test:chromeWeekly": "mkdirp report && cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format @cucumber/pretty-formatter --format json:report/cucumber_report.json --world-parameters \"{\\\"browser\\\":\\\"chrome\\\"}\" && npm run report",
     "report": "node reporter.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://chris_vacalares@bitbucket.org/chris_vacalares/breedinginsight.git"
+    "url": "https://github.com/Breeding-Insight/taf"
   },
   "keywords": [
     "Test",
     "Automation"
   ],
-  "author": "Christian Vacalares",
+  "author": "Breeding Insight",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/chris_vacalares/breedinginsight#readme",
+  "homepage": "https://github.com/Breeding-Insight/taf",
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.1",
     "@cucumber/pretty-formatter": "*",
