@@ -130,7 +130,7 @@ jobs:
       
     - name: Run tests on Chrome (full)
 #       if: matrix.os == 'ubuntu-latest'  && (contains(github.event.schedule, '0 5 * * 1') || (github.event.inputs.suite=='full'))
-      if: (github.event.inputs.suite=='full')
+      if: github.event.inputs.suite=='full' || contains(github.event.schedule, '0 5 * * 1-5')
       run: npm run test:chromeWeekly
       
     - name: Run tests on Chrome (smoke tests, custom URL)
