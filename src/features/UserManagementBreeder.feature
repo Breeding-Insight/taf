@@ -254,7 +254,6 @@ Feature: Breeder User Management
 		When user selects "Save" button
 
 	@BI-904
-	@debug
 	Scenario: breeder with no admin role editing self - Program User management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

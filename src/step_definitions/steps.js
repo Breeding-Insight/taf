@@ -971,6 +971,13 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   });
 });
 
+Then(/^user can not see an error message "([^"]*)"$/, async (args1) => {
+  await page.assert.not.elementPresent({
+    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
+    locateStrategy: "xpath",
+  });
+});
+
 When(/^user sets "([^"]*)" in Name field of User$/, async (args1) => {
   await setUserName(args1);
 });

@@ -98,7 +98,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
-	
+
 	@BI-924
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
@@ -162,7 +162,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_MissingNames.xlsx" file
 		And user selects 'Import' button
 		And user can see an error message "Scale name: Missing scale name in row 3"
-		
+
 	@BI-932
 	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file
@@ -174,3 +174,39 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_extraCols.xlsx" file
 		And user selects 'Import' button
 		Then user can see 'Confirm New Ontology Term' header
+
+	@BI-1133
+	Scenario: Import Traits - Max Min
+		And user uploads "test_traits_maxMin.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Scale upper limit/Scale lower limit: Scale upper limit must be greater than scale lower limit. in row 2"
+		And user can see an error message "Scale upper limit/Scale lower limit: Scale upper limit must be greater than scale lower limit. in row 4"
+		And user can see an error message "Scale upper limit/Scale lower limit: Scale upper limit must be greater than scale lower limit. in row 6"
+
+	@BI-1267
+	Scenario: Import Traits - missing required fields
+		And user uploads "test_traits_missingReqFields.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Method class: Missing method class in row 2"
+		And user can see an error message "Observation variable name: Missing observation variable name in row 2"
+		And user can see an error message "Trait attribute: Missing trait attribute in row 3"
+		And user can see an error message "Scale class: Missing scale class in row 4"
+		And user can see an error message "Trait entity: Missing trait entity in row 4"
+		And user can see an error message "Trait description: Missing trait description in row 6"
+		And user can see an error message "Unit: Missing unit in row 6"
+		And user can not see an error message "Unit: Missing unit in row 4"
+		And user can not see an error message "Trait level: Missing trait level in row 4"
+
+	@BI-1268
+	Scenario: Import Traits - exceeds character length max
+		And user uploads "test_traits_exceedsCharLen.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "observationVariableName: Observation variable name exceeds 12 character limit in row 3"
+		And user can see an error message "method.description: Method description exceeds 30 character limit in row 4"
+
+	@BI-1273
+	Scenario: Import Traits - invalid method and scale classes
+		And user uploads "test_traits_InvalidFields.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Method class: Invalid method class value in row 2"
+		And user can see an error message "Scale class: Invalid scale class value in row 3"
