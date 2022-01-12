@@ -106,7 +106,7 @@ Feature: Program Location Management
 		And user can see 'Role is required' below the Role field
 
 	@BI-891
-	Scenario: ew Program User form - enter name and email only - Save
+	Scenario: New Program User form - enter name and email only - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
