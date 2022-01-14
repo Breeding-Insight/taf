@@ -134,7 +134,7 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error parsing excel: Missing expected columns [Trait status]"
+		Then user can see an error message "Error parsing excel: Missing expected columns [Status, Trait entity, Name]"
 
 	@BI-928
 	@bug
@@ -158,10 +158,10 @@ Feature: Ontology Import (10 Scenarios)
 
 	@BI-931
 	@bug
-	Scenario: Ontology - missing method And scale names
-		And user uploads "test_traits_MissingNames.xlsx" file
+	Scenario: Ontology - missing unit
+		And user uploads "test_traits_missingUnit.xlsx" file
 		And user selects 'Import' button
-		And user can see an error message "Scale name: Missing scale name in row 3"
+		And user can see an error message "Unit: Missing unit in row 3"
 
 	@BI-932
 	Scenario: Ontology - case sensitivity
