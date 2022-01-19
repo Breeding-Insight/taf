@@ -1,21 +1,28 @@
 var reporter = require("cucumber-html-reporter");
 const fs = require("fs");
 
-var options = {
-  theme: "bootstrap",
-  jsonFile: "report/cucumber_report.json",
-  output: "report/cucumber_report.html",
-  reportSuiteAsScenarios: true,
-  launchReport: true,
-  metadata: {
-    OS: "Window",
-    Browser: "Chrome",
-    "Breeding Insight": "1.0",
-  },
-};
-
 try {
-  reporter.generate(options);
+  let runInfo;
+  fs.readFile("run.json", (err, data) => {
+    if (err) {
+      console.log("File read failed:", err);
+      throw "Error opening file.";
+    }
+    runInfo = JSON.parse(data);
+    reporter.generate({
+      theme: "bootstrap",
+      jsonFile: "report/cucumber_report.json",
+      output: "report/cucumber_report.html",
+      reportSuiteAsScenarios: true,
+      launchReport: true,
+      metadata: {
+        "Breeding Insight": runInfo.BreedingInsight,
+        Browser: runInfo.browserName,
+        "Browser Version": runInfo.version,
+        OS: runInfo.platform,
+      },
+    });
+  });
 } catch (err) {
   console.log(err);
   process.exit(1);

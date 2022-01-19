@@ -1101,10 +1101,10 @@ async function setRole(role) {
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
-function generateRandomAlphaString(length){
+function generateRandomAlphaString(length) {
   let generated = "";
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  for (let i=0; i < length; i++){
+  for (let i = 0; i < length; i++) {
     generated += letters[Math.floor(Math.random() * letters.length)];
   }
   return generated;
@@ -1147,6 +1147,10 @@ async function waitReady() {
       await page.pause(1000);
     }
   }
+  await page.getText("#versionInfo > span", ({ value }) => {
+    if (client.globals.breedingInsightVersion == undefined)
+      client.globals.breedingInsightVersion = String(value).trim();
+  });
   stopWatch.stopTimer();
   if (!found) {
     throw new Error("Application version failed to load. Unable to login.");

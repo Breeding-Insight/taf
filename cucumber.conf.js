@@ -54,6 +54,7 @@ AfterAll(async () => {
     default:
       throw new Error("Unrecognized browser.");
   }
+  await stopWebDriver();
 
   // convert JSON object to string
   const data = JSON.stringify(run);
@@ -68,6 +69,10 @@ AfterAll(async () => {
 });
 
 After(function () {
+  if (run.BreedingInsight == "") {
+    run.BreedingInsight = client.globals.breedingInsightVersion;
+  }
+  
   getNewScreenshots().forEach((file) =>
     this.attach(fs.readFileSync(file), "image/png")
   );
