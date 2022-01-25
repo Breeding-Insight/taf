@@ -16,6 +16,12 @@ const {
 } = require("nightwatch-api");
 const reporter = require("cucumber-html-reporter");
 const { client } = require("nightwatch-api");
+const run = {
+  browserName: "",
+  platform: "",
+  version: "",
+  BreedingInsight: "",
+};
 
 setDefaultTimeout(300000);
 global.__basedir = __dirname;
@@ -34,46 +40,39 @@ BeforeAll(async () => {
 });
 
 AfterAll(async () => {
-  let version, browserName, platform;
-
-  await client.sessions((result) => {
-    browserName = result.value[0]["capabilities"]["browserName"];
-    switch (browserName) {
-      case "chrome":
-        version = result.value[0]["capabilities"]["version"];
-        platform = result.value[0]["capabilities"]["platform"];
-        break;
-      case "firefox":
-        version = result.value[0]["capabilities"]["browserVersion"];
-        platform = result.value[0]["capabilities"]["platformName"];
-        break;
-      case "internet explorer":
-        platform = result.value[0]["capabilities"]["platformName"];
-        version = result.value[0]["capabilities"]["browserVersion"];
-        break;
-    }
-  });
-
+  run.browserName = client.capabilities.browserName;
+  switch (client.capabilities.browserName) {
+    case "msedge": //same as chrome
+    case "chrome":
+      run.version = client.capabilities.version;
+      run.platform = client.capabilities.platform;
+      break;
+    case "firefox":
+      run.version = client.capabilities.browserVersion;
+      run.platform = client.capabilities.platformName;
+      break;
+    default:
+      throw new Error("Unrecognized browser.");
+  }
   await stopWebDriver();
 
-  setTimeout(() => {
-    reporter.generate({
-      theme: "bootstrap",
-      jsonFile: "report/cucumber_report.json",
-      output: "report/cucumber_report.html",
-      reportSuiteAsScenarios: true,
-      launchReport: false,
-      metadata: {
-        OS: platform,
-        Browser: browserName,
-        Version: version,
-        "BreedInsight Version": "1.0.0",
-      },
-    });
-  }, 0);
+  // convert JSON object to string
+  const data = JSON.stringify(run);
+
+  // write JSON string to a file
+  fs.writeFile("run.json", data, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log("JSON data is saved.");
+  });
 });
 
 After(function () {
+  if (run.BreedingInsight == "") {
+    run.BreedingInsight = client.globals.breedingInsightVersion;
+  }
+  
   getNewScreenshots().forEach((file) =>
     this.attach(fs.readFileSync(file), "image/png")
   );
