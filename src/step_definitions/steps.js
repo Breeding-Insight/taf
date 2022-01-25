@@ -85,15 +85,20 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   } else {
     await page.navigate();
   }
+  
+  let status;
   await waitReady();
   await page.waitForElementVisible(
     "@iUnderstandButton",
     10000,
     false,
     async (result) => {
-      if (result.status == -1) await page.click("@iUnderstandButton");
+      status = result.value;
     }
   );
+
+  if (status) await page.click("@iUnderstandButton");
+
   await page.click("@loginButton");
   await page.click("@orcidSignInButton");
 
