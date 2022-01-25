@@ -46,6 +46,7 @@ Feature: Logging with Sys Administration
 
 	@BI-819
 	Scenario: program combo box options
+		And user navigates to Program Selection page
 		And user selects "System Administration" on program-selection page
 		And user clicks the combo box of Program Selector
 		Then user can see "Trail Mix" as an option
@@ -53,6 +54,7 @@ Feature: Logging with Sys Administration
 
 	@BI-820
 	Scenario: Switching programs using the combo box
+		And user navigates to Program Selection page
 		And user selects "System Administration" on program-selection page
 		When user selects "Trail Mix" the program selector
 		Then user can see "Trail Mix" in the upper right corner

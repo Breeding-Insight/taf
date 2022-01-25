@@ -132,6 +132,11 @@ When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   });
 });
 
+When(/^user navigates to Program Selection page$/, async() => {
+	await page.navigateToProgramSelection();
+});
+
+
 When(/^user selects Users in navigation$/, async () => {
   await page.click("@usersLeftMenu");
 });
