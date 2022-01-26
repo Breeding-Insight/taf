@@ -452,7 +452,7 @@ module.exports = {
           locateStrategy: "xpath",
         });
       },
-      navigateToProgramSelection: async function (program) {
+      navigateToProgramSelection: async function () {
         //get the current url
         debugger;
         let url;
