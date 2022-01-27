@@ -338,6 +338,15 @@ Then(
 );
 
 Then(
+  /^user can not see "([^"]*)" below the 'Method Description' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@methodDescriptionErrorText"
+    );
+  }
+);
+
+Then(
   /^user can see "([^"]*)" below the 'Method Class' dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.visible(

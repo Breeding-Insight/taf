@@ -8,15 +8,14 @@ module.exports = {
   },
   sections: {
     allTraitsForm: {
-      selector: "#traitTableLabel",
+      selector: "#ontologyTableLabel",
       elements: {
         nameField: "#Name",
         nameErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(5) > div > div.field-body > div > div > span:nth-child(3)",
         fullNameField: "#Full-name",
         entitySelectField: {
-          selector:
-            "//label[normalize-space(.)='Entity']/../..//div[@class='dropdown-menu']//span[normalize-space(.)='Package']",
+          selector: "//*[@id='entity']",
           locateStrategy: "xpath",
         },
         descriptionField: "#Description",
@@ -27,7 +26,7 @@ module.exports = {
         entityField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         entityErrorText:
-          "#traitTableLabel > form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
         attributeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         attributeErrorText:
