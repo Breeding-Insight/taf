@@ -85,7 +85,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   } else {
     await page.navigate();
   }
-  
+
   let status;
   await waitReady();
   await page.waitForElementVisible(
@@ -137,10 +137,9 @@ When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
   });
 });
 
-When(/^user navigates to Program Selection page$/, async() => {
-	await page.navigateToProgramSelection();
+When(/^user navigates to Program Selection page$/, async () => {
+  await page.navigateToProgramSelection();
 });
-
 
 When(/^user selects Users in navigation$/, async () => {
   await page.click("@usersLeftMenu");
@@ -282,6 +281,15 @@ Then(
     await page.assert.visible("@topAlertDangerArticle");
     await page.assert.visible("@dangerBannerText");
     await page.assert.containsText("@dangerBannerText", args1);
+  }
+);
+
+Then(
+  /^user can see banner appears without an error message "([^"]*)"$/,
+  async (args1) => {
+    await page.assert.visible("@topAlertDangerArticle");
+    await page.assert.visible("@dangerBannerText");
+    await page.assert.not.containsText("@dangerBannerText", args1);
   }
 );
 
