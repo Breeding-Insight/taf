@@ -26,6 +26,9 @@ jobs:
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
     runs-on: ${{ matrix.os }}
+    
+    name: "Testing bi-web: ${{ github.event.inputs.biweb }}, bi-api: ${{ github.event.inputs.biapi }}"
+    
     env:
       USER_ID: 1001
       GROUP_ID: 1001
@@ -158,7 +161,8 @@ jobs:
         name: cucumber-report-${{ matrix.os }}-${{ github.run_number }}
         path: ${{ github.workspace }}/report/*
         
-    - name: Test end of run container status 
+    - name: Test end of run container status
+      if: always()
       run: |
         docker logs brapi-server
         docker logs biapi
