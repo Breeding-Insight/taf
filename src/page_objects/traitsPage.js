@@ -55,15 +55,13 @@ module.exports = {
         unitofTimeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         minValidValueField: {
-          selector: "//input[contains(@id, 'Minimum-Valid Value')]",
-          locateStrategy: "xpath",
+          selector: "#Minimum-Valid-Value"
         },
         minValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(4) > div > div.field-body > div > div > span:nth-child(3)",
         // maxValidValueField: "#Maximum-Valid Value",
         maxValidValueField: {
-          selector: "//input[contains(@id, 'Maximum-Valid Value')]",
-          locateStrategy: "xpath",
+          selector: "#Maximum-Valid-Value"
         },
         maxValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(6) > div > div.field-body > div > div > span:nth-child(3)",
