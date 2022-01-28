@@ -1,4 +1,4 @@
-name: custom run of TAF
+name: Custom run of TAF
 
 on:
   workflow_dispatch:
@@ -105,7 +105,7 @@ jobs:
           java-version: 13
           
       #from bi-docker-stack
-    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-dev.yml up -d
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-dev.yml up --build -d
           
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@latest
