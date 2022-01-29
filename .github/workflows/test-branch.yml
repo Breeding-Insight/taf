@@ -154,11 +154,17 @@ jobs:
       if: (github.event.inputs.suite=='smoke')
       run: npm run test:chromeDaily
       
+    - id: biWebBranch
+      run: INPUT=${{ github.event.inputs.biweb }} echo "::set-output name=branch::${INPUT/\//-}"
+      
+    - id: biAPIBranch
+      run: INPUT=${{ github.event.inputs.biweb }} echo "::set-output name=branch::${INPUT/\//-}"
+
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
       if: always()
       with:
-        name: cucumber-report-web-${{ github.event.inputs.biweb/\//- }}-api-${{ github.event.inputs.biapi/\//- }}-${{ github.run_number }}
+        name: cucumber-report-web-${{ steps.biWebBranch.branch }}-api-${{ steps.biAPIBranch.branch }}-${{ github.run_number }}
         path: ${{ github.workspace }}/report/*
         
     - name: Test end of run container status
