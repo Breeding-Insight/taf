@@ -158,7 +158,7 @@ jobs:
       run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
       
     - id: biAPIBranch
-      run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
+      run: INPUT=${{ github.event.inputs.biapi }} && echo "::set-output name=branch::${INPUT/\//-}"
 
     - name: Publish Report Artifact
       uses: actions/upload-artifact@v2
