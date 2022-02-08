@@ -61,13 +61,11 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Date" in 'Scale Class' dropdown on ontology list page
         Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
 
-    @BI-1112
-    Scenario: Duration Scale class form elements
+    @BI-1334
+    @debug
+    Scenario: Duration not visible in Scale class
         Given user selects 'New Term' button on ontology list page
-        When user selects "Duration" in 'Scale Class' dropdown on ontology list page
-        Then user can see 'Unit of time' field on ontology list page
-        And user can see 'Minimum Valid Value' field on ontology list page
-        And user can see 'Maximum Valid Value' field on ontology list page
+        Then user can not select "Duration" in 'Scale Class' dropdown on ontology list page
 
     @BI-1113
     Scenario: Duration Scale class Min/Max
