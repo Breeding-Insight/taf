@@ -397,7 +397,7 @@ module.exports = {
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
+                  selector: `.//td[@data-label='Name']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
