@@ -60,7 +60,12 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When user selects "Date" in 'Scale Class' dropdown on ontology list page
         Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
-    
+
+    @BI-1334
+    Scenario: Duration not visible in Scale class
+        Given user selects 'New Term' button on ontology list page
+        Then user can not select "Duration" in 'Scale Class' dropdown on ontology list page
+
     @BI-1114
     Scenario: Text Scale Class
         Given user selects 'New Term' button on ontology list page

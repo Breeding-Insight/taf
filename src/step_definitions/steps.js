@@ -451,7 +451,7 @@ When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
 
 When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
   await page.click({
-    selector: `//*[@id="sideMenu"]//nav/ul/li/ul/li/a[contains(text(), '${args1}')]`,
+    selector: `//div[@class='sidebarlayout']//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
