@@ -394,7 +394,7 @@ When(/^user creates a new program$/, async (table) => {
 });
 
 Then(/^user can see a new program is created$/, async () => {
-  let selector = `.//td[normalize-space(.)='${program.Name}']`;
+  let selector = `.//td[normalize-space(.)='${this.program.Name}']`;
   await page.assert.containsText(
     { selector: selector, locateStrategy: "xpath" },
     this.program.Name
