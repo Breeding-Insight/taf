@@ -62,32 +62,9 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
 
     @BI-1334
-    @debug
     Scenario: Duration not visible in Scale class
         Given user selects 'New Term' button on ontology list page
         Then user can not select "Duration" in 'Scale Class' dropdown on ontology list page
-
-    @BI-1113
-    Scenario: Duration Scale class Min/Max
-        Given user selects 'New Term' button on ontology list page
-        Given user sets "<ont_term_name>" in 'Name' field on ontology list page
-        And user sets "<trait_description>" in 'Description' field on ontology list page
-        And user sets "<trait_entity>" in 'Entity' field on ontology list page
-        And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
-        And user sets "<method_description>" in 'Method Description' field on ontology list page
-        And user selects "Observation" in 'Method Class' dropdown on ontology list page
-        And user selects "Duration" in 'Scale Class' dropdown on ontology list page
-        And user set "<unit>" in 'Unit' field on ontology list page
-        When user sets "5" in 'Minimum Valid Value' field on ontology list page
-        And user sets "3" in 'Maximum Valid Value' field on ontology list page
-        When user selects 'Save' button on ontology list page
-        Then user can see "Scale valid value max must be greater than valid value min." below the 'Max' field on ontology list page
-        Then user can see "Scale valid value max must be greater than valid value min." below the 'Min' field on ontology list page
-        Then user can see banner appears with an error message "Error creating trait. Scale valid value max must be greater than valid value min.;"
-
-        Examples:
-            | ont_term_name     | trait_description | trait_entity | trait_attribute | method_description | unit    |
-            | TestOntTermName * | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     | seconds |
 
     @BI-1114
     Scenario: Text Scale Class
