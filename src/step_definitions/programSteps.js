@@ -140,7 +140,7 @@ When(/^user selects 'Cancel' button in Programs page$/, async () => {
 });
 
 Then(/^user can not see 'Program Form' in Programs page$/, async () => {
-  await page.expect.section("@programForm").not.elementPresent;
+  await page.assert.not.elementPresent("#adminProgramTableLabel form.new-form");
 });
 
 Then(/^user can not see "([^"]*)" Program in Programs page$/, async (args1) => {
