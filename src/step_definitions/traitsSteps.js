@@ -277,6 +277,16 @@ When(
 );
 
 Then(
+  /^user can not select "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent({
+      selector: `//option[@value='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
   /^user can see "([^"]*)" below the 'Name' field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.visible("@nameErrorText");
@@ -447,9 +457,24 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
-  (args1) => {
-    console.log(args1);
-    return true;
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.elementPresent({
+      selector: `//option[@value='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Scale Class' column on ontology list page$/,
+  async function (args1) {
+    await traitsPage.assert.visible({
+      selector:
+        "//td[@name='scaleClass'][normalize-space(.)='" +
+        args1.replace("*", this.parameters.timeStamp) +
+        "']",
+      locateStrategy: "xpath",
+    });
   }
 );
 
