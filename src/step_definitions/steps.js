@@ -1104,7 +1104,7 @@ When(/^user selects "([^"]*)" button in modal box$/, async (args1) => {
 async function setUserName(name) {
   this.user = {};
   user.userName = name.replace("*", Date.now().toString());
-  await page.section.newUserForm.clearValue("@nameField"); //Look here todo
+  await page.section.newUserForm.clearValue("@nameField");
   await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
