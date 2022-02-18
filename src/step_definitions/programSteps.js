@@ -430,6 +430,9 @@ When(/^user user can not see Location form in Program Management page$/, async()
 	await page.section.programManagement.expect.section("@form").not.present;
 });
 
+Then(/^user can not see 'New Location' button in Program Management page$/, async() => {
+  await page.assert.not.elementPresent("@newLocationButton");
+});
 
 Then(/^user is her$/, () => {
 	return true;

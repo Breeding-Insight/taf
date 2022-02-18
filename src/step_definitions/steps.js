@@ -191,9 +191,9 @@ Then(/^user can not see New User button$/, async () => {
   await page.assert.not.elementPresent("@newUserButton");
 });
 
-Then(/^user can not see "([^"]*)" link$/, async () => {
+Then(/^user can not see "([^"]*)" link$/, async (args1) => {
   await page.assert.not.elementPresent({
-    selector: "//a[contains(text(),'Edit')]",
+    selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
@@ -1104,7 +1104,7 @@ When(/^user selects "([^"]*)" button in modal box$/, async (args1) => {
 async function setUserName(name) {
   this.user = {};
   user.userName = name.replace("*", Date.now().toString());
-  await page.section.newUserForm.clearValue("@nameField");
+  await page.section.newUserForm.clearValue("@nameField"); //Look here todo
   await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
