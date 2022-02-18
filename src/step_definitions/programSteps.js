@@ -291,7 +291,7 @@ Then(
   /^user can see "([^"]*)" in Species column in Program page$/,
   async (args1) => {
     //will find match on new row only
-    await page.section.programForm.isItemInRow({ Species: args1 });
+    await page.section.programForm.isItemInRow({ Species: args1, Name: program.Name });
   }
 );
 

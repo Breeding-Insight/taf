@@ -6,6 +6,7 @@ const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const fs = require("fs");
 const reporter = require("cucumber-html-reporter");
 const user = {};
+const program = {};
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -960,11 +961,10 @@ When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programNameField");
-    this.program = {};
-    this.program.Name = args1.replace("*", Date.now().toString());
+    program.Name = args1.replace("*", generateRandomAlphaString(8));
     await page.section.programForm.setValue(
       "@programNameField",
-      this.program.Name
+      program.Name
     );
   }
 );
@@ -973,10 +973,10 @@ When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programKeyField");
-    this.program.Key = args1.replace("*", generateRandomAlphaString(4));
+    program.Key = args1.replace("*", generateRandomAlphaString(4));
     await page.section.programForm.setValue(
       "@programKeyField",
-      this.program.Key
+      program.Key
     );
   }
 );

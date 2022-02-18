@@ -319,17 +319,18 @@ module.exports = {
             await this.assert.visible(selector);
           },
           isItemInRow: async function (list) {
+            let elem = `.//td[normalize-space(.)='${list['Name']}']/..`;
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr/td[@data-label='Name']`,
+                  selector: elem + `//td[@data-label='Name']/a`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
               }
               if (key == "Species") {
                 const selector = {
-                  selector: `.//tr/td[@data-label='Species']`,
+                  selector: elem + `//td[@data-label='Species']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
