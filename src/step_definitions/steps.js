@@ -946,7 +946,7 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
   if (args1.includes("User*")) {
     headerText = user.userName;
   } else if (args1.includes("Program*")) {
-    headerText = this.program.Name;
+    headerText = program.Name;
   } else {
     headerText = args1;
   }
