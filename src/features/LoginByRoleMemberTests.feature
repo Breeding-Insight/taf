@@ -58,6 +58,7 @@ Feature: Logging with Member
 	Scenario: Program Location Management page - member
 		Given user logs in as "Cucumber Member"
 		And user selects "Program Management" in navigation
+		When user selects "Locations" in sub-level navigation
 		Then user can not see "Edit" link 
 		And user can not see "Deactivate" link
 		Then user can not see 'New Location' button in Program Management page
