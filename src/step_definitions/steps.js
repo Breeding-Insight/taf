@@ -79,7 +79,6 @@ Then(/^user selects the user$/, () => {
 });
 
 Given(/^user logs in as "([^"]*)"$/, async function (args1) {
-  debugger;
   if (this.parameters.launch_url != undefined) {
     await client.url(this.parameters.launch_url);
   } else {
