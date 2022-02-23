@@ -159,14 +159,15 @@ Feature: System User Management (15)
 		Then user can not see user is in users list
 
 	@BI-836
+	@debug
 	Scenario Outline: Editing self
 		Given user is on the user-management page
 		When user selects 'Edit' of "<Original Email>" of Users
 		And user sets "<New Name>" in Name field
 		And user sets "<New Email>" in Email field
+		Then user can not edit Role dropdown
 		And user selects 'Save' button in Users
 		Then user can see banner contains "User info (name/email/program) successfully updated"
-		#CLEANUP
 		When user selects 'Edit' of "<New Email>" of Users
 		And user sets "<Original Name>" in Name field
 		And user sets "<Original Email>" in Email field

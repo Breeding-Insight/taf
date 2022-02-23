@@ -79,7 +79,6 @@ Then(/^user selects the user$/, () => {
 });
 
 Given(/^user logs in as "([^"]*)"$/, async function (args1) {
-  debugger;
   if (this.parameters.launch_url != undefined) {
     await client.url(this.parameters.launch_url);
   } else {
@@ -1061,10 +1060,15 @@ When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   } else {
     userEmail = args1;
   }
-  await page.click({
-    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${userEmail}')]//a[normalize-space(.)='Edit']`,
+
+  let elem = {
+    selector: `//*[@id='app']//td[normalize-space()='${userEmail}']/..//td/a[normalize-space()='Edit']`,
     locateStrategy: "xpath",
-  });
+  };
+
+  // await page.waitForElementVisible(elem);
+  await client.execute("window.scrollTo(0,0);");
+  await page.click(elem);
 });
 
 When(/^user selects 'Save' button in Users$/, async () => {

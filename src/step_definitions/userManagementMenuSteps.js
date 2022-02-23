@@ -32,6 +32,18 @@ When(/^user selects "([^"]*)" in Role dropdown$/, async (args1) => {
   );
 });
 
+Then(/^user can not edit Role dropdown$/, async () => {
+  let status;
+  await page.getAttribute(
+    { selector: "//select[@id='Role']", locateStrategy: "xpath" },
+    "disabled",
+    (result) => {
+      state = result.value;
+    }
+  );
+  await client.assert.equal(state, "true");
+});
+
 Then(
   /^user can see Name "([^"]*)" with Role as "([^"]*)"$/,
   async (args1, args2) => {
