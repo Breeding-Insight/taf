@@ -46,6 +46,7 @@ Feature: Smoke Tests (11)
 		Then user can see 'per page' label
 		Then user can see Results Per Page dropdown
 
+	@htest
 	@BI-807
 	Scenario Outline: Program Location Management page
 		Given user logs in as "Cucumber Breeder"
@@ -68,9 +69,25 @@ Feature: Smoke Tests (11)
 			| location name |
 			| Location*     |
 
+	@htest
 	@BI-808
 	Scenario: Program Location Management page
 		Given user logs in as "sysad"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Management" in navigation
 		When user selects "Locations" in sub-level navigation
+		When user selects 'New Location' button in Program Management page
+		When user sets "<location name>" in Name field in Program Management page
+		When user selects 'Save' button in Program Management page
+		Then user can not see the New Location form in Program Management page
+		Then user can see banner contains "Success!"
+		Then user can see table header contains
+			| Header        |
+			| Name          |
+			| # Experiments |
+		#Then user can see "<location name>" in Name column in Program Management page
+		#And user can see each row has an Edit link
+		#And user can see each row has a Deactivate link
+		Examples:
+			| location name |
+			| Location*     |
