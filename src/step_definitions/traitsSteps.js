@@ -1129,3 +1129,12 @@ When(
     await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
   }
 );
+
+When(/^user selects 'Add Item'$/, async() => {
+  await traitsPage.click({selector:"//*[@id='ontologyTableLabel']//span[normalize-space()='Add Item']", locateStrategy:"xpath"});
+});
+
+Then(/^user can see "([^"]*)" below the 'Category' field on ontology list page$/, (args1) => {
+	console.log(args1);
+	return true;
+});
