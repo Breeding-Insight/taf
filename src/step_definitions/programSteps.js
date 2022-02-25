@@ -396,8 +396,8 @@ Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
     let locationName;
-    if (typeof this.location !== "undefined") {
-      locationName = this.location.Name;
+    if (typeof location !== "undefined") {
+      locationName = location.Name;
     } else {
       locationName = args1;
     }
