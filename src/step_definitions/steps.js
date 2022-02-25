@@ -962,10 +962,7 @@ When(
   async (args1) => {
     await page.section.programForm.clearValue("@programNameField");
     program.Name = args1.replace("*", generateRandomAlphaString(8));
-    await page.section.programForm.setValue(
-      "@programNameField",
-      program.Name
-    );
+    await page.section.programForm.setValue("@programNameField", program.Name);
   }
 );
 
@@ -974,10 +971,7 @@ When(
   async (args1) => {
     await page.section.programForm.clearValue("@programKeyField");
     program.Key = args1.replace("*", generateRandomAlphaString(4));
-    await page.section.programForm.setValue(
-      "@programKeyField",
-      program.Key
-    );
+    await page.section.programForm.setValue("@programKeyField", program.Key);
   }
 );
 
@@ -1118,6 +1112,13 @@ Then(/^user can see "([^"]*)" button in modal box$/, async (args1) => {
 When(/^user selects "([^"]*)" button in modal box$/, async (args1) => {
   await page.section.modal.click({
     selector: `.//button[contains(@class,'button')][contains(normalize-space(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can not see a success banner$/, async () => {
+  await page.assert.not.elementPresent({
+    selector: "//div[@id='app']/div[1]",
     locateStrategy: "xpath",
   });
 });

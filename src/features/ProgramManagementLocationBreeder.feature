@@ -2,7 +2,7 @@ Feature: Program Location Management
 
 	Background: Required Setup
 		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
+		When user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 
 	@hest
@@ -56,7 +56,7 @@ Feature: Program Location Management
 		And user selects 'Save' button in Program Management page
 		And user selects 'Edit' of "<location name>" in Program Management page
 		And user sets "<edit location name>" in Name field in Program Management page
-		And user selects 'Cancel' button
+		And user selects 'Cancel' button in Program Management page
 		Then user can not see the New Location form in Program Management page
 		#And user can see "<location name>" in Name column in Program Management page
 		#And user can see "<edit location name>" in Name column in Program Management page
@@ -72,7 +72,7 @@ Feature: Program Location Management
 		And user selects 'Save' button in Program Management page
 		And user selects 'Edit' of "<location name>" in Program Management page
 		And user sets "<edit location name>" in Name field in Program Management page
-		And user selects 'Save' button
+		And user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
 		#And user can not see "<location name>" in Name column in Program Management page
 		#And user can see "<edit location name>" in Name column in Program Management page
@@ -86,15 +86,16 @@ Feature: Program Location Management
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		And user selects "Deactivate" of "<location name>" in Program Management page
-		Then user can see a modal "Remove <location name> from Snacks? Program-related data referencing this location will not be affected by this change."
+		And user selects 'Deactivate' of "<location name>" in Program Management page
+		# Then user can see a modal "Remove <location name> from Snacks? Program-related data referencing this location will not be affected by this change."
+		Then user can see "Remove <location name> from Snacks? Program-related data referencing this location will not be affected by this change." in modal box text
 		Then user can see "Remove" in modal box header
 		Then user can see "<location name>" in modal box header
 		Then user can see "from Snacks?" in modal box header
 		Then user can see "Program-related data referencing this location will not be affected by this change." in modal box text
-		And user can see "Yes, remove" button in modal
-		And user can see a "Cancel" button in modal
-		And user clicks "Cancel" in modal
+		Then user can see 'Yes, remove' button in modal in Programs page
+		Then user can see 'Cancel' button in modal in Programs page
+		And user selects 'Cancel' button in Program Management page
 		Examples:
 			| location name |
 			| Location*     |
@@ -105,10 +106,11 @@ Feature: Program Location Management
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		And user selects "Deactivate" of "<location name>" in Program Management page
+		And user selects 'Deactivate' of "<location name>" in Program Management page
 		And user selects "Cancel" button
 		Then user can not see a modal box
-		And user can not see a success banner 
+		Then user can see banner appears without an error message "sdfsadf"
+		And user can not see a success banner
 		#And user can see "<location name>" in Name column in Program Management page
 		Examples:
 			| location name |
@@ -116,11 +118,12 @@ Feature: Program Location Management
 
 	@htest
 	@BI-913
+	@debug
 	Scenario: Location Deactivate  link - Yes, remove
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		And user selects "Deactivate" of "<location name>" in Program Management page
+		And user selects 'Deactivate' of "<location name>" in Program Management page
 		And user selects "Yes, remove" button
 		Then user can not see a modal box
 		And user can see "<location name> removed from program" in banner
@@ -128,4 +131,3 @@ Feature: Program Location Management
 		Examples:
 			| location name |
 			| Location*     |
-

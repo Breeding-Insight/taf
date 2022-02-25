@@ -3,6 +3,7 @@ const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const program = {};
+const location = {};
 
 Then(/^user can see 'Program Name' label in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@programNameLabel");
@@ -212,7 +213,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
       await page.section.programForm.assert.visible({
         selector:
           selector + "/ancestor::tr//td/a[normalize-space(.)='Deactivate']",
-        locateStrategy: "xpath", 
+        locateStrategy: "xpath",
       });
     }
   }
@@ -291,7 +292,10 @@ Then(
   /^user can see "([^"]*)" in Species column in Program page$/,
   async (args1) => {
     //will find match on new row only
-    await page.section.programForm.isItemInRow({ Species: args1, Name: program.Name });
+    await page.section.programForm.isItemInRow({
+      Species: args1,
+      Name: program.Name,
+    });
   }
 );
 
@@ -373,9 +377,11 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
   async (args1) => {
-    this.location = {};
-    this.location.Name = args1.replace("*", Date.now().toString());
-    await page.section.locationForm.setValue("@nameField", this.location.Name);
+    location.Name = args1.replace("*", Date.now().toString());
+
+    //add clear value when used to replace existing text value
+    await page.section.locationForm.clearValue("@nameField");
+    await page.section.locationForm.setValue("@nameField", location.Name);
   }
 );
 
@@ -444,3 +450,49 @@ When(
 Then(/^user is her$/, () => {
   return true;
 });
+
+When(
+  /^user selects 'Edit' of "([^"]*)" in Program Management page$/,
+  async (args1) => {
+    await showAll();
+    let selector;
+    if (location != null) {
+      selector = {
+        selector: `.//td[@data-label='Name'][normalize-space(.)='${location.Name}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+        locateStrategy: "xpath",
+      };
+    } else {
+      selector = {
+        selector: `.//td[@data-label='Name'][normalize-space(.)='${args1}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+        locateStrategy: "xpath",
+      };
+    }
+    await page.click(selector);
+  }
+);
+
+When(
+  /^user selects 'Deactivate' of "([^"]*)" in Program Management page$/,
+  async (args1) => {
+    await showAll();
+    let selector;
+    if (location != null) {
+      selector = {
+        selector: `.//td[@data-label='Name'][normalize-space(.)='${location.Name}']/ancestor::tr//td/a[normalize-space(.)='Deactivate']`,
+        locateStrategy: "xpath",
+      };
+    } else {
+      selector = {
+        selector: `.//td[@data-label='Name'][normalize-space(.)='${args1}']/ancestor::tr//td/a[normalize-space(.)='Deactivate']`,
+        locateStrategy: "xpath",
+      };
+    }
+    await page.click(selector);
+  }
+);
+
+async function showAll() {
+  await page.moveToElement("@showAllButton", 1, 1);
+  await page.pause(1000);
+  await page.click("@showAllButton");
+}
