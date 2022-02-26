@@ -257,7 +257,8 @@ module.exports = {
           locateStrategy: "xpath",
         },
         programNameRequired: {
-          selector: ".//form/div[1]/div[1]//span[@class='form-error has-text-danger']",
+          selector:
+            ".//form/div[1]/div[1]//span[@class='form-error has-text-danger']",
           locateStrategy: "xpath",
         },
         speciesSelect: "#Species",
@@ -269,7 +270,8 @@ module.exports = {
           locateStrategy: "xpath",
         },
         programKeyRequired: {
-          selector: ".//form/div[1]/div[3]//span[@class='form-error has-text-danger']",
+          selector:
+            ".//form/div[1]/div[3]//span[@class='form-error has-text-danger']",
           locateStrategy: "xpath",
         },
         specifyCustomDataCheckbox: "#checkbox",
@@ -319,7 +321,7 @@ module.exports = {
             await this.assert.visible(selector);
           },
           isItemInRow: async function (list) {
-            let elem = `.//td[normalize-space(.)='${list['Name']}']/..`;
+            let elem = `.//td[normalize-space(.)='${list["Name"]}']/..`;
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
@@ -396,10 +398,11 @@ module.exports = {
         {
           isItemInNewRow: async function (list) {
             //todo need to iterate through every item in list
+            let keySelector = `.//td[@data-label='Name'][normalize-space(.)='${list["Name"]}']`;
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//td[@data-label='Name']`,
+                  selector: keySelector,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
