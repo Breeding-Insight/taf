@@ -415,25 +415,10 @@ Then(
       locationName = args1;
     }
     const selector = {
-      selector: `.//td[@data-label='Name'][normalize-space(.)='${locationName}']`,
+      selector: `//td[@data-label='Name'][normalize-space(.)='${locationName}']`,
       locateStrategy: "xpath",
     };
-    //await page.section.locationForm.assert.not.containsText(selector, locationName);
-    //await page.section.locationForm.assert.not.visible(selector);
-    /*await client.elements("xpath", `.//td[@data-label='Name'][normalize-space(.)='${locationName}']`, function (result) {
-      //assert.equals();
-      if (result.value.length) {
-        console.log('here');
-      }
-    })*/
-
-    const resultElements = await browser.findElements(selector);
-
-    resultElements.forEach(item => console.log('Element Id:', item.getId()));
-    
-    //resultElements.forEach(item => console.log('Element Id:', item.getId()));
-
-    await page.expect.elements(selector).count.not.equal(1);
+    await page.assert.not.elementPresent(selector);
   }
 );
 
