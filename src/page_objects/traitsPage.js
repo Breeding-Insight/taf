@@ -178,6 +178,11 @@ module.exports = {
           selector:
             "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
         },
+        firstCategoryField:{
+          selector: "//input[@placeholder='Category']",
+          locateStrategy:"xpath",
+          index:1
+        }
       },
     },
   },

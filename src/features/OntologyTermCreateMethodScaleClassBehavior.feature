@@ -73,11 +73,19 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
 
     @BI-1328
+    @debug
     Scenario: Selecting scale class Nominal
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-    # Then user can see first 'Category' field
-    # Then user can see "Nominal scales require at least one category"
+        When user selects 'Add Item' button on ontology list page
+        Then user can see first Category field on ontology list page
+        And user can see "Nominal scales require at least one category"
+        When user selects "Add Item" button
+        And user selects "Add Item" button
+        Then user can see second 'Category' field
+        And user can see 'X' button
+        And user can see third 'Category' field
+        And user can see 'X' button
 
     @BI-1343
     Scenario: scale class Nominal - required fields
@@ -99,7 +107,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1326
-    @debug
     Scenario: Selecting scale class ordinal
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page

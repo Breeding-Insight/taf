@@ -1138,3 +1138,7 @@ Then(/^user can see "([^"]*)" below the 'Category' field on ontology list page$/
 	console.log(args1);
 	return true;
 });
+
+Then(/^user can see first Category field on ontology list page$/, async() => {
+	await traitsPage.section.allTraitsForm.assert.visible("@firstCategoryField");
+});
