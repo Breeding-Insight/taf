@@ -405,6 +405,38 @@ Then(
   }
 );
 
+Then(
+  /^user can not see "([^"]*)" in Name column in Program Management page$/,
+  async (args1) => {
+    let locationName;
+    if (typeof location !== "undefined") {
+      locationName = location.Name;
+    } else {
+      locationName = args1;
+    }
+    const selector = {
+      selector: `.//td[@data-label='Name'][normalize-space(.)='${locationName}']`,
+      locateStrategy: "xpath",
+    };
+    //await page.section.locationForm.assert.not.containsText(selector, locationName);
+    //await page.section.locationForm.assert.not.visible(selector);
+    /*await client.elements("xpath", `.//td[@data-label='Name'][normalize-space(.)='${locationName}']`, function (result) {
+      //assert.equals();
+      if (result.value.length) {
+        console.log('here');
+      }
+    })*/
+
+    const resultElements = await browser.findElements(selector);
+
+    resultElements.forEach(item => console.log('Element Id:', item.getId()));
+    
+    //resultElements.forEach(item => console.log('Element Id:', item.getId()));
+
+    await page.expect.elements(selector).count.not.equal(1);
+  }
+);
+
 When(
   /^user can see Program Management header in Program Management page$/,
   async () => {
@@ -490,6 +522,17 @@ When(
     await page.click(selector);
   }
 );
+
+Then(/^user can see "([^"]*)" in modal box header in Program Management page$/, async (args1) => {
+  let headerText;
+  if (args1.includes("Location*")) {
+    headerText = location.Name;
+  }
+    else {
+    headerText = args1;
+  }
+  await page.assert.containsText("@modalHeader", headerText);
+});
 
 async function showAll() {
   await page.moveToElement("@showAllButton", 1, 1);

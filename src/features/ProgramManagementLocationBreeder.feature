@@ -59,7 +59,7 @@ Feature: Program Location Management
 		And user selects 'Cancel' button in Program Management page
 		Then user can not see the New Location form in Program Management page
 		And user can see "<location name>" in Name column in Program Management page
-		And user can see "<edit location name>" in Name column in Program Management page
+		And user can not see "<edit location name>" in Name column in Program Management page
 		Examples:
 			| location name | edit location name |
 			| Location*     | EditLocation*      |
@@ -88,13 +88,13 @@ Feature: Program Location Management
 		And user selects 'Save' button in Program Management page
 		And user selects 'Deactivate' of "<location name>" in Program Management page
 		Then user can see a modal box
-		Then user can see "Remove" in modal box header
-		Then user can see "<location name>" in modal box header
-		Then user can see "from Snacks?" in modal box header
+		Then user can see "Remove" in modal box header in Program Management page
+		Then user can see "<location name>" in modal box header in Program Management page
+		Then user can see "from Snacks?" in modal box header in Program Management page
 		Then user can see "Program-related data referencing this location will not be affected by this change." in modal box text
-		Then user can see 'Yes, remove' button in modal in Programs page
-		Then user can see 'Cancel' button in modal in Programs page
-		And user selects 'Cancel' button in Program Management page
+		Then user can see "Yes, remove" button in modal box
+		Then user can see "Cancel" button in modal box
+		And user selects "Cancel" button in modal box
 		Examples:
 			| location name |
 			| Location*     |
@@ -107,10 +107,7 @@ Feature: Program Location Management
 		And user selects 'Save' button in Program Management page
 		And user selects 'Deactivate' of "<location name>" in Program Management page
 		And user selects "Cancel" button
-		Then user can not see a modal box
-		#todo Not sure what is going on here, look into it
-		Then user can see banner appears without an error message "sdfsadf"
-		And user can not see a success banner
+		Then user can not see a modal box  
 		And user can see "<location name>" in Name column in Program Management page
 		Examples:
 			| location name |
@@ -118,15 +115,15 @@ Feature: Program Location Management
 
 	@htest
 	@BI-913
-	@debug
 	Scenario: Location Deactivate  link - Yes, remove
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
+		And user can not see "<location name>" in Name column in Program Management page
 		And user selects 'Deactivate' of "<location name>" in Program Management page
-		And user selects "Yes, remove" button
+		And user selects "Yes, remove" button in modal box
 		Then user can not see a modal box
-		And user can see "<location name> removed from program" in banner
+		And user can see banner contains "removed from program"
 		And user can not see "<location name>" in Name column in Program Management page
 		Examples:
 			| location name |
