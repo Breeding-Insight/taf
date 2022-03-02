@@ -86,9 +86,13 @@ When(/^user selects 'Save' button in Programs page$/, async () => {
   );
   //Key only present for create, not edit
   let keyPresent;
-  await page.section.programForm.api.element('css selector', "@programKeyField", function(result) {
-    keyPresent = result.value;
-  });
+  await page.section.programForm.api.element(
+    "css selector",
+    "@programKeyField",
+    function (result) {
+      keyPresent = result.value;
+    }
+  );
 
   if (keyPresent) {
     await page.section.programForm.getValue("@programKeyField", ({ value }) => {
@@ -113,7 +117,10 @@ Then(
   /^user can see 'Program Name is required' text in Programs page$/,
   async () => {
     await page.section.programForm.assert.visible("@programNameRequired");
-    await page.section.programForm.assert.containsText("@programNameRequired", 'Program Name is required');
+    await page.section.programForm.assert.containsText(
+      "@programNameRequired",
+      "Program Name is required"
+    );
   }
 );
 
@@ -121,7 +128,10 @@ Then(
   /^user can see 'Program Key is required' text in Programs page$/,
   async () => {
     await page.section.programForm.assert.visible("@programKeyRequired");
-    await page.section.programForm.assert.containsText("@programKeyRequired", 'Program Key is required');
+    await page.section.programForm.assert.containsText(
+      "@programKeyRequired",
+      "Program Key is required"
+    );
   }
 );
 
@@ -130,7 +140,7 @@ When(/^user selects 'Cancel' button in Programs page$/, async () => {
 });
 
 Then(/^user can not see 'Program Form' in Programs page$/, async () => {
-  await page.expect.section("@programForm").not.elementPresent;
+  await page.assert.not.elementPresent("#adminProgramTableLabel form.new-form");
 });
 
 Then(/^user can not see "([^"]*)" Program in Programs page$/, async (args1) => {
@@ -142,31 +152,33 @@ Then(/^user can see "([^"]*)" Program in Programs page$/, async (args1) => {
 });
 
 Then(/^user can see new program in Programs page$/, async (table) => {
+  let selector = `.//td[normalize-space(.)='${program.Name}']`;
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
         case "Name":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
+              selector: selector,
               locateStrategy: "xpath",
             },
             program.Name
           );
           break;
         case "Key":
-            await page.section.programForm.assert.containsText(
-              {
-                selector: `.//tr[@class='is-new']/td[@data-label='Program Key']`,
-                locateStrategy: "xpath",
-              },
-              program.Key
-            );
-            break;
+          await page.section.programForm.assert.containsText(
+            {
+              selector:
+                selector + "/ancestor::tr//td[@data-label='Program Key']",
+              locateStrategy: "xpath",
+            },
+            program.Key
+          );
+          break;
         case "Species":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@data-label='Species']`,
+              selector: selector + "/ancestor::tr//td[@data-label='Species']",
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -175,7 +187,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "# Users":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@data-label='# Users']`,
+              selector: selector + "/ancestor::tr//td[@data-label='# Users']",
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -184,7 +196,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
         case "BrAPI URL":
           await page.section.programForm.assert.containsText(
             {
-              selector: `.//tr[@class='is-new']/td[@data-label='BrAPI URL']`,
+              selector: selector + "/ancestor::tr//td[@data-label='BrAPI URL']",
               locateStrategy: "xpath",
             },
             table.hashes()[i][column]
@@ -194,13 +206,13 @@ Then(/^user can see new program in Programs page$/, async (table) => {
           throw new Error(`Unexpected ${column} name.`);
       }
       await page.section.programForm.assert.visible({
-        selector: ".//tr[@class='is-new']/td/a[normalize-space(.)='Edit']",
+        selector: selector + "/ancestor::tr//td/a[normalize-space(.)='Edit']",
         locateStrategy: "xpath",
       });
       await page.section.programForm.assert.visible({
         selector:
-          ".//tr[@class='is-new']/td/a[normalize-space(.)='Deactivate']",
-        locateStrategy: "xpath",
+          selector + "/ancestor::tr//td/a[normalize-space(.)='Deactivate']",
+        locateStrategy: "xpath", 
       });
     }
   }
@@ -271,8 +283,7 @@ Then(
     //will find match on 1st row only
     if (program.Name == null) {
       await page.section.programForm.isItemInRow({ Name: args1 });
-    } else
-      await page.section.programForm.isItemInRow({ Name: program.Name });
+    } else await page.section.programForm.isItemInRow({ Name: program.Name });
   }
 );
 
@@ -280,7 +291,7 @@ Then(
   /^user can see "([^"]*)" in Species column in Program page$/,
   async (args1) => {
     //will find match on new row only
-    await page.section.programForm.isItemInRow({ Species: args1 });
+    await page.section.programForm.isItemInRow({ Species: args1, Name: program.Name });
   }
 );
 
@@ -364,9 +375,7 @@ When(
   async (args1) => {
     this.location = {};
     this.location.Name = args1.replace("*", Date.now().toString());
-    await page.section.locationForm.setValue(
-      "@nameField", 
-      this.location.Name)
+    await page.section.locationForm.setValue("@nameField", this.location.Name);
   }
 );
 
@@ -381,11 +390,10 @@ Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
     let locationName;
-    if (typeof this.location !== 'undefined') {
+    if (typeof this.location !== "undefined") {
       locationName = this.location.Name;
-    }
-    else {
-      locationName=args1;
+    } else {
+      locationName = args1;
     }
     await page.section.locationForm.isItemInNewRow({ Name: locationName });
   }
@@ -426,11 +434,13 @@ When(/^user selects 'Cancel' button in Program Management page$/, async () => {
   await page.section.programManagement.section.form.click("@cancelButton");
 });
 
-When(/^user user can not see Location form in Program Management page$/, async() => {
-	await page.section.programManagement.expect.section("@form").not.present;
-});
-
+When(
+  /^user user can not see Location form in Program Management page$/,
+  async () => {
+    await page.section.programManagement.expect.section("@form").not.present;
+  }
+);
 
 Then(/^user is her$/, () => {
-	return true;
+  return true;
 });
