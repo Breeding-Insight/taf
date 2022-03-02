@@ -377,7 +377,9 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
   async (args1) => {
-    location.Name = args1.replace("*", Date.now().toString());
+    if (args1.includes("*")){
+      location.Name = args1.replace("*", Date.now().toString());
+    }
 
     //add clear value when used to replace existing text value
     await page.section.locationForm.clearValue("@nameField");
@@ -396,7 +398,7 @@ Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
     let locationName;
-    if (typeof location !== "undefined") {
+    if ((typeof location !== "undefined") && (args1.includes("*"))) {
       locationName = location.Name;
     } else {
       locationName = args1;
@@ -409,7 +411,7 @@ Then(
   /^user can not see "([^"]*)" in Name column in Program Management page$/,
   async (args1) => {
     let locationName;
-    if (typeof location !== "undefined") {
+    if ((typeof location !== "undefined") && (args1.includes("*"))) {
       locationName = location.Name;
     } else {
       locationName = args1;

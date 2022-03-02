@@ -55,30 +55,30 @@ Feature: Program Location Management
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
 		And user selects 'Edit' of "<location name>" in Program Management page
-		And user sets "<edit location name>" in Name field in Program Management page
+		And user sets "EditCancelLocation" in Name field in Program Management page
 		And user selects 'Cancel' button in Program Management page
 		Then user can not see the New Location form in Program Management page
 		And user can see "<location name>" in Name column in Program Management page
-		And user can not see "<edit location name>" in Name column in Program Management page
+		And user can not see "EditCancelLocation" in Name column in Program Management page
 		Examples:
-			| location name | edit location name |
-			| Location*     | EditLocation*      |
+			| location name |
+			| Location*     |
 
 	@htest
 	@BI-910
 	Scenario: Edit Location form - Save
 		Given user selects 'New Location' button in Program Management page
-		And user sets "<location name>" in Name field in Program Management page
+		And user sets "EditLocation" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		And user selects 'Edit' of "<location name>" in Program Management page
+		And user selects 'Edit' of "EditLocation" in Program Management page
 		And user sets "<edit location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
 		Then user can not see the New Location form in Program Management page
-		And user can not see "<location name>" in Name column in Program Management page
+		And user can not see "EditLocation" in Name column in Program Management page
 		And user can see "<edit location name>" in Name column in Program Management page
 		Examples:
-			| location name | edit location name |
-			| Location*     | EditLocation*      |
+			| edit location name |
+			| EditLocation*      |
 
 	@htest
 	@BI-911
@@ -119,10 +119,11 @@ Feature: Program Location Management
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		And user can not see "<location name>" in Name column in Program Management page
+		Then user can not see "<location name>" in Name column in Program Management page
+		And user can see "<location name>" in Name column in Program Management page
 		And user selects 'Deactivate' of "<location name>" in Program Management page
 		And user selects "Yes, remove" button in modal box
-		Then user can not see a modal box
+		And user can not see a modal box
 		And user can see banner contains "removed from program"
 		And user can not see "<location name>" in Name column in Program Management page
 		Examples:
