@@ -55,13 +55,13 @@ module.exports = {
         unitofTimeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         minValidValueField: {
-          selector: "#Minimum-Valid-Value"
+          selector: "#Minimum-Valid-Value",
         },
         minValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(4) > div > div.field-body > div > div > span:nth-child(3)",
         // maxValidValueField: "#Maximum-Valid Value",
         maxValidValueField: {
-          selector: "#Maximum-Valid-Value"
+          selector: "#Maximum-Valid-Value",
         },
         maxValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(6) > div > div.field-body > div > div > span:nth-child(3)",
@@ -178,10 +178,30 @@ module.exports = {
           selector:
             "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
         },
-        firstCategoryField:{
-          selector: "//input[@placeholder='Category']",
-          locateStrategy:"xpath",
-          index:1
+        firstCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 0,
+        },
+        secondCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 1,
+        },
+        thirdCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 2,
+        },
+        deleteButtonSecondCategoryField:{
+          selector: ".//div[@class='column is-one-fifth ml-2']//button[@class='delete']",
+          locateStrategy: "xpath",
+          index: 1,
+        },
+        deleteButtonThirdCategoryField:{
+          selector: ".//div[@class='column is-one-fifth ml-2']//button[@class='delete']",
+          locateStrategy: "xpath",
+          index: 2,
         }
       },
     },

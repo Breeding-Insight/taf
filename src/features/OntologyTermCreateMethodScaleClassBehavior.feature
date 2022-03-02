@@ -79,13 +79,13 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         When user selects 'Add Item' button on ontology list page
         Then user can see first Category field on ontology list page
-        And user can see "Nominal scales require at least one category"
-        When user selects "Add Item" button
-        And user selects "Add Item" button
-        Then user can see second 'Category' field
-        And user can see 'X' button
-        And user can see third 'Category' field
-        And user can see 'X' button
+        Then user can see "Nominal scales require at least one category" below first Category field on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        Then user can see second Category field on ontology list page
+        Then user can see 'X' button of second Category field on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        Then user can see third Category field on ontology list page
+        Then user can see 'X' button of third Category field on ontology list page
 
     @BI-1343
     Scenario: scale class Nominal - required fields

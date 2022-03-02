@@ -1130,15 +1130,50 @@ When(
   }
 );
 
-When(/^user selects 'Add Item'$/, async() => {
-  await traitsPage.click({selector:"//*[@id='ontologyTableLabel']//span[normalize-space()='Add Item']", locateStrategy:"xpath"});
+When(/^user selects 'Add Item'$/, async () => {
+  await traitsPage.click({
+    selector:
+      "//*[@id='ontologyTableLabel']//span[normalize-space()='Add Item']",
+    locateStrategy: "xpath",
+  });
 });
 
-Then(/^user can see "([^"]*)" below the 'Category' field on ontology list page$/, (args1) => {
-	console.log(args1);
-	return true;
+Then(
+  /^user can see "([^"]*)" below first Category field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.visible({
+      selector: `//p[normalize-space(.)='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(/^user can see first Category field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@firstCategoryField");
 });
 
-Then(/^user can see first Category field on ontology list page$/, async() => {
-	await traitsPage.section.allTraitsForm.assert.visible("@firstCategoryField");
+Then(/^user can see second Category field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@secondCategoryField");
 });
+
+Then(/^user can see third Category field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@thirdCategoryField");
+});
+
+Then(
+  /^user can see 'X' button of second Category field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@deleteButtonSecondCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can see 'X' button of third Category field on ontology list page$/,
+  async() => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@deleteButtonThirdCategoryField"
+    );
+  }
+);
