@@ -397,7 +397,6 @@ module.exports = {
       commands: [
         {
           isItemInNewRow: async function (list) {
-            //todo need to iterate through every item in list
             let keySelector = `.//td[@data-label='Name'][normalize-space(.)='${list["Name"]}']`;
             for (var key in list) {
               if (key == "Name") {

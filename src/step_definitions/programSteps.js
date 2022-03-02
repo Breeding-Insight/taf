@@ -3,7 +3,6 @@ const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const program = {};
-const location = {};
 
 Then(/^user can see 'Program Name' label in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@programNameLabel");

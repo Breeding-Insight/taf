@@ -5,7 +5,6 @@ Feature: Program Location Management
 		When user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 
-	@htest
 	@BI-905
 	Scenario: Program Location Management page - admin
 		When user can see Program Management header in Program Management page
@@ -13,7 +12,6 @@ Feature: Program Location Management
 		Then user can see 'Users' tab in Program Management page
 		Then user can see 'New Location' button in Program Management page
 
-	@htest
 	@BI-906
 	Scenario: New Location form - enter nothing and select Save
 		When user selects 'New Location' button in Program Management page
@@ -21,7 +19,6 @@ Feature: Program Location Management
 		Then user can see banner appears with an error message "Fix Invalid Fields"
 		And user can see 'Name is required' below the Name field in Program Management page
 
-	@htest
 	@BI-907
 	Scenario: New Location form - enter location - Cancel
 		When user selects 'New Location' button in Program Management page
@@ -29,7 +26,6 @@ Feature: Program Location Management
 		When user selects 'Cancel' button in Program Management page
 		When user user can not see Location form in Program Management page
 
-	@htest
 	@BI-908
 	Scenario: New Location form - enter location - Save
 		Given user selects 'New Location' button in Program Management page
@@ -48,7 +44,6 @@ Feature: Program Location Management
 			| location name |
 			| Location*     |
 
-	@htest
 	@BI-909
 	Scenario: Edit Location form - Cancel
 		Given user selects 'New Location' button in Program Management page
@@ -64,7 +59,6 @@ Feature: Program Location Management
 			| location name |
 			| Location*     |
 
-	@htest
 	@BI-910
 	Scenario: Edit Location form - Save
 		Given user selects 'New Location' button in Program Management page
@@ -80,7 +74,6 @@ Feature: Program Location Management
 			| edit location name |
 			| EditLocation*      |
 
-	@htest
 	@BI-911
 	Scenario: Location Deactivate link - modal
 		Given user selects 'New Location' button in Program Management page
@@ -99,7 +92,6 @@ Feature: Program Location Management
 			| location name |
 			| Location*     |
 
-	@htest
 	@BI-912
 	Scenario: Location Deactivate  link - Cancel
 		Given user selects 'New Location' button in Program Management page
@@ -113,17 +105,14 @@ Feature: Program Location Management
 			| location name |
 			| Location*     |
 
-	@htest
 	@BI-913
 	Scenario: Location Deactivate  link - Yes, remove
 		Given user selects 'New Location' button in Program Management page
 		And user sets "<location name>" in Name field in Program Management page
 		And user selects 'Save' button in Program Management page
-		Then user can not see "<location name>" in Name column in Program Management page
-		And user can see "<location name>" in Name column in Program Management page
 		And user selects 'Deactivate' of "<location name>" in Program Management page
 		And user selects "Yes, remove" button in modal box
-		And user can not see a modal box
+		Then user can not see a modal box
 		And user can see banner contains "removed from program"
 		And user can not see "<location name>" in Name column in Program Management page
 		Examples:
