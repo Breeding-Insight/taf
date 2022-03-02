@@ -409,7 +409,7 @@ Then(
 
 Then(
   /^user can not see "([^"]*)" in Name column in Program Management page$/,
-  async (args1) => {
+  async(args1) => {
     let locationName;
     if ((typeof location !== "undefined") && (args1.includes("*"))) {
       locationName = location.Name;
@@ -420,6 +420,7 @@ Then(
       selector: `//td[@data-label='Name'][normalize-space(.)='${locationName}']`,
       locateStrategy: "xpath",
     };
+    await page.pause(5000);
     await page.assert.not.elementPresent(selector);
   }
 );
