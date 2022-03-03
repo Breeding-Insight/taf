@@ -55,22 +55,19 @@ module.exports = {
         unitofTimeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         minValidValueField: {
-          selector: "#Minimum-Valid-Value"
+          selector: "#Minimum-Valid-Value",
         },
         minValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(4) > div > div.field-body > div > div > span:nth-child(3)",
         // maxValidValueField: "#Maximum-Valid Value",
         maxValidValueField: {
-          selector: "#Maximum-Valid-Value"
+          selector: "#Maximum-Valid-Value",
         },
         maxValidValueErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(6) > div > div.field-body > div > div > span:nth-child(3)",
         decimalPlacesField: "#Decimal-Places",
         byMethodSelect: "#Method",
-        byScaleSelect: {
-          selector: "#Class",
-          index: 1,
-        },
+        byScaleSelect: "#Scale-Class",
         descriptionCollectionMethodField:
           "div.control input[placeholder='Method Description']",
         abbreviationField: "div.control input[placeholder='Abbreviation(s)']",
