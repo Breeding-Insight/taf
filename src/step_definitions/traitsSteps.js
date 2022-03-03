@@ -1160,6 +1160,26 @@ Then(/^user can see third Category field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@thirdCategoryField");
 });
 
+Then(/^user can see fourth Category field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@fourthCategoryField");
+});
+
+Then(/^user can see first Value field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@firstValueField");
+});
+
+Then(/^user can see second Value field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@secondValueField");
+});
+
+Then(/^user can see third Value field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@thirdValueField");
+});
+
+Then(/^user can see fourth Value field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@fourthValueField");
+});
+
 Then(
   /^user can see 'X' button of second Category field on ontology list page$/,
   async () => {
@@ -1171,9 +1191,22 @@ Then(
 
 Then(
   /^user can see 'X' button of third Category field on ontology list page$/,
-  async() => {
+  async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@deleteButtonThirdCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below the 'Category' field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Category']/../span",
+        locateStrategy: "xpath",
+      },
+      args1
     );
   }
 );
