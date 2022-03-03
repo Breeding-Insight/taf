@@ -1210,3 +1210,59 @@ Then(
     );
   }
 );
+
+Then(
+  /^user can see "([^"]*)" under first Value field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Value']/../span",
+        locateStrategy: "xpath",
+        index: 0,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" under second Value field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Value']/../span",
+        locateStrategy: "xpath",
+        index: 1,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" under first Category field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Category']/../span",
+        locateStrategy: "xpath",
+        index: 0,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" under second Category field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Category']/../span",
+        locateStrategy: "xpath",
+        index: 1,
+      },
+      args1
+    );
+  }
+);

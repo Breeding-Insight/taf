@@ -106,7 +106,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1326
-    @debug
     Scenario: Selecting scale class ordinal
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
@@ -122,23 +121,23 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user selects 'Add Item'
         And user can see fourth Value field on ontology list page
         Then user can see fourth Category field on ontology list page
-# And user can see a Category first field
-# And user can see a Value second field
-# And user can see a Category second fieldAnd user can see "Ordinal scales require at least two categories"
-# When user selects "Add Item" button
-# And user selects "Add Item" button
-# Then user can see a Value third fieldThen user can see a Category third field
-# Then user can see a Value fourth fieldThen user can see a Category fourth field
 
-# Then user can see first Value in Category first field on ontology list page
-# Then user can see Category first field on ontology list page
-# Then user can see "Ordinal scales require at least two categories"
-# And user selects 'Add Item'
-# Then user can see second Value in Category second field on ontology list page
-# Then user can see Category second field on ontology list page
-# And user selects 'Add Item'
-# Then user can see third Value in Category third field on ontology list page
-# Then user can see Category third field on ontology list page
-# And user selects 'Add Item'
-# Then user can see fourth Value in Category fourth field on ontology list page
-# Then user can see Category fourth field on ontology list page
+    @BI-1344
+    @debug
+    Scenario: scale class Ordinal - required fields
+        Given user selects 'New Term' button on ontology list page
+        Given user sets "<ont_term_name>" in 'Name' field on ontology list page
+        And user sets "<trait_description>" in 'Description' field on ontology list page
+        And user sets "<trait_entity>" in 'Entity' field on ontology list page
+        And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
+        And user sets "<method_description>" in 'Method Description' field on ontology list page
+        And user selects "Observation" in 'Method Class' dropdown on ontology list page
+        And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        And user selects 'Add Item'
+        And user selects 'Save' button on ontology list page
+        Then user can see "Value missing." under first Value field on ontology list page
+        Then user can see "Label missing." under first Category field on ontology list page
+        And user selects 'Add Item'
+        Then user can see "Value missing." under second Value field on ontology list page
+        Then user can see "Label missing." under second Category field on ontology list page
+        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;F"
