@@ -241,17 +241,14 @@ Feature: Breeder User Management
 		Then user can not see user is in users list
 
 	@BI-903
+	@debug
 	Scenario: admin editing self - Program User management
 		Given user logs in as "sysad"
 		And user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
 		And user selects "Users" in sub-level navigation
 		When user selects "Edit" of Name "Christian"
-		When user selects "member" in Role dropdown
-		When user selects "Save" button
-		Then user can see Name "Christian" with Role as "member"
-		When user selects "Edit" of Name "Christian"
-		When user selects "breeder" in Role dropdown
+		Then user can not edit Role dropdown
 		When user selects "Save" button
 
 	@BI-904

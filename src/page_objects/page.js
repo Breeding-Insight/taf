@@ -257,7 +257,8 @@ module.exports = {
           locateStrategy: "xpath",
         },
         programNameRequired: {
-          selector: ".//form/div[1]/div[1]//span[@class='form-error has-text-danger']",
+          selector:
+            ".//form/div[1]/div[1]//span[@class='form-error has-text-danger']",
           locateStrategy: "xpath",
         },
         speciesSelect: "#Species",
@@ -269,7 +270,8 @@ module.exports = {
           locateStrategy: "xpath",
         },
         programKeyRequired: {
-          selector: ".//form/div[1]/div[3]//span[@class='form-error has-text-danger']",
+          selector:
+            ".//form/div[1]/div[3]//span[@class='form-error has-text-danger']",
           locateStrategy: "xpath",
         },
         specifyCustomDataCheckbox: "#checkbox",
@@ -319,17 +321,18 @@ module.exports = {
             await this.assert.visible(selector);
           },
           isItemInRow: async function (list) {
+            let elem = `.//td[normalize-space(.)='${list["Name"]}']/..`;
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr/td[@data-label='Name']`,
+                  selector: elem + `//td[@data-label='Name']/a`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
               }
               if (key == "Species") {
                 const selector = {
-                  selector: `.//tr/td[@data-label='Species']`,
+                  selector: elem + `//td[@data-label='Species']`,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);
@@ -394,10 +397,11 @@ module.exports = {
       commands: [
         {
           isItemInNewRow: async function (list) {
+            let keySelector = `.//td[@data-label='Name'][normalize-space(.)='${list["Name"]}']`;
             for (var key in list) {
               if (key == "Name") {
                 const selector = {
-                  selector: `.//tr[@class='is-new']/td[@data-label='Name']`,
+                  selector: keySelector,
                   locateStrategy: "xpath",
                 };
                 await this.assert.containsText(selector, list[key]);

@@ -67,10 +67,7 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div:nth-child(6) > div > div.field-body > div > div > span:nth-child(3)",
         decimalPlacesField: "#Decimal-Places",
         byMethodSelect: "#Method",
-        byScaleSelect: {
-          selector: "#Class",
-          index: 1,
-        },
+        byScaleSelect: "#Scale-Class",
         descriptionCollectionMethodField:
           "div.control input[placeholder='Method Description']",
         abbreviationField: "div.control input[placeholder='Abbreviation(s)']",
