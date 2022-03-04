@@ -994,7 +994,7 @@ When(/^user selects 'Yes, abort' button$/, async () => {
 });
 
 Then(/^user can see Ontology table$/, async () => {
-  await page.assert.visible("#traitTableLabel");
+  await page.assert.visible("#ontologyTableLabel");
 });
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
