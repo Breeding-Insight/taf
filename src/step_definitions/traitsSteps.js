@@ -1085,6 +1085,55 @@ Then(
 );
 
 Then(
+  /^user can not see "([^"]*)" in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@secondScaleField"
+    );
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in third Scale category field on ontology list page$/,
+  async (args1) => {
+    throw new Error("Not yet implemented");
+  }
+);
+
+Then(
+  /^user selects 'X' button in Ordinal third value on ontology list page$/,
+  async () => {
+    throw new Error("Not yet implemented");
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal third value field on ontology list page$/,
+  async (args1) => {
+    throw new Error("Not yet implemented");
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in Scale third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@thirdScaleField"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.value(
+      "@secondScaleField",
+      args1
+    );
+  }
+);
+
+Then(
   /^user can see "([^"]*)" in Nominal third field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
@@ -1251,5 +1300,39 @@ Then(
       },
       args1
     );
+  }
+);
+
+When(
+  /^user selects 'X' button of Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click(
+      "@deleteButtonSecondCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can not see second Nominal field text box on ontology list page$/,
+  async () => {
+    await traitsPage.assert.not.elementPresent("@secondCategoryField");
+  }
+);
+
+Then(/^user can see "([^"]*)" in modal box text1$/, async (args1) => {
+  throw new Error("Not yet implemented");
+});
+
+Then(
+  /^user can see "([^"]*)" in Ordinal third value on ontology list page$/,
+  async (args1) => {
+    throw new Error("Not yet implemented");
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in Ordinal third value on ontology list page$/,
+  async (args1) => {
+    throw new Error("Not yet implemented");
   }
 );

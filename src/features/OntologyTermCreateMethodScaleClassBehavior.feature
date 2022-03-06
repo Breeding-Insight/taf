@@ -76,7 +76,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Selecting scale class Nominal
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-        When user selects 'Add Item' button on ontology list page
         Then user can see first Category field on ontology list page
         Then user can see "Nominal scales require at least one category" below first Category field on ontology list page
         When user selects 'Add Item' button on ontology list page
@@ -96,7 +95,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<method_description>" in 'Method Description' field on ontology list page
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-        And user selects 'Add Item'
         When user selects 'Save' button on ontology list page
         Then user can see "Value missing." below the 'Category' field on ontology list page
         Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
@@ -109,21 +107,18 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Selecting scale class ordinal
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        And user selects 'Add Item'
         And user can see first Value field on ontology list page
         Then user can see first Category field on ontology list page
-        And user selects 'Add Item'
         And user can see second Value field on ontology list page
         Then user can see second Category field on ontology list page
         And user selects 'Add Item'
+        And user selects 'Add Item'
         And user can see third Value field on ontology list page
         Then user can see third Category field on ontology list page
-        And user selects 'Add Item'
         And user can see fourth Value field on ontology list page
         Then user can see fourth Category field on ontology list page
 
     @BI-1344
-    @debug
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -133,11 +128,90 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<method_description>" in 'Method Description' field on ontology list page
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        And user selects 'Add Item'
         And user selects 'Save' button on ontology list page
         Then user can see "Value missing." under first Value field on ontology list page
         Then user can see "Label missing." under first Category field on ontology list page
-        And user selects 'Add Item'
         Then user can see "Value missing." under second Value field on ontology list page
         Then user can see "Label missing." under second Category field on ontology list page
-        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;F"
+        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;"
+
+        Examples:
+            | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
+            | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
+
+
+    @BI-1348
+    Scenario: Nominal Delete Scale Category, w/o text
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        And user selects 'Add Item' button on ontology list page
+        When user selects 'X' button of Nominal second field on ontology list page
+        Then user can not see second Nominal field text box on ontology list page
+
+    @BI-1349
+    Scenario: Nominal Delete Scale Category, w/text, cancel
+        Given user selects 'New Term' button on ontology list page
+        And user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        When user sets "TEXT" in Nominal second field on ontology list page
+        And user selects 'X' button of Nominal second field on ontology list page
+        Then user can see "Remove category?" in modal box header1
+        And user can see "Please confirm that you would like to remove this category." in modal box text
+        And user can see "Yes, remove" button in modal box
+        When user selects "Cancel" button in modal box
+        Then user can see "TEXT" in Nominal first field on ontology list page
+
+    @BI-1350
+    Scenario: Nominal Delete Scale Category, w/text - Yes, Delete
+        Given user selects 'New Term' button on ontology list page
+        When  user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        And user sets "TEST" in Nominal second field on ontology list page
+        And user selects 'X' button of Nominal second field on ontology list page
+        When user selects "Yes, remove" button in modal box
+        Then user can not see "TEXT" in Nominal second field on ontology list page
+
+    @BI-1351
+    Scenario: Ordinal Delete Scale Category, w/o text, cancel
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        Then user selects 'X' button in Ordinal third field on ontology list page
+        And user selects "Cancel" button in modal box
+        Then user can not see "TEXT" in third Scale category field on ontology list page
+
+    @BI-1352
+    Scenario: Ordinal Delete Scale Category, w/text, cancel
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        And user selects 'Add Item' button on ontology list page
+        And user sets "TEXT" in Ordinal third value field on ontology list page
+        Then user selects 'X' button in Ordinal third value on ontology list page
+        Then user can see "Remove category?" in modal box header1
+        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        And user can see "Yes, remove" button in modal box
+        And user selects "Cancel" button in modal box
+        Then user can see "TEXT" in Ordinal third value on ontology list page
+
+    @BI-1353
+    Scenario: Ordinal Delete Scale Category, w/text, Yes, delete
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        And user selects 'Add Item' button on ontology list page
+        And user sets "TEXT" in Ordinal third value field on ontology list page
+        Then user selects 'X' button in Ordinal third field on ontology list page
+        When user selects "Yes, remove" button in modal box
+        Then user can not see "TEXT" in Ordinal third value on ontology list page
+
+    @BI-1354
+    Scenario: Switching between Ordinal and Nominal
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        Then user can not see Category first field on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        Then user can see first Value field on ontology list page
+        Then user can see first Category field on ontology list page
+        Then user can see first Value field on ontology list page
+        Then user can see second Category field on ontology list page
+        When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
+        Then user can see first Category field on ontology list page
