@@ -1,3 +1,4 @@
+@debug
 Feature: Ontology Term Create - Method & Scale Class Behavior
 
     Background: Required Setup
@@ -76,14 +77,14 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Selecting scale class Nominal
         Given user selects 'New Term' button on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-        Then user can see first Category field on ontology list page
-        Then user can see "Nominal scales require at least one category" below first Category field on ontology list page
+        Then user can see Category first field on ontology list page
+        Then user can see "Nominal scales require at least one category" below Category first field on ontology list page
         When user selects 'Add Item' button on ontology list page
-        Then user can see second Category field on ontology list page
-        Then user can see 'X' button of second Category field on ontology list page
+        Then user can see Category second field on ontology list page
+        Then user can see 'X' button of Category second field on ontology list page
         When user selects 'Add Item' button on ontology list page
-        Then user can see third Category field on ontology list page
-        Then user can see 'X' button of third Category field on ontology list page
+        Then user can see Category third field on ontology list page
+        Then user can see 'X' button of Category third field on ontology list page
 
     @BI-1343
     Scenario: scale class Nominal - required fields
@@ -96,7 +97,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         When user selects 'Save' button on ontology list page
-        Then user can see "Value missing." below the 'Category' field on ontology list page
+        Then user can see "Value missing." below Category first field on ontology list page
         Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
 
         Examples:
@@ -107,16 +108,16 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: Selecting scale class ordinal
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        And user can see first Value field on ontology list page
-        Then user can see first Category field on ontology list page
-        And user can see second Value field on ontology list page
-        Then user can see second Category field on ontology list page
-        And user selects 'Add Item'
-        And user selects 'Add Item'
-        And user can see third Value field on ontology list page
-        Then user can see third Category field on ontology list page
-        And user can see fourth Value field on ontology list page
-        Then user can see fourth Category field on ontology list page
+        And user can see Value first field on ontology list page
+        Then user can see Category first field on ontology list page
+        And user can see Value second field on ontology list page
+        Then user can see Category second field on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        And user can see Value third field on ontology list page
+        Then user can see Category third field on ontology list page
+        And user can see Value fourth field on ontology list page
+        Then user can see Category fourth field on ontology list page
 
     @BI-1344
     Scenario: scale class Ordinal - required fields
@@ -129,10 +130,10 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         And user selects 'Save' button on ontology list page
-        Then user can see "Value missing." under first Value field on ontology list page
-        Then user can see "Label missing." under first Category field on ontology list page
-        Then user can see "Value missing." under second Value field on ontology list page
-        Then user can see "Label missing." under second Category field on ontology list page
+        Then user can see "Value missing." below Value first field on ontology list page
+        Then user can see "Label missing." below Category first field on ontology list page
+        Then user can see "Value missing." below Value second field on ontology list page
+        Then user can see "Label missing." below Category second field on ontology list page
         Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;"
 
         Examples:
@@ -146,7 +147,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         And user selects 'Add Item' button on ontology list page
         When user selects 'X' button of Nominal second field on ontology list page
-        Then user can not see second Nominal field text box on ontology list page
+        Then user can not see Nominal second field text box on ontology list page
 
     @BI-1349
     Scenario: Nominal Delete Scale Category, w/text, cancel
@@ -178,7 +179,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects 'Add Item' button on ontology list page
         Then user selects 'X' button in Ordinal third field on ontology list page
         And user selects "Cancel" button in modal box
-        Then user can not see "TEXT" in third Scale category field on ontology list page
+        Then user can not see "TEXT" in Scale third category field on ontology list page
 
     @BI-1352
     Scenario: Ordinal Delete Scale Category, w/text, cancel
@@ -209,9 +210,9 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         Then user can not see Category first field on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        Then user can see first Value field on ontology list page
-        Then user can see first Category field on ontology list page
-        Then user can see first Value field on ontology list page
-        Then user can see second Category field on ontology list page
+        Then user can see Value first field on ontology list page
+        Then user can see Category first field on ontology list page
+        Then user can see Value first field on ontology list page
+        Then user can see Category second field on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
-        Then user can see first Category field on ontology list page
+        Then user can see Category first field on ontology list page

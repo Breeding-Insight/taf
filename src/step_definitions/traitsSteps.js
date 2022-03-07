@@ -1094,7 +1094,7 @@ Then(
 );
 
 Then(
-  /^user can not see "([^"]*)" in third Scale category field on ontology list page$/,
+  /^user can not see "([^"]*)" in Scale third category field on ontology list page$/,
   async (args1) => {
     throw new Error("Not yet implemented");
   }
@@ -1175,7 +1175,7 @@ When(/^user selects 'Add Item'$/, async () => {
 });
 
 Then(
-  /^user can see "([^"]*)" below first Category field on ontology list page$/,
+  /^user can see "([^"]*)" below Category first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.visible({
       selector: `//p[normalize-space(.)='${args1}']`,
@@ -1184,40 +1184,40 @@ Then(
   }
 );
 
-Then(/^user can see first Category field on ontology list page$/, async () => {
+Then(/^user can see Category first field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@firstCategoryField");
 });
 
-Then(/^user can see second Category field on ontology list page$/, async () => {
+Then(/^user can see Category second field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@secondCategoryField");
 });
 
-Then(/^user can see third Category field on ontology list page$/, async () => {
+Then(/^user can see Category third field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@thirdCategoryField");
 });
 
-Then(/^user can see fourth Category field on ontology list page$/, async () => {
+Then(/^user can see Category fourth field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@fourthCategoryField");
 });
 
-Then(/^user can see first Value field on ontology list page$/, async () => {
+Then(/^user can see Value first field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@firstValueField");
 });
 
-Then(/^user can see second Value field on ontology list page$/, async () => {
+Then(/^user can see Value second field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@secondValueField");
 });
 
-Then(/^user can see third Value field on ontology list page$/, async () => {
+Then(/^user can see Value third field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@thirdValueField");
 });
 
-Then(/^user can see fourth Value field on ontology list page$/, async () => {
+Then(/^user can see Value fourth field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@fourthValueField");
 });
 
 Then(
-  /^user can see 'X' button of second Category field on ontology list page$/,
+  /^user can see 'X' button of Category second field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@deleteButtonSecondCategoryField"
@@ -1226,7 +1226,7 @@ Then(
 );
 
 Then(
-  /^user can see 'X' button of third Category field on ontology list page$/,
+  /^user can see 'X' button of Category third field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.assert.visible(
       "@deleteButtonThirdCategoryField"
@@ -1235,7 +1235,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" below the 'Category' field on ontology list page$/,
+  /^user can see "([^"]*)" below Category first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1248,7 +1248,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" under first Value field on ontology list page$/,
+  /^user can see "([^"]*)" below Value first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1262,7 +1262,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" under second Value field on ontology list page$/,
+  /^user can see "([^"]*)" below Value second field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1276,7 +1276,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" under first Category field on ontology list page$/,
+  /^user can see "([^"]*)" below Category first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1290,7 +1290,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" under second Category field on ontology list page$/,
+  /^user can see "([^"]*)" below Category second field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1313,7 +1313,7 @@ When(
 );
 
 Then(
-  /^user can not see second Nominal field text box on ontology list page$/,
+  /^user can not see Nominal second field text box on ontology list page$/,
   async () => {
     await traitsPage.assert.not.elementPresent("@secondCategoryField");
   }
