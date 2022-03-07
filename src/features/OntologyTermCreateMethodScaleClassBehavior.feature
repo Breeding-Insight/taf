@@ -73,6 +73,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When  user selects "Text" in 'Scale Class' dropdown on ontology list page
         Then user can see 'No options are available for configuring this field.' below the 'Scale Class' dropdown on ontology list page
 
+    @htest
     @BI-1328
     Scenario: Selecting scale class Nominal
         Given user selects 'New Term' button on ontology list page
@@ -86,6 +87,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see Category third field on ontology list page
         Then user can see 'X' button of Category third field on ontology list page
 
+    @htest
     @BI-1343
     Scenario: scale class Nominal - required fields
         Given user selects 'New Term' button on ontology list page
@@ -97,7 +99,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         When user selects 'Save' button on ontology list page
-        Then user can see "Value missing." below Category first field on ontology list page
+        Then user can see "Value missing." error message below Category first field on ontology list page
         Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
 
         Examples:
@@ -119,6 +121,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user can see Value fourth field on ontology list page
         Then user can see Category fourth field on ontology list page
 
+    @htest
     @BI-1344
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
@@ -129,9 +132,11 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<method_description>" in 'Method Description' field on ontology list page
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        And user clears Value first field on ontology list page
+        And user clears Value second field on ontology list page
         And user selects 'Save' button on ontology list page
         Then user can see "Value missing." below Value first field on ontology list page
-        Then user can see "Label missing." below Category first field on ontology list page
+        Then user can see "Label missing." error message below Category first field on ontology list page
         Then user can see "Value missing." below Value second field on ontology list page
         Then user can see "Label missing." below Category second field on ontology list page
         Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;"
@@ -160,7 +165,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user can see "Please confirm that you would like to remove this category." in modal box text
         And user can see "Yes, remove" button in modal box
         When user selects "Cancel" button in modal box
-        Then user can see "TEXT" in Nominal first field on ontology list page
+        Then user can see "TEXT" in Nominal second field on ontology list page
 
     @BI-1350
     Scenario: Nominal Delete Scale Category, w/text - Yes, Delete

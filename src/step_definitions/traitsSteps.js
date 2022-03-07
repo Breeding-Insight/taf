@@ -273,6 +273,7 @@ When(
   /^user selects "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@scaleClass", args1);
+    await traitsPage.pause(1000);
   }
 );
 
@@ -809,6 +810,7 @@ Then(
 
 When(/^user selects 'Add Item' button on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.click("@addItemButton");
+  //traitsPage.pause(50000);
 });
 
 Then(
@@ -1124,16 +1126,6 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" in Nominal second field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.assert.value(
-      "@secondScaleField",
-      args1
-    );
-  }
-);
-
-Then(
   /^user can see "([^"]*)" in Nominal third field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.assert.value(
@@ -1235,19 +1227,6 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" below Category first field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.assert.containsText(
-      {
-        selector: "//input[@placeholder='Category']/../span",
-        locateStrategy: "xpath",
-      },
-      args1
-    );
-  }
-);
-
-Then(
   /^user can see "([^"]*)" below Value first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
@@ -1276,7 +1255,7 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" below Category first field on ontology list page$/,
+  /^user can see "([^"]*)" error message below Category first field on ontology list page$/,
   async (args1) => {
     await traitsPage.assert.containsText(
       {
@@ -1336,3 +1315,22 @@ Then(
     throw new Error("Not yet implemented");
   }
 );
+
+When(/^user clears Value first field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.setValue("@firstValueField", [
+    client.Keys.CONTROL,
+    "a",
+    client.Keys.DELETE,
+  ])
+  
+  //waitForElementVisible("@firstValueField").click("@firstValueField").clearValue("@firstValueField").setValue("@firstValueField", "");
+  //execute("$('@firstValueField').val('')")
+  //.setValue('input[type="text"]', '\u0008');
+  //await traitsPage.section.allTraitsForm.click("@firstValueField");
+  //await traitsPage.section.allTraitsForm.clearValue("@firstValueField");
+  //await traitsPage.section.allTraitsForm.setValue("@firstValueField", "");
+});
+
+When(/^user clears Value second field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.clearValue("@secondValueField");
+});
