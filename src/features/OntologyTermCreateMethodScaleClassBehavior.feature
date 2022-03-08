@@ -178,13 +178,12 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can not see "TEXT" in Nominal second field on ontology list page
 
     @BI-1351
-    Scenario: Ordinal Delete Scale Category, w/o text, cancel
+    Scenario: Ordinal Delete Scale Category, w/o text
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         When user selects 'Add Item' button on ontology list page
         Then user selects 'X' button in Ordinal third field on ontology list page
-        And user selects "Cancel" button in modal box
-        Then user can not see "TEXT" in Scale third category field on ontology list page
+        Then user can not see Ordinal third category field on ontology list page
 
     @BI-1352
     Scenario: Ordinal Delete Scale Category, w/text, cancel

@@ -1096,8 +1096,8 @@ Then(
 );
 
 Then(
-  /^user can not see "([^"]*)" in Scale third category field on ontology list page$/,
-  async (args1) => {
+  /^user can not see Ordinal third category field on ontology list page$/,
+  async () => {
     throw new Error("Not yet implemented");
   }
 );
