@@ -1,4 +1,3 @@
-@debug
 Feature: Ontology Term Create - Method & Scale Class Behavior
 
     Background: Required Setup
@@ -190,10 +189,12 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         And user selects 'Add Item' button on ontology list page
+        And user selects 'Add Item' button on ontology list page
+        And user selects 'Add Item' button on ontology list page
         And user sets "TEXT" in Ordinal third value field on ontology list page
         Then user selects 'X' button in Ordinal third value on ontology list page
-        Then user can see "Remove category?" in modal box header1
-        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        Then user can see "Remove category?" in modal box header
+        Then user can see "Please confirm that you would like to remove this category." in modal box text
         And user can see "Yes, remove" button in modal box
         And user selects "Cancel" button in modal box
         Then user can see "TEXT" in Ordinal third value on ontology list page
@@ -220,3 +221,13 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see Category second field on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         Then user can see Category first field on ontology list page
+
+    @debug
+    Scenario: Ordinal Delete Scale Category, w/o text
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        When user sets "blah" in Ordinal first value field on ontology list page
+        When user clears Value first field on ontology list page
+        # Then user selects 'X' button in Ordinal third field on ontology list page
+        # Then user can not see Ordinal third category field on ontology list page

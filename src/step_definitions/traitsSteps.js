@@ -1105,16 +1105,25 @@ Then(
 Then(
   /^user selects 'X' button in Ordinal third value on ontology list page$/,
   async () => {
-    throw new Error("Not yet implemented");
+    await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal first value field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@firstValueField", args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal third value field on ontology list page$/,
   async (args1) => {
-    throw new Error("Not yet implemented");
+    await traitsPage.section.allTraitsForm.setValue("@thirdValueField", args1);
   }
 );
+
+
 
 Then(
   /^user can not see "([^"]*)" in Scale third field on ontology list page$/,
@@ -1317,11 +1326,13 @@ Then(
 );
 
 When(/^user clears Value first field on ontology list page$/, async () => {
-  await traitsPage.section.allTraitsForm.setValue("@firstValueField", [
-    client.Keys.CONTROL,
-    "a",
-    client.Keys.DELETE,
-  ])
+  await traitsPage.section.allTraitsForm.clearValue("@firstValueField");
+  
+  // await traitsPage.section.allTraitsForm.setValue("@firstValueField", [
+  //   client.Keys.CONTROL,
+  //   "a",
+  //   client.Keys.DELETE,
+  // ])
   
   //waitForElementVisible("@firstValueField").click("@firstValueField").clearValue("@firstValueField").setValue("@firstValueField", "");
   //execute("$('@firstValueField').val('')")
