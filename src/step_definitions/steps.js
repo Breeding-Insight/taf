@@ -192,9 +192,9 @@ Then(/^user can not see New User button$/, async () => {
   await page.assert.not.elementPresent("@newUserButton");
 });
 
-Then(/^user can not see "([^"]*)" link$/, async () => {
+Then(/^user can not see "([^"]*)" link$/, async (args1) => {
   await page.assert.not.elementPresent({
-    selector: "//a[contains(text(),'Edit')]",
+    selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
