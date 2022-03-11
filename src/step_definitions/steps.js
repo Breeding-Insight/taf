@@ -5,6 +5,8 @@ const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const fs = require("fs");
 const reporter = require("cucumber-html-reporter");
+const user = {};
+const program = {};
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -79,7 +81,6 @@ Then(/^user selects the user$/, () => {
 });
 
 Given(/^user logs in as "([^"]*)"$/, async function (args1) {
-  debugger;
   if (this.parameters.launch_url != undefined) {
     await client.url(this.parameters.launch_url);
   } else {
@@ -393,16 +394,23 @@ When(/^user creates a new program$/, async (table) => {
 });
 
 Then(/^user can see a new program is created$/, async () => {
+  let selector = `.//td[normalize-space(.)='${this.program.Name}']`;
   await page.assert.containsText(
-    "#adminProgramTableLabel table tr.is-new td:nth-child(1)",
+    { selector: selector, locateStrategy: "xpath" },
     this.program.Name
   );
   await page.assert.containsText(
-    "#adminProgramTableLabel table tr.is-new td:nth-child(3)",
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Species']",
+      locateStrategy: "xpath",
+    },
     this.program.Species
   );
   await page.assert.containsText(
-    "#adminProgramTableLabel table tr.is-new td:nth-child(2)",
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Program Key']",
+      locateStrategy: "xpath",
+    },
     this.program.Key
   );
   console.log("and this" + this.program.Name);
@@ -451,7 +459,7 @@ When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
 
 When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
   await page.click({
-    selector: `//div[@class='sidebarlayout']//a[normalize-space(.)='${args1}']`,
+    selector: `//*[@id="sideMenu"]//a[normalize-space()='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -465,11 +473,11 @@ Then(/^user can see new user form$/, async () => {
 });
 
 Then(/^user does not see a new user in Users list$/, async () => {
-  await page.assert.not.elementPresent("tr.is-new");
-});
-
-Then(/^user can see a label 'per page'$/, () => {
-  return true;
+  let selector = `//td[normalize-space(.)='${user.name}']`;
+  await page.assert.not.elementPresent({
+    selector: selector,
+    locateStrategy: "xpath",
+  });
 });
 
 When(/^user creates a new user$/, async (table) => {
@@ -530,15 +538,29 @@ When(/^user edits a user$/, async (table) => {
 });
 
 Then(/^user can see a new user is added in User$/, async () => {
+  let selector = `.//td[normalize-space(.)='${user.userName}']`;
   await page.assert.containsText(
-    "tr.is-new td[data-label='Name']",
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Name']",
+      locateStrategy: "xpath",
+    },
     user.userName
   );
   await page.assert.containsText(
-    "tr.is-new td[data-label='Email']",
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Email']",
+      locateStrategy: "xpath",
+    },
     user.email
   );
-  await page.assert.containsText("tr.is-new td[data-label='Role']", user.role);
+
+  await page.assert.containsText(
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Role']",
+      locateStrategy: "xpath",
+    },
+    user.role
+  );
 });
 
 Then(/^user can see user is in users list$/, async () => {
@@ -923,7 +945,7 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
   if (args1.includes("User*")) {
     headerText = user.userName;
   } else if (args1.includes("Program*")) {
-    headerText = this.program.Name;
+    headerText = program.Name;
   } else {
     headerText = args1;
   }
@@ -938,12 +960,8 @@ When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programNameField");
-    this.program = {};
-    this.program.Name = args1.replace("*", Date.now().toString());
-    await page.section.programForm.setValue(
-      "@programNameField",
-      this.program.Name
-    );
+    program.Name = args1.replace("*", generateRandomAlphaString(8));
+    await page.section.programForm.setValue("@programNameField", program.Name);
   }
 );
 
@@ -951,11 +969,8 @@ When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programKeyField");
-    this.program.Key = args1.replace("*", generateRandomAlphaString(4));
-    await page.section.programForm.setValue(
-      "@programKeyField",
-      this.program.Key
-    );
+    program.Key = args1.replace("*", generateRandomAlphaString(4));
+    await page.section.programForm.setValue("@programKeyField", program.Key);
   }
 );
 
@@ -979,7 +994,7 @@ When(/^user selects 'Yes, abort' button$/, async () => {
 });
 
 Then(/^user can see Ontology table$/, async () => {
-  await page.assert.visible("#traitTableLabel");
+  await page.assert.visible("#ontologyTableLabel");
 });
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
@@ -1061,10 +1076,15 @@ When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
   } else {
     userEmail = args1;
   }
-  await page.click({
-    selector: `//*[@id='app']//table/tbody/tr[contains(normalize-space(.),'${userEmail}')]//a[normalize-space(.)='Edit']`,
+
+  let elem = {
+    selector: `//*[@id='app']//td[normalize-space()='${userEmail}']/..//td/a[normalize-space()='Edit']`,
     locateStrategy: "xpath",
-  });
+  };
+
+  // await page.waitForElementVisible(elem);
+  await client.execute("window.scrollTo(0,0);");
+  await page.click(elem);
 });
 
 When(/^user selects 'Save' button in Users$/, async () => {
@@ -1096,6 +1116,13 @@ Then(/^user can see "([^"]*)" button in modal box$/, async (args1) => {
 When(/^user selects "([^"]*)" button in modal box$/, async (args1) => {
   await page.section.modal.click({
     selector: `.//button[contains(@class,'button')][contains(normalize-space(),'${args1}')]`,
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can not see a success banner$/, async () => {
+  await page.assert.not.elementPresent({
+    selector: "//div[@id='app']/div[1]",
     locateStrategy: "xpath",
   });
 });

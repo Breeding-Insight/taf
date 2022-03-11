@@ -465,19 +465,6 @@ Then(
   }
 );
 
-Then(
-  /^user can see "([^"]*)" in 'Scale Class' column on ontology list page$/,
-  async function (args1) {
-    await traitsPage.assert.visible({
-      selector:
-        "//td[@name='scaleClass'][normalize-space(.)='" +
-        args1.replace("*", this.parameters.timeStamp) +
-        "']",
-      locateStrategy: "xpath",
-    });
-  }
-);
-
 Then(/^user can see 'Formula' field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.assert.visible("@formulaField");
 });

@@ -1,10 +1,12 @@
 Feature: Program Location Management
 
-	@BI-905
-	Scenario: Program Location Management page - admin
+	Background: Required Setup
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		And user selects "Program Management" in navigation
+
+	@BI-905
+	Scenario: Program Location Management page - admin
 		When user can see Program Management header in Program Management page
 		Then user can see 'Locations' tab in Program Management page
 		Then user can see 'Users' tab in Program Management page
@@ -12,9 +14,6 @@ Feature: Program Location Management
 
 	@BI-906
 	Scenario: New Location form - enter nothing and select Save
-		Given user logs in as "Cucumber Breeder"
-		When user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
 		When user selects 'New Location' button in Program Management page
 		When user selects 'Save' button in Program Management page
 		Then user can see banner appears with an error message "Fix Invalid Fields"
@@ -22,204 +21,100 @@ Feature: Program Location Management
 
 	@BI-907
 	Scenario: New Location form - enter location - Cancel
-		Given user logs in as "Cucumber Breeder"
-		When user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
 		When user selects 'New Location' button in Program Management page
 		When user sets "TestCancel" in Name field in Program Management page
 		When user selects 'Cancel' button in Program Management page
 		When user user can not see Location form in Program Management page
 
-	@BI-864
-	@BI-888
-	Scenario: Program Users Table
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		Then user can see Program User Management page
-		And user can see Users page
+	@BI-908
+	Scenario: New Location form - enter location - Save
+		Given user selects 'New Location' button in Program Management page
+		When user sets "<location name>" in Name field in Program Management page
+		When user selects 'Save' button in Program Management page
+		Then user can not see the New Location form in Program Management page
+		And user can see banner contains "Success!"
 		And user can see table header contains
-			| Header |
-			| Name   |
-			| Email  |
-			| Role  |
+			| Header        |
+			| Name          |
+			| # Experiments |
+		And user can see "<location name>" in Name column in Program Management page
 		And user can see each row has an Edit link
 		And user can see each row has a Deactivate link
-		And user can see Previous page button
-		And user can see Current page button
-		And user can see Next page button
-		And user can see Results per page combobox
-		And user can see Label per page
-		And user can see Show All button
+		Examples:
+			| location name |
+			| Location*     |
 
-	@BI-805
-	@SmokeTests
-	Scenario: User Management page
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		Then user can see Program User Management page
+	@BI-909
+	Scenario: Edit Location form - Cancel
+		Given user selects 'New Location' button in Program Management page
+		And user sets "<location name>" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		And user selects 'Edit' of "<location name>" in Program Management page
+		And user sets "EditCancelLocation" in Name field in Program Management page
+		And user selects 'Cancel' button in Program Management page
+		Then user can not see the New Location form in Program Management page
+		And user can see "<location name>" in Name column in Program Management page
+		And user can not see "EditCancelLocation" in Name column in Program Management page
+		Examples:
+			| location name |
+			| Location*     |
 
-	Scenario: System Admin and Program Member - Program User Management
-		Given user logs in as "sysad"
-		And user selects "System Administration" on program-selection page
-		And user selects "Users" in sub-level navigation
-		Then user can see page of Users
-		And user can see table header contains
-			| Header |
-			| Name   |
-			| Email  |
-			| Role   |
+	@BI-910
+	Scenario: Edit Location form - Save
+		Given user selects 'New Location' button in Program Management page
+		And user sets "EditLocation" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		And user selects 'Edit' of "EditLocation" in Program Management page
+		And user sets "<edit location name>" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		Then user can not see the New Location form in Program Management page
+		And user can not see "EditLocation" in Name column in Program Management page
+		And user can see "<edit location name>" in Name column in Program Management page
+		Examples:
+			| edit location name |
+			| EditLocation*      |
 
-	Scenario: ???
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		Then user can see Program User Management page
+	@BI-911
+	Scenario: Location Deactivate link - modal
+		Given user selects 'New Location' button in Program Management page
+		And user sets "<location name>" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		And user selects 'Deactivate' of "<location name>" in Program Management page
+		Then user can see a modal box
+		Then user can see "Remove" in modal box header in Program Management page
+		Then user can see "<location name>" in modal box header in Program Management page
+		Then user can see "from Snacks?" in modal box header in Program Management page
+		Then user can see "Program-related data referencing this location will not be affected by this change." in modal box text
+		Then user can see "Yes, remove" button in modal box
+		Then user can see "Cancel" button in modal box
+		And user selects "Cancel" button in modal box
+		Examples:
+			| location name |
+			| Location*     |
 
-	@BI-889
-	Scenario: New User form - enter nothing and select Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user selects New User button
-		And user selects Save button
-		And user can see 'Name is required' below the Name field
-		And user can see 'Email is required' below the Email field
-		And user can see 'Role is required' below the Role field
-		Then user can see banner appears with an error message "Fix Invalid Fields"
+	@BI-912
+	Scenario: Location Deactivate  link - Cancel
+		Given user selects 'New Location' button in Program Management page
+		And user sets "<location name>" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		And user selects 'Deactivate' of "<location name>" in Program Management page
+		And user selects "Cancel" button
+		Then user can not see a modal box  
+		And user can see "<location name>" in Name column in Program Management page
+		Examples:
+			| location name |
+			| Location*     |
 
-	@BI-890
-	Scenario: New User form - enter name only - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user selects New User button
-		And user sets "Tester Breeder" in Name field
-		And user selects Save button
-		And user can see 'Email is required' below the Email field
-		And user can see 'Role is required' below the Role field
-
-	@BI-891
-	Scenario: New Program User form - enter name and email only - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		And user selects New User button
-		And user sets "Tester Breeder" in Name field
-		And user sets "testnewuser@mail.com" in Email field
-		And user selects Save button
-		Then user can see banner appears with an error message "Fix Invalid Fields"
-		And user can see 'Role is required' below the Role field
-
-	@BI-892
-	Scenario: New User form - enter all required, valid fields - Cancel
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		And user selects New User button
-		And user sets "Tester Breeder" in Name field
-		And user sets "testnewuser@mail.com" in Email field
-		And user sets "breeder" in Role dropdown
-		And user selects Cancel button
-		Then user does not see new user form
-		And user does not see a new user in Users list
-
-	@BI-893
-	Scenario: New User form - enter all required, valid fields - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
-		Then user can see a new user is added in User
-
-	@BI-894
-	Scenario: NEW Program User form - enter invalid email address - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		And user selects New User button
-		And user sets "Tester Breeder" in Name field
-		And user sets "testnewuser" in Email field
-		And user sets "breeder" in Role dropdown
-		And user selects Save button
-		Then user can see banner appears with an error message "Fix Invalid Fields"
-		Then user can see 'Email must be in email format' below the Email field
-
-	@BI-896
-	Scenario: NEW User form - enter existing email address - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user selects New User button
-		And user sets "TestNewUser" in Name field
-		And user sets "cucumberbreeder@mailinator.com" in Email field
-		And user sets "breeder" in Role dropdown
-		And user selects Save button
-		Then user can see banner appears with an error message "Error creating user, a user with this email already exists"
-		Then user can see new user form
-
-	@BI-897
-	Scenario: Edit Form elements
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
-		And user clicks Edit of a user
-		Then user can see "breeder" in the the Role dropdown
-		Then user can see Save button
-		Then user can see Cancel button
-
-	@BI-898
-	Scenario: Edit Form - change role - Cancel
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
-		And user clicks Edit of a user
-		And user selects Cancel button
-		Then user can see user is in users list
-
-	@BI-899
-	Scenario: Edit Form - change role - Save
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		When user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
-		And user edits a user
-			| Role   |
-			| member |
-		Then user can see user is in users list
-
-	Scenario: Deactivate link - Yes, deactivate
-		Given user logs in as "Cucumber Breeder"
-		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
-		And user selects "Users" in sub-level navigation
-		And user creates a new user
-			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
-		When user selects Deactivate of user
-		And user selects modal Yes, archive button
-		Then user can not see user is in users list
+	@BI-913
+	Scenario: Location Deactivate  link - Yes, remove
+		Given user selects 'New Location' button in Program Management page
+		And user sets "<location name>" in Name field in Program Management page
+		And user selects 'Save' button in Program Management page
+		And user selects 'Deactivate' of "<location name>" in Program Management page
+		And user selects "Yes, remove" button in modal box
+		Then user can not see a modal box
+		And user can see banner contains "removed from program"
+		And user can not see "<location name>" in Name column in Program Management page
+		Examples:
+			| location name |
+			| Location*     |
