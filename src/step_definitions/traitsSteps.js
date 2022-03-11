@@ -273,7 +273,6 @@ When(
   /^user selects "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@scaleClass", args1);
-    await traitsPage.pause(1000);
   }
 );
 
@@ -810,7 +809,6 @@ Then(
 
 When(/^user selects 'Add Item' button on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.click("@addItemButton");
-  //traitsPage.pause(50000);
 });
 
 Then(
@@ -1056,6 +1054,19 @@ When(
   /^user sets "([^"]*)" in Nominal second field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
+    let val;
+    await client.execute(
+      function () {
+        return document.querySelector(
+          "div[class='p-0'] div:nth-of-type(3) input[placeholder='Category']"
+        )._value;
+      },
+      [],
+      async function (result) {
+        val = result.value;
+      }
+    );
+    await traitsPage.assert.equal(val, args1);
   }
 );
 
@@ -1098,7 +1109,9 @@ Then(
 Then(
   /^user can not see Ordinal third category field on ontology list page$/,
   async () => {
-    throw new Error("Not yet implemented");
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@thirdOrdinalField"
+    );
   }
 );
 
@@ -1122,8 +1135,6 @@ When(
     await traitsPage.section.allTraitsForm.setValue("@thirdValueField", args1);
   }
 );
-
-
 
 Then(
   /^user can not see "([^"]*)" in Scale third field on ontology list page$/,
@@ -1307,41 +1318,49 @@ Then(
   }
 );
 
-Then(/^user can see "([^"]*)" in modal box text1$/, async (args1) => {
-  throw new Error("Not yet implemented");
-});
-
 Then(
   /^user can see "([^"]*)" in Ordinal third value on ontology list page$/,
   async (args1) => {
-    throw new Error("Not yet implemented");
-  }
-);
-
-Then(
-  /^user can not see "([^"]*)" in Ordinal third value on ontology list page$/,
-  async (args1) => {
-    throw new Error("Not yet implemented");
+    let val;
+    await client.execute(
+      function () {
+        return document.querySelector(
+          "div[class='p-0'] div:nth-of-type(4) input[placeholder='Value']"
+        )._value;
+      },
+      [],
+      async function (result) {
+        val = result.value;
+      }
+    );
+    await traitsPage.assert.equal(val, args1);
   }
 );
 
 When(/^user clears Value first field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.clearValue("@firstValueField");
-  
-  // await traitsPage.section.allTraitsForm.setValue("@firstValueField", [
-  //   client.Keys.CONTROL,
-  //   "a",
-  //   client.Keys.DELETE,
-  // ])
-  
-  //waitForElementVisible("@firstValueField").click("@firstValueField").clearValue("@firstValueField").setValue("@firstValueField", "");
-  //execute("$('@firstValueField').val('')")
-  //.setValue('input[type="text"]', '\u0008');
-  //await traitsPage.section.allTraitsForm.click("@firstValueField");
-  //await traitsPage.section.allTraitsForm.clearValue("@firstValueField");
-  //await traitsPage.section.allTraitsForm.setValue("@firstValueField", "");
 });
 
 When(/^user clears Value second field on ontology list page$/, async () => {
   await traitsPage.section.allTraitsForm.clearValue("@secondValueField");
 });
+
+Then(
+  /^user can not see Ordinal third value on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@thirdValueField",
+      60000
+    );
+  }
+);
+
+Then(
+  /^user can not see Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@secondCategoryField",
+      60000
+    );
+  }
+);

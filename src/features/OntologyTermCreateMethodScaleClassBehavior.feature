@@ -174,7 +174,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "TEST" in Nominal second field on ontology list page
         And user selects 'X' button of Nominal second field on ontology list page
         When user selects "Yes, remove" button in modal box
-        Then user can not see "TEXT" in Nominal second field on ontology list page
+        Then user can not see Nominal second field on ontology list page
 
     @BI-1351
     Scenario: Ordinal Delete Scale Category, w/o text
@@ -207,7 +207,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "TEXT" in Ordinal third value field on ontology list page
         Then user selects 'X' button in Ordinal third field on ontology list page
         When user selects "Yes, remove" button in modal box
-        Then user can not see "TEXT" in Ordinal third value on ontology list page
+        Then user can not see Ordinal third value on ontology list page
 
     @BI-1354
     Scenario: Switching between Ordinal and Nominal
@@ -221,13 +221,3 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see Category second field on ontology list page
         When user selects "Nominal" in 'Scale Class' dropdown on ontology list page
         Then user can see Category first field on ontology list page
-
-    @debug
-    Scenario: Ordinal Delete Scale Category, w/o text
-        Given user selects 'New Term' button on ontology list page
-        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        When user selects 'Add Item' button on ontology list page
-        When user sets "blah" in Ordinal first value field on ontology list page
-        When user clears Value first field on ontology list page
-        # Then user selects 'X' button in Ordinal third field on ontology list page
-        # Then user can not see Ordinal third category field on ontology list page
