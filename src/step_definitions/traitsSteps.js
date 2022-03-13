@@ -272,6 +272,8 @@ When(
 When(
   /^user selects "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
   async (args1) => {
+    await traitsPage.section.allTraitsForm.moveToElement("@scaleClass", 1, 1);
+    await traitsPage.pause(10000);
     await traitsPage.section.allTraitsForm.setValue("@scaleClass", args1);
   }
 );
@@ -834,7 +836,7 @@ Then(
 Then(
   /^user can not see Category first field on ontology list page$/,
   async () => {
-    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
       "@firstOrdinalField"
     );
   }
@@ -1314,7 +1316,9 @@ When(
 Then(
   /^user can not see Nominal second field text box on ontology list page$/,
   async () => {
-    await traitsPage.assert.not.elementPresent("@secondCategoryField");
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@secondCategoryField"
+    );
   }
 );
 
