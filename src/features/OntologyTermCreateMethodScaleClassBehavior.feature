@@ -184,7 +184,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user sets "<text>" in Nominal first field on ontology list page
         When user selects 'X' button of Nominal first field on ontology list page
         Then user can see "Remove category?" in modal box header1
-        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        And user can see "Please confirm that you would like to remove this category." in modal box text
         Then user can see "Yes, remove" button in modal box
         When user selects "Cancel" button in modal box
         Then user can see "<text>" in Nominal first field on ontology list page
@@ -212,7 +212,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         Then user selects 'X' button in Ordinal first field on ontology list page
         Then user can see "Remove category?" in modal box header1
-        And user can see "Please confirm that you would like to remove this category." in modal box text1
+        And user can see "Please confirm that you would like to remove this category." in modal box text
         And user can see "Yes, remove" button in modal box
         And user selects "Cancel" button in modal box
         Then user can see "1" in Category first field on ontology list page
@@ -224,3 +224,32 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         When user selects 'X' button in Ordinal first field on ontology list page
         When user selects "Yes, remove" button in modal box
         Then user can not see "1" in Category first field on ontology list page
+
+    @BI-1327
+    @debug
+    Scenario: scale class Ordinal - values post save BI-1258
+        Given user selects 'New Term' button on ontology list page
+        Given user sets "<ont_term_name>" in 'Name' field on ontology list page
+        And user sets "<trait_description>" in 'Description' field on ontology list page
+        And user sets "<trait_entity>" in 'Entity' field on ontology list page
+        And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
+        And user sets "<method_description>" in 'Method Description' field on ontology list page
+        And user selects "Observation" in 'Method Class' dropdown on ontology list page
+        And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        And user sets "<ordinal_value>" in Value first field on ontology list page
+        And user sets "<first scale category>" in Nominal first field on ontology list page
+        And user sets "<ordinal_value>" in Value second field on ontology list page
+        And user sets "<second scale category>" in Nominal second field on ontology list page
+        And user selects 'Save' button on ontology list page
+        # When user clicks Show details button
+        # Then user can see "<ordinal_value>" in first value field on ontology list page
+        # And user can see "<first scale category>" in Ordinal first field on ontology list page
+        # And user can see "<ordinal_value>" in second value field on ontology list page
+        # And user can see "<second scale category>" in Ordinal second field on ontology list page
+
+        Examples:
+            | ont_term_name | trait_description | trait_entity | trait_attribute | method_description | ordinal_value | second scale category |
+            | term*         | description*      | trait*       | traitattribute* | methoddescription* | ordinalvalue* | second*               |
+

@@ -1116,3 +1116,12 @@ When(
     await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
   }
 );
+
+When(/^user sets "([^"]*)" in Value first field on ontology list page$/, async(args1) => {
+	await traitsPage.section.allTraitsForm.setValue("@")
+});
+
+When(/^user sets "([^"]*)" in Value second field on ontology list page$/, async(args1) => {
+	console.log(args1);
+	return true;
+});
