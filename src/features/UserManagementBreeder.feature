@@ -241,7 +241,6 @@ Feature: Breeder User Management
 		Then user can not see user is in users list
 
 	@BI-903
-	@debug
 	Scenario: admin editing self - Program User management
 		Given user logs in as "sysad"
 		And user selects "Snacks" on program-selection page
