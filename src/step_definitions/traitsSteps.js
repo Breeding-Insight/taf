@@ -1420,7 +1420,10 @@ Then(
 Then(
   /^user can see "([^"]*)" in Ordinal first field of Show Details on ontology list page$/,
   async function (args1) {
-    traitObject.categoryFirstField = args1.replace("*", this.parameters.timeStamp);
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
     await traitsPage.section.allTraitsForm.assert.containsText(
       {
         selector: "//div[@class='is-full-length']/div[2]/div[2]",
@@ -1434,7 +1437,10 @@ Then(
 Then(
   /^user can see "([^"]*)" in Value second field of Show Details on ontology list page$/,
   async function (args1) {
-    traitObject.valueSecondField = args1.replace("*", this.parameters.timeStamp);
+    traitObject.valueSecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
     await traitsPage.section.allTraitsForm.assert.containsText(
       {
         selector: "//div[@class='is-full-length']/div[3]/div[1]",
@@ -1448,10 +1454,47 @@ Then(
 Then(
   /^user can see "([^"]*)" in Ordinal second field of Show Details on ontology list page$/,
   async function (args1) {
-    traitObject.categorySecondField = args1.replace("*", this.parameters.timeStamp);
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
     await traitsPage.section.allTraitsForm.assert.containsText(
       {
         selector: "//div[@class='is-full-length']/div[3]/div[2]",
+        locateStrategy: "xpath",
+      },
+      traitObject.categorySecondField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal first field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      {
+        selector: "//div[@class='is-full-length']/div[2]/div[1]",
+        locateStrategy: "xpath",
+      },
+      traitObject.categoryFirstField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal second field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      {
+        selector: "//div[@class='is-full-length']/div[3]/div[1]",
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
