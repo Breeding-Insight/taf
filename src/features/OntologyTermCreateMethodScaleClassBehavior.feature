@@ -105,23 +105,9 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
             | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
 
-    @BI-1326
-    Scenario: Selecting scale class ordinal
-        Given user selects 'New Term' button on ontology list page
-        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        And user can see Value first field on ontology list page
-        Then user can see Category first field on ontology list page
-        And user can see Value second field on ontology list page
-        Then user can see Category second field on ontology list page
-        When user selects 'Add Item' button on ontology list page
-        When user selects 'Add Item' button on ontology list page
-        And user can see Value third field on ontology list page
-        Then user can see Category third field on ontology list page
-        And user can see Value fourth field on ontology list page
-        Then user can see Category fourth field on ontology list page
-
     @htest
     @BI-1344
+    @debug
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -143,6 +129,21 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Examples:
             | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
+    
+    @BI-1326
+    Scenario: Selecting scale class ordinal
+        Given user selects 'New Term' button on ontology list page
+        When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
+        And user can see Value first field on ontology list page
+        Then user can see Category first field on ontology list page
+        And user can see Value second field on ontology list page
+        Then user can see Category second field on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        When user selects 'Add Item' button on ontology list page
+        And user can see Value third field on ontology list page
+        Then user can see Category third field on ontology list page
+        And user can see Value fourth field on ontology list page
+        Then user can see Category fourth field on ontology list page
 
 
     @BI-1348
@@ -228,7 +229,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can not see Ordinal third value on ontology list page
 
     @BI-1327
-    @debug
     Scenario: scale class Ordinal - values post save BI-1258
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -245,6 +245,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<ordinal_value>" in Value second field on ontology list page
         And user sets "<second scale category>" in Nominal second field on ontology list page
         And user selects 'Save' button on ontology list page
+        When user clicks Show All button
         When user selects 'Show details' button of "<ont_term_name>" on ontology list page
         Then user can see "<ordinal_value>" in Value first field of Show Details on ontology list page
         And user can see "<first scale category>" in Ordinal first field of Show Details on ontology list page
