@@ -268,7 +268,7 @@ Then(/^user can see Show All button$/, async () => {
 });
 
 When(/^user clicks Show All button$/, async () => {
-  await page.assert.visible("@showAllButton");
+  await page.click("@showAllButton");
 });
 
 When(/^user selects New User button$/, async () => {
