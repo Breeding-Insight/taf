@@ -84,6 +84,7 @@ Feature: Ontology Term Create - General Behavior
             | *             | TestTraitDesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-948
+    @debug
     Scenario: Ontology Term Create - Enter Values, Save
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -96,9 +97,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects 'Save' button on ontology list page
         When user clicks Show All button
         Then user can see "<ont_term_name>" in 'Name' column on ontology list page
-        Then user can see "<trait_description>" in 'Trait' column on ontology list page
-        Then user can see "<method_description> Observation" in 'Method' column on ontology list page
-        Then user can see "Date" in 'Scale Class' column on ontology list page
+        Then user can see banner contains "Trait creation successful."
 
         Examples:
             | ont_term_name | trait_description | trait_entity      | trait_attribute | method_description |
