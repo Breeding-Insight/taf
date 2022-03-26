@@ -422,7 +422,7 @@ Then(
     await traitsPage.assert.visible({
       selector:
         "//td[@name='trait'][normalize-space(.)='" +
-        args1.replace("*", this.parameters.timeStamp) +
+        args1.replace(/\*/g, this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
     });
