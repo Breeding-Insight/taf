@@ -3,14 +3,14 @@ Feature: Ontology Import (10 Scenarios)
 	Background: Setup
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		And user selects "Ontology" in navigation
-		And user selects "Import Ontology" in navigation
+		And user selects "Import Data" in navigation
+		And user selects "Ontology" tab
 
 	@BI-916
 	@BI-809
 	@SmokeTests
 	Scenario: Import Ontology page
-		Then user can header "Import Ontology"
+		Then user can header "Import File"
 		And user can see a message 'Before You Import...'
 		And user can see a message 'Prepare ontology information for import using the provided template.'
 		And user can see a button 'Download the Ontology Import Template'
