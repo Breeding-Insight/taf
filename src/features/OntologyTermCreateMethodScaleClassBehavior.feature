@@ -104,7 +104,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1344
-    @debug
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -126,7 +125,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Examples:
             | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
             | *             | TestTraitDesc *   | TestEntity * | TestAttribute * | TestMethDesc *     |
-    
+
     @BI-1326
     Scenario: Selecting scale class ordinal
         Given user selects 'New Term' button on ontology list page
@@ -226,6 +225,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can not see Ordinal third value on ontology list page
 
     @BI-1327
+    @debug
     Scenario: scale class Ordinal - values post save BI-1258
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -235,8 +235,8 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<method_description>" in 'Method Description' field on ontology list page
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
-        When user selects 'Add Item' button on ontology list page
-        When user selects 'Add Item' button on ontology list page
+        When user clears Value first field on ontology list page
+        When user clears Value second field on ontology list page
         And user sets "<ordinal_value>" in Value first field on ontology list page
         And user sets "<first scale category>" in Nominal first field on ontology list page
         And user sets "<ordinal_value>" in Value second field on ontology list page
