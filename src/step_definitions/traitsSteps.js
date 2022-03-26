@@ -1407,9 +1407,10 @@ Then(
   /^user can see "([^"]*)" in Value first field of Show Details on ontology list page$/,
   async function (args1) {
     traitObject.valueFirstField = args1.replace("*", this.parameters.timeStamp);
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[2]/div[1]",
+        selector: "//section//span[@class='is-pulled-right mr-2']",
+        index: 0,
         locateStrategy: "xpath",
       },
       traitObject.valueFirstField
@@ -1424,9 +1425,10 @@ Then(
       "*",
       this.parameters.timeStamp
     );
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[2]/div[2]",
+        selector: "//section//span[@class='is-size-7 ml-2']",
+        index: 3,
         locateStrategy: "xpath",
       },
       traitObject.categoryFirstField
@@ -1441,9 +1443,10 @@ Then(
       "*",
       this.parameters.timeStamp
     );
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[3]/div[1]",
+        selector: "//section//span[@class='is-pulled-right mr-2']",
+        index: 1,
         locateStrategy: "xpath",
       },
       traitObject.valueSecondField
@@ -1458,9 +1461,10 @@ Then(
       "*",
       this.parameters.timeStamp
     );
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[3]/div[2]",
+        selector: "//section//span[@class='is-size-7 ml-2']",
+        index: 4,
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
