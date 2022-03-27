@@ -16,7 +16,7 @@
         "--require",
         "src/step_definitions",
         "--world-parameters",
-        "{\"browser\":\"chrome\",\"launch_url\":\"http://sandbox.breedinginsight.net\"}",
+        "{\"browser\":\"chrome\",\"launch_url\":\"http://localhost\"}",
         "--format",
         "json:report/cucumber_report.json",
         "--tags",

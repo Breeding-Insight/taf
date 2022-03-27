@@ -192,9 +192,9 @@ Then(/^user can not see New User button$/, async () => {
   await page.assert.not.elementPresent("@newUserButton");
 });
 
-Then(/^user can not see "([^"]*)" link$/, async () => {
+Then(/^user can not see "([^"]*)" link$/, async (args1) => {
   await page.assert.not.elementPresent({
-    selector: "//a[contains(text(),'Edit')]",
+    selector: `//a[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
@@ -434,7 +434,7 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
 //Deprecated:
 //  Use 'user selects "([^"]*)" in top-level navigation'
 //   OR
-//  'user selects "([^"]*)" in sub-level navigation'
+//  'user selects "([^"]*)" tab'
 When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
   if (args1 === "Ontology") {
     await page.click("#usersidebarlayout-ontology-menu");
@@ -457,9 +457,17 @@ When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
   }
 });
 
+//Deprecated due to removing submenus, replaced with When(/^user selects "([^"]*)" tab$/ which selects tabs
 When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
   await page.click({
     selector: `//*[@id="sideMenu"]//a[normalize-space()='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user selects "([^"]*)" tab$/, async (args1) => {
+  await page.click({
+    selector: `.//nav[contains(@class, 'tabs is-boxed')]//li/a[normalize-space()='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -643,8 +651,8 @@ When(
 
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
-    await page.waitForElementVisible("@userLeftMenu");
-    await page.click("@userLeftMenu");
+    await page.section.programManagement.waitForElementVisible("@usersLink");
+    await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
     await page.click("@showAllButton");
     await page.waitForElementVisible({
@@ -665,8 +673,8 @@ When(
 
     await page.waitForElementVisible("@programManagementLeftMenu");
     await page.click("@programManagementLeftMenu");
-    await page.waitForElementVisible("@userLeftMenu");
-    await page.click("@userLeftMenu");
+    await page.section.programManagement.waitForElementVisible("@usersLink");
+    await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
     await page.click("@showAllButton");
     await page.waitForElementVisible({

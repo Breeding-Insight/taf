@@ -471,6 +471,10 @@ Then(/^user is her$/, () => {
   return true;
 });
 
+Then(/^user can not see 'New Location' button in Program Management page$/, async() => {
+  await page.assert.not.elementPresent("@newLocationButton");
+});
+
 When(
   /^user selects 'Edit' of "([^"]*)" in Program Management page$/,
   async (args1) => {
