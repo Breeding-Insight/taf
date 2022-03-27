@@ -159,7 +159,6 @@ Feature: System User Management (15)
 		Then user can not see user is in users list
 
 	@BI-836
-	@debug
 	Scenario Outline: Editing self
 		Given user is on the user-management page
 		When user selects 'Edit' of "<Original Email>" of Users
