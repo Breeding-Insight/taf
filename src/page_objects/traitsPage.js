@@ -175,6 +175,58 @@ module.exports = {
           selector:
             "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
         },
+        firstCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 0,
+        },
+        secondCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 1,
+        },
+        thirdCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 2,
+        },
+        fourthCategoryField: {
+          selector: ".//input[@placeholder='Category']",
+          locateStrategy: "xpath",
+          index: 3,
+        },
+        deleteButtonSecondCategoryField: {
+          selector:
+            ".//div[@class='column is-one-fifth ml-2']//button[@class='delete']",
+          locateStrategy: "xpath",
+          index: 1,
+        },
+        deleteButtonThirdCategoryField: {
+          selector:
+            ".//div[@class='column is-one-fifth ml-2']//button[@class='delete']",
+          locateStrategy: "xpath",
+          index: 2,
+        },
+        firstValueField: {
+          selector: ".//input[@placeholder='Value']",
+          locateStrategy: "xpath",
+          index: 0,
+        },
+        secondValueField: {
+          selector: ".//input[@placeholder='Value']",
+          locateStrategy: "xpath",
+          index: 1,
+        },
+        thirdValueField: {
+          selector: ".//input[@placeholder='Value']",
+          locateStrategy: "xpath",
+          index: 2,
+        },
+        fourthValueField: {
+          selector: ".//input[@placeholder='Value']",
+          locateStrategy: "xpath",
+          index: 3,
+        },
       },
     },
   },
