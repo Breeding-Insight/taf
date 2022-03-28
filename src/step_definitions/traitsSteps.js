@@ -272,6 +272,8 @@ When(
 When(
   /^user selects "([^"]*)" in 'Scale Class' dropdown on ontology list page$/,
   async (args1) => {
+    await traitsPage.section.allTraitsForm.moveToElement("@scaleClass", 1, 1);
+    await traitsPage.pause(10000);
     await traitsPage.section.allTraitsForm.setValue("@scaleClass", args1);
   }
 );
@@ -834,7 +836,7 @@ Then(
 Then(
   /^user can not see Category first field on ontology list page$/,
   async () => {
-    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
       "@firstOrdinalField"
     );
   }
@@ -1054,6 +1056,19 @@ When(
   /^user sets "([^"]*)" in Nominal second field on ontology list page$/,
   async (args1) => {
     await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
+    let val;
+    await client.execute(
+      function () {
+        return document.querySelector(
+          "div[class='p-0'] div:nth-of-type(3) input[placeholder='Category']"
+        )._value;
+      },
+      [],
+      async function (result) {
+        val = result.value;
+      }
+    );
+    await traitsPage.assert.equal(val, args1);
   }
 );
 
@@ -1080,6 +1095,54 @@ Then(
     await traitsPage.section.allTraitsForm.assert.value(
       "@secondScaleField",
       args1
+    );
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in Nominal second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@secondScaleField"
+    );
+  }
+);
+
+Then(
+  /^user can not see Ordinal third category field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@thirdOrdinalField"
+    );
+  }
+);
+
+Then(
+  /^user selects 'X' button in Ordinal third value on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal first value field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@firstValueField", args1);
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Ordinal third value field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.setValue("@thirdValueField", args1);
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" in Scale third field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.not.elementPresent(
+      "@thirdScaleField"
     );
   }
 );
@@ -1114,5 +1177,194 @@ When(
   /^user selects 'X' button in Ordinal third field on ontology list page$/,
   async () => {
     await traitsPage.section.allTraitsForm.click("@thirdScaleDeleteButton");
+  }
+);
+
+When(/^user selects 'Add Item'$/, async () => {
+  await traitsPage.click({
+    selector:
+      "//*[@id='ontologyTableLabel']//span[normalize-space()='Add Item']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" below Category first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.visible({
+      selector: `//p[normalize-space(.)='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(/^user can see Category first field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@firstCategoryField");
+});
+
+Then(/^user can see Category second field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@secondCategoryField");
+});
+
+Then(/^user can see Category third field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@thirdCategoryField");
+});
+
+Then(/^user can see Category fourth field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@fourthCategoryField");
+});
+
+Then(/^user can see Value first field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@firstValueField");
+});
+
+Then(/^user can see Value second field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@secondValueField");
+});
+
+Then(/^user can see Value third field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@thirdValueField");
+});
+
+Then(/^user can see Value fourth field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.assert.visible("@fourthValueField");
+});
+
+Then(
+  /^user can see 'X' button of Category second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@deleteButtonSecondCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can see 'X' button of Category third field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.assert.visible(
+      "@deleteButtonThirdCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Value first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Value']/../span",
+        locateStrategy: "xpath",
+        index: 0,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Value second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Value']/../span",
+        locateStrategy: "xpath",
+        index: 1,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" error message below Category first field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Category']/../span",
+        locateStrategy: "xpath",
+        index: 0,
+      },
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" below Category second field on ontology list page$/,
+  async (args1) => {
+    await traitsPage.assert.containsText(
+      {
+        selector: "//input[@placeholder='Category']/../span",
+        locateStrategy: "xpath",
+        index: 1,
+      },
+      args1
+    );
+  }
+);
+
+When(
+  /^user selects 'X' button of Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.click(
+      "@deleteButtonSecondCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can not see Nominal second field text box on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@secondCategoryField"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Ordinal third value on ontology list page$/,
+  async (args1) => {
+    let val;
+    await client.execute(
+      function () {
+        return document.querySelector(
+          "div[class='p-0'] div:nth-of-type(4) input[placeholder='Value']"
+        )._value;
+      },
+      [],
+      async function (result) {
+        val = result.value;
+      }
+    );
+    await traitsPage.assert.equal(val, args1);
+  }
+);
+
+When(/^user clears Value first field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.clearValue("@firstValueField");
+});
+
+When(/^user clears Value second field on ontology list page$/, async () => {
+  await traitsPage.section.allTraitsForm.clearValue("@secondValueField");
+});
+
+Then(
+  /^user can not see Ordinal third value on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@thirdValueField",
+      60000
+    );
+  }
+);
+
+Then(
+  /^user can not see Nominal second field on ontology list page$/,
+  async () => {
+    await traitsPage.section.allTraitsForm.waitForElementNotPresent(
+      "@secondCategoryField",
+      60000
+    );
   }
 );
