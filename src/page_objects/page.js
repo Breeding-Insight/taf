@@ -214,7 +214,7 @@ module.exports = {
     },
     downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
     confirmOntologyHeader: {
-      selector: "//main/section//h1",
+      selector: "//div[@id='import-ontology']//h1",
       locateStrategy: "xpath",
     },
   },
