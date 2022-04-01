@@ -122,15 +122,14 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
 
-	@BI-926
+	@BI-1452
 	Scenario: Ontology - Duplicate Trait Name
 		And user uploads "test_traits_dupTraitNames.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 2"
-		And user can see an error message "Trait name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 3"
+		Then user can see an error message "Trait Name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 2"
+		And user can see an error message "Trait Name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 3"
 
 	@BI-927
-	@bug
 	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
@@ -143,18 +142,18 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		Then user can see an error message "Error parsing excel: Found duplicate column names"
 
-	@BI-929
+	@BI-1453
 	Scenario: Ontology - missing formula
 		And user uploads "test_traits_missingFormula.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Method formula: Missing method formula for Computation method in row 2"
+		Then user can see an error message "Method Formula: Missing method formula for Computation method in row 2"
 
-	@BI-930
+	@BI-1454
 	Scenario: Ontology - missing scale categories
 		And user uploads "test_traits_missingScaleCat.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 3"
-		And user can see an error message "Scale categories: Missing scale categories for Ordinal scale in row 5"
+		Then user can see an error message "Scale Categories: Missing scale categories for Ordinal scale in row 3"
+		And user can see an error message "Scale Categories: Missing scale categories for Ordinal scale in row 5"
 
 	@BI-931
 	@bug
