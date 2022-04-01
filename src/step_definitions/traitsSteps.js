@@ -1475,9 +1475,9 @@ Then(
       "*",
       this.parameters.timeStamp
     );
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[2]/div[1]",
+        selector: "//div[@class='is-full-length']/div[4]//span",
         locateStrategy: "xpath",
       },
       traitObject.categoryFirstField
@@ -1492,9 +1492,9 @@ Then(
       "*",
       this.parameters.timeStamp
     );
-    await traitsPage.section.allTraitsForm.assert.containsText(
+    await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[3]/div[1]",
+        selector: "//div[@class='is-full-length']/div[5]//span",
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
