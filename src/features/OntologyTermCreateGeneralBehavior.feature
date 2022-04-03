@@ -47,9 +47,12 @@ Feature: Ontology Term Create - General Behavior
             | ont_term_name | trait_description | new_entity  | trait_attribute | method_description |
             | *             | TestTraitDesc *   | NewEntity * | TestAttribute * | TestMethDesc *     |
 
-    # @BI-945
-    # Scenario: Trait Create - Multiple Abbreviations and Multiple Synonyms
-    # this one's going to take some time to figure out how it's supposed to work for v0.4...
+    @BI-945
+    Scenario: Ontology Term Create - Synonyms
+        Given user selects "New Term" button
+        When user sets "Test1" in 'Name' field on ontology list page
+        When user sets "FullName1" in 'Full Name' field on ontology list page
+        Then user can see "Test1, FullName1" in Synonyms text on ontology list page
 
     @BI-946
     Scenario: Ontology Term Create - Required Fields
