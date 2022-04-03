@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Then, When } = require("@cucumber/cucumber");
+const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
@@ -1365,6 +1365,16 @@ Then(
     await traitsPage.section.allTraitsForm.waitForElementNotPresent(
       "@secondCategoryField",
       60000
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Method' text on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@methodText",
+      args1
     );
   }
 );
