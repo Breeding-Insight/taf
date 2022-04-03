@@ -1368,3 +1368,8 @@ Then(
     );
   }
 );
+
+Then(/^user can see "([^"]*)" in Trait text on ontology list page$/, 
+async (args1) => {
+	await traitsPage.section.allTraitsForm.assert.containsText("@traitText", args1);
+});
