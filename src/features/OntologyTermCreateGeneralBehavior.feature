@@ -103,3 +103,13 @@ Feature: Ontology Term Create - General Behavior
         Examples:
             | ont_term_name | trait_description | trait_entity      | trait_attribute | method_description |
             | *             | Testtraitdesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
+
+    @BI-1312
+    Scenario: Ontology Term Create - Name & Method Description - Character Limits
+        Given user selects 'New Term' button on ontology list page
+        When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
+        When user sets "ThisDescriptionContainsMoreThanThirtyCharacters" in 'Method Description' field on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Name must be less than 12 characters." below the 'Name' field on ontology list page
+        Then user can see "Description must be less than 30 characters." below the 'Method Description' field on ontology list page
+        Then user can see banner appears with an error message "Fix Invalid Fields"
