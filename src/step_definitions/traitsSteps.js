@@ -1055,18 +1055,28 @@ Then(/^user can see not see Nominal fifth field on ontology list page$/, () => {
 When(
   /^user sets "([^"]*)" in Nominal first field on ontology list page$/,
   async function (args1) {
-    let val = args1.replace("*", this.parameters.timeStamp);
-    await traitsPage.section.allTraitsForm.setValue("@firstScaleField", val);
-    traitObject.categoryFirstField = val;
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.setValue(
+      "@firstScaleField",
+      traitObject.categoryFirstField
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Nominal second field on ontology list page$/,
   async function (args1) {
-    let val = args1.replace("*", this.parameters.timeStamp);
-    await traitsPage.section.allTraitsForm.setValue("@secondScaleField", val);
-    traitObject.categorySecondField = val;
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.setValue(
+      "@secondScaleField",
+      traitObject.categorySecondField
+    );
   }
 );
 
@@ -1370,18 +1380,25 @@ Then(
 When(
   /^user sets "([^"]*)" in Value first field on ontology list page$/,
   async function (args1) {
-    let val = args1.replace("*", this.parameters.timeStamp);
-    await traitsPage.section.allTraitsForm.setValue("@firstValueField", val);
-    traitObject.valueFirstField = val;
+    traitObject.valueFirstField = args1.replace("*", this.parameters.timeStamp);
+    await traitsPage.section.allTraitsForm.setValue(
+      "@firstValueField",
+      traitObject.valueFirstField
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Value second field on ontology list page$/,
   async function (args1) {
-    let val = args1.replace("*", this.parameters.timeStamp);
-    await traitsPage.section.allTraitsForm.setValue("@secondValueField", val);
-    traitObject.valueSecondField = val;
+    traitObject.valueSecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.setValue(
+      "@secondValueField",
+      traitObject.valueSecondField
+    );
   }
 );
 
