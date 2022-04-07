@@ -197,7 +197,7 @@ When(
   async function (args1) {
     traitObject.nameField = args1
       .replace("*", this.parameters.timeStamp)
-      .slice(-12);
+      .slice(-11);
     await traitsPage.section.allTraitsForm.setValue(
       "@nameField",
       traitObject.nameField
@@ -391,11 +391,9 @@ Then(
 Then(
   /^user can not see "([^"]*)" in 'Name' column on ontology list page$/,
   async function (args1) {
-    if (traitObject.nameField == null) {
-      traitObject.nameField = args1
-        .replace("*", this.parameters.timeStamp)
-        .slice(-12);
-    }
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.assert.not.elementPresent({
       selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
@@ -414,10 +412,9 @@ When(/^user selects 'Cancel' button on ontology list page$/, async () => {
 Then(
   /^user can see "([^"]*)" in 'Name' column on ontology list page$/,
   async function (args1) {
-    if (traitObject.nameField == null)
-      traitObject.nameField = args1
-        .replace("*", this.parameters.timeStamp)
-        .slice(-12);
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.assert.visible({
       selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
@@ -1405,10 +1402,9 @@ When(
 When(
   /^user selects 'Show details' button of "([^"]*)" on ontology list page$/,
   async function (args1) {
-    if (traitObject.nameField == null)
-      traitObject.nameField = args1
-        .replace("*", this.parameters.timeStamp)
-        .slice(-12);
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.section.allTraitsForm.click({
       selector: `//td[normalize-space()='${traitObject.nameField}']/following-sibling::td[@class='has-text-right is-narrow']/a`,
       locateStrategy: "xpath",
