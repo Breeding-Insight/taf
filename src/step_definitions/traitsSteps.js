@@ -1,6 +1,7 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
+const traitObject = {};
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
   await client.execute("window.scrollTo(0,0);");
@@ -194,9 +195,12 @@ Then(
 When(
   /^user sets "([^"]*)" in 'Name' field on ontology list page$/,
   async function (args1) {
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.section.allTraitsForm.setValue(
       "@nameField",
-      args1.replace("*", this.parameters.timeStamp).slice(-10)
+      traitObject.nameField
     );
   }
 );
@@ -387,11 +391,11 @@ Then(
 Then(
   /^user can not see "([^"]*)" in 'Name' column on ontology list page$/,
   async function (args1) {
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.assert.not.elementPresent({
-      selector:
-        "//td[@name='name'][normalize-space(.)='" +
-        args1.replace("*", this.parameters.timeStamp).slice(-10) +
-        "']",
+      selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
     });
   }
@@ -408,11 +412,11 @@ When(/^user selects 'Cancel' button on ontology list page$/, async () => {
 Then(
   /^user can see "([^"]*)" in 'Name' column on ontology list page$/,
   async function (args1) {
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
     await traitsPage.assert.visible({
-      selector:
-        "//td[@name='name'][normalize-space(.)='" +
-        args1.replace("*", this.parameters.timeStamp).slice(-10) +
-        "']",
+      selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
     });
   }
@@ -1047,28 +1051,29 @@ Then(/^user can see not see Nominal fifth field on ontology list page$/, () => {
 
 When(
   /^user sets "([^"]*)" in Nominal first field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@firstScaleField", args1);
+  async function (args1) {
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.setValue(
+      "@firstScaleField",
+      traitObject.categoryFirstField
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Nominal second field on ontology list page$/,
-  async (args1) => {
-    await traitsPage.section.allTraitsForm.setValue("@secondScaleField", args1);
-    let val;
-    await client.execute(
-      function () {
-        return document.querySelector(
-          "div[class='p-0'] div:nth-of-type(3) input[placeholder='Category']"
-        )._value;
-      },
-      [],
-      async function (result) {
-        val = result.value;
-      }
+  async function (args1) {
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
     );
-    await traitsPage.assert.equal(val, args1);
+    await traitsPage.section.allTraitsForm.setValue(
+      "@secondScaleField",
+      traitObject.categorySecondField
+    );
   }
 );
 
@@ -1378,6 +1383,7 @@ Then(
     );
   }
 );
+
 Then(
   /^user can see "([^"]*)" in Synonyms text on ontology list page$/,
   async (args1) => {
@@ -1394,6 +1400,117 @@ Then(
     await traitsPage.section.allTraitsForm.assert.containsText(
       "@methodText",
       args1
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Value first field on ontology list page$/,
+  async function (args1) {
+    traitObject.valueFirstField = args1.replace("*", this.parameters.timeStamp);
+    await traitsPage.section.allTraitsForm.setValue(
+      "@firstValueField",
+      traitObject.valueFirstField
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in Value second field on ontology list page$/,
+  async function (args1) {
+    traitObject.valueSecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.section.allTraitsForm.setValue(
+      "@secondValueField",
+      traitObject.valueSecondField
+    );
+  }
+);
+
+When(
+  /^user selects 'Show details' button of "([^"]*)" on ontology list page$/,
+  async function (args1) {
+    traitObject.nameField = args1
+      .replace("*", this.parameters.timeStamp)
+      .slice(-11);
+    await traitsPage.section.allTraitsForm.click({
+      selector: `//td[normalize-space()='${traitObject.nameField}']/following-sibling::td[@class='has-text-right is-narrow']/a`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Value first field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.valueFirstField = args1.replace("*", this.parameters.timeStamp);
+    await traitsPage.assert.containsText(
+      {
+        selector:
+          "//section//div[@class='is-full-length']/div/div//span[@class='is-pulled-right mr-2']",
+        index: 0,
+        locateStrategy: "xpath",
+      },
+      traitObject.valueFirstField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Ordinal first field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.assert.containsText(
+      {
+        selector:
+          "//section//div[@class='is-full-length']/div/div//span[@class='is-size-7 ml-2']",
+        index: 3,
+        locateStrategy: "xpath",
+      },
+      traitObject.categoryFirstField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Value second field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.valueSecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.assert.containsText(
+      {
+        selector:
+          "//section//div[@class='is-full-length']/div/div//span[@class='is-pulled-right mr-2']",
+        index: 1,
+        locateStrategy: "xpath",
+      },
+      traitObject.valueSecondField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Ordinal second field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.assert.containsText(
+      {
+        selector:
+          "//section//div[@class='is-full-length']/div/div//span[@class='is-size-7 ml-2']",
+        index: 4,
+        locateStrategy: "xpath",
+      },
+      traitObject.categorySecondField
     );
   }
 );
