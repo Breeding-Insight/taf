@@ -1368,3 +1368,8 @@ Then(
     );
   }
 );
+
+Then(/^user can see "([^"]*)" in Synonyms text on ontology list page$/, 
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.containsText("@synonymsText", args1);
+});
