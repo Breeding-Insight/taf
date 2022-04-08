@@ -113,3 +113,10 @@ Feature: Ontology Term Create - General Behavior
         When user sets "Entity1" in 'Entity' field on ontology list page
         When user sets "Attribute1" in 'Attribute' field on ontology list page
         Then user can see "Entity1 Attribute1" in Trait text on ontology list page
+
+    @BI-1311
+    Scenario: Ontology Term Create - Method = Description + Class
+        Given user selects "New Term" button
+        When user sets "Method1" in 'Method Description' field on ontology list page
+        When user selects "Observation" in 'Method Class' dropdown on ontology list page
+        Then user can see "Method1 Observation" in 'Method' text on ontology list page

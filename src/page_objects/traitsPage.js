@@ -48,6 +48,11 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",
         methodClassErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > span",
+        methodText: {
+          selector: "//div[@class='column is-10 mt-4']",
+          index: 1,
+          locateStrategy: "xpath",
+        },
         scaleClass:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > div > select",
         scaleClassErrorText:
