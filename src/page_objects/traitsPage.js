@@ -18,6 +18,10 @@ module.exports = {
           selector: "//*[@id='entity']",
           locateStrategy: "xpath",
         },
+        synonymsText: {
+          selector: "//form//label[@for='Synonyms']/../following-sibling::div",
+          locateStrategy: "xpath",
+        },
         descriptionField: "#Description",
         desriptionErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
