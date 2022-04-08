@@ -106,3 +106,10 @@ Feature: Ontology Term Create - General Behavior
         Examples:
             | ont_term_name | trait_description | trait_entity      | trait_attribute | method_description |
             | *             | Testtraitdesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
+
+    @BI-1310
+    Scenario: Ontology Term Create - Trait = Entity + Attribute
+        Given user selects "New Term" button
+        When user sets "Entity1" in 'Entity' field on ontology list page
+        When user sets "Attribute1" in 'Attribute' field on ontology list page
+        Then user can see "Entity1 Attribute1" in Trait text on ontology list page

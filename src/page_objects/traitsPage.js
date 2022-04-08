@@ -31,6 +31,11 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         entityErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
+        traitText: {
+          selector: ".//div[@class='column is-10 mt-4']",
+          index: 0,
+          locateStrategy: "xpath",
+        },
         attributeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         attributeErrorText:
