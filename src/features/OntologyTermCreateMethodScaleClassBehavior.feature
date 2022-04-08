@@ -189,8 +189,6 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Given user selects 'New Term' button on ontology list page
         When user selects "Ordinal" in 'Scale Class' dropdown on ontology list page
         And user selects 'Add Item' button on ontology list page
-        And user selects 'Add Item' button on ontology list page
-        And user selects 'Add Item' button on ontology list page
         And user sets "TEXT" in Ordinal third value field on ontology list page
         Then user selects 'X' button in Ordinal third value on ontology list page
         Then user can see "Remove category?" in modal box header

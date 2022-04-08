@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Then, When } = require("@cucumber/cucumber");
+const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
 const traitObject = {};
 
@@ -1370,6 +1370,36 @@ Then(
     await traitsPage.section.allTraitsForm.waitForElementNotPresent(
       "@secondCategoryField",
       60000
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Trait text on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@traitText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Synonyms text on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@synonymsText",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in 'Method' text on ontology list page$/,
+  async (args1) => {
+    await traitsPage.section.allTraitsForm.assert.containsText(
+      "@methodText",
+      args1
     );
   }
 );
