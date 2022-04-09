@@ -1514,3 +1514,37 @@ Then(
     );
   }
 );
+
+Then(
+  /^user can see "([^"]*)" in Nominal first field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categoryFirstField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.assert.containsText(
+      {
+        selector: "//div[@class='is-full-length']/div[4]//span",
+        locateStrategy: "xpath",
+      },
+      traitObject.categoryFirstField
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in Nominal second field of Show Details on ontology list page$/,
+  async function (args1) {
+    traitObject.categorySecondField = args1.replace(
+      "*",
+      this.parameters.timeStamp
+    );
+    await traitsPage.assert.containsText(
+      {
+        selector: "//div[@class='is-full-length']/div[5]//span",
+        locateStrategy: "xpath",
+      },
+      traitObject.categorySecondField
+    );
+  }
+);
