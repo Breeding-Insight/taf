@@ -98,7 +98,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
-	
+
 	@BI-924
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
@@ -161,7 +161,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_missingUnit.xlsx" file
 		And user selects 'Import' button
 		And user can see an error message "Unit: Missing unit in row 3"
-		
+
 	@BI-932
 	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file
@@ -173,3 +173,21 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_extraCols.xlsx" file
 		And user selects 'Import' button
 		Then user can see 'Confirm New Ontology Term' header
+
+	@BI-1267
+	@debug
+	Scenario: Import Traits - missing scale categories
+		And user uploads "test_traits_missingReqFields.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Method Class: Missing method class in row 2"
+		# And user can see an error message "Observation variable name: Missing observation variable name in row 2"
+		And user can see an error message "Trait Attribute: Missing trait attribute in row 3"
+		And user can see an error message "Scale Class: Missing scale class in row 4"
+		And user can see an error message "Trait Entity: Missing trait entity in row 4"
+		And user can see an error message "Trait Description: Missing trait description in row 6"
+		And user can see an error message "Unit: Missing unit in row 6"
+		# And user can not see an error message "Unit: Missing unit in row 4"
+		# And user can not see an error message "Trait level: Missing trait level in row 4"
+
+		#Name: Missing name in row 2
+		
