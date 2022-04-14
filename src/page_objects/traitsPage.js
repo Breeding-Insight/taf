@@ -20,6 +20,10 @@ module.exports = {
           selector: "//*[@id='entity']",
           locateStrategy: "xpath",
         },
+        synonymsText: {
+          selector: "//form//label[@for='Synonyms']/../following-sibling::div",
+          locateStrategy: "xpath",
+        },
         descriptionField: "#Description",
         desriptionErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
@@ -29,6 +33,11 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         entityErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
+        traitText: {
+          selector: ".//div[@class='column is-10 mt-4']",
+          index: 0,
+          locateStrategy: "xpath",
+        },
         attributeField:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         attributeErrorText:
@@ -43,6 +52,11 @@ module.exports = {
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",
         methodClassErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > span",
+        methodText: {
+          selector: "//div[@class='column is-10 mt-4']",
+          index: 1,
+          locateStrategy: "xpath",
+        },
         scaleClass:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > div > select",
         scaleClassErrorText:
