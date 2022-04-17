@@ -177,7 +177,7 @@ Feature: Ontology Import (10 Scenarios)
 	@BI-1273
 	@debug
 	Scenario: Import Traits - invalid method and scale classes
-		And user uploads "test_traits_2.xlsx" file
+		And user uploads "test_traits_invalidFields.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Method class: Invalid method class value in row 2"
 		And user can see an error message "Scale class: Invalid scale class value in row 3"
