@@ -180,14 +180,10 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_missingReqFields.xlsx" file
 		And user selects 'Import' button
 		Then user can see an error message "Method Class: Missing method class in row 2"
-		# And user can see an error message "Observation variable name: Missing observation variable name in row 2"
+		Then user can see an error message "Name: Missing name in row 2"
 		And user can see an error message "Trait Attribute: Missing trait attribute in row 3"
 		And user can see an error message "Scale Class: Missing scale class in row 4"
 		And user can see an error message "Trait Entity: Missing trait entity in row 4"
-		And user can see an error message "Trait Description: Missing trait description in row 6"
 		And user can see an error message "Unit: Missing unit in row 6"
-		# And user can not see an error message "Unit: Missing unit in row 4"
-		# And user can not see an error message "Trait level: Missing trait level in row 4"
-
-		#Name: Missing name in row 2
+		And user can see an error message "Trait Description: Missing trait description in row 6"
 		
