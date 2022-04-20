@@ -192,6 +192,7 @@ Then(
   }
 );
 
+//Use this to limit entry up to 10 characters and replaces * with a time stamp to make it unique
 When(
   /^user sets "([^"]*)" in 'Name' field on ontology list page$/,
   async function (args1) {
@@ -205,10 +206,18 @@ When(
   }
 );
 
+//Use this to enter the value as is (no trimming)
+When(
+  /^user sets as is "([^"]*)" in 'Name' field on ontology list page$/,
+  async function (args1) {
+    await traitsPage.section.allTraitsForm.sendKeys("@nameField", args1);
+  }
+);
+
 When(
   /^user sets "([^"]*)" in 'Full Name' field on ontology list page$/,
   async function (args1) {
-    await traitsPage.section.allTraitsForm.setValue(
+    await traitsPage.section.allTraitsForm.sendKeys(
       "@fullNameField",
       args1.replace("*", this.parameters.timeStamp)
     );
