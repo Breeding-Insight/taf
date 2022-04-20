@@ -120,3 +120,13 @@ Feature: Ontology Term Create - General Behavior
         When user sets "Method1" in 'Method Description' field on ontology list page
         When user selects "Observation" in 'Method Class' dropdown on ontology list page
         Then user can see "Method1 Observation" in 'Method' text on ontology list page
+
+    @BI-1312
+    Scenario: Ontology Term Create - Name & Method Description - Character Limits
+        Given user selects 'New Term' button on ontology list page
+        When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
+        When user sets "ThisDescriptionContainsMoreThanThirtyCharacters" in 'Method Description' field on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Name must be less than 12 characters." below the 'Name' field on ontology list page
+        Then user can see "Description must be less than 30 characters." below the 'Method Description' field on ontology list page
+        Then user can see banner appears with an error message "Fix Invalid Fields"
