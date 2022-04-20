@@ -98,7 +98,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
 		And user can see each row has a "Show Details" link
-	
+
 	@BI-924
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
 		And user uploads "test_import-xls.xls" file
@@ -161,7 +161,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_missingUnit.xlsx" file
 		And user selects 'Import' button
 		And user can see an error message "Unit: Missing unit in row 3"
-		
+
 	@BI-932
 	Scenario: Ontology - case sensitivity
 		And user uploads "test_traits_case_insensitivity.xlsx" file
@@ -173,3 +173,11 @@ Feature: Ontology Import (10 Scenarios)
 		And user uploads "test_traits_extraCols.xlsx" file
 		And user selects 'Import' button
 		Then user can see 'Confirm New Ontology Term' header
+
+	@BI-1268
+	Scenario: Import Traits - exceeds character length max
+		And user uploads "test_traits_exceedsCharLen.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Name: Name exceeds 12 character limit in row 3"
+		And user can see an error message "Method Description: Method description exceeds 30 character limit in row 4"
+
