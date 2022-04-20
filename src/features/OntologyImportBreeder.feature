@@ -181,3 +181,9 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see an error message "Name: Name exceeds 12 character limit in row 3"
 		And user can see an error message "Method Description: Method description exceeds 30 character limit in row 4"
 
+	@BI-1273
+	Scenario: Import Traits - invalid method and scale classes
+		And user uploads "test_traits_invalidFields.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Method class: Invalid method class value in row 2"
+		And user can see an error message "Scale class: Invalid scale class value in row 3"
