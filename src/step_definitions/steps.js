@@ -150,10 +150,6 @@ Given(/^user is on the user-management page$/, async () => {
   await page.assert.visible("@usersHeader");
 });
 
-When(/^user is on the program-management page$/, async () => {
-  await page.assert.visible("#adminProgramTableLabel");
-});
-
 Then(/^user can see page of Users$/, async () => {
   await page.assert.visible("@usersTable");
 });
@@ -963,24 +959,6 @@ Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
 Then(/^user can see "([^"]*)" in modal box header1$/, async (args1) => {
   await page.section.modal.assert.containsText("@header", args1);
 });
-
-When(
-  /^user sets "([^"]*)" in Program Name field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programNameField");
-    program.Name = args1.replace("*", generateRandomAlphaString(8));
-    await page.section.programForm.setValue("@programNameField", program.Name);
-  }
-);
-
-When(
-  /^user sets "([^"]*)" in Program Key field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programKeyField");
-    program.Key = args1.replace("*", generateRandomAlphaString(4));
-    await page.section.programForm.setValue("@programKeyField", program.Key);
-  }
-);
 
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
   //Multiple text lines can exist, so selector needs to be specific to text

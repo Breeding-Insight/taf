@@ -90,8 +90,8 @@ Feature: Program Management (15)
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name    | Species      | # Users | BrAPI URL      | Key  |
-			| Program | Sweet Potato | 0       | System Default | TST  |
+			| Name    | Species      | # Users | BrAPI URL      | Key |
+			| Program | Sweet Potato | 0       | System Default | TST |
 
 		Examples:
 			| Name     | Species      | Key |
@@ -145,12 +145,12 @@ Feature: Program Management (15)
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name   | Species   | # Users | BrAPI URL   | Key    |
-			| <Name> | <Species> | 0       | <BrAPI URL> | <Key>  |
+			| Name   | Species   | # Users | BrAPI URL   | Key   |
+			| <Name> | <Species> | 0       | <BrAPI URL> | <Key> |
 
 		Examples:
-			| Name     | Species      | BrAPI URL                               | Key |
-			| *        | Sweet Potato | https://qa-testbase.breedinginsight.net | *   |
+			| Name | Species      | BrAPI URL                               | Key |
+			| *    | Sweet Potato | https://qa-testbase.breedinginsight.net | *   |
 
 	@BI-856
 	Scenario Outline: Edit Program form
