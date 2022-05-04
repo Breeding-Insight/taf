@@ -6,6 +6,7 @@ const fs = require("fs");
 const page = client.page.page();
 const program = {};
 const location = {};
+const helpers = require("./helpers");
 
 When(/^user is on the program-management page$/, async () => {
   await page.assert.visible("#adminProgramTableLabel");
@@ -19,7 +20,7 @@ When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programNameField");
-    program.Name = args1.replace("*", generateRandomAlphaString(8));
+    program.Name = args1.replace("*", helpers.generateRandomAlphaString(8));
     await page.section.programForm.setValue("@programNameField", program.Name);
   }
 );
@@ -35,7 +36,7 @@ When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
   async (args1) => {
     await page.section.programForm.clearValue("@programKeyField");
-    program.Key = args1.replace("*", generateRandomAlphaString(4));
+    program.Key = args1.replace("*", helpers.generateRandomAlphaString(4));
     await page.section.programForm.setValue("@programKeyField", program.Key);
   }
 );

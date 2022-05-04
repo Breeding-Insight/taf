@@ -91,7 +91,7 @@ Feature: Program Management (15)
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name    | Species      | # Users | BrAPI URL      | Key |
-			| Program | Sweet Potato | 0       | System Default | TST |
+			| Program* | Sweet Potato | 0       | System Default | TST |
 
 		Examples:
 			| Name     | Species      | Key |

@@ -1081,10 +1081,6 @@ Then(/^user can see 'New Program' button on Program$/, async () => {
   await page.assert.visible("@newProgramButton");
 });
 
-When(/^user selects 'New Program' button in Programs page$/, async () => {
-  await page.click("@newProgramButton");
-});
-
 When(/^user selects 'Yes, remove' button in modal box$/, async () => {
   await page.click("@yesRemoveButton");
 });
@@ -1130,21 +1126,6 @@ async function setEmail(email) {
 async function setRole(role) {
   user.role = role;
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
-}
-
-function generateRandomAlphaString(length) {
-  let generated = "";
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  for (let i = 0; i < length; i++) {
-    generated += letters[Math.floor(Math.random() * letters.length)];
-  }
-  return generated;
-}
-
-async function showAll() {
-  await page.moveToElement("@showAllButton", 1, 1);
-  await page.pause(1000);
-  await page.click("@showAllButton");
 }
 
 async function closeNotification() {
