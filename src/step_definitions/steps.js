@@ -7,6 +7,7 @@ const fs = require("fs");
 const reporter = require("cucumber-html-reporter");
 const user = {};
 const program = {};
+const helpers = require("./helpers.js");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -512,7 +513,7 @@ When(/^user clicks 'New User' button$/, async () => {
 
 When(/^user edits a user$/, async (table) => {
   await closeNotification();
-  await showAll();
+  await helpers.showAll();
 
   //go to the row with matching name
   const selector = {
@@ -568,7 +569,7 @@ Then(/^user can see a new user is added in User$/, async () => {
 });
 
 Then(/^user can see user is in users list$/, async () => {
-  await showAll();
+  await helpers.showAll();
   await page.assert.visible({
     selector: `//tr/td[normalize-space(.)='${user.userName}']`,
     locateStrategy: "xpath",
@@ -616,7 +617,7 @@ Then(
 );
 
 When(/^user clicks Edit of a user$/, async () => {
-  await showAll();
+  await helpers.showAll();
   await page.pause(1000);
 
   const button = "#app > div > article:nth-of-type(1) > button";
@@ -633,7 +634,7 @@ When(/^user clicks Edit of a user$/, async () => {
 
 When(/^user can see "([^"]*)" as a program$/, async (args1) => {
   await page.navigateToPrograms();
-  await showAll();
+  await helpers.showAll();
   await page.waitForElementVisible({
     selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
@@ -921,7 +922,7 @@ Then(/^user can see "([^"]*)" column header$/, async (args1) => {
 });
 
 Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
-  await showAll();
+  await helpers.showAll();
   let rows;
 
   await client.elements("css selector", "tbody tr", ({ value }) => {
@@ -1055,7 +1056,7 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 });
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
-  await showAll();
+  await helpers.showAll();
   let userEmail;
   if (args1.includes("*") && user.email != null) {
     userEmail = user.email;

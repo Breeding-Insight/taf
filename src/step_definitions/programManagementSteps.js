@@ -507,7 +507,7 @@ Then(
 When(
   /^user selects 'Edit' of "([^"]*)" in Program Management page$/,
   async (args1) => {
-    await showAll();
+    await helpers.showAll();
     let selector;
     if (location != null) {
       selector = {
@@ -527,7 +527,7 @@ When(
 When(
   /^user selects 'Deactivate' of "([^"]*)" in Program Management page$/,
   async (args1) => {
-    await showAll();
+    await helpers.showAll();
     let selector;
     if (location != null) {
       selector = {
@@ -556,10 +556,3 @@ Then(
     await page.assert.containsText("@modalHeader", headerText);
   }
 );
-
-//functions
-async function showAll() {
-  await page.moveToElement("@showAllButton", 1, 1);
-  await page.pause(1000);
-  await page.click("@showAllButton");
-}
