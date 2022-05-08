@@ -8,6 +8,13 @@ const program = {};
 const location = {};
 const helpers = require("./helpers");
 
+Then(/^user can see Program User Management page$/, async () => {
+  await page.assert.visible({
+    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
+    locateStrategy: "xpath",
+  });
+});
+
 When(/^user is on the program-management page$/, async () => {
   await page.assert.visible("#adminProgramTableLabel");
 });
@@ -18,10 +25,12 @@ When(/^user selects 'New Program' button in Programs page$/, async () => {
 
 When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
-  async (args1) => {
+  async function (args1) {
     await page.section.programForm.clearValue("@programNameField");
-    program.Name = args1.replace("*", helpers.generateRandomAlphaString(8));
-    await page.section.programForm.setValue("@programNameField", program.Name);
+    await page.section.programForm.setValue(
+      "@programNameField",
+      args1.replace("*", this.parameters.timeStamp)
+    );
   }
 );
 
@@ -34,9 +43,9 @@ When(
 
 When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
-  async (args1) => {
+  async function (args1) {
     await page.section.programForm.clearValue("@programKeyField");
-    program.Key = args1.replace("*", helpers.generateRandomAlphaString(4));
+    program.Key = args1.replace("*", helpers.generateRandomAlphaString(5));
     await page.section.programForm.setValue("@programKeyField", program.Key);
   }
 );
@@ -330,36 +339,7 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
 });
 
 When(/^user selects 'Save' button in Programs page$/, async () => {
-  //read the final values of the fields and save it
-  await page.section.programForm.getValue("@programNameField", ({ value }) => {
-    program.Name = value;
-  });
-  let option;
-  await page.section.programForm.getValue("@speciesSelect", ({ value }) => {
-    option = value;
-  });
-
-  await page.section.programForm.getText(
-    { selector: `.//option[@value='${option}']`, locateStrategy: "xpath" },
-    ({ value }) => {
-      program.Species = String(value).trim();
-    }
-  );
-  //Key only present for create, not edit
-  let keyPresent;
-  await page.section.programForm.api.element(
-    "css selector",
-    "@programKeyField",
-    function (result) {
-      keyPresent = result.value;
-    }
-  );
-
-  if (keyPresent) {
-    await page.section.programForm.getValue("@programKeyField", ({ value }) => {
-      program.Key = value;
-    });
-  }
+  await getProgramValues();
   await page.section.programForm.click("@saveButton");
 });
 
@@ -402,9 +382,9 @@ When(/^user selects 'Save' button in Program Management page$/, async () => {
 
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
-  async (args1) => {
+  async function (args1) {
     if (args1.includes("*")) {
-      location.Name = args1.replace("*", Date.now().toString());
+      location.Name = args1.replace("*", this.parameters.timeStamp);
     }
 
     //add clear value when used to replace existing text value
@@ -556,3 +536,93 @@ Then(
     await page.assert.containsText("@modalHeader", headerText);
   }
 );
+
+When(/^user creates a new program$/, async function (table) {
+  await page.waitForElementVisible("@newProgramButton");
+  await page.click("@newProgramButton");
+  let programForm = page.section.programForm;
+  for (column of table.raw()[0]) {
+    for (hash of table.hashes()) {
+      switch (column) {
+        case "Program Name":
+          program.Name = hash["Program Name"].replace(
+            "*",
+            this.parameters.timeStamp
+          );
+          await programForm.setValue("@programNameField", program.Name);
+          break;
+        case "Species":
+          program.Species = hash["Species"];
+          await programForm.setValue("@speciesSelect", program.Species);
+          break;
+        case "Program Key":
+          program.Key = hash["Program Key"].replace(
+            "*",
+            helpers.generateRandomAlphaString(5)
+          );
+          await programForm.setValue("@programKeyField", program.Key);
+          break;
+        default:
+          throw new Error(`Unexpected ${column} name.`);
+      }
+    }
+  }
+  await programForm.click("@saveButton");
+});
+
+Then(/^user can see a new program is created$/, async () => {
+  let selector = `.//td[normalize-space(.)='${program.Name}']`;
+  await page.assert.containsText(
+    { selector: selector, locateStrategy: "xpath" },
+    program.Name
+  );
+  await page.assert.containsText(
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Species']",
+      locateStrategy: "xpath",
+    },
+    program.Species
+  );
+  await page.assert.containsText(
+    {
+      selector: selector + "/ancestor::tr//td[@data-label='Program Key']",
+      locateStrategy: "xpath",
+    },
+    program.Key
+  );
+  console.log("and this" + program.Name);
+});
+
+//functions
+//Get the program values
+async function getProgramValues() {
+  await page.section.programForm.getValue("@programNameField", ({ value }) => {
+    program.Name = value;
+  });
+  let option;
+  await page.section.programForm.getValue("@speciesSelect", ({ value }) => {
+    option = value;
+  });
+
+  await page.section.programForm.getText(
+    { selector: `.//option[@value='${option}']`, locateStrategy: "xpath" },
+    ({ value }) => {
+      program.Species = String(value).trim();
+    }
+  );
+  //Key only present for create, not edit
+  let keyPresent;
+  await page.section.programForm.api.element(
+    "css selector",
+    "@programKeyField",
+    function (result) {
+      keyPresent = result.value;
+    }
+  );
+
+  if (keyPresent) {
+    await page.section.programForm.getValue("@programKeyField", ({ value }) => {
+      program.Key = value;
+    });
+  }
+}

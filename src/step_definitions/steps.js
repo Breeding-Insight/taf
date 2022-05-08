@@ -356,62 +356,6 @@ Then(
   }
 );
 
-When(/^user creates a new program$/, async (table) => {
-  this.program = {};
-  await page.waitForElementVisible("@newProgramButton");
-  await page.click("@newProgramButton");
-  let programForm = page.section.programForm;
-  for (column of table.raw()[0]) {
-    for (hash of table.hashes()) {
-      switch (column) {
-        case "Program Name":
-          this.program.Name = hash["Program Name"].replace(
-            "*",
-            Date.now().toString()
-          );
-          await programForm.setValue("@programNameField", this.program.Name);
-          break;
-        case "Species":
-          this.program.Species = hash["Species"];
-          await programForm.setValue("@speciesSelect", this.program.Species);
-          break;
-        case "Program Key":
-          this.program.Key = hash["Program Key"].replace(
-            "*",
-            generateRandomAlphaString(5)
-          );
-          await programForm.setValue("@programKeyField", this.program.Key);
-          break;
-        default:
-          throw new Error(`Unexpected ${column} name.`);
-      }
-    }
-  }
-  await programForm.click("@saveButton");
-});
-
-Then(/^user can see a new program is created$/, async () => {
-  let selector = `.//td[normalize-space(.)='${this.program.Name}']`;
-  await page.assert.containsText(
-    { selector: selector, locateStrategy: "xpath" },
-    this.program.Name
-  );
-  await page.assert.containsText(
-    {
-      selector: selector + "/ancestor::tr//td[@data-label='Species']",
-      locateStrategy: "xpath",
-    },
-    this.program.Species
-  );
-  await page.assert.containsText(
-    {
-      selector: selector + "/ancestor::tr//td[@data-label='Program Key']",
-      locateStrategy: "xpath",
-    },
-    this.program.Key
-  );
-  console.log("and this" + this.program.Name);
-});
 
 When(/^user selects Cancel button$/, async () => {
   await page.section.newUserForm.click("@cancelButton");
@@ -781,13 +725,6 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   }
 });
 
-Then(/^user can see Program User Management page$/, async () => {
-  await page.assert.visible({
-    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
-    locateStrategy: "xpath",
-  });
-});
-
 Then(/^user can see Users page$/, async () => {
   await page.assert.visible("#programUserTableLabel");
 });
@@ -945,16 +882,11 @@ Then(/^user can not see a modal box$/, async () => {
   await page.assert.not.elementPresent("@modalCard");
 });
 
-Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
-  let headerText;
-  if (args1.includes("User*")) {
-    headerText = user.userName;
-  } else if (args1.includes("Program*")) {
-    headerText = program.Name;
-  } else {
-    headerText = args1;
-  }
-  await page.assert.containsText("@modalHeader", headerText);
+Then(/^user can see "([^"]*)" in modal box header$/, async function (args1) {
+  await page.assert.containsText(
+    "@modalHeader",
+    args1.replace("*", this.parameters.timeStamp)
+  );
 });
 
 Then(/^user can see "([^"]*)" in modal box header1$/, async (args1) => {
@@ -1113,13 +1045,13 @@ Then(/^user can not see a success banner$/, async () => {
 //functions
 async function setUserName(name) {
   this.user = {};
-  user.userName = name.replace("*", Date.now().toString());
+  user.userName = name.replace("*", this.parameters.timeStamp);
   await page.section.newUserForm.clearValue("@nameField");
   await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
 async function setEmail(email) {
-  user.email = email.replace("*", Date.now().toString());
+  user.email = email.replace("*", this.parameters.timeStamp);
   await page.section.newUserForm.clearValue("@emailField");
   await page.section.newUserForm.setValue("@emailField", user.email);
 }
