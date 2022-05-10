@@ -331,8 +331,8 @@ Then(/^user can see Cancel button$/, async () => {
   await page.section.newUserForm.assert.visible("@cancelButton");
 });
 
-When(/^user sets "([^"]*)" in Name field$/, async (args1) => {
-  setUserName(args1);
+When(/^user sets "([^"]*)" in Name field$/, async function (args1) {
+  await setUserName(args1.replace("*", this.parameters.timeStamp));
 });
 
 Then(/^user can see "([^"]*)" is in the list of users$/, async (args1) => {
@@ -355,7 +355,6 @@ Then(
     await page.section.newUserForm.assert.visible("@emailIsInvalidText");
   }
 );
-
 
 When(/^user selects Cancel button$/, async () => {
   await page.section.newUserForm.click("@cancelButton");
@@ -429,16 +428,18 @@ Then(/^user does not see a new user in Users list$/, async () => {
   });
 });
 
-When(/^user creates a new user$/, async (table) => {
+When(/^user creates a new user$/, async function (table) {
   await page.click("@newUserButton");
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
         case "Name":
-          await setUserName(hash["Name"]);
+          await setUserName(
+            hash["Name"].replace("*", this.parameters.timeStamp)
+          );
           break;
         case "Email":
-          await setEmail(hash["Email"]);
+          await setEmail(hash["Email"].replace("*", this.parameters.timeStamp));
           break;
         case "Role":
           await setRole(hash["Role"]);
@@ -455,7 +456,7 @@ When(/^user clicks 'New User' button$/, async () => {
   await page.click("@newUserButton");
 });
 
-When(/^user edits a user$/, async (table) => {
+When(/^user edits a user$/, async function (table) {
   await closeNotification();
   await helpers.showAll();
 
@@ -470,10 +471,12 @@ When(/^user edits a user$/, async (table) => {
     for (hash of table.hashes()) {
       switch (column) {
         case "Name":
-          await setUserName(hash["Name"]);
+          await setUserName(
+            hash["Name"].replace("*", this.parameters.timeStamp)
+          );
           break;
         case "Email":
-          await setEmail(hash["Email"]);
+          await setEmail(hash["Email"].replace("*", this.parameters.timeStamp));
           break;
         case "Role":
           await setRole(hash["Role"]);
@@ -923,8 +926,8 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   });
 });
 
-When(/^user sets "([^"]*)" in Name field of User$/, async (args1) => {
-  await setUserName(args1);
+When(/^user sets "([^"]*)" in Name field of User$/, async function (args1) {
+  await setUserName(args1.replace("*", this.parameters.timeStamp));
 });
 
 When(/^user sets "([^"]*)" in Email field of User$/, async (args1) => {
@@ -1044,14 +1047,13 @@ Then(/^user can not see a success banner$/, async () => {
 
 //functions
 async function setUserName(name) {
-  this.user = {};
-  user.userName = name.replace("*", this.parameters.timeStamp);
+  user.userName = name;
   await page.section.newUserForm.clearValue("@nameField");
   await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
 async function setEmail(email) {
-  user.email = email.replace("*", this.parameters.timeStamp);
+  user.email = email;
   await page.section.newUserForm.clearValue("@emailField");
   await page.section.newUserForm.setValue("@emailField", user.email);
 }
