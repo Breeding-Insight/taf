@@ -1,6 +1,7 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
+const page = client.page.page();
 const traitObject = {};
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
