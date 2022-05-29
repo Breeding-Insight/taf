@@ -29,7 +29,7 @@ When(
     await page.section.programForm.clearValue("@programNameField");
     await page.section.programForm.setValue(
       "@programNameField",
-      args1.replace("*", this.parameters.timeStamp)
+      args1.replace("*", helpers.generateRandomAlphaString(8))
     );
   }
 );
