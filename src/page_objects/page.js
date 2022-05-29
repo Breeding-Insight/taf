@@ -296,6 +296,17 @@ module.exports = {
             ".//div[@class='modal-card']//button[normalize-space(.)='Cancel']",
           locateStrategy: "xpath",
         },
+        modalHeader: {
+          selector:
+            ".//div[@class='modal-card']//h3[@class='is-5 title has-text-danger modal-header']",
+          locateStrategy: "xpath",
+        },
+        modalText: {
+          selector:
+            ".//div[@class='modal-card']//p[@class='has-text-dark modal-text']",
+          locateStrategy: "xpath",
+        },
+
       },
       commands: [
         {

@@ -593,6 +593,26 @@ Then(/^user can see a new program is created$/, async () => {
   console.log("and this" + program.Name);
 });
 
+Then(
+  /^user can see "([^"]*)" in modal box header in Programs page$/,
+  async function (args1) {
+    await page.section.programForm.assert.containsText(
+      "@modalHeader",
+      args1.replace("*", () => {
+        if (program.Name != null) return program.Name;
+        return this.parameters.timeStamp;
+      })
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in modal box text in Programs page$/,
+  async (args1) => {
+    await page.section.programForm.assert.containsText("@modalText", args1);
+  }
+);
+
 //functions
 //Get the program values
 async function getProgramValues() {
