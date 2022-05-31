@@ -201,7 +201,7 @@ Then(/^user can not see "([^"]*)" link$/, async (args1) => {
 
 Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
-    selector: "//a[contains(text(),'Edit')]",
+    selector: "//a/span[contains(text(),'Edit')]",
     locateStrategy: "xpath",
   };
 
@@ -218,7 +218,7 @@ Then(/^user can see each row has an Edit link$/, async () => {
 
 Then(/^user can see each row has a Deactivate link$/, async () => {
   const selector = {
-    selector: "//a[contains(text(),'Deactivate')]",
+    selector: "//a/span[contains(text(),'Deactivate')]",
     locateStrategy: "xpath",
   };
   let rows;
