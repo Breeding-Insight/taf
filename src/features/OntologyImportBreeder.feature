@@ -175,7 +175,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see 'Confirm New Ontology Term' header
 
 	@BI-1267
-	@debug
 	Scenario: Import Traits - missing scale categories
 		And user uploads "test_traits_missingReqFields.xlsx" file
 		And user selects 'Import' button
@@ -186,4 +185,12 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see an error message "Trait Entity: Missing trait entity in row 4"
 		And user can see an error message "Unit: Missing unit in row 6"
 		And user can see an error message "Trait Description: Missing trait description in row 6"
-		
+
+	@BI-1268
+	@debug
+	Scenario: Import Traits - exceeds character length max
+		And user uploads "test_traits_exceedsCharLen.xlsx" file
+		And user selects 'Import' button
+		Then user can see an error message "Name: Name exceeds 12 character limit in row 3"
+		And user can see an error message "Method Description: Method description exceeds 30 character limit in row 4"
+
