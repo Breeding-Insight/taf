@@ -520,7 +520,7 @@ When(/^user edits a user$/, async (table) => {
 
   //go to the row with matching name
   const selector = {
-    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a[contains(text(),'Edit')]`,
+    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a/span[contains(text(),'Edit')]`,
     locateStrategy: "xpath",
   };
   await page.moveToElement(selector, 1, 1);
