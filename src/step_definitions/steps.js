@@ -2,6 +2,7 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
+const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const fs = require("fs");
 const user = {};
@@ -142,7 +143,7 @@ When(/^user navigates to Program Selection page$/, async () => {
 });
 
 When(/^user selects Users in navigation$/, async () => {
-  await page.click("@usersLeftMenu");
+  await page.section.navigationMenu.userLink.click("@usersLeftMenu");
 });
 
 Given(/^user is on the user-management page$/, async () => {
@@ -591,8 +592,8 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible("@programManagementLink");
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
@@ -613,8 +614,8 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible("@programManagementLink");
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");

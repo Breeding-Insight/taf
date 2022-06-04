@@ -85,28 +85,6 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    //left navigation
-    usersLeftMenu: {
-      selector: "//*[@id='sideMenu']//a[contains(text(), 'Users')]",
-      locateStrategy: "xpath",
-    },
-    
-    programsLeftMenu: {
-      selector: "//*[@id='sideMenu']//a[contains(text(), 'Programs')]",
-      locateStrategy: "xpath",
-    },
-
-    programManagementLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Program Management ']",
-      locateStrategy: "xpath",
-    },
-
-    userLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Users ']",
-      index: 1,
-      locateStrategy: "xpath",
-    },
-
     //users page
     usersHeader: {
       selector: "//*[@id='app']//h1[contains(text(), 'Users')]",
@@ -220,6 +198,28 @@ module.exports = {
     },
   },
   sections: {
+    //left navigation
+    navigationMenu: {
+      selector: "//*[@id='sideMenu']",
+      locateStrategy: "xpath",
+      elements: {
+        usersLink: {
+          selector: ".//a[normalize-space()='Users']",
+          locateStrategy: "xpath",
+        },
+
+        programsLink: {
+          selector: ".//a[normlize-space()='Programs']",
+          locateStrategy: "xpath",
+        },
+
+        programManagementLink: {
+          selector: ".//a[normalize-space()='Program Management']",
+          locateStrategy: "xpath",
+        },
+      },
+    },
+
     newUserForm: {
       selector: "#app div.sidebarlayout form",
       elements: {
@@ -307,7 +307,6 @@ module.exports = {
             ".//div[@class='modal-card']//p[@class='has-text-dark modal-text']",
           locateStrategy: "xpath",
         },
-
       },
       commands: [
         {
