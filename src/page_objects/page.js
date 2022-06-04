@@ -90,6 +90,7 @@ module.exports = {
       selector: "//*[@id='sideMenu']//a[contains(text(), 'Users')]",
       locateStrategy: "xpath",
     },
+    
     programsLeftMenu: {
       selector: "//*[@id='sideMenu']//a[contains(text(), 'Programs')]",
       locateStrategy: "xpath",

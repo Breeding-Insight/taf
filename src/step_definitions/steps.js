@@ -4,9 +4,7 @@ const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const fs = require("fs");
-const reporter = require("cucumber-html-reporter");
 const user = {};
-const program = {};
 const helpers = require("./helpers.js");
 
 Given(/^user logs with valid credentials$/, async () => {
