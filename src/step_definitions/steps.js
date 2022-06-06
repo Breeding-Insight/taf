@@ -592,7 +592,9 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.section.navigationMenu.waitForElementVisible("@programManagementLink");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
     await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
@@ -614,7 +616,9 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.section.navigationMenu.waitForElementVisible("@programManagementLink");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
     await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
@@ -773,7 +777,7 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
+  await ontologyPage.assert.containsText(
     "@beforeImportMessage",
     "Before You Import..."
   );
@@ -814,8 +818,6 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.waitForElementVisible(selector);
   await page.click(selector);
 });
-
-
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({

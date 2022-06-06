@@ -181,21 +181,6 @@ module.exports = {
         "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
       locateStrategy: "xpath",
     },
-
-    //ontology
-    beforeImportMessage: {
-      selector: "//main//div[@class='import-template mb-5']/article//strong",
-      locateStrategy: "xpath",
-    },
-    beforeImportMessageDetails: {
-      selector: "//main//div[@class='import-template mb-5']/article//div",
-      locateStrategy: "xpath",
-    },
-    downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
-    confirmOntologyHeader: {
-      selector: "//div[@id='import-ontology']//h1",
-      locateStrategy: "xpath",
-    },
   },
   sections: {
     //left navigation

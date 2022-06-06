@@ -1560,7 +1560,7 @@ Then(
 );
 
 Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
-  await page.assert.containsText(
+  await ontologyPage.assert.containsText(
     "@confirmOntologyHeader",
     "Confirm New Ontology Term"
   );
@@ -1573,7 +1573,7 @@ Then(/^user see a list of ontology terms in a table$/, async () => {
 Then(
   /^user can see a button 'Download the Ontology Import Template'$/,
   async () => {
-    await page.assert.containsText(
+    await ontologyPage.assert.containsText(
       "@downloadImportTemplateButton",
       "Download the Ontology Import Template"
     );
@@ -1583,7 +1583,7 @@ Then(
 Then(
   /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
   async () => {
-    await page.assert.containsText(
+    await ontologyPage.assert.containsText(
       "@beforeImportMessageDetails",
       "Prepare ontology information for import using the provided template."
     );
