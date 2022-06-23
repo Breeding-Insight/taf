@@ -90,8 +90,8 @@ Feature: Program Management (15)
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name    | Species      | # Users | BrAPI URL      | Key  |
-			| Program | Sweet Potato | 0       | System Default | TST  |
+			| Name     | Species      | # Users | BrAPI URL      | Key |
+			| Program* | Sweet Potato | 0       | System Default | TST |
 
 		Examples:
 			| Name     | Species      | Key |
@@ -145,12 +145,12 @@ Feature: Program Management (15)
 		Then user can not see 'Program Form' in Programs page
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
-			| Name   | Species   | # Users | BrAPI URL   | Key    |
-			| <Name> | <Species> | 0       | <BrAPI URL> | <Key>  |
+			| Name   | Species   | # Users | BrAPI URL   | Key   |
+			| <Name> | <Species> | 0       | <BrAPI URL> | <Key> |
 
 		Examples:
-			| Name     | Species      | BrAPI URL                               | Key |
-			| *        | Sweet Potato | https://qa-testbase.breedinginsight.net | *   |
+			| Name | Species      | BrAPI URL                               | Key |
+			| *    | Sweet Potato | https://qa-testbase.breedinginsight.net | *   |
 
 	@BI-856
 	Scenario Outline: Edit Program form
@@ -235,16 +235,14 @@ Feature: Program Management (15)
 		When user sets "<Key>" in Program Key field in Programs page
 		When user selects 'Save' button in Programs page
 		When user selects 'Deactivate' of "<Name>" in Programs page
-		Then user can see "Remove" in modal box header
-		Then user can see "<Name>" in modal box header
-		Then user can see "from the system?" in modal box header
-		Then user can see "Program-related data will not be affected by this change." in modal box text
+		Then user can see "Remove <Name> from the system?" in modal box header in Programs page
+		Then user can see "Program-related data will not be affected by this change." in modal box text in Programs page
 		Then user can see 'Yes, remove' button in modal in Programs page
 		Then user can see 'Cancel' button in modal in Programs page
 
 		Examples:
-			| Name     | Key |
-			| Program* | D*  |
+			| Name | Key |
+			| *    | *  |
 
 	@BI-861
 	Scenario Outline: Deactivate, Cancel

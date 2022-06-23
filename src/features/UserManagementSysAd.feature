@@ -121,7 +121,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| <NameToDeactivate> | test*@mailinator.com | breeder |
 		When user selects Deactivate of user
 		Then user can see "Deactivate" in modal box header
 		And user can see "<NameToDeactivate>" in modal box header
@@ -134,7 +134,7 @@ Feature: System User Management (15)
 
 		Examples: 
     		| NameToDeactivate |
-			| User*       |
+			| Test *       |
 
 	@BI-839
 	Scenario: User Deactivate link and Cancel
