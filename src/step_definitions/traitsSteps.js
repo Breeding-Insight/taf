@@ -1458,7 +1458,7 @@ Then(
     await traitsPage.assert.containsText(
       {
         selector:
-          "//section//div[@class='is-full-length']/div/div//span[@class='is-pulled-right mr-2']",
+          "//div[@class='is-full-length trait-detail']//div[@class='column is-one-third-desktop is-one-quarter-mobile']",
         index: 0,
         locateStrategy: "xpath",
       },
@@ -1477,8 +1477,8 @@ Then(
     await traitsPage.assert.containsText(
       {
         selector:
-          "//section//div[@class='is-full-length']/div/div//span[@class='is-size-7 ml-2']",
-        index: 3,
+          "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index: 0,
         locateStrategy: "xpath",
       },
       traitObject.categoryFirstField
@@ -1496,7 +1496,7 @@ Then(
     await traitsPage.assert.containsText(
       {
         selector:
-          "//section//div[@class='is-full-length']/div/div//span[@class='is-pulled-right mr-2']",
+          "//div[@class='is-full-length trait-detail']//div[@class='column is-one-third-desktop is-one-quarter-mobile']",
         index: 1,
         locateStrategy: "xpath",
       },
@@ -1515,8 +1515,8 @@ Then(
     await traitsPage.assert.containsText(
       {
         selector:
-          "//section//div[@class='is-full-length']/div/div//span[@class='is-size-7 ml-2']",
-        index: 4,
+          "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index: 1,
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
@@ -1533,7 +1533,8 @@ Then(
     );
     await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[4]//span",
+        selector: "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index:0,
         locateStrategy: "xpath",
       },
       traitObject.categoryFirstField
@@ -1550,7 +1551,8 @@ Then(
     );
     await traitsPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length']/div[5]//span",
+        selector: "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index:1,
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
