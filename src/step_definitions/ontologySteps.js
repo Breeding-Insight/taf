@@ -1,6 +1,7 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const traitsPage = client.page.traitsPage();
+const page = client.page.page();
 const traitObject = {};
 
 When(/^user selects 'New Term' button on ontology list page$/, async () => {
@@ -1554,6 +1555,37 @@ Then(
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
+    );
+  }
+);
+
+Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
+  await page.assert.containsText(
+    "@confirmOntologyHeader",
+    "Confirm New Ontology Term"
+  );
+});
+
+Then(/^user see a list of ontology terms in a table$/, async () => {
+  await page.assert.visible("#traitsImportTableLabel");
+});
+
+Then(
+  /^user can see a button 'Download the Ontology Import Template'$/,
+  async () => {
+    await page.assert.containsText(
+      "@downloadImportTemplateButton",
+      "Download the Ontology Import Template"
+    );
+  }
+);
+
+Then(
+  /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
+  async () => {
+    await page.assert.containsText(
+      "@beforeImportMessageDetails",
+      "Prepare ontology information for import using the provided template."
     );
   }
 );
