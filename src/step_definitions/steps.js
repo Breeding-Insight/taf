@@ -1045,7 +1045,7 @@ async function closeNotification() {
 }
 
 async function waitReady() {
-  const StopWatch = require("@slime/stopwatch");
+  const StopWatch = require("@slime/stopwatch").StopWatch;
   let stopWatch = new StopWatch();
   stopWatch.startTimer();
 
