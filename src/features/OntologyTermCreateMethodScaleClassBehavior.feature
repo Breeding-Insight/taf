@@ -121,7 +121,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see Category fourth field on ontology list page
 
     @htest
-    @BI-1344
+    @BI-1519
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
