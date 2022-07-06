@@ -198,7 +198,7 @@ Then(/^user can not see "([^"]*)" link$/, async (args1) => {
 
 Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
-    selector: "//a/span[contains(text(),'Edit')]",
+    selector: "//td/a[normalize-space()='Edit']",
     locateStrategy: "xpath",
   };
 
@@ -462,7 +462,7 @@ When(/^user edits a user$/, async function (table) {
 
   //go to the row with matching name
   const selector = {
-    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a/span[contains(text(),'Edit')]`,
+    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a[normalize-space()='Edit']`,
     locateStrategy: "xpath",
   };
   await page.moveToElement(selector, 1, 1);
@@ -1045,7 +1045,7 @@ async function closeNotification() {
 }
 
 async function waitReady() {
-  const StopWatch = require("@slime/stopwatch");
+  const StopWatch = require("@slime/stopwatch").StopWatch;
   let stopWatch = new StopWatch();
   stopWatch.startTimer();
 
