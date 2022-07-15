@@ -3,6 +3,7 @@ const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
+const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
 const fs = require("fs");
 const reporter = require("cucumber-html-reporter");
 const user = {};
@@ -789,6 +790,10 @@ Then(/^user can see a button 'Choose a file...'$/, async () => {
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
+});
+
+When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
+  await page.setValue('input[type="file"]', path.resolve(germplasmFolder, args1));
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
