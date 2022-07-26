@@ -5,6 +5,19 @@ module.exports = {
         "//button[starts-with(normalize-space(.),'New Term') and not(contains(@style,'display: none'))]",
       locateStrategy: "xpath",
     },
+    beforeImportMessage: {
+      selector: "//main//div[@class='import-template mb-5']/article//strong",
+      locateStrategy: "xpath",
+    },
+    beforeImportMessageDetails: {
+      selector: "//main//div[@class='import-template mb-5']/article//div",
+      locateStrategy: "xpath",
+    },
+    downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
+    confirmOntologyHeader: {
+      selector: "//div[@id='import-ontology']//h1",
+      locateStrategy: "xpath",
+    },
   },
   sections: {
     allTraitsForm: {
@@ -13,7 +26,7 @@ module.exports = {
         nameField: "#Name",
         nameErrorText: {
           selector: "span.form-error.has-text-danger",
-          index: 0,
+          index: 1,
         },
         fullNameField: "#Full-name",
         entitySelectField: {
@@ -45,8 +58,8 @@ module.exports = {
         methodDescription:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(23) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         methodDescriptionErrorText: {
-          selector: "span.form-error.has-text-danger",
-          index: 3,
+          selector: "//span[normalize-space(.)='Missing method description']",
+          locateStrategy:"xpath",
         },
         methodClass:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",

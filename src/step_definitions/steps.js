@@ -2,12 +2,11 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
+const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
 const fs = require("fs");
-const reporter = require("cucumber-html-reporter");
 const user = {};
-const program = {};
 const helpers = require("./helpers.js");
 
 Given(/^user logs with valid credentials$/, async () => {
@@ -145,7 +144,7 @@ When(/^user navigates to Program Selection page$/, async () => {
 });
 
 When(/^user selects Users in navigation$/, async () => {
-  await page.click("@usersLeftMenu");
+  await page.section.navigationMenu.click("@usersLink");
 });
 
 Given(/^user is on the user-management page$/, async () => {
@@ -594,8 +593,10 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
@@ -616,8 +617,10 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
@@ -775,7 +778,7 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
+  await ontologyPage.assert.containsText(
     "@beforeImportMessage",
     "Before You Import..."
   );
@@ -820,8 +823,6 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.waitForElementVisible(selector);
   await page.click(selector);
 });
-
-
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
