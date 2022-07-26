@@ -9,6 +9,7 @@ Feature: Germplasm Tests
 		When user sets "ListName" in List Name field of import page
 		When user sets "ListDescription" in List Description field of import page
 		And user selects "Confirm" button
+		And user pause for "10" seconds
 		And user selects "Germplasm" in navigation
 
 	@BI-1501

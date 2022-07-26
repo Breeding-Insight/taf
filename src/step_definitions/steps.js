@@ -1022,6 +1022,11 @@ Then(/^user can not see a success banner$/, async () => {
   });
 });
 
+When(/^user pause for "([^"]*)" seconds$/, async function(args1) {
+  await page.pause(args1 * 1000);
+});
+
+
 //functions
 async function setUserName(name) {
   user.userName = name;
