@@ -305,9 +305,9 @@ Then(
 Then(
   /^user can see "([^"]*)" below the 'Name' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@nameErrorText");
+    await ontologyPage.section.allTraitsForm.assert.visible("@errorText");
     await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@nameErrorText",
+      "@errorText",
       args1
     );
   }

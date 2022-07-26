@@ -24,9 +24,9 @@ module.exports = {
       selector: "#ontologyTableLabel",
       elements: {
         nameField: "#Name",
-        nameErrorText: {
-          selector: "span.form-error.has-text-danger",
-          index: 0,
+        errorText: {
+          selector: "//span[@class='form-error has-text-danger']",
+          locateStrategy: "xpath",
         },
         fullNameField: "#Full-name",
         entitySelectField: {
