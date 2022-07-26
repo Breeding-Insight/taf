@@ -306,7 +306,6 @@ module.exports = {
             ".//div[@class='modal-card']//p[@class='has-text-dark modal-text']",
           locateStrategy: "xpath",
         },
-
       },
       commands: [
         {
@@ -371,6 +370,10 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
+        configurationLink: {
+          selector: ".//li/a[normalize-space(.)='Configuration']",
+          locateStrategy: "xpath",
+        },
         nameIsRequiredText: {
           selector: ".//span[normalize-space(.)='Name is required']",
           locateStrategy: "xpath",
@@ -390,7 +393,7 @@ module.exports = {
         },
       },
     },
-    //Program Management
+    //Program Management Location
     locationForm: {
       selector: "#locationTableLabel",
       elements: {
@@ -423,6 +426,24 @@ module.exports = {
       ],
     },
     modal: {
+      selector: "//div[@class='modal is-active']",
+      locateStrategy: "xpath",
+      elements: {
+        header: { selector: ".//div/h3", locateStrategy: "xpath" },
+        message: { selector: ".//section//section", locateStrategy: "xpath" },
+      },
+    },
+    //Program Management Configuration
+    configurationForm: {
+      selector: "#program-configuration",
+      elements: {
+        sharedOntologySection:"#shared-ontology-section",
+        header: "#shared-ontology-section > h2",
+        notSharedMessage: "#shared-ontology-section > p",
+        shareOntologyButton :"#showShareModalBtn",
+      },
+    },
+    manageSharedOntologyModal: {
       selector: "//div[@class='modal is-active']",
       locateStrategy: "xpath",
       elements: {

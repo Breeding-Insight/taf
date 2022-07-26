@@ -447,6 +447,13 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 });
 
 Then(
+  /^user can see 'Configuration' tab on Program Management page$/,
+  async () => {
+    await page.section.programManagement.assert.visible("@configurationLink");
+  }
+);
+
+Then(
   /^user can see 'New Location' button in Program Management page$/,
   async () => {
     await page.assert.visible("@newLocationButton");
@@ -610,6 +617,53 @@ Then(
   /^user can see "([^"]*)" in modal box text in Programs page$/,
   async (args1) => {
     await page.section.programForm.assert.containsText("@modalText", args1);
+  }
+);
+
+When(
+  /^user selects "([^"]*)" tab on Program Management page$/,
+  async function (args1) {
+    await page.section.programManagement.click("@configurationLink");
+  }
+);
+
+Then(
+  /^user can see Configuration on Program Management page$/,
+  async function () {
+    await page.expect.section("@configurationForm").visible;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" section on Program Management page$/,
+  async function (args1) {
+    await page.section.configurationForm.assert.visible(
+      "@sharedOntologySection"
+    );
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" message on Program Management page$/,
+  async function (args1) {
+    await page.section.configurationForm.assert.containsText(
+      "@notSharedMessage",
+      args1
+    );
+  }
+);
+
+When(
+  /^user selects 'Share Ontology' button on Program Management page$/,
+  async function () {
+    await page.section.configurationForm.click("@shareOntologyButton");
+  }
+);
+
+Then(
+  /^user can see the 'Manage  Share Ontology' modal window display$/,
+  async function () {
+    await page.expect.section("@manageSharedOntologyModal").visible;
   }
 );
 
