@@ -13,6 +13,7 @@ When(
   /^user can see All Germplasm records have Show Details link on Germplasm page$/,
   async function () {
     let count;
+    await germplasmPage.pause(10000);
     await germplasmPage.findElements('tbody tr', (result)=>{
       count = result.value.length;
     });
