@@ -12,9 +12,13 @@ Then(
 When(
   /^user can see All Germplasm records have Show Details link on Germplasm page$/,
   async function () {
+    let count;
+    await germplasmPage.findElements('tbody tr', (result)=>{
+      count = result.value.length;
+    });
     await germplasmPage.section.germplasmTable.expect
       .elements("@showDetailsLinks")
-      .count.equal(20);
+      .count.equal(count);
   }
 );
 
