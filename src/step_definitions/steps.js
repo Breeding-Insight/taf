@@ -4,6 +4,7 @@ const path = require("path");
 const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
+const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
@@ -794,6 +795,10 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
 });
 
+When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
+  await page.setValue('input[type="file"]', path.resolve(germplasmFolder, args1));
+});
+
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
   await page.assert.containsText(
     "#fileselectmessagebox-import-filename",
@@ -1016,6 +1021,11 @@ Then(/^user can not see a success banner$/, async () => {
     locateStrategy: "xpath",
   });
 });
+
+When(/^user pause for "([^"]*)" seconds$/, async function(args1) {
+  await page.pause(args1 * 1000);
+});
+
 
 //functions
 async function setUserName(name) {
