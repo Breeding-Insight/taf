@@ -85,27 +85,6 @@ module.exports = {
       locateStrategy: "xpath",
     },
 
-    //left navigation
-    usersLeftMenu: {
-      selector: "//*[@id='sideMenu']//a[contains(text(), 'Users')]",
-      locateStrategy: "xpath",
-    },
-    programsLeftMenu: {
-      selector: "//*[@id='sideMenu']//a[contains(text(), 'Programs')]",
-      locateStrategy: "xpath",
-    },
-
-    programManagementLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Program Management ']",
-      locateStrategy: "xpath",
-    },
-
-    userLeftMenu: {
-      selector: "//*[@id='sideMenu']//nav//a[text()=' Users ']",
-      index: 1,
-      locateStrategy: "xpath",
-    },
-
     //users page
     usersHeader: {
       selector: "//*[@id='app']//h1[contains(text(), 'Users')]",
@@ -202,23 +181,30 @@ module.exports = {
         "//div[@class='modal is-active']/div[@class='modal-card']//h3[contains(@class, 'modal-header')]",
       locateStrategy: "xpath",
     },
-
-    //ontology
-    beforeImportMessage: {
-      selector: "//main//div[@class='import-template mb-5']/article//strong",
-      locateStrategy: "xpath",
-    },
-    beforeImportMessageDetails: {
-      selector: "//main//div[@class='import-template mb-5']/article//div",
-      locateStrategy: "xpath",
-    },
-    downloadImportTemplateButton: "#importtemplatemessagebox-download-template",
-    confirmOntologyHeader: {
-      selector: "//div[@id='import-ontology']//h1",
-      locateStrategy: "xpath",
-    },
   },
   sections: {
+    //left navigation
+    navigationMenu: {
+      selector: "//*[@id='sideMenu']",
+      locateStrategy: "xpath",
+      elements: {
+        usersLink: {
+          selector: ".//a[normalize-space()='Users']",
+          locateStrategy: "xpath",
+        },
+
+        programsLink: {
+          selector: ".//a[normlize-space()='Programs']",
+          locateStrategy: "xpath",
+        },
+
+        programManagementLink: {
+          selector: ".//a[normalize-space()='Program Management']",
+          locateStrategy: "xpath",
+        },
+      },
+    },
+
     newUserForm: {
       selector: "#app div.sidebarlayout form",
       elements: {
