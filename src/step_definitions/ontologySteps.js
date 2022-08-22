@@ -265,21 +265,30 @@ When(
 When(
   /^user sets "([^"]*)" in Ordinal first field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@firstScaleField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@firstScaleField",
+      args1
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal second field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@secondScaleField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@secondScaleField",
+      args1
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal third field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@thirdScaleField",
+      args1
+    );
   }
 );
 
@@ -305,96 +314,80 @@ Then(
 Then(
   /^user can see "([^"]*)" below the 'Name' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@nameErrorText");
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@nameErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Description' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible(
-      "@desriptionErrorText"
-    );
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@desriptionErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Entity' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@entityErrorText");
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@entityErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Attribute' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible(
-      "@attributeErrorText"
-    );
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@attributeErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Method Description' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible(
-      "@methodDescriptionErrorText"
-    );
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@methodDescriptionErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can not see "([^"]*)" below the 'Method Description' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.not.elementPresent(
-      "@methodDescriptionErrorText"
-    );
+    await ontologyPage.section.allTraitsForm.assert.not.elementPresent({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Method Class' dropdown on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible(
-      "@methodClassErrorText"
-    );
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@methodClassErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
 Then(
   /^user can see "([^"]*)" below the 'Scale Class' dropdown on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible(
-      "@scaleClassErrorText"
-    );
-    await ontologyPage.section.allTraitsForm.assert.containsText(
-      "@scaleClassErrorText",
-      args1
-    );
+    await ontologyPage.section.allTraitsForm.assert.visible({
+      selector: `//span[@class='form-error has-text-danger'][normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
@@ -519,7 +512,9 @@ Then(
 Then(
   /^user can see "([^"]*)" below the 'Formula' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@formulaErrorText");
+    await ontologyPage.section.allTraitsForm.assert.visible(
+      "@formulaErrorText"
+    );
     await ontologyPage.section.allTraitsForm.assert.containsText(
       "@formulaErrorText",
       args1
@@ -611,7 +606,10 @@ Then(/^user can see 'Unit of time' field on ontology list page$/, async () => {
 When(
   /^user set "([^"]*)" in 'Unit' field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@unitofTimeField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@unitofTimeField",
+      args1
+    );
   }
 );
 
@@ -652,7 +650,9 @@ Then(
 Then(
   /^user can see "([^"]*)" placeholder in Nominal second field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@secondScaleField");
+    await ontologyPage.section.allTraitsForm.assert.visible(
+      "@secondScaleField"
+    );
     await ontologyPage.section.allTraitsForm.assert.attributeEquals(
       "@secondScaleField",
       "placeholder",
@@ -694,7 +694,9 @@ Then(
 Then(
   /^user can see "([^"]*)" placeholder in Nominal fourth field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.assert.visible("@fourthScaleField");
+    await ontologyPage.section.allTraitsForm.assert.visible(
+      "@fourthScaleField"
+    );
     await ontologyPage.section.allTraitsForm.assert.attributeEquals(
       "@fourthScaleField",
       "placeholder",
@@ -1090,7 +1092,10 @@ When(
 When(
   /^user sets "([^"]*)" in Nominal third field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@thirdScaleField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@thirdScaleField",
+      args1
+    );
   }
 );
 
@@ -1142,14 +1147,20 @@ Then(
 When(
   /^user sets "([^"]*)" in Ordinal first value field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@firstValueField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@firstValueField",
+      args1
+    );
   }
 );
 
 When(
   /^user sets "([^"]*)" in Ordinal third value field on ontology list page$/,
   async (args1) => {
-    await ontologyPage.section.allTraitsForm.setValue("@thirdValueField", args1);
+    await ontologyPage.section.allTraitsForm.setValue(
+      "@thirdValueField",
+      args1
+    );
   }
 );
 
@@ -1214,19 +1225,27 @@ Then(
 );
 
 Then(/^user can see Category first field on ontology list page$/, async () => {
-  await ontologyPage.section.allTraitsForm.assert.visible("@firstCategoryField");
+  await ontologyPage.section.allTraitsForm.assert.visible(
+    "@firstCategoryField"
+  );
 });
 
 Then(/^user can see Category second field on ontology list page$/, async () => {
-  await ontologyPage.section.allTraitsForm.assert.visible("@secondCategoryField");
+  await ontologyPage.section.allTraitsForm.assert.visible(
+    "@secondCategoryField"
+  );
 });
 
 Then(/^user can see Category third field on ontology list page$/, async () => {
-  await ontologyPage.section.allTraitsForm.assert.visible("@thirdCategoryField");
+  await ontologyPage.section.allTraitsForm.assert.visible(
+    "@thirdCategoryField"
+  );
 });
 
 Then(/^user can see Category fourth field on ontology list page$/, async () => {
-  await ontologyPage.section.allTraitsForm.assert.visible("@fourthCategoryField");
+  await ontologyPage.section.allTraitsForm.assert.visible(
+    "@fourthCategoryField"
+  );
 });
 
 Then(/^user can see Value first field on ontology list page$/, async () => {
@@ -1534,8 +1553,9 @@ Then(
     );
     await ontologyPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length trait-detail']//div[@class='column']",
-        index:0,
+        selector:
+          "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index: 0,
         locateStrategy: "xpath",
       },
       traitObject.categoryFirstField
@@ -1552,8 +1572,9 @@ Then(
     );
     await ontologyPage.assert.containsText(
       {
-        selector: "//div[@class='is-full-length trait-detail']//div[@class='column']",
-        index:1,
+        selector:
+          "//div[@class='is-full-length trait-detail']//div[@class='column']",
+        index: 1,
         locateStrategy: "xpath",
       },
       traitObject.categorySecondField
