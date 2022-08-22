@@ -279,29 +279,4 @@ Feature: Program Management (15)
 			| Name     | Key |
 			| Program* | D*  |
 
-	@BI-1502
-	@debug
-	Scenario Outline: New Program form, Save1
-		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
-		Then user can see 'Configuration' tab on Program Management page
-		When user selects "Configuration" tab on Program Management page
-		Then user can see Configuration on Program Management page
-		Then user can see "Shared Ontology" section on Program Management page
-		Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
-		When user selects 'Share Ontology' button on Program Management page
-		Then user can see the 'Manage  Share Ontology' modal window display
-		# Then user can see all programs that are in the same species and point to the same BrAPI server as the given program
-		# Then user can see checkbox next to each name
-		# When user clicks on checkbox
-		# When user select Save
-		# Then user can see the loading indicator
-		# Then user navigated back to the Configuration page
-		# Then user can see shared programs
-		# When user selects Share Ontology
-		# Then user can see the modal window display
-		# Then user can see all programs that are in the same species and point to the same BrAPI server as the given program
-		# Then user can see checkbox next to each name
-		# When user unchecks the checkbox
-		# When user clicks on cancel
-		# Then user navigated back to the Configuration page
+
