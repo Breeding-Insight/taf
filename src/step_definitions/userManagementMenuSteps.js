@@ -3,6 +3,7 @@ const { Given, Then, When } = require("@cucumber/cucumber");
 const page = client.page.page();
 
 Then(/^user selects User Status menu dropdown$/, async () => {
+  await page.pause(5000);
   await page.click("@userStatusMenuDropDownButton");
 });
 
