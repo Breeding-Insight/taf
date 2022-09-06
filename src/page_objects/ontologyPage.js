@@ -24,9 +24,9 @@ module.exports = {
       selector: "#ontologyTableLabel",
       elements: {
         nameField: "#Name",
-        nameErrorText: {
-          selector: "span.form-error.has-text-danger",
-          index: 1,
+        errorText: {
+          selector: "//span[@class='form-error has-text-danger']",
+          locateStrategy: "xpath",
         },
         fullNameField: "#Full-name",
         entitySelectField: {
@@ -58,8 +58,8 @@ module.exports = {
         methodDescription:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(23) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
         methodDescriptionErrorText: {
-          selector: "//span[normalize-space(.)='Missing method description']",
-          locateStrategy:"xpath",
+          selector: "span.form-error.has-text-danger",
+          index: 3,
         },
         methodClass:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",
