@@ -132,12 +132,18 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.click("@signInButton");
 });
 
-When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
-  await page.click({
-    selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
-    locateStrategy: "xpath",
-  });
-});
+When(
+  /user selects "([^"]*)" on program-selection page$/,
+  async function (args1) {
+    await page.click({
+      selector: `//*[@id='app']//main//a[normalize-space(.)='${args1.replace(
+        "*",
+        this.parameters.timeStamp
+      )}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
 
 When(/^user navigates to Program Selection page$/, async () => {
   await page.navigateToProgramSelection();
@@ -796,7 +802,10 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
 });
 
 When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
-  await page.setValue('input[type="file"]', path.resolve(germplasmFolder, args1));
+  await page.setValue(
+    'input[type="file"]',
+    path.resolve(germplasmFolder, args1)
+  );
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -1022,10 +1031,28 @@ Then(/^user can not see a success banner$/, async () => {
   });
 });
 
-When(/^user pause for "([^"]*)" seconds$/, async function(args1) {
+When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
   await page.pause(args1 * 1000);
 });
 
+When(/^user deletes the cache$/, async function () {
+  await client.url("chrome://settings/clearBrowserData");
+  await page.pause(5000);
+  await client.execute(function () {
+    document
+      .querySelector("settings-ui")
+      .shadowRoot.querySelector("#container")
+      .querySelector("#main")
+      .shadowRoot.querySelector("settings-basic-page")
+      .shadowRoot.querySelector("#basicPage")
+      .querySelector("settings-section:nth-child(9)")
+      .querySelector("settings-privacy-page")
+      .shadowRoot.querySelector("settings-clear-browsing-data-dialog")
+      .shadowRoot.querySelector("#clearBrowsingDataDialog")
+      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm")
+      .click();
+  }, []);
+});
 
 //functions
 async function setUserName(name) {

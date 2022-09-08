@@ -29,7 +29,7 @@ When(
     await page.section.programForm.clearValue("@programNameField");
     await page.section.programForm.setValue(
       "@programNameField",
-      args1.replace("*", helpers.generateRandomAlphaString(8))
+      args1.replace("*", this.parameters.timeStamp)
     );
   }
 );
@@ -661,9 +661,107 @@ When(
 );
 
 Then(
-  /^user can see the 'Manage  Share Ontology' modal window display$/,
+  /^user can see the 'Manage  Share Ontology' in Managed Shared Ontlogy page$/,
   async function () {
     await page.expect.section("@manageSharedOntologyModal").visible;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" is currently shared but not accepted message$/,
+  async function (args1) {
+    await page.assert.visible({
+      selector: `//li[normalize-space()='${args1.replace(
+        "*",
+        this.parameters.timeStamp
+      )} (Not Accepted)']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" is currently shared and accepted message$/,
+  async function (args1) {
+    await page.assert.visible({
+      selector: `//li[normalize-space()='${args1.replace(
+        "*",
+        this.parameters.timeStamp
+      )} (Accepted)']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    await page.assert.visible({
+      selector: `//label[normalize-space()='${args1.replace(
+        "*",
+        this.parameters.timeStamp
+      )}']//input`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    await page.click({
+      selector: `//label[normalize-space()='${args1.replace(
+        "*",
+        this.parameters.timeStamp
+      )}']//input`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" button in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    await page.click("#confirmSharedOntology");
+  }
+);
+
+When(
+  /^user selects "([^"]*)" in Choose ontology to subscribe to dropdown on Program Management page$/,
+  async function (args1) {
+    await page.click({
+      selector: "//select[contains(@id,'Choose-ontology')]",
+      locateStrategy: "xpath",
+    });
+    await page.click({
+      selector: `//option[normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects Save button of Subscribe to Shared Ontology on Program Management page$/,
+  async function () {
+    await page.click("#subscribeOntologyBtn");
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" button on Program Management page$/,
+  async function (args1) {
+    await page.assert.visible("#unSubscribeOntologyBtn");
+    await page.assert.containsText(
+      "#unSubscribeOntologyBtn",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user selects Share Ontology button of Shared Ontology on Program Management page$/,
+  async function () {
+    await page.click("#showShareModalBtn");
   }
 );
 

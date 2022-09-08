@@ -122,7 +122,6 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Method1 Observation" in 'Method' text on ontology list page
 
     @BI-1312
-    @debug
     Scenario: Ontology Term Create - Name & Method Description - Character Limits
         Given user selects 'New Term' button on ontology list page
         When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
