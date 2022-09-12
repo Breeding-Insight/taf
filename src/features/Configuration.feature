@@ -68,38 +68,7 @@ Feature: Configuration
         When user selects "<ProgramName>" checkbox in Managed Shared Ontlogy page
         When user selects "Save" button in Managed Shared Ontlogy page
         Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
-        # Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
-        # When user selects 'Share Ontology' button on Program Management page
-        # Then user can see the 'Manage  Share Ontology' modal window display
-        # Then user can see "<ProgramName>" checkbox in modal window display
-        # When user selects "<ProgramName>" checkbox in modal window display
-        # When user selects "Save" button in modal window display
-
-
+    
         Examples:
             | ProgramName | Key | Species |
             | P*          | T*  | Grape   |
-
-# When user selects "Snacks" on program-selection page
-# When user selects "Program Management" in navigation
-#Then user can see 'Configuration' tab on Program Management page
-#When user selects "Configuration" tab on Program Management page
-#Then user can see Configuration on Program Management page
-#Then user can see "Shared Ontology" section on Program Management page
-#Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
-#When user selects 'Share Ontology' button on Program Management page
-#Then user can see the 'Manage  Share Ontology' modal window display
-# Then user can see all programs that are in the same species and point to the same BrAPI server as the given program
-# Then user can see checkbox next to each name
-# When user clicks on checkbox
-# When user select Save
-# Then user can see the loading indicator
-# Then user navigated back to the Configuration page
-# Then user can see shared programs
-# When user selects Share Ontology
-# Then user can see the modal window display
-# Then user can see all programs that are in the same species and point to the same BrAPI server as the given program
-# Then user can see checkbox next to each name
-# When user unchecks the checkbox
-# When user clicks on cancel
-# Then user navigated back to the Configuration page
