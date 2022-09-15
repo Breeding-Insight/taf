@@ -114,7 +114,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
       break;
     case "Cucumber Breeder":
       email = "cucumberbreeder@mailinator.com";
-      password = "cucumber1";
+      password = "cucumber12";
       break;
     case "Cucumber Member":
       email = "cucumbermember@mailinator.com";
@@ -1052,7 +1052,6 @@ When(/^user deletes the cache$/, async function () {
       .querySelector("div:nth-child(4) #clearBrowsingDataConfirm")
       .click();
   }, []);
-  await page.assert.visible("#idfdfd");
 });
 
 //functions
