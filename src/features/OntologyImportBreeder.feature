@@ -8,7 +8,7 @@ Feature: Ontology Import (10 Scenarios)
 
 	@BI-916
 	@BI-809
-	@SmokeTests
+	# @SmokeTests
 	Scenario: Import Ontology page
 		Then user can header "Import File"
 		And user can see a message 'Before You Import...'
@@ -25,7 +25,7 @@ Feature: Ontology Import (10 Scenarios)
 
 	@BI-918
 	@BI-810
-	@SmokeTests
+	# @SmokeTests
 	Scenario: Ontology - choosing an xls file And selecting Import
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button

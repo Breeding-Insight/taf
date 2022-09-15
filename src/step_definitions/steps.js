@@ -1049,7 +1049,7 @@ When(/^user deletes the cache$/, async function () {
       .querySelector("settings-privacy-page")
       .shadowRoot.querySelector("settings-clear-browsing-data-dialog")
       .shadowRoot.querySelector("#clearBrowsingDataDialog")
-      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm")
+      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm1")
       .click();
   }, []);
 });
