@@ -1038,6 +1038,7 @@ When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
 When(/^user deletes the cache$/, async function () {
   await client.url("chrome://settings/clearBrowserData");
   await page.pause(5000);
+  await page.assert.visible("#idfdfd");
   await client.execute(function () {
     document
       .querySelector("settings-ui")
@@ -1049,7 +1050,7 @@ When(/^user deletes the cache$/, async function () {
       .querySelector("settings-privacy-page")
       .shadowRoot.querySelector("settings-clear-browsing-data-dialog")
       .shadowRoot.querySelector("#clearBrowsingDataDialog")
-      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm1")
+      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm")
       .click();
   }, []);
 });
