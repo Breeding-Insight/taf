@@ -19,7 +19,7 @@ Feature: Logging with Sys Administration
 
 	@BI-803
 	@BI-818
-	# @SmokeTests
+	@SmokeTests
 	Scenario: Logging in as an admin - program-management page
 		And user selects User Status menu dropdown
 		Then user can see "System Administration" in the upper right corner

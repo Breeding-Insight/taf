@@ -114,7 +114,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
       break;
     case "Cucumber Breeder":
       email = "cucumberbreeder@mailinator.com";
-      password = "cucumber12";
+      password = "cucumber1";
       break;
     case "Cucumber Member":
       email = "cucumbermember@mailinator.com";
@@ -1035,23 +1035,21 @@ When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
   await page.pause(args1 * 1000);
 });
 
-When(/^user deletes the cache$/, async function () {
-  await client.url("chrome://settings/clearBrowserData");
-  await page.pause(5000);
-  await client.execute(function () {
-    document
-      .querySelector("settings-ui")
-      .shadowRoot.querySelector("#container")
-      .querySelector("#main")
-      .shadowRoot.querySelector("settings-basic-page")
-      .shadowRoot.querySelector("#basicPage")
-      .querySelector("settings-section:nth-child(9)")
-      .querySelector("settings-privacy-page")
-      .shadowRoot.querySelector("settings-clear-browsing-data-dialog")
-      .shadowRoot.querySelector("#clearBrowsingDataDialog")
-      .querySelector("div:nth-child(4) #clearBrowsingDataConfirm")
-      .click();
-  }, []);
+When(/^user logs out$/, async function () {
+  await page.click("@userStatusMenuDropDownButton");
+  await page.click("@logoutButton");
+  await client.url("https://sandbox.orcid.org/");
+  await page.click("#cy-user-info");
+  await page.click("#cy-signout");
+  await page.pause(10000);
+});
+
+When(/^user close notification pop-up$/, async function () {
+  await page.click({
+    selector:
+      "//article[not(@style='display: none;') and @class='notification is-marginless is-success']//button",
+    locateStrategy: "xpath",
+  });
 });
 
 //functions

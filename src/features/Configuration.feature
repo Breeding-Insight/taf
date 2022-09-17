@@ -6,8 +6,6 @@ Feature: Configuration
         And user selects "System Administration" on program-selection page
 
     @BI-1502
-    @debug
-    @SmokeTests
     Scenario Outline: Configuration as a sub-menu
         When user is on the program-management page
         #Create a new program
@@ -27,7 +25,8 @@ Feature: Configuration
         When user sets "breeder" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
-        When user deletes the cache
+        When user close notification pop-up
+        When user logs out
         #Login as Cucumber Breeder and go to Snacks
         When user logs in as "Cucumber Breeder"
         When user selects "Snacks" on program-selection page
