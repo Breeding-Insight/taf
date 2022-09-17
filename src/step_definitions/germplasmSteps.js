@@ -14,7 +14,7 @@ When(
   async function () {
     let count;
     await germplasmPage.pause(10000);
-    await germplasmPage.findElements('tbody tr', (result)=>{
+    await germplasmPage.findElements("tbody tr", (result) => {
       count = result.value.length;
     });
     await germplasmPage.section.germplasmTable.expect
@@ -131,3 +131,65 @@ Then(
     }
   }
 );
+
+Then(/^user can see Female Parent GID value is a link$/, async function () {
+  let countOfTD;
+  await germplasmPage.findElements(
+    {
+      selector: "//td[@data-label='Female Parent GID'][string-length() > 2]",
+      locateStrategy: "xpath",
+    },
+    async function ({ value }) {
+      countOfTD = value.length;
+    }
+  );
+
+  let countOfTDLinks;
+  await germplasmPage.findElements(
+    {
+      selector: "//td[@data-label='Female Parent GID'][string-length() > 2]//a",
+      locateStrategy: "xpath",
+    },
+    async function ({ value }) {
+      countOfTDLinks = value.length;
+    }
+  );
+
+  await germplasmPage.assert.strictEqual(countOfTD, countOfTDLinks);
+});
+
+Then(/^user can see Male Parent GID value is a link$/, async function () {
+  let countOfTD;
+  await germplasmPage.findElements(
+    {
+      selector: "//td[@data-label='Male Parent GID'][string-length() > 2]",
+      locateStrategy: "xpath",
+    },
+    async function ({ value }) {
+      countOfTD = value.length;
+    }
+  );
+
+  let countOfTDLinks;
+  await germplasmPage.findElements(
+    {
+      selector: "//td[@data-label='Male Parent GID'][string-length() > 2]//a",
+      locateStrategy: "xpath",
+    },
+    async function ({ value }) {
+      countOfTDLinks = value.length;
+    }
+  );
+
+  await germplasmPage.assert.strictEqual(countOfTD, countOfTDLinks);
+});
+
+When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
+  let control = {
+    selector: `//tbody//tr[${args1}]//td[@data-label='Female Parent GID']//a`,
+    locateStrategy: "xpath",
+  };
+  await client.execute("window.scrollTo(0,0);");
+  await germplasmPage.moveToElement(control, 1, 1);
+  await germplasmPage.click(control);
+});
