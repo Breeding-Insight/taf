@@ -99,7 +99,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects 'Save' button on ontology list page
         When user clicks Show All button
         Then user can see "<ont_term_name>" in 'Name' column on ontology list page
-        Then user can see "<trait_description>" in 'Trait' column on ontology list page
+        Then user can see "<trait_entity> <trait_attribute>" in 'Trait' column on ontology list page
         Then user can see "<method_description> Observation" in 'Method' column on ontology list page
         Then user can see "Date" in 'Scale Class' column on ontology list page
 
