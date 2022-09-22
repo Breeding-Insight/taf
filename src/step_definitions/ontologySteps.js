@@ -431,11 +431,7 @@ Then(
     await ontologyPage.assert.visible({
       selector:
         "//td[@name='trait'][normalize-space(.)='" +
-<<<<<<< HEAD:src/step_definitions/traitsSteps.js
         args1.replace(/\*/g, this.parameters.timeStamp) +
-=======
-        args1.replaceAll("*", this.parameters.timeStamp) +
->>>>>>> main:src/step_definitions/ontologySteps.js
         "']",
       locateStrategy: "xpath",
     });

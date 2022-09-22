@@ -25,7 +25,6 @@ Feature: Germplasm Tests
 		Then user can see "Attributes" tab of Germplasm details page
 
 	@BI-1514
-	@debug
 	Scenario: GIDs clickable Link
 		When user clicks Show All button
 		Then user can see Female Parent GID value is a link
