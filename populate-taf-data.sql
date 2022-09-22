@@ -29,11 +29,17 @@ VALUES
 INSERT INTO system_user_role (bi_user_id, system_role_id, created_by, updated_by) 
 SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';
 
+--Create program germplasm sequences
+create sequence tmtest_germplasm_sequence;
+create sequence sktest_germplasm_sequence;
+
+-- TODO add sequences for experiment and OUs (used for experiment import)
+
 --Populate Programs
-INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
-INSERT INTO program (species_id, name, created_by, updated_by, active) 
-SELECT species.id, 'Snacks', by_user_id, by_user_id, true FROM species WHERE species.common_name = 'Grape';
+INSERT INTO program (species_id, name, created_by, updated_by, active, key, germplasm_sequence) 
+SELECT species.id, 'Trail Mix', by_user_id, by_user_id, true, 'TMTEST', 'tmtest_germplasm_sequence' FROM species WHERE species.common_name = 'Grape';
+INSERT INTO program (species_id, name, created_by, updated_by, active, key, germplasm_sequence) 
+SELECT species.id, 'Snacks', by_user_id, by_user_id, true, 'SKTEST', 'sktest_germplasm_sequence' FROM species WHERE species.common_name = 'Grape';
 
 --Populate program_ontology
 INSERT INTO program_ontology (program_id, created_by, updated_by) 

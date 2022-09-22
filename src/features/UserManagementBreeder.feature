@@ -249,8 +249,13 @@ Feature: Breeder User Management
 		And user selects "Program Management" in navigation
 		And user selects "Users" tab
 		When user selects "Edit" of Name "Christian"
-		Then user can not edit Role dropdown
+		When user selects "member" in Role dropdown
 		When user selects "Save" button
+		Then user can see banner contains "Success"
+		When user selects "Edit" of Name "Christian"
+		When user selects "breeder" in Role dropdown
+		When user selects "Save" button
+		Then user can see banner contains "Success"
 
 	@BI-904
 	Scenario: breeder with no admin role editing self - Program User management

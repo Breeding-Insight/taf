@@ -54,18 +54,18 @@ Feature: Ontology Term Create - General Behavior
         When user sets "FullName1" in 'Full Name' field on ontology list page
         Then user can see "Test1, FullName1" in Synonyms text on ontology list page
 
-    @BI-946
+    @BI-1518
     Scenario: Ontology Term Create - Required Fields
         When user selects 'New Term' button on ontology list page
         When user selects 'Save' button on ontology list page
-        Then user can see "Missing observation variable name" below the 'Name' field on ontology list page
+        Then user can see "Missing Name" below the 'Name' field on ontology list page
         Then user can see "Missing trait description" below the 'Description' field on ontology list page
         Then user can see "Missing trait entity" below the 'Entity' field on ontology list page
         Then user can see "Missing trait attribute" below the 'Attribute' field on ontology list page
         Then user can see "Missing method class" below the 'Method Class' dropdown on ontology list page
         Then user can see "Missing scale data type" below the 'Scale Class' dropdown on ontology list page
         Then user can not see "Missing method description" below the 'Method Description' field on ontology list page
-        Then user can see banner appears with an error message "Error creating trait. Missing method class; Missing scale data type; Missing observation variable name; Missing trait entity; Missing trait attribute; Missing trait description;"
+        Then user can see banner appears with an error message "Error creating trait. Missing method class; Missing scale data type; Missing Name; Missing trait entity; Missing trait attribute; Missing trait description;"
         Then user can see banner appears without an error message "Missing program observation level;"
 
     @BI-947
@@ -121,3 +121,17 @@ Feature: Ontology Term Create - General Behavior
         When user sets "Method1" in 'Method Description' field on ontology list page
         When user selects "Observation" in 'Method Class' dropdown on ontology list page
         Then user can see "Method1 Observation" in 'Method' text on ontology list page
+
+    @BI-1312
+    @debug
+    Scenario: Ontology Term Create - Name & Method Description - Character Limits
+        Given user selects 'New Term' button on ontology list page
+        When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
+        When user sets "ThisDescription" in 'Method Description' field on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Name must be less than 12 characters." below the 'Name' field on ontology list page
+        When user sets as is "ThisNameWith" in 'Name' field on ontology list page
+        When user sets "ThisDescriptionIsMoreThanThirtyCharacters" in 'Method Description' field on ontology list page
+        When user selects 'Save' button on ontology list page
+        Then user can see "Description must be less than 30 characters." below the 'Method Description' field on ontology list page
+        Then user can see banner appears with an error message "Fix Invalid Fields"

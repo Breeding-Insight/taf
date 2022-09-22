@@ -2,11 +2,12 @@ const { client } = require("nightwatch-api");
 const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
+const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
+const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
 const fs = require("fs");
-const reporter = require("cucumber-html-reporter");
 const user = {};
-const program = {};
+const helpers = require("./helpers.js");
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -143,15 +144,11 @@ When(/^user navigates to Program Selection page$/, async () => {
 });
 
 When(/^user selects Users in navigation$/, async () => {
-  await page.click("@usersLeftMenu");
+  await page.section.navigationMenu.click("@usersLink");
 });
 
 Given(/^user is on the user-management page$/, async () => {
   await page.assert.visible("@usersHeader");
-});
-
-When(/^user is on the program-management page$/, async () => {
-  await page.assert.visible("#adminProgramTableLabel");
 });
 
 Then(/^user can see page of Users$/, async () => {
@@ -201,7 +198,7 @@ Then(/^user can not see "([^"]*)" link$/, async (args1) => {
 
 Then(/^user can see each row has an Edit link$/, async () => {
   const selector = {
-    selector: "//a[contains(text(),'Edit')]",
+    selector: "//td/a[normalize-space()='Edit']",
     locateStrategy: "xpath",
   };
 
@@ -334,8 +331,8 @@ Then(/^user can see Cancel button$/, async () => {
   await page.section.newUserForm.assert.visible("@cancelButton");
 });
 
-When(/^user sets "([^"]*)" in Name field$/, async (args1) => {
-  setUserName(args1);
+When(/^user sets "([^"]*)" in Name field$/, async function (args1) {
+  await setUserName(args1.replace("*", this.parameters.timeStamp));
 });
 
 Then(/^user can see "([^"]*)" is in the list of users$/, async (args1) => {
@@ -358,63 +355,6 @@ Then(
     await page.section.newUserForm.assert.visible("@emailIsInvalidText");
   }
 );
-
-When(/^user creates a new program$/, async (table) => {
-  this.program = {};
-  await page.waitForElementVisible("@newProgramButton");
-  await page.click("@newProgramButton");
-  let programForm = page.section.programForm;
-  for (column of table.raw()[0]) {
-    for (hash of table.hashes()) {
-      switch (column) {
-        case "Program Name":
-          this.program.Name = hash["Program Name"].replace(
-            "*",
-            Date.now().toString()
-          );
-          await programForm.setValue("@programNameField", this.program.Name);
-          break;
-        case "Species":
-          this.program.Species = hash["Species"];
-          await programForm.setValue("@speciesSelect", this.program.Species);
-          break;
-        case "Program Key":
-          this.program.Key = hash["Program Key"].replace(
-            "*",
-            generateRandomAlphaString(5)
-          );
-          await programForm.setValue("@programKeyField", this.program.Key);
-          break;
-        default:
-          throw new Error(`Unexpected ${column} name.`);
-      }
-    }
-  }
-  await programForm.click("@saveButton");
-});
-
-Then(/^user can see a new program is created$/, async () => {
-  let selector = `.//td[normalize-space(.)='${this.program.Name}']`;
-  await page.assert.containsText(
-    { selector: selector, locateStrategy: "xpath" },
-    this.program.Name
-  );
-  await page.assert.containsText(
-    {
-      selector: selector + "/ancestor::tr//td[@data-label='Species']",
-      locateStrategy: "xpath",
-    },
-    this.program.Species
-  );
-  await page.assert.containsText(
-    {
-      selector: selector + "/ancestor::tr//td[@data-label='Program Key']",
-      locateStrategy: "xpath",
-    },
-    this.program.Key
-  );
-  console.log("and this" + this.program.Name);
-});
 
 When(/^user selects Cancel button$/, async () => {
   await page.section.newUserForm.click("@cancelButton");
@@ -488,16 +428,18 @@ Then(/^user does not see a new user in Users list$/, async () => {
   });
 });
 
-When(/^user creates a new user$/, async (table) => {
+When(/^user creates a new user$/, async function (table) {
   await page.click("@newUserButton");
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
         case "Name":
-          await setUserName(hash["Name"]);
+          await setUserName(
+            hash["Name"].replace("*", this.parameters.timeStamp)
+          );
           break;
         case "Email":
-          await setEmail(hash["Email"]);
+          await setEmail(hash["Email"].replace("*", this.parameters.timeStamp));
           break;
         case "Role":
           await setRole(hash["Role"]);
@@ -514,13 +456,13 @@ When(/^user clicks 'New User' button$/, async () => {
   await page.click("@newUserButton");
 });
 
-When(/^user edits a user$/, async (table) => {
+When(/^user edits a user$/, async function (table) {
   await closeNotification();
-  await showAll();
+  await helpers.showAll();
 
   //go to the row with matching name
   const selector = {
-    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a[contains(text(),'Edit')]`,
+    selector: `//*[@id='app']//table//tbody//td[contains(text(),'${user.userName}')]/..//a[normalize-space()='Edit']`,
     locateStrategy: "xpath",
   };
   await page.moveToElement(selector, 1, 1);
@@ -529,10 +471,12 @@ When(/^user edits a user$/, async (table) => {
     for (hash of table.hashes()) {
       switch (column) {
         case "Name":
-          await setUserName(hash["Name"]);
+          await setUserName(
+            hash["Name"].replace("*", this.parameters.timeStamp)
+          );
           break;
         case "Email":
-          await setEmail(hash["Email"]);
+          await setEmail(hash["Email"].replace("*", this.parameters.timeStamp));
           break;
         case "Role":
           await setRole(hash["Role"]);
@@ -572,7 +516,7 @@ Then(/^user can see a new user is added in User$/, async () => {
 });
 
 Then(/^user can see user is in users list$/, async () => {
-  await showAll();
+  await helpers.showAll();
   await page.assert.visible({
     selector: `//tr/td[normalize-space(.)='${user.userName}']`,
     locateStrategy: "xpath",
@@ -620,7 +564,7 @@ Then(
 );
 
 When(/^user clicks Edit of a user$/, async () => {
-  await showAll();
+  await helpers.showAll();
   await page.pause(1000);
 
   const button = "#app > div > article:nth-of-type(1) > button";
@@ -637,7 +581,7 @@ When(/^user clicks Edit of a user$/, async () => {
 
 When(/^user can see "([^"]*)" as a program$/, async (args1) => {
   await page.navigateToPrograms();
-  await showAll();
+  await helpers.showAll();
   await page.waitForElementVisible({
     selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
@@ -649,8 +593,10 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
@@ -671,8 +617,10 @@ When(
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
-    await page.waitForElementVisible("@programManagementLeftMenu");
-    await page.click("@programManagementLeftMenu");
+    await page.section.navigationMenu.waitForElementVisible(
+      "@programManagementLink"
+    );
+    await page.section.navigationMenu.click("@programManagementLink");
     await page.section.programManagement.waitForElementVisible("@usersLink");
     await page.section.programManagement.click("@usersLink");
     await page.waitForElementVisible("@showAllButton");
@@ -784,13 +732,6 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   }
 });
 
-Then(/^user can see Program User Management page$/, async () => {
-  await page.assert.visible({
-    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
-    locateStrategy: "xpath",
-  });
-});
-
 Then(/^user can see Users page$/, async () => {
   await page.assert.visible("#programUserTableLabel");
 });
@@ -837,31 +778,11 @@ Then(/^user can header "([^"]*)"$/, async (args1) => {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async () => {
-  await page.assert.containsText(
+  await ontologyPage.assert.containsText(
     "@beforeImportMessage",
     "Before You Import..."
   );
 });
-
-Then(
-  /^user can see a message 'Prepare ontology information for import using the provided template.'$/,
-  async () => {
-    await page.assert.containsText(
-      "@beforeImportMessageDetails",
-      "Prepare ontology information for import using the provided template."
-    );
-  }
-);
-
-Then(
-  /^user can see a button 'Download the Ontology Import Template'$/,
-  async () => {
-    await page.assert.containsText(
-      "@downloadImportTemplateButton",
-      "Download the Ontology Import Template"
-    );
-  }
-);
 
 Then(/^user can see a button 'Choose a file...'$/, async () => {
   await page.assert.containsText(
@@ -872,6 +793,10 @@ Then(/^user can see a button 'Choose a file...'$/, async () => {
 
 When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
+});
+
+When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
+  await page.setValue('input[type="file"]', path.resolve(germplasmFolder, args1));
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -899,22 +824,11 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.click(selector);
 });
 
-Then(/^user can see 'Confirm New Ontology Term' header$/, async () => {
-  await page.assert.containsText(
-    "@confirmOntologyHeader",
-    "Confirm New Ontology Term"
-  );
-});
-
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
     selector: `//button[contains(normalize-space(.),'${args1}')]`,
     locateStrategy: "xpath",
   });
-});
-
-Then(/^user see a list of ontology terms in a table$/, async () => {
-  await page.assert.visible("#traitsImportTableLabel");
 });
 
 Then(/^user can see "([^"]*)" column header$/, async (args1) => {
@@ -925,7 +839,7 @@ Then(/^user can see "([^"]*)" column header$/, async (args1) => {
 });
 
 Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
-  await showAll();
+  await helpers.showAll();
   let rows;
 
   await client.elements("css selector", "tbody tr", ({ value }) => {
@@ -948,39 +862,16 @@ Then(/^user can not see a modal box$/, async () => {
   await page.assert.not.elementPresent("@modalCard");
 });
 
-Then(/^user can see "([^"]*)" in modal box header$/, async (args1) => {
-  let headerText;
-  if (args1.includes("User*")) {
-    headerText = user.userName;
-  } else if (args1.includes("Program*")) {
-    headerText = program.Name;
-  } else {
-    headerText = args1;
-  }
-  await page.assert.containsText("@modalHeader", headerText);
+Then(/^user can see "([^"]*)" in modal box header$/, async function (args1) {
+  await page.assert.containsText(
+    "@modalHeader",
+    args1.replace("*", this.parameters.timeStamp)
+  );
 });
 
 Then(/^user can see "([^"]*)" in modal box header1$/, async (args1) => {
   await page.section.modal.assert.containsText("@header", args1);
 });
-
-When(
-  /^user sets "([^"]*)" in Program Name field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programNameField");
-    program.Name = args1.replace("*", generateRandomAlphaString(8));
-    await page.section.programForm.setValue("@programNameField", program.Name);
-  }
-);
-
-When(
-  /^user sets "([^"]*)" in Program Key field in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.clearValue("@programKeyField");
-    program.Key = args1.replace("*", generateRandomAlphaString(4));
-    await page.section.programForm.setValue("@programKeyField", program.Key);
-  }
-);
 
 Then(/^user can see "([^"]*)" in modal box text$/, async (args1) => {
   //Multiple text lines can exist, so selector needs to be specific to text
@@ -1012,8 +903,8 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   });
 });
 
-When(/^user sets "([^"]*)" in Name field of User$/, async (args1) => {
-  await setUserName(args1);
+When(/^user sets "([^"]*)" in Name field of User$/, async function (args1) {
+  await setUserName(args1.replace("*", this.parameters.timeStamp));
 });
 
 When(/^user sets "([^"]*)" in Email field of User$/, async (args1) => {
@@ -1077,7 +968,7 @@ When(/^user selects 'Yes, deactivate' button$/, async () => {
 });
 
 When(/^user selects 'Edit' of "([^"]*)" of Users$/, async (args1) => {
-  await showAll();
+  await helpers.showAll();
   let userEmail;
   if (args1.includes("*") && user.email != null) {
     userEmail = user.email;
@@ -1101,10 +992,6 @@ When(/^user selects 'Save' button in Users$/, async () => {
 
 Then(/^user can see 'New Program' button on Program$/, async () => {
   await page.assert.visible("@newProgramButton");
-});
-
-When(/^user selects 'New Program' button in Programs page$/, async () => {
-  await page.click("@newProgramButton");
 });
 
 When(/^user selects 'Yes, remove' button in modal box$/, async () => {
@@ -1135,16 +1022,20 @@ Then(/^user can not see a success banner$/, async () => {
   });
 });
 
+When(/^user pause for "([^"]*)" seconds$/, async function(args1) {
+  await page.pause(args1 * 1000);
+});
+
+
 //functions
 async function setUserName(name) {
-  this.user = {};
-  user.userName = name.replace("*", Date.now().toString());
+  user.userName = name;
   await page.section.newUserForm.clearValue("@nameField");
   await page.section.newUserForm.setValue("@nameField", user.userName);
 }
 
 async function setEmail(email) {
-  user.email = email.replace("*", Date.now().toString());
+  user.email = email;
   await page.section.newUserForm.clearValue("@emailField");
   await page.section.newUserForm.setValue("@emailField", user.email);
 }
@@ -1152,21 +1043,6 @@ async function setEmail(email) {
 async function setRole(role) {
   user.role = role;
   return await page.section.newUserForm.setValue("@roleSelect", user.role);
-}
-
-function generateRandomAlphaString(length) {
-  let generated = "";
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  for (let i = 0; i < length; i++) {
-    generated += letters[Math.floor(Math.random() * letters.length)];
-  }
-  return generated;
-}
-
-async function showAll() {
-  await page.moveToElement("@showAllButton", 1, 1);
-  await page.pause(1000);
-  await page.click("@showAllButton");
 }
 
 async function closeNotification() {
@@ -1180,7 +1056,7 @@ async function closeNotification() {
 }
 
 async function waitReady() {
-  const StopWatch = require("@slime/stopwatch");
+  const StopWatch = require("@slime/stopwatch").StopWatch;
   let stopWatch = new StopWatch();
   stopWatch.startTimer();
 

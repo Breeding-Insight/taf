@@ -121,7 +121,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see Category fourth field on ontology list page
 
     @htest
-    @BI-1344
+    @BI-1519
     Scenario: scale class Ordinal - required fields
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -134,11 +134,11 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user clears Value first field on ontology list page
         And user clears Value second field on ontology list page
         And user selects 'Save' button on ontology list page
-        Then user can see "Value missing." below Value first field on ontology list page
+        Then user can see "1" in Category first field on ontology list page
         Then user can see "Label missing." error message below Category first field on ontology list page
-        Then user can see "Value missing." below Value second field on ontology list page
+        Then user can see "2" in Category second field on ontology list page
         Then user can see "Label missing." below Category second field on ontology list page
-        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors; Ordinal scales must have at least two categories.;"
+        Then user can see banner appears with an error message "Error creating trait. Scale categories contain errors;"
 
         Examples:
             | ont_term_name | trait_description | trait_entity | trait_attribute | method_description |
