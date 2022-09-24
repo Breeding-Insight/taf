@@ -34,8 +34,8 @@ Feature: Configuration
         Then user can see 'Configuration' tab on Program Management page
         When user selects "Configuration" tab on Program Management page
         Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Program Management page
-        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
+        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
+        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
         When user selects Share Ontology button of Shared Ontology on Program Management page
         When user can see the 'Manage  Share Ontology' in Managed Shared Ontlogy page
         Then user can see "<ProgramName>" checkbox in Managed Shared Ontlogy page
@@ -50,7 +50,7 @@ Feature: Configuration
         Then user can see 'Configuration' tab on Program Management page
         When user selects "Configuration" tab on Program Management page
         Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Program Management page
+        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
         When user selects "Snacks" in Choose ontology to subscribe to dropdown on Program Management page
         When user selects Save button of Subscribe to Shared Ontology on Program Management page
         When user pause for "5" seconds
@@ -62,12 +62,12 @@ Feature: Configuration
         Then user can see 'Configuration' tab on Program Management page
         When user selects "Configuration" tab on Program Management page
         Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Program Management page
+        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
         Then user can see "<ProgramName>" is currently shared and accepted message
         When user selects Share Ontology button of Shared Ontology on Program Management page
         When user selects "<ProgramName>" checkbox in Managed Shared Ontlogy page
         When user selects "Save" button in Managed Shared Ontlogy page
-        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Program Management page
+        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
     
         Examples:
             | ProgramName | Key | Species |

@@ -7,6 +7,7 @@ const page = client.page.page();
 const program = {};
 const location = {};
 const helpers = require("./helpers");
+const { Sign } = require("crypto");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
@@ -623,7 +624,19 @@ Then(
 When(
   /^user selects "([^"]*)" tab on Program Management page$/,
   async function (args1) {
-    await page.section.programManagement.click("@configurationLink");
+    switch (args1) {
+      case "Locations":
+        await page.section.programManagement.click("@locationsLink");
+        break;
+      case "Users":
+        await page.section.programManagement.click("@usersLink");
+        break;
+      case "Configuration":
+        await page.section.programManagement.click("@configurationLink");
+        break;
+      default:
+        throw new Error(`Unexpected ${args1} tab name.`);
+    }
   }
 );
 
@@ -635,16 +648,22 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" section on Program Management page$/,
+  /^user can see "([^"]*)" section on Configuration tab on Program Management page$/,
   async function (args1) {
-    await page.section.configurationForm.assert.visible(
-      "@sharedOntologySection"
-    );
+    switch (args1) {
+      case "Shared Ontology":
+        await page.section.configurationForm.assert.visible(
+          "@sharedOntologySection"
+        );
+        break;
+      default:
+        throw new Error(`Unexpected ${args1} section name.`);
+    }
   }
 );
 
 Then(
-  /^user can see "([^"]*)" message on Program Management page$/,
+  /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
   async function (args1) {
     await page.section.configurationForm.assert.containsText(
       "@notSharedMessage",
