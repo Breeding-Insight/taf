@@ -431,7 +431,7 @@ Then(
     await ontologyPage.assert.visible({
       selector:
         "//td[@name='trait'][normalize-space(.)='" +
-        args1.replaceAll("*", this.parameters.timeStamp) +
+        args1.replace(/\*/g, this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
     });

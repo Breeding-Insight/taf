@@ -9,7 +9,6 @@ Feature: Logging with Breeder
 		And user can see "Trail Mix" is in the list
 
 	@BI-822
-	@debug
 	Scenario: User in multiple programs
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
