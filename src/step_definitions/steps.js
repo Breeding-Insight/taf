@@ -135,11 +135,11 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
 When(
   /user selects "([^"]*)" on program-selection page$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = programName;
+    }
     await page.click({
-      selector: `//*[@id='app']//main//a[normalize-space(.)='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )}']`,
+      selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
   }

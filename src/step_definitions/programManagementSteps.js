@@ -28,10 +28,8 @@ When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async function (args1) {
     await page.section.programForm.clearValue("@programNameField");
-    await page.section.programForm.setValue(
-      "@programNameField",
-      args1.replace("*", this.parameters.timeStamp)
-    );
+    programName = args1.replace("*", this.parameters.timeStamp);
+    await page.section.programForm.setValue("@programNameField", programName);
   }
 );
 
