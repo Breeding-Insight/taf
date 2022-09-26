@@ -132,13 +132,6 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.click("@signInButton");
 });
 
-When(/user selects "([^"]*)" on program-selection page$/, async (args1) => {
-  await page.click({
-    selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
-    locateStrategy: "xpath",
-  });
-});
-
 When(/^user navigates to Program Selection page$/, async () => {
   await page.navigateToProgramSelection();
 });
@@ -721,11 +714,23 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Home":
       await page.assert.visible("@homeMenu");
       break;
+    case "Germplasm":
+      await page.assert.visible("@germplasmMenu");
+      break;
     case "Ontology":
       await page.assert.visible("@ontologyMenu");
       break;
     case "Program Management":
       await page.assert.visible("@programManagementMenu");
+      break;
+    case "BrAPI":
+      await page.assert.visible("@brAPIMenu");
+      break;
+    case "Jobs":
+      await page.assert.visible("@jobsMenu");
+      break;
+    case "Trials and Studies":
+      await page.assert.visible("@trialsAndStudiesMenu");
       break;
     default:
       throw new Error(`Unexpected ${args1} name.`);
@@ -796,7 +801,10 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
 });
 
 When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
-  await page.setValue('input[type="file"]', path.resolve(germplasmFolder, args1));
+  await page.setValue(
+    'input[type="file"]',
+    path.resolve(germplasmFolder, args1)
+  );
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -1022,10 +1030,9 @@ Then(/^user can not see a success banner$/, async () => {
   });
 });
 
-When(/^user pause for "([^"]*)" seconds$/, async function(args1) {
+When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
   await page.pause(args1 * 1000);
 });
-
 
 //functions
 async function setUserName(name) {

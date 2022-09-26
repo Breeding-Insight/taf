@@ -26,11 +26,9 @@ When(/^user selects 'New Program' button in Programs page$/, async () => {
 When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async function (args1) {
+    program.Name = args1.replace("*", helpers.generateRandomAlphaString(5));
     await page.section.programForm.clearValue("@programNameField");
-    await page.section.programForm.setValue(
-      "@programNameField",
-      args1.replace("*", helpers.generateRandomAlphaString(8))
-    );
+    await page.section.programForm.setValue("@programNameField", program.Name);
   }
 );
 
@@ -610,6 +608,19 @@ Then(
   /^user can see "([^"]*)" in modal box text in Programs page$/,
   async (args1) => {
     await page.section.programForm.assert.containsText("@modalText", args1);
+  }
+);
+
+When(
+  /user selects "([^"]*)" on program-selection page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else programName = args1;
+    await page.click({
+      selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 

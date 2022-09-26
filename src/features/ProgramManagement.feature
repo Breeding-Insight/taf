@@ -170,7 +170,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Species      | Key |
-			| Program* | Sweet Potato | T*  |
+			| P* | Sweet Potato | T*  |
 
 	@BI-857
 	Scenario Outline: Edit Program form
@@ -188,7 +188,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Species      | Key |
-			| Program* | Sweet Potato | T*  |
+			| P* | Sweet Potato | T*  |
 
 	@BI-858
 	Scenario Outline: Edit Program form, change Program Name, Save
@@ -206,7 +206,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Species      | New Name    | Key |
-			| Program* | Sweet Potato | NewProgram* | T*  |
+			| P* | Sweet Potato | NewProgram* | T*  |
 
 	@BI-859
 	Scenario Outline: Edit Program form, change Species, Save
@@ -224,7 +224,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Species      | New Species | Key |
-			| Program* | Sweet Potato | Grape       | T*  |
+			| P* | Sweet Potato | Grape       | T*  |
 
 	@BI-860
 	Scenario Outline: Deactivate modal
@@ -242,7 +242,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name | Key |
-			| *    | *  |
+			| *    | *   |
 
 	@BI-861
 	Scenario Outline: Deactivate, Cancel
@@ -259,7 +259,7 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Key |
-			| Program* | D*  |
+			| P* | D*  |
 
 	@BI-862
 	Scenario Outline: Deactivate, Remove
@@ -277,5 +277,27 @@ Feature: Program Management (15)
 
 		Examples:
 			| Name     | Key |
-			| Program* | D*  |
+			| P* | D*  |
 
+	@BI-1591
+	@debug
+	Scenario: Update Left-Hand menu
+		When user selects 'New Program' button in Programs page
+		When user sets "<Name>" in Program Name field in Programs page
+		When user selects "<Species>" in Species dropdown in Programs page
+		When user sets "<Key>" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user pause for "10" seconds
+		And user navigates to Program Selection page
+		And user selects "<Name>" on program-selection page
+		Then user can see "Home" in navigation
+		Then user can see "Germplasm" in navigation
+		Then user can see "Ontology" in navigation
+		Then user can see "Program Management" in navigation
+		Then user can see "BrAPI" in navigation
+		Then user can see "Jobs" in navigation
+		Then user can see "Trials and Studies" in navigation
+		
+		Examples:
+			| Name     | Species      | Key |
+			| A* | Sweet Potato | *  |
