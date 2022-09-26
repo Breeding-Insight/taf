@@ -26,7 +26,7 @@ Feature: Germplasm Preview Tests
 		When user pause for "10" seconds
 		When user close notification pop-up
 		When user logs out
-		#Login as Cucumber Breeder and go to Snacks
+		#Login as Cucumber Breeder and go to new Program
 		When user logs in as "Cucumber Breeder"
 		When user selects "<ProgramName>" on program-selection page
 		And user selects "Import Data" in navigation
