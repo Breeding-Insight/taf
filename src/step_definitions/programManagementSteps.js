@@ -29,7 +29,7 @@ When(
     await page.section.programForm.clearValue("@programNameField");
     await page.section.programForm.setValue(
       "@programNameField",
-      args1.replace("*", helpers.generateRandomAlphaString(8))
+      args1.replace("*", helpers.generateRandomAlphaString(5))
     );
   }
 );
@@ -73,19 +73,22 @@ Then(
   }
 );
 
-When(/^user selects 'Edit' of "([^"]*)" in Programs page$/, async (args1) => {
-  let programName;
-  if (program.Name != null) {
-    programName = program.Name;
-  } else {
-    programName = args1;
+When(
+  /^user selects 'Edit' of "([^"]*)" in Programs page$/,
+  async function (args1) {
+    let programName;
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else {
+      programName = args1;
+    }
+    const selector = {
+      selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+      locateStrategy: "xpath",
+    };
+    await page.click(selector);
   }
-  const selector = {
-    selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
-    locateStrategy: "xpath",
-  };
-  await page.click(selector);
-});
+);
 
 Then(
   /^user can see "([^"]*)" in Program Name field in Programs page$/,
@@ -112,9 +115,12 @@ Then(
   /^user can see "([^"]*)" in Name column in Program page$/,
   async (args1) => {
     //will find match on 1st row only
-    if (program.Name == null) {
-      await page.section.programForm.isItemInRow({ Name: args1 });
-    } else await page.section.programForm.isItemInRow({ Name: program.Name });
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else {
+      programName = args1;
+    }
+    await page.section.programForm.isItemInRow({ Name: programName });
   }
 );
 Then(
@@ -610,6 +616,19 @@ Then(
   /^user can see "([^"]*)" in modal box text in Programs page$/,
   async (args1) => {
     await page.section.programForm.assert.containsText("@modalText", args1);
+  }
+);
+
+When(
+  /user selects "([^"]*)" on program-selection page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else programName = args1;
+    await page.click({
+      selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
+      locateStrategy: "xpath",
+    });
   }
 );
 
