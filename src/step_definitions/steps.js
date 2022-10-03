@@ -132,19 +132,6 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.click("@signInButton");
 });
 
-When(
-  /user selects "([^"]*)" on program-selection page$/,
-  async function (args1) {
-    await page.click({
-      selector: `//*[@id='app']//main//a[normalize-space(.)='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )}']`,
-      locateStrategy: "xpath",
-    });
-  }
-);
-
 When(/^user navigates to Program Selection page$/, async () => {
   await page.navigateToProgramSelection();
 });
@@ -727,11 +714,23 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Home":
       await page.assert.visible("@homeMenu");
       break;
+    case "Germplasm":
+      await page.assert.visible("@germplasmMenu");
+      break;
     case "Ontology":
       await page.assert.visible("@ontologyMenu");
       break;
     case "Program Management":
       await page.assert.visible("@programManagementMenu");
+      break;
+    case "BrAPI":
+      await page.assert.visible("@brAPIMenu");
+      break;
+    case "Jobs":
+      await page.assert.visible("@jobsMenu");
+      break;
+    case "Trials and Studies":
+      await page.assert.visible("@trialsAndStudiesMenu");
       break;
     default:
       throw new Error(`Unexpected ${args1} name.`);

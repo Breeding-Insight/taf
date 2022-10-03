@@ -144,9 +144,17 @@ module.exports = {
     logoutButton: "#userstatusmenu-logout-button",
     userStatusMenuDropDownButton: "#userstatusmenu-dropdown-button",
 
-    homeMenu: "#sideMenu > nav > ul > li:nth-child(1) > a",
+    homeMenu: "#usersidebarlayout-home-menu",
+    germplasmMenu: "#usersidebarlayout-germplasm-menu",
     ontologyMenu: "#usersidebarlayout-ontology-menu",
     programManagementMenu: "#usersidebarlayout-program-management-menu",
+    brAPIMenu: "#usersidebarlayout-brapi-menu",
+    jobsMenu: "#usersidebarlayout-job-management-menu",
+    trialsAndStudiesMenu: {
+      selector:
+        "//*[@id='sideMenu']//a[normalize-space()='Trials and Studies Beta']",
+      locateStrategy: "xpath",
+    },
     programManagementHeader: {
       selector: "//section/div/h1[normalize-space(.)='Program Management']",
       locateStrategy: "xpath",

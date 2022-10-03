@@ -30,7 +30,7 @@ When(
     await page.section.programForm.clearValue("@programNameField");
     await page.section.programForm.setValue(
       "@programNameField",
-      args1.replace("*", this.parameters.timeStamp)
+      args1.replace("*", helpers.generateRandomAlphaString(5))
     );
   }
 );
@@ -74,19 +74,22 @@ Then(
   }
 );
 
-When(/^user selects 'Edit' of "([^"]*)" in Programs page$/, async (args1) => {
-  let programName;
-  if (program.Name != null) {
-    programName = program.Name;
-  } else {
-    programName = args1;
+When(
+  /^user selects 'Edit' of "([^"]*)" in Programs page$/,
+  async function (args1) {
+    let programName;
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else {
+      programName = args1;
+    }
+    const selector = {
+      selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
+      locateStrategy: "xpath",
+    };
+    await page.click(selector);
   }
-  const selector = {
-    selector: `.//td[@data-label='Name'][normalize-space(.)='${programName}']/ancestor::tr//td/a[normalize-space(.)='Edit']`,
-    locateStrategy: "xpath",
-  };
-  await page.click(selector);
-});
+);
 
 Then(
   /^user can see "([^"]*)" in Program Name field in Programs page$/,
@@ -113,9 +116,12 @@ Then(
   /^user can see "([^"]*)" in Name column in Program page$/,
   async (args1) => {
     //will find match on 1st row only
-    if (program.Name == null) {
-      await page.section.programForm.isItemInRow({ Name: args1 });
-    } else await page.section.programForm.isItemInRow({ Name: program.Name });
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else {
+      programName = args1;
+    }
+    await page.section.programForm.isItemInRow({ Name: programName });
   }
 );
 Then(
@@ -665,6 +671,9 @@ Then(
 Then(
   /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
     await page.section.configurationForm.assert.containsText(
       "@notSharedMessage",
       args1
@@ -689,11 +698,11 @@ Then(
 Then(
   /^user can see "([^"]*)" is currently shared but not accepted message$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
     await page.assert.visible({
-      selector: `//li[normalize-space()='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )} (Not Accepted)']`,
+      selector: `//li[normalize-space()='${args1} (Not Accepted)']`,
       locateStrategy: "xpath",
     });
   }
@@ -702,11 +711,11 @@ Then(
 Then(
   /^user can see "([^"]*)" is currently shared and accepted message$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
     await page.assert.visible({
-      selector: `//li[normalize-space()='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )} (Accepted)']`,
+      selector: `//li[normalize-space()='${args1} (Accepted)']`,
       locateStrategy: "xpath",
     });
   }
@@ -715,11 +724,11 @@ Then(
 Then(
   /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
     await page.assert.visible({
-      selector: `//label[normalize-space()='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )}']//input`,
+      selector: `//label[normalize-space()='${args1}']//input`,
       locateStrategy: "xpath",
     });
   }
@@ -728,11 +737,11 @@ Then(
 When(
   /^user selects "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
     await page.click({
-      selector: `//label[normalize-space()='${args1.replace(
-        "*",
-        this.parameters.timeStamp
-      )}']//input`,
+      selector: `//label[normalize-space()='${args1}']//input`,
       locateStrategy: "xpath",
     });
   }
@@ -754,6 +763,19 @@ When(
     });
     await page.click({
       selector: `//option[normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" on program-selection page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      programName = program.Name;
+    } else programName = args1;
+    await page.click({
+      selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
       locateStrategy: "xpath",
     });
   }
