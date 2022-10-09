@@ -1034,6 +1034,23 @@ When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
   await page.pause(args1 * 1000);
 });
 
+When(/^user logs out$/, async function () {
+  await page.click("@userStatusMenuDropDownButton");
+  await page.click("@logoutButton");
+  await client.url("https://sandbox.orcid.org/");
+  await page.click("#cy-user-info");
+  await page.click("#cy-signout");
+  await page.pause(10000);
+});
+
+When(/^user close notification pop-up$/, async function () {
+  await page.click({
+    selector:
+      "//article[not(@style='display: none;') and @class='notification is-marginless is-success']//button",
+    locateStrategy: "xpath",
+  });
+});
+
 //functions
 async function setUserName(name) {
   user.userName = name;

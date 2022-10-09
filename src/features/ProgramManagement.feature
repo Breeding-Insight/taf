@@ -91,7 +91,7 @@ Feature: Program Management (15)
 		Then user can see banner contains "Success!"
 		Then user can see new program in Programs page
 			| Name     | Species      | # Users | BrAPI URL      | Key |
-			| Program* | Sweet Potato | 0       | System Default | TST |
+			| Program* | Sweet Potato | 0       | System Default | *   |
 
 		Examples:
 			| Name     | Species      | Key |
@@ -280,7 +280,6 @@ Feature: Program Management (15)
 			| P* | D*  |
 
 	@BI-1591
-	@debug
 	Scenario: Update Left-Hand menu
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page

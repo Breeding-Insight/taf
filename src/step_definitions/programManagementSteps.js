@@ -7,6 +7,7 @@ const page = client.page.page();
 const program = {};
 const location = {};
 const helpers = require("./helpers");
+const { Sign } = require("crypto");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
@@ -453,6 +454,13 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 });
 
 Then(
+  /^user can see 'Configuration' tab on Program Management page$/,
+  async () => {
+    await page.section.programManagement.assert.visible("@configurationLink");
+  }
+);
+
+Then(
   /^user can see 'New Location' button in Program Management page$/,
   async () => {
     await page.assert.visible("@newLocationButton");
@@ -620,7 +628,148 @@ Then(
 );
 
 When(
-  /user selects "([^"]*)" on program-selection page$/,
+  /^user selects "([^"]*)" tab on Program Management page$/,
+  async function (args1) {
+    switch (args1) {
+      case "Locations":
+        await page.section.programManagement.click("@locationsLink");
+        break;
+      case "Users":
+        await page.section.programManagement.click("@usersLink");
+        break;
+      case "Configuration":
+        await page.section.programManagement.click("@configurationLink");
+        break;
+      default:
+        throw new Error(`Unexpected ${args1} tab name.`);
+    }
+  }
+);
+
+Then(
+  /^user can see Configuration on Program Management page$/,
+  async function () {
+    await page.expect.section("@configurationForm").visible;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" section on Configuration tab on Program Management page$/,
+  async function (args1) {
+    switch (args1) {
+      case "Shared Ontology":
+        await page.section.configurationForm.assert.visible(
+          "@sharedOntologySection"
+        );
+        break;
+      default:
+        throw new Error(`Unexpected ${args1} section name.`);
+    }
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
+    await page.section.configurationForm.assert.containsText(
+      "@notSharedMessage",
+      args1
+    );
+  }
+);
+
+When(
+  /^user selects 'Share Ontology' button on Program Management page$/,
+  async function () {
+    await page.section.configurationForm.click("@shareOntologyButton");
+  }
+);
+
+Then(
+  /^user can see the 'Manage  Share Ontology' in Managed Shared Ontlogy page$/,
+  async function () {
+    await page.expect.section("@manageSharedOntologyModal").visible;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" is currently shared but not accepted message$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
+    await page.assert.visible({
+      selector: `//li[normalize-space()='${args1} (Not Accepted)']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" is currently shared and accepted message$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
+    await page.assert.visible({
+      selector: `//li[normalize-space()='${args1} (Accepted)']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
+    await page.assert.visible({
+      selector: `//label[normalize-space()='${args1}']//input`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    if (args1.includes("*")) {
+      args1 = program.Name;
+    }
+    await page.click({
+      selector: `//label[normalize-space()='${args1}']//input`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" button in Managed Shared Ontlogy page$/,
+  async function (args1) {
+    await page.click("#confirmSharedOntology");
+  }
+);
+
+When(
+  /^user selects "([^"]*)" in Choose ontology to subscribe to dropdown on Program Management page$/,
+  async function (args1) {
+    await page.click({
+      selector: "//select[contains(@id,'Choose-ontology')]",
+      locateStrategy: "xpath",
+    });
+    await page.click({
+      selector: `//option[normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" on program-selection page$/,
   async function (args1) {
     if (args1.includes("*")) {
       programName = program.Name;
@@ -629,6 +778,31 @@ When(
       selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
       locateStrategy: "xpath",
     });
+  }
+);
+
+When(
+  /^user selects Save button of Subscribe to Shared Ontology on Program Management page$/,
+  async function () {
+    await page.click("#subscribeOntologyBtn");
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" button on Program Management page$/,
+  async function (args1) {
+    await page.assert.visible("#unSubscribeOntologyBtn");
+    await page.assert.containsText(
+      "#unSubscribeOntologyBtn",
+      args1.replace("*", this.parameters.timeStamp)
+    );
+  }
+);
+
+When(
+  /^user selects Share Ontology button of Shared Ontology on Program Management page$/,
+  async function () {
+    await page.click("#showShareModalBtn");
   }
 );
 

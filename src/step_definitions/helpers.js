@@ -5,7 +5,7 @@ module.exports = {
   showAll: async function () {
     await page.moveToElement("@showAllButton", 1, 1);
     await page.pause(1000);
-    await page.click("@showAllButton");
+    await page.click("@showAllButton");   
   },
   
   generateRandomAlphaString: function (length) {
