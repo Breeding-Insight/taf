@@ -17,7 +17,7 @@ When(
 );
 
 Then(
-  /^user can see "([^"]*)" on "([^"]*)" of Preview Table$/,
+  /^user can see Synonyms "([^"]*)" on "([^"]*)" of Preview Table$/,
   async function (args1, args2) {
     await importPage.assert.containsText(
       {

@@ -132,19 +132,6 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.click("@signInButton");
 });
 
-When(
-  /user selects "([^"]*)" on program-selection page$/,
-  async function (args1) {
-    if (args1.includes("*")) {
-      args1 = programName;
-    }
-    await page.click({
-      selector: `//*[@id='app']//main//a[normalize-space(.)='${args1}']`,
-      locateStrategy: "xpath",
-    });
-  }
-);
-
 When(/^user navigates to Program Selection page$/, async () => {
   await page.navigateToProgramSelection();
 });
