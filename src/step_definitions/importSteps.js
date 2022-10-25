@@ -15,3 +15,16 @@ When(
     await importPage.setValue("@listDescriptionField", args1);
   }
 );
+
+Then(
+  /^user can see Synonyms "([^"]*)" on "([^"]*)" of Preview Table$/,
+  async function (args1, args2) {
+    await importPage.assert.containsText(
+      {
+        selector: `//*[@id='import-germplasm']//table/tbody//tr[${args2}]/td[@data-label='Synonyms']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
