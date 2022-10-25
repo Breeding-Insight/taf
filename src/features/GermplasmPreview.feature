@@ -2,7 +2,7 @@
 Feature: Germplasm Preview Tests
 
 	@BI-1515
-	Scenario Outline: Configuration as a sub-menu
+	Scenario Outline: Add a “Synonyms” column to the germplasm import template
 		Given user logs in as "sysad"
 		And user selects "System Administration" on program-selection page
 		When user is on the program-management page
