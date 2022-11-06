@@ -34,3 +34,14 @@ Feature: Germplasm Tests
 			| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
 			| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
 
+	@BI-1592
+	@debug
+	Scenario: GIDs clickable Link
+		When user clicks Show All button
+# Then user can see Female Parent GID value is a link
+# Then user can see Male Parent GID value is a link
+# When user selects "2" row Female Parent GID
+# Then user can see details on Germplasm details page
+# 	| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
+# 	| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
+
