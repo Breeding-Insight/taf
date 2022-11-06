@@ -150,9 +150,9 @@ module.exports = {
     programManagementMenu: "#usersidebarlayout-program-management-menu",
     brAPIMenu: "#usersidebarlayout-brapi-menu",
     jobsMenu: "#usersidebarlayout-job-management-menu",
-    trialsAndStudiesMenu: {
+    experimentsAndObservationsMenu: {
       selector:
-        "//*[@id='sideMenu']//a[normalize-space()='Trials and Studies Beta']",
+        "//*[@id='sideMenu']//a[normalize-space()='Experiments & Observations']",
       locateStrategy: "xpath",
     },
     programManagementHeader: {

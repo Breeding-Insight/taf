@@ -280,6 +280,7 @@ Feature: Program Management (15)
 			| P* | D*  |
 
 	@BI-1591
+	@debug
 	Scenario: Update Left-Hand menu
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
@@ -295,7 +296,7 @@ Feature: Program Management (15)
 		Then user can see "Program Management" in navigation
 		Then user can see "BrAPI" in navigation
 		Then user can see "Jobs" in navigation
-		Then user can see "Trials and Studies" in navigation
+		Then user can see "Experiments & Observations" in navigation
 		
 		Examples:
 			| Name     | Species      | Key |
