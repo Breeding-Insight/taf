@@ -83,7 +83,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
-		And user can see each row has a "Show Details" link
+		And user can see each row has a "Show details" link
 
 	@BI-923
 	Scenario: Ontology - Confirm Import for xlsx file
@@ -97,7 +97,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
-		And user can see each row has a "Show Details" link
+		And user can see each row has a "Show details" link
 
 	@BI-924
 	Scenario: Ontology - choosing a different file - xls, Then a csv file
@@ -120,14 +120,14 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
-		And user can see each row has a "Show Details" link
+		And user can see each row has a "Show details" link
 
 	@BI-1452
 	Scenario: Ontology - Duplicate Trait Name
 		And user uploads "test_traits_dupTraitNames.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Trait Name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 2"
-		And user can see an error message "Trait Name: Trait name duplicated in file. Duplicate set of traits are rows [2, 3] in row 3"
+		Then user can see "2" row "1" "Trait Name" field "Trait name duplicated in file. Duplicate set of traits are rows [2, 3]" message
+		Then user can see "3" row "2" "Trait Name" field "Trait name duplicated in file. Duplicate set of traits are rows [2, 3]" message
 
 	@BI-927
 	Scenario: Ontology - missing column
@@ -146,21 +146,21 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Ontology - missing formula
 		And user uploads "test_traits_missingFormula.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Method Formula: Missing method formula for Computation method in row 2"
+		Then user can see "2" row "1" "Method Formula" field "Missing method formula for Computation method" message
 
 	@BI-1454
 	Scenario: Ontology - missing scale categories
 		And user uploads "test_traits_missingScaleCat.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Scale Categories: Missing scale categories for Ordinal scale in row 3"
-		And user can see an error message "Scale Categories: Missing scale categories for Ordinal scale in row 5"
+		Then user can see "3" row "1" "Scale Categories" field "Missing scale categories for Ordinal scale" message
+		Then user can see "5" row "2" "Scale Categories" field "Missing scale categories for Ordinal scale" message
 
 	@BI-931
 	@bug
 	Scenario: Ontology - missing unit
 		And user uploads "test_traits_missingUnit.xlsx" file
 		And user selects 'Import' button
-		And user can see an error message "Unit: Missing unit in row 3"
+		Then user can see "3" row "1" "Unit" field "Missing unit" message
 
 	@BI-932
 	Scenario: Ontology - case sensitivity
@@ -178,24 +178,24 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Import Traits - missing scale categories
 		And user uploads "test_traits_missingReqFields.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Method Class: Missing method class in row 2"
-		Then user can see an error message "Name: Missing name in row 2"
-		And user can see an error message "Trait Attribute: Missing trait attribute in row 3"
-		And user can see an error message "Scale Class: Missing scale class in row 4"
-		And user can see an error message "Trait Entity: Missing trait entity in row 4"
-		And user can see an error message "Unit: Missing unit in row 6"
-		And user can see an error message "Trait Description: Missing trait description in row 6"
-
+		Then user can see "2" row "1" "Method Class" field "Missing method class" message
+		Then user can see "2" row "2" "Name" field "Missing name" message
+		Then user can see "3" row "3" "Trait Attribute" field "Missing trait attribute" message
+		Then user can see "4" row "4" "Scale Class" field "Missing scale class" message
+		Then user can see "4" row "5" "Trait Entity" field "Missing trait entity" message
+		Then user can see "6" row "6" "Unit" field "Missing unit" message
+		Then user can see "6" row "7" "Trait Description" field "Missing trait description" message
+		
 	@BI-1268
 	Scenario: Import Traits - exceeds character length max
 		And user uploads "test_traits_exceedsCharLen.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Name: Name exceeds 12 character limit in row 3"
-		And user can see an error message "Method Description: Method description exceeds 30 character limit in row 4"
+		Then user can see "3" row "1" "Name" field "Name exceeds 12 character limit" message
+		Then user can see "4" row "2" "Method Description" field "Method description exceeds 30 character limit" message
 
 	@BI-1273
 	Scenario: Import Traits - invalid method and scale classes
 		And user uploads "test_traits_invalidFields.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Method class: Invalid method class value in row 2"
-		And user can see an error message "Scale class: Invalid scale class value in row 3"
+		Then user can see "2" row "1" "Method class" field "Invalid method class value" message
+		Then user can see "3" row "2" "Scale class" field "Invalid scale class value" message
