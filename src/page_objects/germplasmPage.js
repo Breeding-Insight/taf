@@ -2,6 +2,14 @@ module.exports = {
   elements: {
     listNameField: { selector: "#List-Name" },
     listDescriptionField: { selector: "#List-Description" },
+    allGermplasmTab: {
+      selector: "//li/a[normalize-space()='All Germplasm']",
+      locateStrategy: "xpath",
+    },
+    germplasmListsTab: {
+      selector: "//li/a[normalize-space()='Germplasm Lists']",
+      locateStrategy: "xpath",
+    },
   },
   sections: {
     germplasmTable: {

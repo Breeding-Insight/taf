@@ -36,8 +36,9 @@ Feature: Germplasm Tests
 
 	@BI-1592
 	@debug
-	Scenario: GIDs clickable Link
-		When user clicks Show All button
+	Scenario: Able to see Created by information in germplasm lists table
+		Then user can see "All Germplasm" tab
+		Then user can see "Germplasm Lists" tab
 # Then user can see Female Parent GID value is a link
 # Then user can see Male Parent GID value is a link
 # When user selects "2" row Female Parent GID

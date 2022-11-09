@@ -193,3 +193,15 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
   await germplasmPage.moveToElement(control, 1, 1);
   await germplasmPage.click(control);
 });
+
+Then(/^user can see "([^"]*)" tab$/, async function (args1) {
+  switch (args1) {
+    case "All Germplasm":
+      await germplasmPage.assert.visible("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.assert.visible("@germplasmListsTab");
+    default:
+      break;
+  }
+});
