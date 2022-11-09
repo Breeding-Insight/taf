@@ -26,6 +26,7 @@ Feature: Ontology Import (10 Scenarios)
 	@BI-918
 	@BI-810
 	@SmokeTests
+	@debug
 	Scenario: Ontology - choosing an xls file And selecting Import
 		When user uploads "test_import-xls.xls" file
 		And user selects 'Import' button
@@ -38,7 +39,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
 		And user can see "Unit" column header
-		And user can see each row has a "Show Details" link
+		And user can see each row has a "Show details" link
 
 	@BI-919
 	Scenario: Ontology - Abort Import, Modal
