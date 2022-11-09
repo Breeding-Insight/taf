@@ -65,11 +65,6 @@ Feature: Germplasm Sort Test
 		Then user can see "6" Male Parent GID in first line
 		When user clicks on Male Parent GID sort ascending
 		Then user can see "" Male Parent GID in first line
-		When user clicks on "Created Date" of Germplasm table
-		When user clicks on Created Date sort descending
-		Then user can see "2022-10-27" Created Date in first line
-		When user clicks on Created Date sort ascending
-		Then user can see "2022-10-27" Created Date in first line
 		When user clicks on "Created By" of Germplasm table
 		When user clicks on Created By sort descending
 		Then user can see "Cucumber Breeder" Created By in first line
