@@ -16,6 +16,20 @@ When(
   }
 );
 
+Then(
+  /^user can see 'Import' button accepts "([^"]*)"$/,
+  async function (args1) {
+    await importPage.assert.domPropertyEquals(
+      {
+        selector: "//div[@class='file-select']//input",
+        locateStrategy: "xpath",
+      },
+      "accept",
+      args1
+    );
+  }
+);
+
 When(/^user clicks on "([^"]*)" of Germplasm table$/, async function (args1) {
   await importPage.click({
     selector: `//th//span[normalize-space()='${args1}']`,
