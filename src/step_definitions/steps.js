@@ -729,8 +729,8 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Jobs":
       await page.assert.visible("@jobsMenu");
       break;
-    case "Trials and Studies":
-      await page.assert.visible("@trialsAndStudiesMenu");
+    case "Experiments & Observations":
+      await page.assert.visible("@experimentsAndObservationsMenu");
       break;
     default:
       throw new Error(`Unexpected ${args1} name.`);
