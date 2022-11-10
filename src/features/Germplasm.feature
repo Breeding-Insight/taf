@@ -39,10 +39,5 @@ Feature: Germplasm Tests
 	Scenario: Able to see Created by information in germplasm lists table
 		Then user can see "All Germplasm" tab
 		Then user can see "Germplasm Lists" tab
-# Then user can see Female Parent GID value is a link
-# Then user can see Male Parent GID value is a link
-# When user selects "2" row Female Parent GID
-# Then user can see details on Germplasm details page
-# 	| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
-# 	| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
-
+		When user selects "Germplasm Lists" tab on Gerplasm page
+		Then user can see "Cucumber Breeder" in row "1" as "Created By" column on Germplasm Lists

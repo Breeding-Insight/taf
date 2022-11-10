@@ -205,3 +205,28 @@ Then(/^user can see "([^"]*)" tab$/, async function (args1) {
       break;
   }
 });
+
+When(/^user selects "([^"]*)" tab on Gerplasm page$/, async function (args1) {
+  switch (args1) {
+    case "All Germplasm":
+      await germplasmPage.click("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.click("@germplasmListsTab");
+    default:
+      break;
+  }
+});
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Germplasm Lists$/,
+  async function (args1, args2, args3) {
+    await germplasmPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);

@@ -280,7 +280,6 @@ Feature: Program Management (15)
 			| P* | D*  |
 
 	@BI-1591
-	@debug
 	Scenario: Update Left-Hand menu
 		When user selects 'New Program' button in Programs page
 		When user sets "<Name>" in Program Name field in Programs page
