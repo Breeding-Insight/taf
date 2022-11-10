@@ -6,6 +6,7 @@ module.exports = {
     await page.moveToElement("@showAllButton", 1, 1);
     await page.pause(1000);
     await page.click("@showAllButton");   
+    await page.pause(5000);
   },
   
   generateRandomAlphaString: function (length) {
