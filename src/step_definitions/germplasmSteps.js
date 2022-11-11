@@ -230,3 +230,81 @@ Then(
     );
   }
 );
+
+When(
+  /^user sets "([^"]*)" in "([^"]*)" search fields$/,
+  async function (args1, args2) {
+    switch (args2) {
+      case "GID":
+        await germplasmPage.setValue(
+          { selector: "//th[1]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Name":
+        await germplasmPage.setValue(
+          { selector: "//th[2]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Breeding Method":
+        await germplasmPage.setValue(
+          { selector: "//th[3]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Source":
+        await germplasmPage.setValue(
+          { selector: "//th[4]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Female Parent GID":
+        await germplasmPage.setValue(
+          { selector: "//th[6]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Male Parent GID":
+        await germplasmPage.setValue(
+          { selector: "//th[7]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+        case "Created Date":
+          await germplasmPage.setValue(
+            { selector: "//th[8]//div/input", locateStrategy: "xpath" },
+            args1
+          );
+          break;
+        case "Created By":
+          await germplasmPage.setValue(
+            { selector: "//th[9]//div/input", locateStrategy: "xpath" },
+            args1
+          );
+          break;
+      default:
+        break;
+    }
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on All Germplasm$/,
+  async function (args1, args2, args3) {
+    await germplasmPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+Then(/^user can see "([^"]*)" in All Germplasm$/, async function (args1) {
+  await germplasmPage.assert.containsText(
+    { selector: "//tr[@class='is-empty']/td/p", locateStrategy: "xpath" },
+    args1
+  );
+});
