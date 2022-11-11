@@ -80,7 +80,7 @@ Feature: Germplasm Tests
 		When user sets "AAA" in "Male Parent GID" search fields
 		Then user can see "No germplasm are currently defined for this program." in All Germplasm
 		When user refresh the page
-		When user sets "2022-07-14" in "Created Date" search fields
+		# When user sets "202" in "Created Date" search fields
 		Then user can see "2022-07-14" in row "1" as "Created Date" column on All Germplasm
 		When user refresh the page
 		When user sets "AAA" in "Created Date" search fields
