@@ -1,5 +1,7 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
+const { getToday } = require("./helpers");
+const helpers = require("./helpers");
 const germplasmPage = client.page.germplasmPage();
 
 Then(
@@ -234,6 +236,7 @@ Then(
 When(
   /^user sets "([^"]*)" in "([^"]*)" search fields$/,
   async function (args1, args2) {
+    args1 = args1.replace("@TODAY", helpers.getToday());
     switch (args2) {
       case "GID":
         await germplasmPage.setValue(
@@ -271,18 +274,18 @@ When(
           args1
         );
         break;
-        case "Created Date":
-          await germplasmPage.setValue(
-            { selector: "//th[8]//div/input", locateStrategy: "xpath" },
-            args1
-          );
-          break;
-        case "Created By":
-          await germplasmPage.setValue(
-            { selector: "//th[9]//div/input", locateStrategy: "xpath" },
-            args1
-          );
-          break;
+      case "Created Date":
+        await germplasmPage.setValue(
+          { selector: "//th[8]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Created By":
+        await germplasmPage.setValue(
+          { selector: "//th[9]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
       default:
         break;
     }
@@ -292,6 +295,7 @@ When(
 Then(
   /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on All Germplasm$/,
   async function (args1, args2, args3) {
+    args1 = args1.replace("@TODAY", helpers.getToday());
     await germplasmPage.assert.containsText(
       {
         selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
