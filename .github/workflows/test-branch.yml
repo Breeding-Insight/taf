@@ -128,7 +128,7 @@ jobs:
           java-version: 13
           
       #from bi-docker-stack
-    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f docker-compose-redis.yml -f docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-ci.yml up --build -d
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-redis.yml -f bi-docker-stack/docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-ci.yml up --build -d
           
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@latest
