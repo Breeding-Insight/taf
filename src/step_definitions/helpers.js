@@ -5,9 +5,10 @@ module.exports = {
   showAll: async function () {
     await page.moveToElement("@showAllButton", 1, 1);
     await page.pause(1000);
-    await page.click("@showAllButton");
+    await page.click("@showAllButton");   
+    await page.pause(5000);
   },
-
+  
   generateRandomAlphaString: function (length) {
     let generated = "";
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -15,13 +16,5 @@ module.exports = {
       generated += letters[Math.floor(Math.random() * letters.length)];
     }
     return generated;
-  },
-
-  getToday: function () {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    return `${year}-${month}-${day}`;
   },
 };

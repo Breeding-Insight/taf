@@ -856,7 +856,7 @@ Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
 
   await page.expect
     .elements({
-      selector: "//a[normalize-space(.)='Show details']",
+      selector: `//a[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     })
     .count.equal(rows);
@@ -910,6 +910,33 @@ Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
     locateStrategy: "xpath",
   });
 });
+
+Then(
+  /^user can see "([^"]*)" row "([^"]*)" "([^"]*)" field "([^"]*)" message$/,
+  async function (args1, args2, args3, args4) {
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Row']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Field']`,
+        locateStrategy: "xpath",
+      },
+      args3
+    );
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Error']`,
+        locateStrategy: "xpath",
+      },
+      args4
+    );
+  }
+);
 
 When(/^user sets "([^"]*)" in Name field of User$/, async function (args1) {
   await setUserName(args1.replace("*", this.parameters.timeStamp));
