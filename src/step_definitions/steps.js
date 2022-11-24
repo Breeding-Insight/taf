@@ -1078,6 +1078,11 @@ When(/^user close notification pop-up$/, async function () {
   });
 });
 
+When(/^user refresh the page$/, async function() {
+	await client.refresh();
+});
+
+
 //functions
 async function setUserName(name) {
   user.userName = name;
