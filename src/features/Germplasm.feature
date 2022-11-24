@@ -34,3 +34,10 @@ Feature: Germplasm Tests
 			| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
 			| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
 
+	@BI-1592
+	@debug
+	Scenario: Able to see Created by information in germplasm lists table
+		Then user can see "All Germplasm" tab
+		Then user can see "Germplasm Lists" tab
+		When user selects "Germplasm Lists" tab on Gerplasm page
+		Then user can see "Cucumber Breeder" in row "1" as "Created By" column on Germplasm Lists

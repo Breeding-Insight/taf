@@ -193,3 +193,40 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
   await germplasmPage.moveToElement(control, 1, 1);
   await germplasmPage.click(control);
 });
+
+Then(/^user can see "([^"]*)" tab$/, async function (args1) {
+  switch (args1) {
+    case "All Germplasm":
+      await germplasmPage.assert.visible("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.assert.visible("@germplasmListsTab");
+    default:
+      break;
+  }
+});
+
+When(/^user selects "([^"]*)" tab on Gerplasm page$/, async function (args1) {
+  switch (args1) {
+    case "All Germplasm":
+      await germplasmPage.click("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.click("@germplasmListsTab");
+    default:
+      break;
+  }
+});
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Germplasm Lists$/,
+  async function (args1, args2, args3) {
+    await germplasmPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
