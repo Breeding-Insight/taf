@@ -354,7 +354,7 @@ When(/^user selects Cancel button$/, async () => {
 });
 
 When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
-  setRole(args1);
+  await setRole(args1);
 });
 
 When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
@@ -1098,7 +1098,7 @@ async function setEmail(email) {
 
 async function setRole(role) {
   user.role = role;
-  return await page.section.newUserForm.setValue("@roleSelect", user.role);
+  await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
 async function closeNotification() {
