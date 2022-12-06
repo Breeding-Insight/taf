@@ -29,3 +29,217 @@ Then(
     );
   }
 );
+
+When(/^user clicks on "([^"]*)" of Germplasm table$/, async function (args1) {
+  await importPage.click({
+    selector: `//th//span[normalize-space()='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on GID sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[1]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on GID sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[1]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see "([^"]*)" GID in first line$/, async function (args1) {
+  await importPage.assert.containsText(
+    {
+      selector: `//tr[1]//td[@data-label='GID']/a`,
+      locateStrategy: "xpath",
+    },
+    args1
+  );
+});
+
+When(/^user clicks on Name sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[2]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Name sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[2]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see "([^"]*)" Name in first line$/, async function (args1) {
+  await importPage.assert.containsText(
+    {
+      selector: `//tr[1]//td[@data-label='Name']`,
+      locateStrategy: "xpath",
+    },
+    args1
+  );
+});
+
+When(/^user clicks on Breeding Method sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[3]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Breeding Method sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[3]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" Breeding Method in first line$/,
+  async function (args1) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tr[1]//td[@data-label='Breeding Method']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+When(/^user clicks on Source sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[4]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Source sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[4]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(/^user can see "([^"]*)" Source in first line$/, async function (args1) {
+  await importPage.assert.containsText(
+    {
+      selector: `//tr[1]//td[@data-label='Source']`,
+      locateStrategy: "xpath",
+    },
+    args1
+  );
+});
+
+When(/^user clicks on Female Parent GID sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[6]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Female Parent GID sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[6]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" Female Parent GID in first line$/,
+  async function (args1) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tr[1]//td[@data-label='Female Parent GID']/div | //tr[1]//td[@data-label='Female Parent GID']/a`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+When(/^user clicks on Male Parent GID sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[7]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Male Parent GID sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[7]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" Male Parent GID in first line$/,
+  async function (args1) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tr[1]//td[@data-label='Male Parent GID']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+When(/^user clicks on Created Date sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[8]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Created Date sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[8]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" Created Date in first line$/,
+  async function (args1) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tr[11]//td[@data-label='Created Date']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+When(/^user clicks on Created By sort descending$/, async function () {
+  await importPage.click({
+    selector: "//th[9]//span[@class='icon sort-icon is-small']",
+    locateStrategy: "xpath",
+  });
+});
+
+When(/^user clicks on Created By sort ascending$/, async function () {
+  await importPage.click({
+    selector: "//th[9]//span[@class='icon sort-icon is-small is-desc']",
+    locateStrategy: "xpath",
+  });
+});
+
+Then(
+  /^user can see "([^"]*)" Created By in first line$/,
+  async function (args1) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tr[1]//td[@data-label='Created By']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
