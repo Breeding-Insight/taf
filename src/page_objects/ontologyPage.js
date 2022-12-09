@@ -44,8 +44,10 @@ module.exports = {
         descriptionField: "#Description",
         desriptionErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
-        tagsField:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(13) > div > div.field-body > div > div > div > div > div > div.control.is-clearfix > input",
+        tagsField: {
+          selector: "//*[@id='tags']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
+        },
         entityField: {
           selector: "//*[@id='entity']/div[2]/div/div/div/div[1]/input",
           locateStrategy: "xpath",
@@ -59,10 +61,14 @@ module.exports = {
           index: 0,
           locateStrategy: "xpath",
         },
-        attributeField:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
-        attributeErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > span:nth-child(3)",
+        attributeField: {
+          selector: "//*[@id='attribute']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
+        },
+        attributeErrorText: {
+          selector: "//*[@id='attribute']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
         methodDescription: {
               selector: "//*[@id='methodDescription']/div[2]/div/div/div/div[1]/input",
               locateStrategy: "xpath",
@@ -94,10 +100,10 @@ module.exports = {
           locateStrategy: "xpath",
         },
         scaleClassNoOptionsText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > p",
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(33) > p",
         formulaField: "#Formula",
         formulaErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > div > div.field-body > div > div > span",
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(33) > div > div.field-body > div > div > span",
         unitField: "#Unit",
         unitErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > span",
