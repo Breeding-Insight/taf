@@ -35,6 +35,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user can see "Abort" button
 		And user see a list of ontology terms in a table
 		And user can see "Name" column header
+		And user can see "Term Type" column header
 		And user can see "Trait" column header
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
@@ -80,6 +81,7 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
+		And user can see "Term Type" column header
 		And user can see "Trait" column header
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
@@ -94,6 +96,7 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
+		And user can see "Term Type" column header
 		And user can see "Trait" column header
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
@@ -117,6 +120,7 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
 		And user can see Ontology table
 		And user can see "Name" column header
+		And user can see "Term Type" column header
 		And user can see "Trait" column header
 		And user can see "Method" column header
 		And user can see "Scale Class" column header
@@ -195,8 +199,9 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "4" row "2" "Method Description" field "Method description exceeds 30 character limit" message
 
 	@BI-1273
-	Scenario: Import Traits - invalid method and scale classes
+	Scenario: Import Traits - invalid method and scale classes and term type
 		And user uploads "test_traits_invalidFields.xlsx" file
 		And user selects 'Import' button
 		Then user can see "2" row "1" "Method class" field "Invalid method class value" message
 		Then user can see "3" row "2" "Scale class" field "Invalid scale class value" message
+		Then user can see "3" row "3" "Term Type" field "Invalid term type" message
