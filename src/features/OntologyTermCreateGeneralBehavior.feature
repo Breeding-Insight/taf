@@ -9,7 +9,7 @@ Feature: Ontology Term Create - General Behavior
     Scenario: Ontology Term Create - New Ontology form elements
         Given user selects "New Term" button
         Then user can see 'Ontology Term Name' field on ontology list page
-        Then user can see 'Term Type" dropdown on ontology list page
+        Then user can see 'Term Type' dropdown on ontology list page
         Then user can see 'Full Name' field on ontology list page
         Then user can see 'Description' field on ontology list page
         Then user can see 'Entity' field on ontology list page
