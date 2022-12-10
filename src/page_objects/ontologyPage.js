@@ -45,7 +45,7 @@ module.exports = {
         desriptionErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
         tagsField: {
-          selector: "//*[@id='tags']/div[2]/div/div/div/div[1]/input",
+          selector: "//*[@id='tags']/div[2]/div/div/div/div/div/div/input",
           locateStrategy: "xpath",
         },
         entityField: {
@@ -209,27 +209,27 @@ module.exports = {
         ordinalFields: { selector: "div.column.is-2 div.field-body input" },
         firstOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(2) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(2) div.column.is-2  div.field-body input",
         },
         secondOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(3) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(3) div.column.is-2  div.field-body input",
         },
         thirdOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(4) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(4) div.column.is-2  div.field-body input",
         },
         fourthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(5) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(5) div.column.is-2  div.field-body input",
         },
         fifthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(6) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(6) div.column.is-2  div.field-body input",
         },
         sixthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(7) div.column.is-2  div.field-body input",
         },
         firstCategoryField: {
           selector: ".//input[@placeholder='Category']",
