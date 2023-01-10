@@ -454,9 +454,9 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 });
 
 Then(
-  /^user can see 'Configuration' tab on Program Management page$/,
+  /^user can see 'Ontology Sharing' tab on Program Management page$/,
   async () => {
-    await page.section.programManagement.assert.visible("@configurationLink");
+    await page.section.programManagement.assert.visible("@ontologySharingLink");
   }
 );
 
@@ -637,8 +637,8 @@ When(
       case "Users":
         await page.section.programManagement.click("@usersLink");
         break;
-      case "Configuration":
-        await page.section.programManagement.click("@configurationLink");
+      case "Ontology Sharing":
+        await page.section.programManagement.click("@ontologySharingLink");
         break;
       default:
         throw new Error(`Unexpected ${args1} tab name.`);
@@ -647,18 +647,18 @@ When(
 );
 
 Then(
-  /^user can see Configuration on Program Management page$/,
+  /^user can see Ontology Sharing on Program Management page$/,
   async function () {
-    await page.expect.section("@configurationForm").visible;
+    await page.expect.section("@ontologySharingForm").visible;
   }
 );
 
 Then(
-  /^user can see "([^"]*)" section on Configuration tab on Program Management page$/,
+  /^user can see "([^"]*)" section on Ontology Sharing tab on Program Management page$/,
   async function (args1) {
     switch (args1) {
       case "Shared Ontology":
-        await page.section.configurationForm.assert.visible(
+        await page.section.ontologySharingForm.assert.visible(
           "@sharedOntologySection"
         );
         break;
@@ -669,12 +669,12 @@ Then(
 );
 
 Then(
-  /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
+  /^user can see "([^"]*)" message on Ontology Sharing tab on Program Management page$/,
   async function (args1) {
     if (args1.includes("*")) {
       args1 = program.Name;
     }
-    await page.section.configurationForm.assert.containsText(
+    await page.section.ontologySharingForm.assert.containsText(
       "@notSharedMessage",
       args1
     );
@@ -684,7 +684,7 @@ Then(
 When(
   /^user selects 'Share Ontology' button on Program Management page$/,
   async function () {
-    await page.section.configurationForm.click("@shareOntologyButton");
+    await page.section.ontologySharingForm.click("@shareOntologyButton");
   }
 );
 
