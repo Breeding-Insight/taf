@@ -15,6 +15,10 @@ on:
         description: 'Branch of bi-web to use'
         required: true
         default: 'develop'
+      bi_docker_stack:
+        description: 'Branch of bi-docker-stack to use'
+        required: true
+        default: 'develop'
 
 jobs:
   test:
@@ -23,36 +27,36 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node-version: [16.x]
-      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     runs-on: ${{ matrix.os }}
-    
-    name: "Testing bi-web: ${{ github.event.inputs.biweb }}, bi-api: ${{ github.event.inputs.biapi }}"
-    
+
+    name: "Testing bi-web: ${{ github.event.inputs.biweb }}, bi-api: ${{ github.event.inputs.biapi }}, bi-docker-stack: ${{ github.event.inputs.bi_docker_stack }}"
+
     env:
       USER_ID: 1001
       GROUP_ID: 1001
-      
+
       OAUTH_CLIENT_ID: APP-ZX6M8LSAN3YIIAQ5
       OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       JWT_DOMAIN: localhost
-      
+
       OAUTH_AUTH_URL: https://sandbox.orcid.org/oauth/authorize
       OAUTH_TOKEN_URL: https://sandbox.orcid.org/oauth/token
       OAUTH_OPENID_ISSUER: https://sandbox.orcid.org
       OAUTH_OPENID_JWKSURI: https://sandbox.orcid.org/oauth/jwks
       OAUTH_OPENID_USERINFOURL: https://sandbox.orcid.org/oauth/userinfo
-      
+
       GITHUB_ACTOR: rob-ouser-bi
       GITHUB_TOKEN: ${{ secrets.ROB_OUSER_TOKEN }}
-      
+
       DB_PASSWORD: postgres
       DB_SERVER: dbserver:5432
       DB_NAME: bidb
       DB_USER: postgres
       ADMIN_ORCID: 0000-0003-0437-8310
-      
+
       API_INTERNAL_PORT: 8081
       API_INTERNAL_TEST_PORT: 8082
 
@@ -71,111 +75,121 @@ jobs:
       EMAIL_RELAY_PORT: 1025
       EMAIL_FROM: bidevteam@cornell.edu
 
+      GIGWA_HOST: http://localhost:5080/
+      GIGWA_USER: gigwadmin
+      GIGWA_PASSWORD: nimda
+
+      AWS_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_KEY: test
+      AWS_S3_ENDPOINT: http://localhost:4566
+      AWS_GENO_BUCKET: breedinginsight.org-test
+
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    
-    #check out docker
-    - name: Docker checkout (private)
-      uses: actions/checkout@v2
-      with:
-       repository: Breeding-Insight/bi-docker-stack
-       ref: 'jenkins-taf-fixes'
-       submodules: recursive
-       token: ${{ secrets.DOCKERPATH }}
-       path: bi-docker-stack
-       
-    - name: Update bi-api Branch
-      uses: actions/checkout@v2
-      with:
-        repository: Breeding-Insight/bi-api
-        ref: ${{ github.event.inputs.biapi }}
-        path: bi-docker-stack/bi-api
+      - uses: actions/checkout@v2
 
-    - name: Update bi-web Branch
-      uses: actions/checkout@v2
-      with:
-        repository: Breeding-Insight/bi-web
-        ref: ${{ github.event.inputs.biweb }}
-        path: bi-docker-stack/bi-web
-    
-    - run: npm install
-    
-    - name: Set up debug for github actions
-      run: npm install --save-prod @actions/github @actions/core
-    
-    - name: Set up JDK 13
-      uses: actions/setup-java@v1.4.3
-      with:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      #check out docker
+      - name: Docker checkout (private)
+        uses: actions/checkout@v2
+        with:
+          repository: Breeding-Insight/bi-docker-stack
+          ref: ${{ github.event.inputs.bi_docker_stack }}
+          submodules: recursive
+          token: ${{ secrets.DOCKERPATH }}
+          path: bi-docker-stack
+
+      - name: Update bi-api Branch
+        uses: actions/checkout@v2
+        with:
+          repository: Breeding-Insight/bi-api
+          ref: ${{ github.event.inputs.biapi }}
+          path: bi-docker-stack/bi-api
+
+      - name: Update bi-web Branch
+        uses: actions/checkout@v2
+        with:
+          repository: Breeding-Insight/bi-web
+          ref: ${{ github.event.inputs.biweb }}
+          path: bi-docker-stack/bi-web
+
+      - run: npm install
+
+      - name: Set up debug for github actions
+        run: npm install --save-prod @actions/github @actions/core
+
+      - name: Set up JDK 13
+        uses: actions/setup-java@v1.4.3
+        with:
           java-version: 13
-          
-      #from bi-docker-stack
-    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-dev.yml up --build -d
-          
-    - name: Set up Chrome
-      uses: browser-actions/setup-chrome@latest
-      if: matrix.os == 'ubuntu-latest'
-      
-    - name: Run Chrome
-      if: matrix.os == 'ubuntu-latest'
-      run: chrome --version
 
-    - name: Sleep to ensure docker set up
-      run: sleep 180s
-      shell: bash
-      
-    - name: Try setting up species again
-      run: |
-        docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
-        docker exec bidb psql -U postgres -a -f species.sql -d postgres
-      
-    - name: Set up required bidb data for tests    
-      run: | 
-        docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
-        docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb 
-    
-    - name: Set up brapi data
-      run: |
-        trailMixId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Trail Mix'" )
-        snacksId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Snacks'" )
-        snacksId="$(echo -e "${snacksId}" | sed -e 's/^[[:space:]]*//')"
-        trailMixId="$(echo -e "${trailMixId}" | sed -e 's/^[[:space:]]*//')"
-        docker ps -a
-        docker logs brapi-server
-        docker logs biapi
-        docker logs biweb
-        docker inspect --format "{{json .State.Health }}" brapi-server | jq
-        docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$snacksId"'"}]}]' http://localhost:8080/brapi/v2/programs
-        docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Trail Mix","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$trailMixId"'"}]}]' http://localhost:8080/brapi/v2/programs
-      
-    - name: Run tests on Chrome (full)
-      if: github.event.inputs.suite=='full'
-      run: npm run test:chromeWeekly
-      
-    - name: Run tests on Chrome (smoke tests)
-      if: (github.event.inputs.suite=='smoke')
-      run: npm run test:chromeDaily
-      
-    - id: biWebBranch
-      run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
-      
-    - id: biAPIBranch
-      run: INPUT=${{ github.event.inputs.biapi }} && echo "::set-output name=branch::${INPUT/\//-}"
+        #from bi-docker-stack
+      - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-redis.yml -f bi-docker-stack/docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-ci.yml up --build -d
 
-    - name: Publish Report Artifact
-      uses: actions/upload-artifact@v2
-      if: always()
-      with:
-        name: cucumber-report-web-${{ steps.biWebBranch.outputs.branch }}-api-${{ steps.biAPIBranch.outputs.branch }}-${{ github.run_number }}
-        path: ${{ github.workspace }}/report/*
-        
-    - name: Test end of run container status
-      if: always()
-      run: |
-        docker logs brapi-server
-        docker logs biapi
-        docker logs biweb
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@latest
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Run Chrome
+        if: matrix.os == 'ubuntu-latest'
+        run: chrome --version
+
+      - name: Sleep to ensure docker set up
+        run: sleep 180s
+        shell: bash
+
+      - name: Try setting up species again
+        run: |
+          docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
+          docker exec bidb psql -U postgres -a -f species.sql -d postgres
+
+      - name: Set up required bidb data for tests
+        run: |
+          docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
+          docker exec bidb psql -U postgres -a -f populate-taf-data.sql -d bidb 
+
+      - name: Set up brapi data
+        run: |
+          trailMixId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Trail Mix'" )
+          snacksId=$( docker exec bidb psql -U postgres -d bidb -t -c "SELECT id FROM program WHERE name='Snacks'" )
+          snacksId="$(echo -e "${snacksId}" | sed -e 's/^[[:space:]]*//')"
+          trailMixId="$(echo -e "${trailMixId}" | sed -e 's/^[[:space:]]*//')"
+          docker ps -a
+          docker logs brapi-server
+          docker logs biapi
+          docker logs biweb
+          docker inspect --format "{{json .State.Health }}" brapi-server | jq
+          docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Snacks","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$snacksId"'"}]}]' http://localhost:8080/brapi/v2/programs
+          docker exec brapi-server curl --header "Content-Type: application/json;charset=UTF-8" -v -d '[{"programName":"Trail Mix","externalReferences":[{"referenceSource":"breeding-insight.net","referenceID":"'"$trailMixId"'"}]}]' http://localhost:8080/brapi/v2/programs
+
+      - name: Run tests on Chrome (full)
+        if: github.event.inputs.suite=='full'
+        run: npm run test:chromeWeekly
+
+      - name: Run tests on Chrome (smoke tests)
+        if: (github.event.inputs.suite=='smoke')
+        run: npm run test:chromeDaily
+
+      - id: biWebBranch
+        run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
+
+      - id: biAPIBranch
+        run: INPUT=${{ github.event.inputs.biapi }} && echo "::set-output name=branch::${INPUT/\//-}"
+
+      - name: Publish Report Artifact
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cucumber-report-web-${{ steps.biWebBranch.outputs.branch }}-api-${{ steps.biAPIBranch.outputs.branch }}-${{ github.run_number }}
+          path: ${{ github.workspace }}/report/*
+
+      - name: Test end of run container status
+        if: always()
+        run: |
+          docker logs brapi-server
+          docker logs biapi
+          docker logs biweb
