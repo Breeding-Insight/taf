@@ -1,0 +1,5 @@
+Germplasm Name,Germplasm GID,Test (T) or Check (C ),Exp Title ,Exp Description,Exp Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Exp Replicate #,Exp Block #,Row,Column,Treatment Factors
+ Germplasm1,1,,New Trial DRP45,A new trial DRP5,plot,phenotyping,New Study 8,New Location DRP5,1993,9384,1,2,,,Jam application
+ Germplasm2,2,,New Trial DRP45,A new trial DRP5,plot,phenotyping,New Study 13,New Location DRP5,1993,9385,1,2,,,Jam application
+ Germplasm3,3,,New Trial DRP45,A new trial DRP5,plot,phenotyping,New Study 11,New Location DRP5,1993,9386,1,2,,,Jam application
+ Germplasm4,4,,New Trial DRP45,A new trial DRP5,plot,phenotyping,New Study 12,New Location DRP5,1993,9387,1,2,,,Jam application
