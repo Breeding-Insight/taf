@@ -64,16 +64,6 @@ jobs:
       EMAIL_RELAY_PORT: 1025
       EMAIL_FROM: bidevteam@cornell.edu
 
-      GIGWA_HOST: http://localhost:5080/
-      GIGWA_USER: gigwadmin
-      GIGWA_PASSWORD: nimda
-
-      AWS_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: test
-      AWS_SECRET_KEY: test
-      AWS_S3_ENDPOINT: http://localhost:4566
-      AWS_GENO_BUCKET: breedinginsight.org-test
-
     steps:
     - uses: actions/checkout@v2
     
@@ -101,7 +91,7 @@ jobs:
           java-version: 13
           
       #from bi-docker-stack
-    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-redis.yml -f bi-docker-stack/docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-qa.yml up -d
+    - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-qa.yml up -d
           
     - name: Set up Chrome
       uses: browser-actions/setup-chrome@latest
