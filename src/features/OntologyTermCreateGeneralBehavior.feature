@@ -9,6 +9,7 @@ Feature: Ontology Term Create - General Behavior
     Scenario: Ontology Term Create - New Ontology form elements
         Given user selects "New Term" button
         Then user can see 'Ontology Term Name' field on ontology list page
+        Then user can see 'Term Type' dropdown on ontology list page
         Then user can see 'Full Name' field on ontology list page
         Then user can see 'Description' field on ontology list page
         Then user can see 'Entity' field on ontology list page
@@ -30,6 +31,7 @@ Feature: Ontology Term Create - General Behavior
     @BI-944
     Scenario: Ontology Term Create - Trait entity auto-complete behavior, not already in db
         Given user selects "New Term" button
+        When user selects "<term_type>" in 'Term Type' dropdown on ontology list page
         When user sets "<ont_term_name>" in 'Name' field on ontology list page
         When user sets "<trait_description>" in 'Full Name' field on ontology list page
         When user sets "<trait_description>" in 'Description' field on ontology list page
@@ -44,8 +46,8 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "*" as suggested text in 'Entity' field on ontology list page
 
         Examples:
-            | ont_term_name | trait_description | new_entity  | trait_attribute | method_description |
-            | *             | TestTraitDesc *   | NewEntity * | TestAttribute * | TestMethDesc *     |
+            | term_type          | ont_term_name | trait_description | new_entity  | trait_attribute | method_description |
+            | germplasm passport | *             | TestTraitDesc *   | NewEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-945
     Scenario: Ontology Term Create - Synonyms
@@ -90,6 +92,7 @@ Feature: Ontology Term Create - General Behavior
     Scenario: Ontology Term Create - Enter Values, Save
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
+        And user selects "<term_type>" in 'Term Type' dropdown on ontology list page
         And user sets "<trait_description>" in 'Description' field on ontology list page
         And user sets "<trait_entity>" in 'Entity' field on ontology list page
         And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
@@ -104,8 +107,8 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Date" in 'Scale Class' column on ontology list page
 
         Examples:
-            | ont_term_name | trait_description | trait_entity      | trait_attribute | method_description |
-            | *             | Testtraitdesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
+            | term_type          | ont_term_name | trait_description | trait_entity      | trait_attribute | method_description |
+            | germplasm passport | *             | Testtraitdesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1310
     Scenario: Ontology Term Create - Trait = Entity + Attribute

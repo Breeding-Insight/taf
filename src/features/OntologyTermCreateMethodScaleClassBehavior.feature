@@ -224,6 +224,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
     Scenario: scale class Ordinal - values post save BI-1258
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
+        And user selects "<term_type>" in 'Term Type' dropdown on ontology list page
         And user sets "<trait_description>" in 'Description' field on ontology list page
         And user sets "<trait_entity>" in 'Entity' field on ontology list page
         And user sets "<trait_attribute>" in 'Attribute' field on ontology list page
@@ -245,8 +246,8 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user can see "<second scale category>" in Ordinal second field of Show Details on ontology list page
 
         Examples:
-            | ont_term_name | trait_description | trait_entity | trait_attribute | method_description | ordinal_value | first scale category | second scale category |
-            | term*         | description*      | trait*       | traitattribute* | methoddescription* | ordinalvalue* | first*               | second*               |
+            | term_type           | ont_term_name | trait_description | trait_entity | trait_attribute | method_description | ordinal_value | first scale category | second scale category |
+            | germplasm attribute | term*         | description*      | trait*       | traitattribute* | methoddescription* | ordinalvalue* | first*               | second*               |
 
     @BI-1329
     Scenario: scale class Nominal - values post save
