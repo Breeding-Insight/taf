@@ -31,7 +31,7 @@
     "@cucumber/cucumber": "^8.2.2",
     "@cucumber/pretty-formatter": "*",
     "@slime/stopwatch": "^1.0.5",
-    "chromedriver": "^107.0.0",
+    "chromedriver": "^109.0.0",
     "cucumber-html-reporter": "^5.2.0",
     "edgedriver": "^4.17134.1",
     "geckodriver": "^2.0.3",
