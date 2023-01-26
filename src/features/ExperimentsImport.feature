@@ -30,54 +30,30 @@ Feature: Experiments & Observations
         When user logs out
         Given user logs in as "Cucumber Breeder"
         When user selects "<ProgramName>" on program-selection page
-        # And user selects "Import Data" in navigation
-        # And user uploads Germplasm "GermplasmSample.xlsx" file
-        # And user selects 'Import' button
-        # When user sets "GermplasmSort" in List Name field of import page
-        # When user sets "GermplasmSort" in List Description field of import page
-        # And user selects "Confirm" button
-        #Login as Cucumber Breeder and go to Snacks
-        # When user selects "Experiments & Observations" in navigation
-        # When user selects "Import Experiments & Observations" button
-        # And user uploads Experiments & Observations "EXP.csv" file
-
-        # Then user can see 'Configuration' tab on Program Management page
-        # When user selects "Configuration" tab on Program Management page
-        # Then user can see Configuration on Program Management page
-        # Then user can see "Shared Ontology" section on Configuration tab on Program Management page
-        # Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
-        # When user selects Share Ontology button of Shared Ontology on Program Management page
-        # When user can see the 'Manage  Share Ontology' in Managed Shared Ontlogy page
-        # Then user can see "<ProgramName>" checkbox in Managed Shared Ontlogy page
-        # #Share Snacks to new Program
-        # When user selects "<ProgramName>" checkbox in Managed Shared Ontlogy page
-        # When user selects "Save" button in Managed Shared Ontlogy page
-        # Then user can see "<ProgramName>" is currently shared but not accepted message
-        #Go to new Program and check the shared ontology
-        # When user navigates to Program Selection page
-        # When user selects "<ProgramName>" on program-selection page
-        # When user selects "Program Management" in navigation
-        # Then user can see 'Configuration' tab on Program Management page
-        # When user selects "Configuration" tab on Program Management page
-        # Then user can see Configuration on Program Management page
-        # Then user can see "Shared Ontology" section on Configuration tab on Program Management page
-        # When user selects "Snacks" in Choose ontology to subscribe to dropdown on Program Management page
-        # When user selects Save button of Subscribe to Shared Ontology on Program Management page
-        # When user pause for "5" seconds
-        # Then user can see "Unsubscribe from Snacks ontology" button on Program Management page
-        # #Go to Snacks and remove the shared ontology
-        # When user navigates to Program Selection page
-        # When user selects "Snacks" on program-selection page
-        # When user selects "Program Management" in navigation
-        # Then user can see 'Configuration' tab on Program Management page
-        # When user selects "Configuration" tab on Program Management page
-        # Then user can see Configuration on Program Management page
-        # Then user can see "Shared Ontology" section on Configuration tab on Program Management page
-        # Then user can see "<ProgramName>" is currently shared and accepted message
-        # When user selects Share Ontology button of Shared Ontology on Program Management page
-        # When user selects "<ProgramName>" checkbox in Managed Shared Ontlogy page
-        # When user selects "Save" button in Managed Shared Ontlogy page
-        # Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
+        And user selects "Import Data" in navigation
+        And user uploads Germplasm "GermplasmSample.xlsx" file
+        And user selects 'Import' button
+        When user sets "GermplasmSort" in List Name field of import page
+        When user sets "GermplasmSort" in List Description field of import page
+        And user selects "Confirm" button
+        When user selects "Ontology" in navigation
+        When user selects "Import Batch File" button
+        And user uploads Ontology "test01-ontology.xls" file
+        When user selects 'Import' button
+        And user selects "Confirm" button
+        When user pause for "10" seconds
+        When user selects "Experiments & Observations" in navigation
+        When user selects "Import Experiments & Observations" button
+        And user uploads Experiments & Observations "EXP.csv" file
+        When user selects 'Import' button
+        When user pause for "10" seconds
+        Then user can see "Import Experiments & Observations" preview table
+        When user selects "Abort" button
+        When user selects 'Yes, abort' button
+        Then user can not see "Import Experiments & Observations" preview table
+        And user uploads Experiments & Observations "InvalidImport.png" file
+        When user selects 'Import' button
+        Then user can see an error message "An unknown error has occurred when uploading your import."
 
         Examples:
             | ProgramName | Key | Species |

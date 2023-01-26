@@ -1,6 +1,14 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
+const path = require("path");
 const importPage = client.page.importPage();
+const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
+const experimentsFolder = path.join(
+  __basedir,
+  "src",
+  "files",
+  "ExperimentsImport"
+);
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
@@ -243,3 +251,29 @@ Then(
     );
   }
 );
+
+When(/^user uploads Ontology "([^"]*)" file$/, async function (args1) {
+  await importPage.setValue(
+    'input[type="file"]',
+    path.resolve(ontologyFolder, args1)
+  );
+});
+
+When(
+  /^user uploads Experiments & Observations "([^"]*)" file$/,
+  async function (args1) {
+    await importPage.setValue(
+      'input[type="file"]',
+      path.resolve(experimentsFolder, args1)
+    );
+  }
+);
+
+Then(/^user can see "([^"]*)" preview table$/, async function (args1) {
+  await importPage.assert.visible("#import-experiment div.b-table");
+});
+
+Then(/^user can not see "([^"]*)" preview table$/, async function (args1) {
+  await importPage.assert.not.elementPresent("#import-experiment div.b-table");
+});
+
