@@ -207,7 +207,7 @@ module.exports = {
         },
 
         programManagementLink: {
-          selector: ".//a[normalize-space()='Program Management']",
+          selector: ".//a[normalize-space()='Program Administration']",
           locateStrategy: "xpath",
         },
       },
