@@ -354,7 +354,7 @@ When(/^user selects Cancel button$/, async () => {
 });
 
 When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
-  setRole(args1);
+  await setRole(args1);
 });
 
 When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
@@ -825,7 +825,7 @@ Then(/^user can see 'Import' button$/, async () => {
 When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.pause(1000);
   const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //button//span[normalize-space(.)='${args1}']`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}') and not(@style)] | //span[normalize-space(.)='${args1}']/ancestor::button[not(@style)]`,
     locateStrategy: "xpath",
   };
   await page.waitForElementVisible(selector);
@@ -1100,7 +1100,7 @@ async function setEmail(email) {
 
 async function setRole(role) {
   user.role = role;
-  return await page.section.newUserForm.setValue("@roleSelect", user.role);
+  await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
 async function closeNotification() {
