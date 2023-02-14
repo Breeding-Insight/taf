@@ -897,7 +897,10 @@ When(/^user selects 'Import' button$/, async () => {
 });
 
 When(/^user selects 'Yes, abort' button$/, async () => {
-  await page.click("#traitsimport-yes-abort");
+  await page.click({
+    selector: "//*[contains(text(), 'abort')]/ancestor::button",
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see Ontology table$/, async () => {
@@ -1078,10 +1081,9 @@ When(/^user close notification pop-up$/, async function () {
   });
 });
 
-When(/^user refresh the page$/, async function() {
-	await client.refresh();
+When(/^user refresh the page$/, async function () {
+  await client.refresh();
 });
-
 
 //functions
 async function setUserName(name) {
