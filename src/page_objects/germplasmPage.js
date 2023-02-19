@@ -1,9 +1,13 @@
 module.exports = {
   elements: {
+    header: {
+      selector: "//h1[normalize-space()='Germplasm']",
+      locateStrategy: "xpath",
+    },
     listNameField: { selector: "#List-Name" },
     listDescriptionField: { selector: "#List-Description" },
     allGermplasmTab: {
-      selector: "//li/a[normalize-space()='All Germplasm']",
+      selector: "//li/a[normalize-space()='Germplasm']",
       locateStrategy: "xpath",
     },
     germplasmListsTab: {
@@ -16,7 +20,7 @@ module.exports = {
       selector: "#germplasmTable",
       elements: {
         header: {
-          selector: "./h1[normalize-space()='All Germplasm']",
+          selector: "./h1[normalize-space()='Germplasm']",
           locateStrategy: "xpath",
         },
         totalRows: {

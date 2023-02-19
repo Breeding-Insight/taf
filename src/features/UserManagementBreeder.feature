@@ -14,7 +14,7 @@ Feature: Breeder User Management
 	Scenario: Program Users Table
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can see Program User Management page
 		And user can see Users page
@@ -37,7 +37,7 @@ Feature: Breeder User Management
 	Scenario: User Management page
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can see Program User Management page
 
@@ -45,7 +45,7 @@ Feature: Breeder User Management
 	Scenario: System Admin and Program Member - Program User Management
 		Given user logs in as "sysad"
 		And user selects "Trail Mix" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can see page of Users
 		And user can see table header contains
@@ -57,7 +57,7 @@ Feature: Breeder User Management
 	Scenario: ???
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can see Program User Management page
 
@@ -65,7 +65,7 @@ Feature: Breeder User Management
 	Scenario: New User form - enter nothing and select Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user selects New User button
 		And user selects Save button
@@ -78,7 +78,7 @@ Feature: Breeder User Management
 	Scenario: New User form - enter name only - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user selects New User button
 		And user sets "Tester Breeder" in Name field
@@ -90,7 +90,7 @@ Feature: Breeder User Management
 	Scenario: New Program User form - enter name and email only - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user selects New User button
 		And user sets "Tester Breeder" in Name field
@@ -103,7 +103,7 @@ Feature: Breeder User Management
 	Scenario: New User form - enter all required, valid fields - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user selects New User button
 		And user sets "Tester Breeder" in Name field
@@ -117,7 +117,7 @@ Feature: Breeder User Management
 	Scenario: New User form - enter all required, valid fields - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user creates a new user
 			| Name   | Email                | Role    |
@@ -128,7 +128,7 @@ Feature: Breeder User Management
 	Scenario: NEW Program User form - enter invalid email address - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user selects New User button
 		And user sets "Tester Breeder" in Name field
@@ -142,7 +142,7 @@ Feature: Breeder User Management
 	Scenario: NEW User form - enter existing email address - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user selects New User button
 		And user sets "TestNewUser" in Name field
@@ -156,7 +156,7 @@ Feature: Breeder User Management
 	Scenario: Edit Form elements
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user creates a new user
 			| Name   | Email                | Role    |
@@ -170,7 +170,7 @@ Feature: Breeder User Management
 	Scenario: Edit Form - change role - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user creates a new user
 			| Name   | Email                | Role    |
@@ -183,7 +183,7 @@ Feature: Breeder User Management
 	Scenario: Edit Form - change role - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user creates a new user
 			| Name   | Email                | Role    |
@@ -197,7 +197,7 @@ Feature: Breeder User Management
 	Scenario Outline: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user creates a new user
 			| Name  | Email                | Role    |
@@ -219,7 +219,7 @@ Feature: Breeder User Management
 	Scenario: Deactivate link - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user creates a new user
 			| Name   | Email                | Role    |
@@ -233,7 +233,7 @@ Feature: Breeder User Management
 	Scenario: Deactivate link - Yes, deactivate
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		And user creates a new user
 			| Name   | Email                | Role    |
@@ -246,7 +246,7 @@ Feature: Breeder User Management
 	Scenario: admin editing self - Program User management
 		Given user logs in as "sysad"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user selects "Edit" of Name "Christian"
 		When user selects "member" in Role dropdown
@@ -261,7 +261,7 @@ Feature: Breeder User Management
 	Scenario: breeder with no admin role editing self - Program User management
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And When user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		When user selects "Edit" of Name "Cucumber Breeder"
 		When user selects "member" in Role dropdown

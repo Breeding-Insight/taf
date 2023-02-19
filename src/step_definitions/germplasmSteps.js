@@ -7,7 +7,7 @@ const germplasmPage = client.page.germplasmPage();
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
   async function () {
-    await germplasmPage.section.germplasmTable.assert.visible("@header");
+    await germplasmPage.assert.visible("@header");
   }
 );
 
