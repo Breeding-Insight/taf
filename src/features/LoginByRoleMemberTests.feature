@@ -33,7 +33,7 @@ Feature: Logging with Member
 	@BI-887
 	Scenario: No Admin role, Program Member - Program User Management
 		Given user logs in as "Cucumber Member"
-		And When user selects "Program Administration" in navigation
+		And user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can not see New User button
 		And user can see each row does not have an "Edit" link
@@ -56,7 +56,7 @@ Feature: Logging with Member
 	@BI-915
 	Scenario: Program Location Management page - member
 		Given user logs in as "Cucumber Member"
-		And When user selects "Program Administration" in navigation
+		And user selects "Program Administration" in navigation
 		Then user can not see "Edit" link 
 		And user can not see "Deactivate" link
 		Then user can not see 'New Location' button in Program Management page
