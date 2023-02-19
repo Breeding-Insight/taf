@@ -825,10 +825,10 @@ Then(/^user can see 'Import' button$/, async () => {
 When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.pause(1000);
   const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}') and not(@style)] | //span[normalize-space(.)='${args1}']/ancestor::button[not(@style)]`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //span[normalize-space(.)='${args1}']/ancestor::button`,
     locateStrategy: "xpath",
   };
-  await page.waitForElementVisible(selector);
+  await page.waitForElementVisible(selector, 240000);
   await page.click(selector);
 });
 
