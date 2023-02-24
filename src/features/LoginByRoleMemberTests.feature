@@ -46,6 +46,7 @@ Feature: Logging with Member
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Administration" in navigation
+		When user selects "Locations" tab on Program Management page
 		When user selects 'New Location' button in Program Management page
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
@@ -57,7 +58,7 @@ Feature: Logging with Member
 	Scenario: Program Location Management page - member
 		Given user logs in as "Cucumber Member"
 		And user selects "Program Administration" in navigation
-		Then user can not see "Edit" link 
+		Then user can not see "Edit" link
 		And user can not see "Deactivate" link
 		Then user can not see 'New Location' button in Program Management page
 
