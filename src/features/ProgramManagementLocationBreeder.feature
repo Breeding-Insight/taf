@@ -6,7 +6,6 @@ Feature: Program Location Management
 		And user selects "Program Administration" in navigation
 
 	@BI-905
-	@debug
 	Scenario: Program Location Management page - admin
 		When user can see Program Management header in Program Management page
 		Then user can see 'Locations' tab in Program Management page
