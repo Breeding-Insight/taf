@@ -292,7 +292,7 @@ Feature: Program Management (15)
 		Then user can see "Home" in navigation
 		Then user can see "Germplasm" in navigation
 		Then user can see "Ontology" in navigation
-		Then user can see "Program Management" in navigation
+		Then user can see "Program Administration" in navigation
 		Then user can see "BrAPI" in navigation
 		Then user can see "Jobs" in navigation
 		Then user can see "Experiments & Observations" in navigation

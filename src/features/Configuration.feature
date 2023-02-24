@@ -17,7 +17,7 @@ Feature: Ontology Sharing
         When user pause for "10" seconds
         When user navigates to Program Selection page
         When user selects "<ProgramName>" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         When user selects "Users" tab
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
@@ -30,7 +30,7 @@ Feature: Ontology Sharing
         #Login as Cucumber Breeder and go to Snacks
         When user logs in as "Cucumber Breeder"
         When user selects "Snacks" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         Then user can see 'Ontology Sharing' tab on Program Management page
         When user selects "Ontology Sharing" tab on Program Management page
         Then user can see Ontology Sharing on Program Management page
@@ -46,7 +46,7 @@ Feature: Ontology Sharing
         #Go to new Program and check the shared ontology
         When user navigates to Program Selection page
         When user selects "<ProgramName>" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         Then user can see 'Ontology Sharing' tab on Program Management page
         When user selects "Ontology Sharing" tab on Program Management page
         Then user can see Ontology Sharing on Program Management page
@@ -58,7 +58,7 @@ Feature: Ontology Sharing
         #Go to Snacks and remove the shared ontology
         When user navigates to Program Selection page
         When user selects "Snacks" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         Then user can see 'Ontology Sharing' tab on Program Management page
         When user selects "Ontology Sharing" tab on Program Management page
         Then user can see Ontology Sharing on Program Management page

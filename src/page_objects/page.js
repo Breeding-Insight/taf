@@ -156,7 +156,7 @@ module.exports = {
       locateStrategy: "xpath",
     },
     programManagementHeader: {
-      selector: "//section/div/h1[normalize-space(.)='Program Management']",
+      selector: "//section/div/h1[normalize-space(.)='Program Administration']",
       locateStrategy: "xpath",
     },
 
@@ -207,7 +207,7 @@ module.exports = {
         },
 
         programManagementLink: {
-          selector: ".//a[normalize-space()='Program Management']",
+          selector: ".//a[normalize-space()='Program Administration']",
           locateStrategy: "xpath",
         },
       },

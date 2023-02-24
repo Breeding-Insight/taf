@@ -11,7 +11,7 @@ const { Sign } = require("crypto");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
-    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
+    selector: "//*[@id='main']//h1[contains(text(),'Program Administration')]",
     locateStrategy: "xpath",
   });
 });
