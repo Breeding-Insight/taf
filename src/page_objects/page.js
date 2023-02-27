@@ -156,7 +156,7 @@ module.exports = {
       locateStrategy: "xpath",
     },
     programManagementHeader: {
-      selector: "//section/div/h1[normalize-space(.)='Program Management']",
+      selector: "//section/div/h1[normalize-space(.)='Program Administration']",
       locateStrategy: "xpath",
     },
 
@@ -207,7 +207,7 @@ module.exports = {
         },
 
         programManagementLink: {
-          selector: ".//a[normalize-space()='Program Management']",
+          selector: ".//a[normalize-space()='Program Administration']",
           locateStrategy: "xpath",
         },
       },
@@ -364,8 +364,8 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
-        configurationLink: {
-          selector: ".//li/a[normalize-space(.)='Configuration']",
+        ontologySharingLink: {
+          selector: ".//li/a[normalize-space(.)='Ontology Sharing']",
           locateStrategy: "xpath",
         },
         nameIsRequiredText: {
@@ -427,9 +427,9 @@ module.exports = {
         message: { selector: ".//section//section", locateStrategy: "xpath" },
       },
     },
-    //Program Management Configuration
-    configurationForm: {
-      selector: "#program-configuration",
+    //Program Management Ontology Sharing
+    ontologySharingForm: {
+      selector: "#ontology-sharing",
       elements: {
         sharedOntologySection:"#shared-ontology-section",
         header: "#shared-ontology-section > h2",

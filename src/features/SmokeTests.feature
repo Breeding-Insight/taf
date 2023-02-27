@@ -14,7 +14,7 @@ Feature: Smoke Tests (11)
 	Scenario Outline: New Program User
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
+		When user selects "Program Administration" in navigation
 		When user selects "Users" tab
 		When user clicks 'New User' button
 		When user sets "<Name>" in Name field of User
@@ -35,7 +35,7 @@ Feature: Smoke Tests (11)
 	Scenario: Check Users page
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
+		When user selects "Program Administration" in navigation
 		When user selects "Users" tab
 		Then user can see "Name" column in Users
 		Then user can see "Email" column in Users
@@ -50,7 +50,7 @@ Feature: Smoke Tests (11)
 	Scenario Outline: Program Location Management page
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
+		When user selects "Program Administration" in navigation
 		When user selects "Locations" tab
 		When user selects 'New Location' button in Program Management page
 		When user sets "<location name>" in Name field in Program Management page
@@ -72,7 +72,7 @@ Feature: Smoke Tests (11)
 	Scenario: Program Location Management page
 		Given user logs in as "sysad"
 		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
+		When user selects "Program Administration" in navigation
 		When user selects "Locations" tab
 		When user selects 'New Location' button in Program Management page
 		When user sets "<location name>" in Name field in Program Management page

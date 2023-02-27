@@ -1,12 +1,12 @@
 
-Feature: Configuration
+Feature: Ontology Sharing
 
     Background: Required Setup
         Given user logs in as "sysad"
         And user selects "System Administration" on program-selection page
 
     @BI-1502
-    Scenario Outline: Configuration as a sub-menu
+    Scenario Outline: Ontology Sharing as a sub-menu
         When user is on the program-management page
         #Create a new program
         When user selects 'New Program' button in Programs page
@@ -17,7 +17,7 @@ Feature: Configuration
         When user pause for "10" seconds
         When user navigates to Program Selection page
         When user selects "<ProgramName>" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         When user selects "Users" tab
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
@@ -30,12 +30,12 @@ Feature: Configuration
         #Login as Cucumber Breeder and go to Snacks
         When user logs in as "Cucumber Breeder"
         When user selects "Snacks" on program-selection page
-        When user selects "Program Management" in navigation
-        Then user can see 'Configuration' tab on Program Management page
-        When user selects "Configuration" tab on Program Management page
-        Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
-        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
+        When user selects "Program Administration" in navigation
+        Then user can see 'Ontology Sharing' tab on Program Management page
+        When user selects "Ontology Sharing" tab on Program Management page
+        Then user can see Ontology Sharing on Program Management page
+        Then user can see "Shared Ontology" section on Ontology Sharing tab on Program Management page
+        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Ontology Sharing tab on Program Management page
         When user selects Share Ontology button of Shared Ontology on Program Management page
         When user can see the 'Manage  Share Ontology' in Managed Shared Ontlogy page
         Then user can see "<ProgramName>" checkbox in Managed Shared Ontlogy page
@@ -46,11 +46,11 @@ Feature: Configuration
         #Go to new Program and check the shared ontology
         When user navigates to Program Selection page
         When user selects "<ProgramName>" on program-selection page
-        When user selects "Program Management" in navigation
-        Then user can see 'Configuration' tab on Program Management page
-        When user selects "Configuration" tab on Program Management page
-        Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
+        When user selects "Program Administration" in navigation
+        Then user can see 'Ontology Sharing' tab on Program Management page
+        When user selects "Ontology Sharing" tab on Program Management page
+        Then user can see Ontology Sharing on Program Management page
+        Then user can see "Shared Ontology" section on Ontology Sharing tab on Program Management page
         When user selects "Snacks" in Choose ontology to subscribe to dropdown on Program Management page
         When user selects Save button of Subscribe to Shared Ontology on Program Management page
         When user pause for "5" seconds
@@ -58,16 +58,16 @@ Feature: Configuration
         #Go to Snacks and remove the shared ontology
         When user navigates to Program Selection page
         When user selects "Snacks" on program-selection page
-        When user selects "Program Management" in navigation
-        Then user can see 'Configuration' tab on Program Management page
-        When user selects "Configuration" tab on Program Management page
-        Then user can see Configuration on Program Management page
-        Then user can see "Shared Ontology" section on Configuration tab on Program Management page
+        When user selects "Program Administration" in navigation
+        Then user can see 'Ontology Sharing' tab on Program Management page
+        When user selects "Ontology Sharing" tab on Program Management page
+        Then user can see Ontology Sharing on Program Management page
+        Then user can see "Shared Ontology" section on Ontology Sharing tab on Program Management page
         Then user can see "<ProgramName>" is currently shared and accepted message
         When user selects Share Ontology button of Shared Ontology on Program Management page
         When user selects "<ProgramName>" checkbox in Managed Shared Ontlogy page
         When user selects "Save" button in Managed Shared Ontlogy page
-        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Configuration tab on Program Management page
+        Then user can see "Snacks is not currently sharing their ontology with other programs." message on Ontology Sharing tab on Program Management page
     
         Examples:
             | ProgramName | Key | Species |

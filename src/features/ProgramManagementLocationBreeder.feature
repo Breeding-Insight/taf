@@ -3,7 +3,8 @@ Feature: Program Location Management
 	Background: Required Setup
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		And user selects "Program Management" in navigation
+		And user selects "Program Administration" in navigation
+		And user selects "Locations" tab
 
 	@BI-905
 	Scenario: Program Location Management page - admin
