@@ -720,7 +720,7 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Ontology":
       await page.assert.visible("@ontologyMenu");
       break;
-    case "Program Management":
+    case "Program Administration":
       await page.assert.visible("@programManagementMenu");
       break;
     case "BrAPI":

@@ -18,7 +18,7 @@ Feature: Experiments & Observations
         When user pause for "10" seconds
         When user navigates to Program Selection page
         When user selects "<ProgramName>" on program-selection page
-        When user selects "Program Management" in navigation
+        When user selects "Program Administration" in navigation
         When user selects "Users" tab
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
