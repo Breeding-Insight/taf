@@ -67,6 +67,8 @@ jobs:
       GIGWA_HOST: http://localhost:5080/
       GIGWA_USER: gigwadmin
       GIGWA_PASSWORD: nimda
+      GIGWA_MONGO_USER: mongo
+      GIGWA_MONGO_PASSWORD: mongo
 
       AWS_REGION: us-east-1
       AWS_ACCESS_KEY_ID: test
