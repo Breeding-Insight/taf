@@ -7,7 +7,6 @@ Feature: Experiments & Observations
         When user is on the program-management page
        
     @BI-1598
-    @debug
     Scenario Outline: Independent variables & phenotypes for new experiment
      #Create a new program
         When user selects 'New Program' button in Programs page
