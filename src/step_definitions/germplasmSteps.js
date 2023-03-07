@@ -7,7 +7,7 @@ const germplasmPage = client.page.germplasmPage();
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
   async function () {
-    await germplasmPage.section.germplasmTable.assert.visible("@header");
+    await germplasmPage.assert.visible("@header");
   }
 );
 
@@ -198,7 +198,7 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
 
 Then(/^user can see "([^"]*)" tab$/, async function (args1) {
   switch (args1) {
-    case "All Germplasm":
+    case "Germplasm":
       await germplasmPage.assert.visible("@allGermplasmTab");
       break;
     case "Germplasm Lists":

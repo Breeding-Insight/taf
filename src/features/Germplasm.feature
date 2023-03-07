@@ -36,14 +36,14 @@ Feature: Germplasm Tests
 
 	@BI-1592
 	Scenario: Able to see Created by information in germplasm lists table
-		Then user can see "All Germplasm" tab
+		Then user can see "Germplasm" tab
 		Then user can see "Germplasm Lists" tab
 		When user selects "Germplasm Lists" tab on Gerplasm page
 		Then user can see "Cucumber Breeder" in row "1" as "Created By" column on Germplasm Lists
 
 	@BI-1593
 	Scenario: able to filter the records in the all germplasm table
-		When user selects "All Germplasm" tab on Gerplasm page
+		When user selects "Germplasm" tab on Gerplasm page
 		When user sets "10" in "GID" search fields
 		Then user can see "10" in row "1" as "GID" column on All Germplasm
 		When user refresh the page
