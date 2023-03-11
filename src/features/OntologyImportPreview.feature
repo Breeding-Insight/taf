@@ -39,9 +39,8 @@ Feature: Ontology Import Preview
         When user selects "Import Batch File" button
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
-        
-        # And user selects "Confirm" button
-        # When user pause for "10" seconds
+        When user selects 'Show details' button of "Blackberry" on Ontology Import page
+        Then user can not see trait editability status progress bar on Ontology Import page
         
 
         Examples:
