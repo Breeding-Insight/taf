@@ -165,12 +165,9 @@ Then(
   }
 );
 
-Then(
-    /^user can see 'Term Type' dropdown on ontology list page$/,
-    async () => {
-        await ontologyPage.section.allTraitsForm.assert.visible("@termType");
-    }
-);
+Then(/^user can see 'Term Type' dropdown on ontology list page$/, async () => {
+  await ontologyPage.section.allTraitsForm.assert.visible("@termType");
+});
 
 Then(/^user can see 'Save' button on ontology list page$/, async () => {
   await ontologyPage.section.allTraitsForm.assert.visible("@saveButton");
@@ -319,12 +316,12 @@ Then(
 );
 
 When(
-    /^user selects "([^"]*)" in 'Term Type' dropdown on ontology list page$/,
-    async (args1) => {
-        await ontologyPage.section.allTraitsForm.moveToElement("@termType", 1, 1);
-        await ontologyPage.pause(10000);
-        await ontologyPage.section.allTraitsForm.setValue("@termType", args1);
-    }
+  /^user selects "([^"]*)" in 'Term Type' dropdown on ontology list page$/,
+  async (args1) => {
+    await ontologyPage.section.allTraitsForm.moveToElement("@termType", 1, 1);
+    await ontologyPage.pause(10000);
+    await ontologyPage.section.allTraitsForm.setValue("@termType", args1);
+  }
 );
 
 Then(
@@ -1628,3 +1625,7 @@ Then(
     );
   }
 );
+
+Then(/^user can see Active table on Ontology page$/, async function () {
+  await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
+});

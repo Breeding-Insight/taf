@@ -29,6 +29,9 @@ module.exports = {
         },
       },
     },
+    listsTable: {
+      selector: "#germplasmListTableLabel",
+    },
     germplasmDetails: {
       selector: "//div[@class='germplasm']",
       locateStrategy: "xpath",

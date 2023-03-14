@@ -312,3 +312,11 @@ Then(/^user can see "([^"]*)" in All Germplasm$/, async function (args1) {
     args1
   );
 });
+
+Then(/^user can see Germplasm table on Germplasm page$/, async function() {
+	await germplasmPage.expect.section("@germplasmTable").to.be.visible;
+});
+
+Then(/^user can see Germplasm Lists table on Germplasm page$/, async function() {
+	await germplasmPage.expect.section("@listsTable").to.be.visible;
+});
