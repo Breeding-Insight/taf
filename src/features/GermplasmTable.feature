@@ -7,7 +7,7 @@ Feature: Germplasm table loading message
        
     @BI-1600
 	@debug
-    Scenario Outline: Independent variables & phenotypes for new experiment
+    Scenario Outline: Germplasm table loading message
      #Create a new program
         When user selects 'New Program' button in Programs page
         When user sets "<ProgramName>" in Program Name field in Programs page
