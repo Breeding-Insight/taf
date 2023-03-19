@@ -1,14 +1,12 @@
 Feature: Germplasm table loading message
 
-	Background: Required Setup
+    Background: Required Setup
         Given user logs in as "sysad"
         And user selects "System Administration" on program-selection page
         When user is on the program-management page
-       
+
     @BI-1600
-	@debug
     Scenario Outline: Germplasm table loading message
-     #Create a new program
         When user selects 'New Program' button in Programs page
         When user sets "<ProgramName>" in Program Name field in Programs page
         When user selects "<Species>" in Species dropdown in Programs page
@@ -29,30 +27,35 @@ Feature: Germplasm table loading message
         When user logs out
         Given user logs in as "Cucumber Breeder"
         When user selects "<ProgramName>" on program-selection page
+        When user selects "Germplasm" in navigation
+        Then user can see "No germplasm are currently defined for this program." on Germplasm page
+        When user selects "Ontology" in navigation
+        Then user can see "No ontology terms are currently defined for this program." on Ontology page
+        When user selects "Germplasm" in navigation
+        Then user can see "No germplasm are currently defined for this program." on Germplasm page
         And user selects "Import Data" in navigation
         And user uploads Germplasm "GermplasmSample.xlsx" file
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
+        When user selects "Germplasm" in navigation
+        Then user can see "View" tab
+        Then user can see "Lists" tab
+        When user selects "View" tab
+        Then user can not see loading wheel message on Germplasm page
+        And user selects "Import Data" in navigation
         When user selects "Ontology" in navigation
         When user selects "Import Batch File" button
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
         When user pause for "10" seconds
-		When user selects "Ontology" in navigation
-		Then user can see "Active" tab
-		Then user can see "Archived" tab
-		When user selects "Active" tab
-		Then user can see Active table on Ontology page
-		When user selects "Germplasm" in navigation
-		Then user can see "View" tab
-		Then user can see "Lists" tab
-		When user selects "View" tab
-		Then user can see Germplasm table on Germplasm page
-		When user selects "Lists" tab
-		Then user can see Germplasm Lists table on Germplasm page
+        When user selects "Ontology" in navigation
+        Then user can see "Active" tab
+        Then user can see "Archived" tab
+        When user selects "Active" tab
+        Then user can not see loading wheel message on Ontology page
 
         Examples:
             | ProgramName | Key | Species |

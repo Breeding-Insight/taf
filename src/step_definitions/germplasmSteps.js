@@ -313,10 +313,26 @@ Then(/^user can see "([^"]*)" in All Germplasm$/, async function (args1) {
   );
 });
 
-Then(/^user can see Germplasm table on Germplasm page$/, async function() {
-	await germplasmPage.expect.section("@germplasmTable").to.be.visible;
+Then(/^user can see Germplasm table on Germplasm page$/, async function () {
+  await germplasmPage.expect.section("@germplasmTable").to.be.visible;
 });
 
-Then(/^user can see Germplasm Lists table on Germplasm page$/, async function() {
-	await germplasmPage.expect.section("@listsTable").to.be.visible;
+Then(
+  /^user can see Germplasm Lists table on Germplasm page$/,
+  async function () {
+    await germplasmPage.expect.section("@listsTable").to.be.visible;
+  }
+);
+
+Then(
+  /^user can not see loading wheel message on Germplasm page$/,
+  async function () {
+    await germplasmPage.assert.not.elementPresent(
+      "div.loading-overlay.is-active div.loading-icon"
+    );
+  }
+);
+
+Then(/^user can see "([^"]*)" on Germplasm page$/, async function (args1) {
+  await germplasmPage.assert.containsText("#germplasmTable p", args1);
 });
