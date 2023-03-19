@@ -1,12 +1,12 @@
-
-Feature: Experiments & Observations
+Feature: Ontology Import Preview
 
     Background: Required Setup
         Given user logs in as "sysad"
         And user selects "System Administration" on program-selection page
         When user is on the program-management page
 
-    @BI-1598
+    @BI-1599
+    @debug
     Scenario Outline: Independent variables & phenotypes for new experiment
         #Create a new program
         When user selects 'New Program' button in Programs page
@@ -39,20 +39,9 @@ Feature: Experiments & Observations
         When user selects "Import Batch File" button
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
-        And user selects "Confirm" button
-        When user pause for "10" seconds
-        When user selects "Experiments & Observations" in navigation
-        When user selects "Import Experiments & Observations" button
-        And user uploads Experiments & Observations "EXP.csv" file
-        When user selects 'Import' button
-        When user pause for "10" seconds
-        Then user can see "Import Experiments & Observations" preview table
-        When user selects "Abort" button
-        When user selects 'Yes, abort' button
-        Then user can not see "Import Experiments & Observations" preview table
-        And user uploads Experiments & Observations "InvalidImport.png" file
-        When user selects 'Import' button
-        Then user can see an error message "An unknown error has occurred when uploading your import."
+        When user selects 'Show details' button of "Blackberry" on Ontology Import page
+        Then user can not see trait editability status progress bar on Ontology Import page
+        
 
         Examples:
             | ProgramName | Key | Species |
