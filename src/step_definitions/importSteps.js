@@ -277,4 +277,21 @@ Then(/^user can not see "([^"]*)" preview table$/, async function (args1) {
   await importPage.assert.not.elementPresent("#import-experiment div.b-table");
 });
 
+When(
+  /^user selects 'Show details' button of "([^"]*)" on Ontology Import page$/,
+  async function (args1) {
+    await importPage.click({
+      selector: `//td[@name='name' and normalize-space(.)='${args1}']/following-sibling::td/a[@data-testid='showDetails']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
 
+Then(
+  /^user can not see trait editability status progress bar on Ontology Import page$/,
+  async function () {
+    await importPage.assert.not.elementPresent(
+      ".is-full-length.trait-detail .progress-bar"
+    );
+  }
+);
