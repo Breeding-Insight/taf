@@ -1628,3 +1628,83 @@ Then(
     );
   }
 );
+
+Then(/^user can see Active table on Ontology page$/, async function () {
+  await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
+});
+
+Then(
+  /^user can not see loading wheel message on Ontology page$/,
+  async function () {
+    await ontologyPage.assert.not.elementPresent(
+      "div.loading-overlay.is-active div.loading-icon"
+    );
+  }
+);
+Then(/^user can see "([^"]*)" on Ontology page$/, async function (args1) {
+  await ontologyPage.assert.containsText(
+    "#emptyTableMessage p:first-of-type",
+    args1
+  );
+});
+
+When(
+  /^user selects "([^"]*)" of row "([^"]*)" of Ontology page$/,
+  async function (link, rowIndex) {
+    await ontologyPage.section.allTraitsForm.click({
+      selector: `.//tr[${rowIndex}]//a[normalize-space()='${link}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see header "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@header",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Term Type "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@termTypeField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Trait "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@traitField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Method "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@methodField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Scale Class "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@scaleClassField",
+      args1
+    );
+  }
+);
+
