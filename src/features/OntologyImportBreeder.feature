@@ -78,6 +78,7 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		When user selects "Confirm" button
 		Then user can see banner contains "Imported ontology terms have been added to Snacks."
+		When user pause for "10" seconds
 		And user can see Ontology table
 		And user can see "Name" column header
 		And user can see "Term Type" column header
