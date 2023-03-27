@@ -841,7 +841,7 @@ Then(/^user can see "([^"]*)" button$/, async (args1) => {
 
 Then(/^user can see "([^"]*)" column header$/, async (args1) => {
   await page.assert.visible({
-    selector: `//table/thead/tr/th[contains(text(),'${args1}')]`,
+    selector: `//table/thead/tr/th//span[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
