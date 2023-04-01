@@ -422,6 +422,7 @@ Then(
 
 When(/^user selects 'Save' button on ontology list page$/, async () => {
   await ontologyPage.section.allTraitsForm.click("@saveButton");
+  await ontologyPage.pause(5000);
 });
 
 When(/^user selects 'Cancel' button on ontology list page$/, async () => {
