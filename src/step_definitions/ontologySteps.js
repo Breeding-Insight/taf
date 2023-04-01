@@ -435,7 +435,7 @@ Then(
       .replace("*", this.parameters.timeStamp)
       .slice(-11);
     await ontologyPage.assert.visible({
-      selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
+      selector: `//td[@data-label='Name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
     });
   }
@@ -446,7 +446,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='trait'][normalize-space(.)='" +
+        "//td[@data-label='Trait'][normalize-space(.)='" +
         args1.replace(/\*/g, this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
@@ -459,7 +459,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='method'][normalize-space(.)='" +
+        "//td[@data-label='Method'][normalize-space(.)='" +
         args1.replace("*", this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
@@ -472,7 +472,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='scaleClass'][normalize-space(.)='" +
+        "//td[@data-label='Scale Class'][normalize-space(.)='" +
         args1.replace("*", this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",

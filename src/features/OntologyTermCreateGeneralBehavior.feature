@@ -89,6 +89,7 @@ Feature: Ontology Term Create - General Behavior
             | *             | TestTraitDesc *   | TestTraitEntity * | TestAttribute * | TestMethDesc *     |
 
     @BI-1444
+    @debug
     Scenario: Ontology Term Create - Enter Values, Save
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
@@ -100,6 +101,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Date" in 'Scale Class' dropdown on ontology list page
         And user selects 'Save' button on ontology list page
+        When user pause for "10" seconds
         When user clicks Show All button
         Then user can see "<ont_term_name>" in 'Name' column on ontology list page
         Then user can see "<trait_entity> <trait_attribute>" in 'Trait' column on ontology list page
