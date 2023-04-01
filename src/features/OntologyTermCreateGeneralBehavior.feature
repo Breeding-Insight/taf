@@ -65,9 +65,9 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Missing trait entity" below the 'Entity' field on ontology list page
         Then user can see "Missing trait attribute" below the 'Attribute' field on ontology list page
         Then user can see "Missing method class" below the 'Method Class' dropdown on ontology list page
-        Then user can see "Missing scale data type" below the 'Scale Class' dropdown on ontology list page
+        Then user can see "Missing scale class" below the 'Scale Class' dropdown on ontology list page
         Then user can not see "Missing method description" below the 'Method Description' field on ontology list page
-        Then user can see banner appears with an error message "Error creating trait. Missing method class; Missing scale data type; Missing Name; Missing trait entity; Missing trait attribute; Missing trait description;"
+        Then user can see banner appears with an error message "Error creating trait. Missing method class; Missing scale class; Missing Name; Missing trait entity; Missing trait attribute; Missing trait description;"
         Then user can see banner appears without an error message "Missing program observation level;"
 
     @BI-947
