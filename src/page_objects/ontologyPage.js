@@ -37,7 +37,7 @@ module.exports = {
           selector: "//form//label[@for='Synonyms']/../following-sibling::div",
           locateStrategy: "xpath",
         },
-        termType:{
+        termType: {
           selector: "//*[@id='termTypeField']/div[2]/div/div/div/select",
           locateStrategy: "xpath",
         },
@@ -70,28 +70,28 @@ module.exports = {
           locateStrategy: "xpath",
         },
         methodDescription: {
-              selector: "//*[@id='methodDescription']/div[2]/div/div/div/div[1]/input",
-              locateStrategy: "xpath",
+          selector:
+            "//*[@id='methodDescription']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
         },
         methodDescriptionErrorText: {
           selector: "span.form-error.has-text-danger",
           index: 3,
         },
-        methodClass:{
+        methodClass: {
           selector: "//*[@id='methodClass']/div[2]/div/div/div/select",
           locateStrategy: "xpath",
         },
-        methodClassErrorText:
-            {
-              selector: "//*[@id='methodClass']/div[2]/div/div/span",
-              locateStrategy: "xpath",
-            },
+        methodClassErrorText: {
+          selector: "//*[@id='methodClass']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
         methodText: {
           selector: "//div[@class='column is-10 mt-4']",
           index: 1,
           locateStrategy: "xpath",
         },
-        scaleClass:{
+        scaleClass: {
           selector: "//*[@id='scaleClass']/div[2]/div/div/div/select",
           locateStrategy: "xpath",
         },
@@ -282,6 +282,37 @@ module.exports = {
           selector: ".//input[@placeholder='Value']",
           locateStrategy: "xpath",
           index: 3,
+        },
+      },
+    },
+    traitsDetails: {
+      selector:
+        "//div[@class='side-panel-scroll box has-background-info-light']",
+      locateStrategy: "xpath",
+      elements: {
+        header: {
+          selector: ".//p[@class='is-size-5 has-text-weight-bold mb-0']",
+          locateStrategy: "xpath",
+        },
+        termTypeField: {
+          selector:
+            ".//span[normalize-space()='Term Type']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        traitField: {
+          selector:
+            ".//span[normalize-space()='Trait']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        methodField: {
+          selector:
+            ".//span[normalize-space()='Method']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        scaleClassField: {
+          selector:
+            ".//span[normalize-space()='Scale']/../following-sibling::div/span",
+          locateStrategy: "xpath",
         },
       },
     },
