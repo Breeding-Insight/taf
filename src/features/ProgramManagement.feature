@@ -302,8 +302,7 @@ Feature: Program Management (15)
 			| A*   | Sweet Potato | *   |
 
 	@BI-1602
-	@debug
-	Scenario Outline: Ontology Sharing as a sub-menu
+	Scenario Outline: Programs pagination
 		When user is on the program-management page
 		#Create a new program
 		When user selects 'New Program' button in Programs page
