@@ -348,6 +348,7 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
 When(/^user selects 'Save' button in Programs page$/, async () => {
   await getProgramValues();
   await page.section.programForm.click("@saveButton");
+  await page.pause(5000);
 });
 
 Then(/^user can see 'Program Form' in Programs page$/, async () => {

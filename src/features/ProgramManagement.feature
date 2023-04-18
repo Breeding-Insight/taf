@@ -169,8 +169,8 @@ Feature: Program Management (15)
 		Then user can see 'Cancel' button in Programs page
 
 		Examples:
-			| Name     | Species      | Key |
-			| P* | Sweet Potato | T*  |
+			| Name | Species      | Key |
+			| P*   | Sweet Potato | T*  |
 
 	@BI-857
 	Scenario Outline: Edit Program form
@@ -187,8 +187,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      | Key |
-			| P* | Sweet Potato | T*  |
+			| Name | Species      | Key |
+			| P*   | Sweet Potato | T*  |
 
 	@BI-858
 	Scenario Outline: Edit Program form, change Program Name, Save
@@ -205,8 +205,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      | New Name    | Key |
-			| P* | Sweet Potato | NewProgram* | T*  |
+			| Name | Species      | New Name    | Key |
+			| P*   | Sweet Potato | NewProgram* | T*  |
 
 	@BI-859
 	Scenario Outline: Edit Program form, change Species, Save
@@ -223,8 +223,8 @@ Feature: Program Management (15)
 		Then user can see "<Species>" in Species column in Program page
 
 		Examples:
-			| Name     | Species      | New Species | Key |
-			| P* | Sweet Potato | Grape       | T*  |
+			| Name | Species      | New Species | Key |
+			| P*   | Sweet Potato | Grape       | T*  |
 
 	@BI-860
 	Scenario Outline: Deactivate modal
@@ -258,8 +258,8 @@ Feature: Program Management (15)
 		Then user can see "<Name>" in Name column in Program page
 
 		Examples:
-			| Name     | Key |
-			| P* | D*  |
+			| Name | Key |
+			| P*   | D*  |
 
 	@BI-862
 	Scenario Outline: Deactivate, Remove
@@ -276,8 +276,8 @@ Feature: Program Management (15)
 		Then user can not see "<Name>" in Name column in Program page
 
 		Examples:
-			| Name     | Key |
-			| P* | D*  |
+			| Name | Key |
+			| P*   | D*  |
 
 	@BI-1591
 	Scenario: Update Left-Hand menu
@@ -296,7 +296,70 @@ Feature: Program Management (15)
 		Then user can see "BrAPI" in navigation
 		Then user can see "Jobs" in navigation
 		Then user can see "Experiments & Observations" in navigation
-		
+
 		Examples:
-			| Name     | Species      | Key |
-			| A* | Sweet Potato | *  |
+			| Name | Species      | Key |
+			| A*   | Sweet Potato | *   |
+
+	@BI-1602
+	Scenario Outline: Programs pagination
+		When user is on the program-management page
+		#Create a new program
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user sets "Z*" in Program Name field in Programs page
+		When user selects "Sweet Potato" in Species dropdown in Programs page
+		When user sets "Z*" in Program Key field in Programs page
+		When user selects 'Save' button in Programs page
+		When user selects 'New Program' button in Programs page
+		When user selects "10" in Results per page combobox
+		Then user can see row "10" rows in a table
