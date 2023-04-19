@@ -138,14 +138,14 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error parsing excel: Missing expected columns [Status, Trait entity, Name]"
+		Then user can see an error message "Error(s) detected in file, test_traits_missingCol.xlsx. Missing expected columns [Status, Trait entity, Name]. Import cannot proceed."
 
 	@BI-928
 	@bug
 	Scenario: Ontology - duplicate column
 		And user uploads "test_traits_dupCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error parsing excel: Found duplicate column names"
+		Then user can see an error message "Error(s) detected in file, test_traits_dupCol.xlsx. Found duplicate column names. Import cannot proceed."
 
 	@BI-1453
 	Scenario: Ontology - missing formula

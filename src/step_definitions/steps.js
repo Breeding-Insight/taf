@@ -916,7 +916,7 @@ Then(/^user can see Ontology table$/, async () => {
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
+    selector: `//*[@id='import-ontology']//span[normalize-space()="${args1}"]`,
     locateStrategy: "xpath",
   });
 });
