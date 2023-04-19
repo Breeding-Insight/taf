@@ -364,8 +364,8 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
-        ontologySharingLink: {
-          selector: ".//li/a[normalize-space(.)='Ontology Sharing']",
+        programConfigurationLink: {
+          selector: ".//li/a[normalize-space(.)='Configuration']",
           locateStrategy: "xpath",
         },
         nameIsRequiredText: {
@@ -427,9 +427,9 @@ module.exports = {
         message: { selector: ".//section//section", locateStrategy: "xpath" },
       },
     },
-    //Program Management Ontology Sharing
-    ontologySharingForm: {
-      selector: "#ontology-sharing",
+    //Program Management Configuration
+    programConfigurationForm: {
+      selector: "#program-configuration",
       elements: {
         sharedOntologySection:"#shared-ontology-section",
         header: "#shared-ontology-section > h2",

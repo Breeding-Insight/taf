@@ -249,6 +249,13 @@ Then(/^user can see Results per page combobox$/, async () => {
   await page.assert.visible("@paginationComboBox");
 });
 
+When(
+  /^user selects "([^"]*)" in Results per page combobox$/,
+  async function (args1) {
+    await page.click("@paginationComboBox", await setOption(args1));
+  }
+);
+
 Then(/^user can see Label per page$/, async () => {
   await page.assert.visible("@perPageLabel");
 });
@@ -1085,6 +1092,10 @@ When(/^user refresh the page$/, async function () {
   await client.refresh();
 });
 
+Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
+  await page.expect.elements("tbody tr").count.to.equal(Number(args1));
+});
+
 //functions
 async function setUserName(name) {
   user.userName = name;
@@ -1142,4 +1153,8 @@ async function waitReady() {
   if (!found) {
     throw new Error("Application version failed to load. Unable to login.");
   }
+}
+
+async function setOption(option) {
+  await page.click(`option[value='${option}']`);
 }

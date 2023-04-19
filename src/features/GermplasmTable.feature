@@ -1,4 +1,3 @@
-@debug
 Feature: Germplasm table loading message
 
     Background: Required Setup
