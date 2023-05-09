@@ -52,7 +52,7 @@ Feature: Experiments & Observations
         Then user can not see "Import Experiments & Observations" preview table
         And user uploads Experiments & Observations "InvalidImport.png" file
         When user selects 'Import' button
-        Then user can see an error message "An unknown error has occurred when uploading your import."
+        Then user can see banner appears with an error message "An unknown error has occurred when uploading your import."
 
         Examples:
             | ProgramName | Key | Species |

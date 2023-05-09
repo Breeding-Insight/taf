@@ -219,8 +219,9 @@ Feature: Program Management (15)
 		When user selects 'Edit' of "<Name>" in Programs page
 		When user selects "<New Species>" in Species dropdown in Programs page
 		When user selects 'Save' button in Programs page
+		When user clicks Show All button
 		Then user can see "<Name>" in Name column in Program page
-		Then user can see "<Species>" in Species column in Program page
+		Then user can see "<New Species>" in Species column in Program page
 
 		Examples:
 			| Name | Species      | New Species | Key |
