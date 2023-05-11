@@ -131,12 +131,23 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
 
-  await page.waitForElementVisible("footer span");
-
-  await page.getText("footer span", ({ value }) => {
-    if (client.globals.breedingInsightVersion == undefined)
-      client.globals.breedingInsightVersion = String(value).trim();
-  });
+  if (client.globals.breedingInsightVersion == undefined) {
+    let version = 0;
+    try {
+      await page.getText(
+        { selector: "footer span", timeout: 2000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
+    } catch (error) {
+      //try another control
+      await page.getText("#versionInfo span span", ({ value }) => {
+        version = String(value).trim();
+      });
+    }
+    client.globals.breedingInsightVersion = version;
+  }
 });
 
 When(/^user navigates to Program Selection page$/, async () => {
