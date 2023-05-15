@@ -431,10 +431,10 @@ module.exports = {
     programConfigurationForm: {
       selector: "#program-configuration",
       elements: {
-        sharedOntologySection:"#shared-ontology-section",
+        sharedOntologySection: "#shared-ontology-section",
         header: "#shared-ontology-section > h2",
         notSharedMessage: "#shared-ontology-section > p",
-        shareOntologyButton :"#showShareModalBtn",
+        shareOntologyButton: "#showShareModalBtn",
       },
     },
     manageSharedOntologyModal: {
@@ -477,8 +477,9 @@ module.exports = {
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
         await this.click("@showAllButton");
+        await client.execute("window.scrollTo(0,0);");
         await this.click({
-          selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
+          selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(text())='${program}']`,
           locateStrategy: "xpath",
         });
       },

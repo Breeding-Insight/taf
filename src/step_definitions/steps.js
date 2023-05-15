@@ -707,7 +707,7 @@ When(/^user clicks the combo box of Program Selector$/, async () => {
 
 Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
+    selector: `//*[@id='program-menu']//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -715,7 +715,7 @@ Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
 When(/^user selects "([^"]*)" the program selector$/, async (args1) => {
   await page.click("@programSelectorDropDownButton");
   await page.click({
-    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
+    selector: `//*[@id='program-menu']//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
