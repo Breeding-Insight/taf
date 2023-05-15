@@ -471,7 +471,7 @@ module.exports = {
         await client.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await client.url(url + "/admin/program-management");
+        await client.url(url + "/admin/programs");
         await this.waitForElementVisible("#adminProgramTableLabel");
       },
       navigateToProgram: async function (program) {

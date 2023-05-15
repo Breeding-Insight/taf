@@ -89,7 +89,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   }
 
   let status;
-  await waitReady();
+  //await waitReady();
   await page.waitForElementVisible(
     "@iUnderstandButton",
     10000,
@@ -130,6 +130,24 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
+
+  if (client.globals.breedingInsightVersion == undefined) {
+    let version = 0;
+    try {
+      await page.getText(
+        { selector: "footer span", timeout: 10000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
+    } catch (error) {
+      //try another control
+      await page.getText("#versionInfo span span", ({ value }) => {
+        version = String(value).trim();
+      });
+    }
+    client.globals.breedingInsightVersion = version;
+  }
 });
 
 When(/^user navigates to Program Selection page$/, async () => {
