@@ -135,7 +135,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     let version = 0;
     try {
       await page.getText(
-        { selector: "footer span", timeout: 2000 },
+        { selector: "footer span", timeout: 10000 },
         ({ value }) => {
           version = String(value).trim();
         }
