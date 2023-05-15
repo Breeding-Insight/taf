@@ -190,7 +190,7 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "4" row "5" "Trait Entity" field "Missing trait entity" message
 		Then user can see "6" row "6" "Unit" field "Missing unit" message
 		Then user can see "6" row "7" "Trait Description" field "Missing trait description" message
-		
+
 	@BI-1268
 	Scenario: Import Traits - exceeds character length max
 		And user uploads "test_traits_exceedsCharLen.xlsx" file
@@ -205,3 +205,15 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "2" row "1" "Method class" field "Invalid method class value" message
 		Then user can see "3" row "2" "Scale class" field "Invalid scale class value" message
 		Then user can see "3" row "3" "Term Type" field "Invalid term type" message
+
+	@BI-1699
+	@debug
+	Scenario: Validate that imported observations meet ontology defined criteria
+		And user uploads Experiments & Observations "InvalidImport.png" file
+		And user selects 'Import' button
+		Then user can see an error message "Unsupported mime type"
+		And user uploads "test_traits_extraCols.xlsx" file
+		And user selects 'Import' button
+		Then user can see "Confirm" button
+		Then user can see "Abort" button
+		
