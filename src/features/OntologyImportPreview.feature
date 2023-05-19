@@ -40,8 +40,10 @@ Feature: Ontology Import Preview
         When user selects 'Import' button
         When user selects 'Show details' button of "Blackberry" on Ontology Import page
         Then user can not see trait editability status progress bar on Ontology Import page
-        
+
 
         Examples:
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
+
+   
