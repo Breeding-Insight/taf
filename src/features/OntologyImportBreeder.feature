@@ -207,7 +207,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "3" row "3" "Term Type" field "Invalid term type" message
 
 	@BI-1699
-	@debug
 	Scenario: Validate that imported observations meet ontology defined criteria
 		And user uploads Experiments & Observations "InvalidImport.png" file
 		And user selects 'Import' button
