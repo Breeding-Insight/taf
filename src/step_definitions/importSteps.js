@@ -295,3 +295,16 @@ Then(
     );
   }
 );
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Experiment and Observation Import page$/,
+  async function (args1, args2, args3) {
+    await importPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
