@@ -148,7 +148,7 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Germplasm Passport" as option of Term Type dropdown on ontology list page
         When user selects "Import Data" in navigation
         And user selects "Ontology" tab
-        Then user can header "Import File"
+        Then user can see header "Import File"
 		And user can see a message 'Before You Import...'
 		And user can see a message 'Prepare ontology information for import using the provided template.'
 		And user can see a button 'Download the Ontology Import Template'

@@ -803,7 +803,7 @@ Then(/^user can see "([^"]*)" in the the Role dropdown$/, async (args1) => {
   await page.section.newUserForm.assert.containsText("@roleSelect", args1);
 });
 
-Then(/^user can header "([^"]*)"$/, async (args1) => {
+Then(/^user can see header "([^"]*)"$/, async (args1) => {
   await page.assert.containsText("#app main section h1", args1);
 });
 

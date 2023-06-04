@@ -10,7 +10,7 @@ Feature: Ontology Import (10 Scenarios)
 	@BI-809
 	@SmokeTests
 	Scenario: Import Ontology page
-		Then user can header "Import File"
+		Then user can see header "Import File"
 		And user can see a message 'Before You Import...'
 		And user can see a message 'Prepare ontology information for import using the provided template.'
 		And user can see a button 'Download the Ontology Import Template'
