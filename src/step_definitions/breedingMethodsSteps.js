@@ -121,7 +121,6 @@ When(
       selector: `.//td[normalize-space(.)='${args1}']/following-sibling::td/a/span[normalize-space(.)='Edit']`,
       locateStrategy: "xpath",
     });
-    await page.pause(10000);
   }
 );
 
