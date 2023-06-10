@@ -1710,3 +1710,12 @@ Then(/^user can see Active table on Ontology page$/, async function () {
 Then(/^user can see Active table on Ontology page$/, async function () {
   await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
 });
+
+Then(
+  /^user can see "([^"]*)" as option of Term Type dropdown on ontology list page$/,
+  async function (args1) {
+    await ontologyPage.section.allTraitsForm.assert.elementPresent(
+      `#Term-Type option[value='${args1}']`
+    );
+  }
+);

@@ -58,7 +58,6 @@ Feature: Experiments & Observations
             | A*          | T*  | Grape   |
 
     @BI-1603
-    @debug
     Scenario Outline: Independent variables & phenotypes for new experiment
         #Create a new program
         When user selects 'New Program' button in Programs page

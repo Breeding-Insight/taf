@@ -38,7 +38,7 @@ module.exports = {
           locateStrategy: "xpath",
         },
         termType: {
-          selector: "//*[@id='termTypeField']/div[2]/div/div/div/select",
+          selector: "//select[@id='Term-Type']",
           locateStrategy: "xpath",
         },
         descriptionField: "#Description",

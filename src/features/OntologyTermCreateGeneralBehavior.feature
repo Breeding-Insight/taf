@@ -137,3 +137,24 @@ Feature: Ontology Term Create - General Behavior
         When user selects 'Save' button on ontology list page
         Then user can see "Description must be less than 30 characters." below the 'Method Description' field on ontology list page
         Then user can see banner appears with an error message "Fix Invalid Fields"
+
+    @debug
+    @BI-1698
+    Scenario: Ontology term types
+        Given user selects 'New Term' button on ontology list page
+        Then user can see 'Term Type' dropdown on ontology list page
+        Then user can see "Phenotype" as option of Term Type dropdown on ontology list page
+        Then user can see "Germplasm Attribute" as option of Term Type dropdown on ontology list page
+        Then user can see "Germplasm Passport" as option of Term Type dropdown on ontology list page
+        When user selects "Import Data" in navigation
+        And user selects "Ontology" tab
+        Then user can see header "Import File"
+		And user can see a message 'Before You Import...'
+		And user can see a message 'Prepare ontology information for import using the provided template.'
+		And user can see a button 'Download the Ontology Import Template'
+		And user can see a button 'Choose a file...'
+        When user uploads "test_import-xls.xls" file
+		And user selects 'Import' button
+		Then user can see 'Confirm New Ontology Term' header
+		And user can see "Confirm" button
+		And user can see "Abort" button
