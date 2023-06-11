@@ -308,3 +308,20 @@ Then(
     );
   }
 );
+
+Then(
+  /^user can see "([^"]*)" message on preview table$/,
+  async function (args1) {
+    await importPage.assert.containsText("@previewArticle", args1);
+  }
+);
+
+Then(
+  /^user can not see "([^"]*)" column in preview table$/,
+  async function (args1) {
+    await importPage.assert.not.elementPresent({
+      selector: `//th//span[normalize-space()='${args1}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
