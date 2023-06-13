@@ -22,7 +22,7 @@ module.exports = {
 
     acceptAllCookies: {
       selector: "button[id='onetrust-accept-btn-handler']",
-      timeout: 2000,
+      timeout: 10000,
       suppressNotFoundErrors: true,
     },
 
