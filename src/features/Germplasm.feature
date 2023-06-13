@@ -16,10 +16,10 @@ Feature: Germplasm Tests
 	Scenario: All of the information associated with a Germplasm Details page
 		Then user can see All Germplasm records exist on Germplasm page
 		When user can see All Germplasm records have Show Details link on Germplasm page
-		When user selects "Show Details" of row "2" of Germplasm page
+		When user selects "Show Details" of row "3" of Germplasm page
 		Then user can see details on Germplasm details page
 			| Preferred Name | GID | Breeding Method | Source | Pedigree            | Pedigree GID | Synonyms | External UID | User             | Creation Date |
-			| Germplas123    | 2   | Complex cross   | Cross  | Germplasm/Germplasm | 1 / 1        | Germ1    |              | Cucumber Breeder |               |
+			| Germplas123    | 3   | Complex cross   | Cross  | Germplasm/Germplasm | 2 / 2        | Germ1    |              | Cucumber Breeder |               |
 		Then user can see "Images" tab of Germplasm details page
 		Then user can see "Pedigrees" tab of Germplasm details page
 		Then user can see "Attributes" tab of Germplasm details page
@@ -29,10 +29,10 @@ Feature: Germplasm Tests
 		When user clicks Show All button
 		Then user can see Female Parent GID value is a link
 		Then user can see Male Parent GID value is a link
-		When user selects "2" row Female Parent GID
+		When user selects "3" row Female Parent GID
 		Then user can see details on Germplasm details page
 			| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
-			| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
+			| Germplasm      | 2   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
 
 	@BI-1592
 	Scenario: Able to see Created by information in germplasm lists table
@@ -44,8 +44,8 @@ Feature: Germplasm Tests
 	@BI-1593
 	Scenario: able to filter the records in the all germplasm table
 		When user selects "Germplasm" tab on Gerplasm page
-		When user sets "10" in "GID" search fields
-		Then user can see "10" in row "1" as "GID" column on All Germplasm
+		When user sets "11" in "GID" search fields
+		Then user can see "11" in row "1" as "GID" column on All Germplasm
 		When user refresh the page
 		When user sets "90" in "GID" search fields
 		Then user can see "No germplasm are currently defined for this program." in All Germplasm
@@ -68,14 +68,14 @@ Feature: Germplasm Tests
 		When user sets "AAA" in "Source" search fields
 		Then user can see "No germplasm are currently defined for this program." in All Germplasm
 		When user refresh the page
-		When user sets "5" in "Female Parent GID" search fields
-		Then user can see "5" in row "1" as "Female Parent GID" column on All Germplasm
+		When user sets "6" in "Female Parent GID" search fields
+		Then user can see "6" in row "1" as "Female Parent GID" column on All Germplasm
 		When user refresh the page
 		When user sets "AAA" in "Female Parent GID" search fields
 		Then user can see "No germplasm are currently defined for this program." in All Germplasm
 		When user refresh the page
-		When user sets "1" in "Male Parent GID" search fields
-		Then user can see "1" in row "1" as "Male Parent GID" column on All Germplasm
+		When user sets "2" in "Male Parent GID" search fields
+		Then user can see "2" in row "1" as "Male Parent GID" column on All Germplasm
 		When user refresh the page
 		When user sets "AAA" in "Male Parent GID" search fields
 		Then user can see "No germplasm are currently defined for this program." in All Germplasm
