@@ -127,6 +127,11 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     default:
       throw new Error("Unknown user name");
   }
+
+  await page.isVisible("@acceptAllCookies", ({ value }) => {
+    if (value) page.click("@acceptAllCookies");
+  });
+
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");

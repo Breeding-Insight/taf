@@ -19,6 +19,13 @@ module.exports = {
       selector: "//button[starts-with(normalize-space(.),'LOG IN')]",
       locateStrategy: "xpath",
     },
+
+    acceptAllCookies: {
+      selector: "button[id='onetrust-accept-btn-handler']",
+      timeout: 2000,
+      suppressNotFoundErrors: true,
+    },
+
     orcidSignInButton: "#connect-orcid-button",
 
     emailInput: "#username",
