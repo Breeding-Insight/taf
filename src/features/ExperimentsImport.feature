@@ -52,7 +52,7 @@ Feature: Experiments & Observations
         Then user can not see "Import Experiments & Observations" preview table
         And user uploads Experiments & Observations "InvalidImport.png" file
         When user selects 'Import' button
-        
+
         Examples:
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
@@ -132,6 +132,11 @@ Feature: Experiments & Observations
         Given user logs in as "Cucumber Breeder"
         When user selects "<ProgramName>" on program-selection page
         And user selects "Import Data" in navigation
+        And user uploads Germplasm "GermplasmBad.xlsx" file
+        And user selects 'Import' button
+        When user pause for "10" seconds
+        Then user can see "Breeding Method" in row "1" as "Field" column on Germplasm Lists
+        Then user can see "Source" in row "2" as "Field" column on Germplasm Lists
         And user uploads Germplasm "GermplasmSample.xlsx" file
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
