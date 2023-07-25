@@ -138,7 +138,6 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Description must be less than 30 characters." below the 'Method Description' field on ontology list page
         Then user can see banner appears with an error message "Fix Invalid Fields"
 
-    @debug
     @BI-1698
     Scenario: Ontology term types
         Given user selects 'New Term' button on ontology list page
