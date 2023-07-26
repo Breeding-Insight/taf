@@ -140,16 +140,19 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     let version = 0;
     try {
       await page.getText(
-        { selector: "footer span", timeout: 10000 },
+        { selector: "footer span", timeout: 120000 },
         ({ value }) => {
           version = String(value).trim();
         }
       );
     } catch (error) {
       //try another control
-      await page.getText("#versionInfo span span", ({ value }) => {
-        version = String(value).trim();
-      });
+      await page.getText(
+        { selector: "#versionInfo span span", timeout: 120000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
     }
     client.globals.breedingInsightVersion = version;
   }
