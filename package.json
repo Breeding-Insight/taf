@@ -28,7 +28,7 @@
   "license": "ISC",
   "homepage": "https://github.com/Breeding-Insight/taf",
   "devDependencies": {
-    "@cucumber/cucumber": "^8.2.2",
+    "@cucumber/cucumber": "^9.4.0",
     "@cucumber/pretty-formatter": "*",
     "@slime/stopwatch": "^1.0.5",
     "chromedriver": "^115.0.0",
