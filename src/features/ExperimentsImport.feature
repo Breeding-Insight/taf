@@ -161,3 +161,53 @@ Feature: Experiments & Observations
         Examples:
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
+
+    @BI-1776
+    Scenario Outline: Preview Experiment & Observation import
+        When user selects 'New Program' button in Programs page
+        When user sets "<ProgramName>" in Program Name field in Programs page
+        When user selects "<Species>" in Species dropdown in Programs page
+        When user sets "<Key>" in Program Key field in Programs page
+        When user selects 'Save' button in Programs page
+        When user pause for "10" seconds
+        When user navigates to Program Selection page
+        When user selects "<ProgramName>" on program-selection page
+        When user selects "Program Administration" in navigation
+        When user selects "Users" tab
+        When user clicks 'New User' button
+        When user sets "Cucumber Breeder" in Name field of User
+        When user sets "cucumberbreeder@mailinator.com" in Email field of User
+        When user sets "breeder" in Role dropdown of User
+        When user click 'Save' button in User
+        When user pause for "10" seconds
+        When user close notification pop-up
+        When user logs out
+        Given user logs in as "Cucumber Breeder"
+        When user selects "<ProgramName>" on program-selection page
+        And user selects "Import Data" in navigation
+        And user uploads Germplasm "GermplasmSample.xlsx" file
+        And user selects 'Import' button
+        When user sets "GermplasmSort" in List Name field of import page
+        When user sets "GermplasmSort" in List Description field of import page
+        And user selects "Confirm" button
+        When user selects "Ontology" in navigation
+        When user selects "Import Batch File" button
+        And user uploads Ontology "test01-ontology.xls" file
+        When user selects 'Import' button
+        And user selects "Confirm" button
+        When user pause for "10" seconds
+        When user selects "Experiments & Observations" in navigation
+        When user selects "Import Experiments & Observations" button
+        And user uploads Experiments & Observations "EXP.csv" file
+        When user selects 'Import' button
+        When user pause for "10" seconds
+        And user selects "Confirm" button
+        And user uploads Experiments & Observations "EXP.csv" file
+        When user selects 'Import' button
+        Then user can see "Import Experiments & Observations" preview table
+        Then user can see "User: Cucumber Breeder" in preview table
+        Then user can see "Creation Date: @TODAY" in preview table
+
+        Examples:
+            | ProgramName | Key | Species |
+            | A*          | T*  | Grape   |
