@@ -202,6 +202,7 @@ Feature: Experiments & Observations
         When user selects 'Import' button
         When user pause for "10" seconds
         And user selects "Confirm" button
+        When user pause for "10" seconds
         And user uploads Experiments & Observations "EXP.csv" file
         When user selects 'Import' button
         Then user can see "Import Experiments & Observations" preview table
