@@ -53,7 +53,6 @@ Feature: Germplasm Import Table
         Given user logs in as "Cucumber Breeder"
         When user selects "P*" on program-selection page
         And user selects "Germplasm" in navigation
-        When user clicks Show All button
         Then user can see Female Parent GID value is a link
         Then user can see Male Parent GID value is a link
         When user selects "3" row Female Parent GID
