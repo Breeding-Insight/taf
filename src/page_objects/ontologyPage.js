@@ -37,48 +37,73 @@ module.exports = {
           selector: "//form//label[@for='Synonyms']/../following-sibling::div",
           locateStrategy: "xpath",
         },
+        termType: {
+          selector: "//*[@id='termTypeField']/div[2]/div/div/div/select",
+          locateStrategy: "xpath",
+        },
         descriptionField: "#Description",
         desriptionErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(9) > div > div.field-body > div > div > span",
-        tagsField:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(13) > div > div.field-body > div > div > div > div > div > div.control.is-clearfix > input",
-        entityField:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
-        entityErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(17) > div > div.field-body > div > div > span:nth-child(3)",
+        tagsField: {
+          selector: "//*[@id='tags']/div[2]/div/div/div/div/div/div/input",
+          locateStrategy: "xpath",
+        },
+        entityField: {
+          selector: "//*[@id='entity']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
+        },
+        entityErrorText: {
+          selector: "//*[@id='entity']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
         traitText: {
           selector: ".//div[@class='column is-10 mt-4']",
           index: 0,
           locateStrategy: "xpath",
         },
-        attributeField:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
-        attributeErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(19) > div > div.field-body > div > div > span:nth-child(3)",
-        methodDescription:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(23) > div > div.field-body > div > div > div > div.control.is-clearfix > input",
+        attributeField: {
+          selector: "//*[@id='attribute']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
+        },
+        attributeErrorText: {
+          selector: "//*[@id='attribute']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
+        methodDescription: {
+          selector:
+            "//*[@id='methodDescription']/div[2]/div/div/div/div[1]/input",
+          locateStrategy: "xpath",
+        },
         methodDescriptionErrorText: {
           selector: "span.form-error.has-text-danger",
           index: 3,
         },
-        methodClass:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > div > select",
-        methodClassErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(25) > div > div.field-body > div > div > span",
+        methodClass: {
+          selector: "//*[@id='methodClass']/div[2]/div/div/div/select",
+          locateStrategy: "xpath",
+        },
+        methodClassErrorText: {
+          selector: "//*[@id='methodClass']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
         methodText: {
           selector: "//div[@class='column is-10 mt-4']",
           index: 1,
           locateStrategy: "xpath",
         },
-        scaleClass:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > div > select",
-        scaleClassErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(29) > div > div.field-body > div > div > span",
+        scaleClass: {
+          selector: "//*[@id='scaleClass']/div[2]/div/div/div/select",
+          locateStrategy: "xpath",
+        },
+        scaleClassErrorText: {
+          selector: "//*[@id='scaleClass']/div[2]/div/div/span",
+          locateStrategy: "xpath",
+        },
         scaleClassNoOptionsText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > p",
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(33) > p",
         formulaField: "#Formula",
         formulaErrorText:
-          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(31) > div > div.field-body > div > div > span",
+          "form > div.columns.is-multiline.is-gapless.is-vcentered > div:nth-child(33) > div > div.field-body > div > div > span",
         unitField: "#Unit",
         unitErrorText:
           "form > div.columns.is-multiline.is-gapless.is-vcentered > div.column.is-full > div > div.column.new-term.is-10 > div > div.field-body > div > div > span",
@@ -184,27 +209,27 @@ module.exports = {
         ordinalFields: { selector: "div.column.is-2 div.field-body input" },
         firstOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(2) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(2) div.column.is-2  div.field-body input",
         },
         secondOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(3) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(3) div.column.is-2  div.field-body input",
         },
         thirdOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(4) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(4) div.column.is-2  div.field-body input",
         },
         fourthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(5) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(5) div.column.is-2  div.field-body input",
         },
         fifthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(6) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(6) div.column.is-2  div.field-body input",
         },
         sixthOrdinalField: {
           selector:
-            "div:nth-child(31) div:nth-child(7) div.column.is-2  div.field-body input",
+            "div:nth-child(33) div:nth-child(7) div.column.is-2  div.field-body input",
         },
         firstCategoryField: {
           selector: ".//input[@placeholder='Category']",
@@ -257,6 +282,37 @@ module.exports = {
           selector: ".//input[@placeholder='Value']",
           locateStrategy: "xpath",
           index: 3,
+        },
+      },
+    },
+    traitsDetails: {
+      selector:
+        "//div[@class='side-panel-scroll box has-background-info-light']",
+      locateStrategy: "xpath",
+      elements: {
+        header: {
+          selector: ".//p[@class='is-size-5 has-text-weight-bold mb-0']",
+          locateStrategy: "xpath",
+        },
+        termTypeField: {
+          selector:
+            ".//span[normalize-space()='Term Type']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        traitField: {
+          selector:
+            ".//span[normalize-space()='Trait']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        methodField: {
+          selector:
+            ".//span[normalize-space()='Method']/../following-sibling::div/span",
+          locateStrategy: "xpath",
+        },
+        scaleClassField: {
+          selector:
+            ".//span[normalize-space()='Scale']/../following-sibling::div/span",
+          locateStrategy: "xpath",
         },
       },
     },

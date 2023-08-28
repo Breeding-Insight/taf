@@ -10,7 +10,7 @@ Feature: Logging with Member
 		And user can see a Log out button
 		And user can see "Home" in navigation
 		And user can see "Ontology" in navigation
-		And user can see "Program Management" in navigation
+		And user can see "Program Administration" in navigation
 
 	@BI-823
 	Scenario: Logging in as a breeder of one program
@@ -22,7 +22,7 @@ Feature: Logging with Member
 		And user can see a Log out button
 		And user can see "Home" in navigation
 		And user can see "Ontology" in navigation
-		And user can see "Program Management" in navigation
+		And user can see "Program Administration" in navigation
 
 	@BI-845
 	Scenario: Logging in as a breeder of one program
@@ -33,7 +33,7 @@ Feature: Logging with Member
 	@BI-887
 	Scenario: No Admin role, Program Member - Program User Management
 		Given user logs in as "Cucumber Member"
-		And user selects "Program Management" in navigation
+		And user selects "Program Administration" in navigation
 		And user selects "Users" tab
 		Then user can not see New User button
 		And user can see each row does not have an "Edit" link
@@ -45,7 +45,8 @@ Feature: Logging with Member
 	Scenario: Program Location Management page - member - SETUP
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
-		When user selects "Program Management" in navigation
+		When user selects "Program Administration" in navigation
+		When user selects "Locations" tab
 		When user selects 'New Location' button in Program Management page
 		When user sets "<location name>" in Name field in Program Management page
 		When user selects 'Save' button in Program Management page
@@ -56,7 +57,8 @@ Feature: Logging with Member
 	@BI-915
 	Scenario: Program Location Management page - member
 		Given user logs in as "Cucumber Member"
-		And user selects "Program Management" in navigation
+		And user selects "Program Administration" in navigation
+		And user selects "Locations" tab
 		Then user can not see "Edit" link 
 		And user can not see "Deactivate" link
 		Then user can not see 'New Location' button in Program Management page

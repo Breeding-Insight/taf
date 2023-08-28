@@ -34,3 +34,60 @@ Feature: Germplasm Tests
 			| Preferred Name | GID | Breeding Method | Source | Pedigree | Pedigree GID | Synonyms | External UID | User             |
 			| Germplasm      | 1   | Polycross       | Cross  |          |              | Germ     |              | Cucumber Breeder |
 
+	@BI-1592
+	Scenario: Able to see Created by information in germplasm lists table
+		Then user can see "Germplasm" tab
+		Then user can see "Germplasm Lists" tab
+		When user selects "Germplasm Lists" tab on Gerplasm page
+		Then user can see "Cucumber Breeder" in row "1" as "Created By" column on Germplasm Lists
+
+	@BI-1593
+	Scenario: able to filter the records in the all germplasm table
+		When user selects "Germplasm" tab on Gerplasm page
+		When user sets "10" in "GID" search fields
+		Then user can see "10" in row "1" as "GID" column on All Germplasm
+		When user refresh the page
+		When user sets "90" in "GID" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "Germplas123" in "Name" search fields
+		Then user can see "Germplas123" in row "1" as "Name" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Name" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "Test cross" in "Breeding Method" search fields
+		Then user can see "Test cross" in row "1" as "Breeding Method" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Breeding Method" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "Cross" in "Source" search fields
+		Then user can see "Cross" in row "1" as "Source" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Source" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "5" in "Female Parent GID" search fields
+		Then user can see "5" in row "1" as "Female Parent GID" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Female Parent GID" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "1" in "Male Parent GID" search fields
+		Then user can see "1" in row "1" as "Male Parent GID" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Male Parent GID" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "@TODAY" in "Created Date" search fields
+		Then user can see "@TODAY" in row "1" as "Created Date" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Created Date" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm
+		When user refresh the page
+		When user sets "Cucumber Breeder" in "Created By" search fields
+		Then user can see "Cucumber Breeder" in row "1" as "Created By" column on All Germplasm
+		When user refresh the page
+		When user sets "AAA" in "Created By" search fields
+		Then user can see "No germplasm are currently defined for this program." in All Germplasm

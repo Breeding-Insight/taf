@@ -165,6 +165,10 @@ Then(
   }
 );
 
+Then(/^user can see 'Term Type' dropdown on ontology list page$/, async () => {
+  await ontologyPage.section.allTraitsForm.assert.visible("@termType");
+});
+
 Then(/^user can see 'Save' button on ontology list page$/, async () => {
   await ontologyPage.section.allTraitsForm.assert.visible("@saveButton");
 });
@@ -311,6 +315,15 @@ Then(
   }
 );
 
+When(
+  /^user selects "([^"]*)" in 'Term Type' dropdown on ontology list page$/,
+  async (args1) => {
+    await ontologyPage.section.allTraitsForm.moveToElement("@termType", 1, 1);
+    await ontologyPage.pause(10000);
+    await ontologyPage.section.allTraitsForm.setValue("@termType", args1);
+  }
+);
+
 Then(
   /^user can see "([^"]*)" below the 'Name' field on ontology list page$/,
   async (args1) => {
@@ -406,6 +419,7 @@ Then(
 
 When(/^user selects 'Save' button on ontology list page$/, async () => {
   await ontologyPage.section.allTraitsForm.click("@saveButton");
+  await ontologyPage.pause(5000);
 });
 
 When(/^user selects 'Cancel' button on ontology list page$/, async () => {
@@ -419,7 +433,7 @@ Then(
       .replace("*", this.parameters.timeStamp)
       .slice(-11);
     await ontologyPage.assert.visible({
-      selector: `//td[@name='name'][normalize-space(.)='${traitObject.nameField}']`,
+      selector: `//td[@data-label='Name'][normalize-space(.)='${traitObject.nameField}']`,
       locateStrategy: "xpath",
     });
   }
@@ -430,7 +444,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='trait'][normalize-space(.)='" +
+        "//td[@data-label='Trait'][normalize-space(.)='" +
         args1.replace(/\*/g, this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
@@ -443,7 +457,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='method'][normalize-space(.)='" +
+        "//td[@data-label='Method'][normalize-space(.)='" +
         args1.replace("*", this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
@@ -456,7 +470,7 @@ Then(
   async function (args1) {
     await ontologyPage.assert.visible({
       selector:
-        "//td[@name='scaleClass'][normalize-space(.)='" +
+        "//td[@data-label='Scale Class'][normalize-space(.)='" +
         args1.replace("*", this.parameters.timeStamp) +
         "']",
       locateStrategy: "xpath",
@@ -1612,3 +1626,87 @@ Then(
     );
   }
 );
+
+Then(/^user can see Active table on Ontology page$/, async function () {
+  await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
+});
+
+Then(
+  /^user can not see loading wheel message on Ontology page$/,
+  async function () {
+    await ontologyPage.assert.not.elementPresent(
+      "div.loading-overlay.is-active div.loading-icon"
+    );
+  }
+);
+Then(/^user can see "([^"]*)" on Ontology page$/, async function (args1) {
+  await ontologyPage.assert.containsText(
+    "#emptyTableMessage p:first-of-type",
+    args1
+  );
+});
+
+When(
+  /^user selects "([^"]*)" of row "([^"]*)" of Ontology page$/,
+  async function (link, rowIndex) {
+    await ontologyPage.section.allTraitsForm.click({
+      selector: `.//tr[${rowIndex}]//a[normalize-space()='${link}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then(
+  /^user can see header "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@header",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Term Type "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@termTypeField",
+      args1
+    );
+  }
+);
+
+Then(/^user can see Trait "([^"]*)" on trait details$/, async function (args1) {
+  await ontologyPage.section.traitsDetails.assert.containsText(
+    "@traitField",
+    args1
+  );
+});
+
+Then(
+  /^user can see Method "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@methodField",
+      args1
+    );
+  }
+);
+
+Then(
+  /^user can see Scale Class "([^"]*)" on trait details$/,
+  async function (args1) {
+    await ontologyPage.section.traitsDetails.assert.containsText(
+      "@scaleClassField",
+      args1
+    );
+  }
+);
+
+Then(/^user can see Active table on Ontology page$/, async function () {
+  await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
+});
+
+Then(/^user can see Active table on Ontology page$/, async function () {
+  await ontologyPage.expect.section("@allTraitsForm").to.be.visible;
+});

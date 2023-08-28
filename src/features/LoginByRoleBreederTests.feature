@@ -20,7 +20,7 @@ Feature: Logging with Breeder
 		And user can see Program Selection combo box
 		And user can see "Home" in navigation
 		And user can see "Ontology" in navigation
-		And user can see "Program Management" in navigation
+		And user can see "Program Administration" in navigation
 		When user navigates to Program Selection
 		And user selects "Trail Mix" on program-selection page
 		And user selects User Status menu dropdown
@@ -32,6 +32,6 @@ Feature: Logging with Breeder
 		And user selects User Status menu dropdown
 		And user can see "Home" in navigation
 		And user can see "Ontology" in navigation
-		And user can see "Program Management" in navigation
+		And user can see "Program Administration" in navigation
 
 	

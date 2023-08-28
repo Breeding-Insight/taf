@@ -11,7 +11,7 @@ const { Sign } = require("crypto");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
-    selector: "//*[@id='main']//h1[contains(text(),'Program Management')]",
+    selector: "//*[@id='main']//h1[contains(text(),'Program Administration')]",
     locateStrategy: "xpath",
   });
 });
@@ -348,6 +348,7 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
 When(/^user selects 'Save' button in Programs page$/, async () => {
   await getProgramValues();
   await page.section.programForm.click("@saveButton");
+  await page.pause(5000);
 });
 
 Then(/^user can see 'Program Form' in Programs page$/, async () => {
@@ -456,7 +457,7 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 Then(
   /^user can see 'Configuration' tab on Program Management page$/,
   async () => {
-    await page.section.programManagement.assert.visible("@configurationLink");
+    await page.section.programManagement.assert.visible("@programConfigurationLink");
   }
 );
 
@@ -638,7 +639,7 @@ When(
         await page.section.programManagement.click("@usersLink");
         break;
       case "Configuration":
-        await page.section.programManagement.click("@configurationLink");
+        await page.section.programManagement.click("@programConfigurationLink");
         break;
       default:
         throw new Error(`Unexpected ${args1} tab name.`);
@@ -649,7 +650,7 @@ When(
 Then(
   /^user can see Configuration on Program Management page$/,
   async function () {
-    await page.expect.section("@configurationForm").visible;
+    await page.expect.section("@programConfigurationForm").visible;
   }
 );
 
@@ -658,7 +659,7 @@ Then(
   async function (args1) {
     switch (args1) {
       case "Shared Ontology":
-        await page.section.configurationForm.assert.visible(
+        await page.section.programConfigurationForm.assert.visible(
           "@sharedOntologySection"
         );
         break;
@@ -674,7 +675,7 @@ Then(
     if (args1.includes("*")) {
       args1 = program.Name;
     }
-    await page.section.configurationForm.assert.containsText(
+    await page.section.programConfigurationForm.assert.containsText(
       "@notSharedMessage",
       args1
     );
@@ -684,7 +685,7 @@ Then(
 When(
   /^user selects 'Share Ontology' button on Program Management page$/,
   async function () {
-    await page.section.configurationForm.click("@shareOntologyButton");
+    await page.section.programConfigurationForm.click("@shareOntologyButton");
   }
 );
 

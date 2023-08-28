@@ -72,4 +72,7 @@ INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated
 SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
 JOIN program ON program.name = 'Trail Mix';
 
+INSERT INTO program_enabled_breeding_methods(breeding_method_id, program_id, created_by, created_at, updated_by, updated_at)
+SELECT breeding_method.id, program.id, (SELECT id FROM bi_user WHERE name = 'system'), now(), (SELECT id FROM bi_user WHERE name = 'system'), now() FROM breeding_method, program;
+
 END $$;

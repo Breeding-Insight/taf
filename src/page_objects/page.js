@@ -150,13 +150,13 @@ module.exports = {
     programManagementMenu: "#usersidebarlayout-program-management-menu",
     brAPIMenu: "#usersidebarlayout-brapi-menu",
     jobsMenu: "#usersidebarlayout-job-management-menu",
-    trialsAndStudiesMenu: {
+    experimentsAndObservationsMenu: {
       selector:
-        "//*[@id='sideMenu']//a[normalize-space()='Trials and Studies Beta']",
+        "//*[@id='sideMenu']//a[normalize-space()='Experiments & Observations']",
       locateStrategy: "xpath",
     },
     programManagementHeader: {
-      selector: "//section/div/h1[normalize-space(.)='Program Management']",
+      selector: "//section/div/h1[normalize-space(.)='Program Administration']",
       locateStrategy: "xpath",
     },
 
@@ -207,7 +207,7 @@ module.exports = {
         },
 
         programManagementLink: {
-          selector: ".//a[normalize-space()='Program Management']",
+          selector: ".//a[normalize-space()='Program Administration']",
           locateStrategy: "xpath",
         },
       },
@@ -364,7 +364,7 @@ module.exports = {
           selector: ".//li/a[normalize-space(.)='Users']",
           locateStrategy: "xpath",
         },
-        configurationLink: {
+        programConfigurationLink: {
           selector: ".//li/a[normalize-space(.)='Configuration']",
           locateStrategy: "xpath",
         },
@@ -428,13 +428,13 @@ module.exports = {
       },
     },
     //Program Management Configuration
-    configurationForm: {
+    programConfigurationForm: {
       selector: "#program-configuration",
       elements: {
-        sharedOntologySection:"#shared-ontology-section",
+        sharedOntologySection: "#shared-ontology-section",
         header: "#shared-ontology-section > h2",
         notSharedMessage: "#shared-ontology-section > p",
-        shareOntologyButton :"#showShareModalBtn",
+        shareOntologyButton: "#showShareModalBtn",
       },
     },
     manageSharedOntologyModal: {
@@ -471,14 +471,15 @@ module.exports = {
         await client.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await client.url(url + "/admin/program-management");
+        await client.url(url + "/admin/programs");
         await this.waitForElementVisible("#adminProgramTableLabel");
       },
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
         await this.click("@showAllButton");
+        await client.execute("window.scrollTo(0,0);");
         await this.click({
-          selector: `//*[@id='adminProgramTableLabel']//tr//a[text()=' ${program} ']`,
+          selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(text())='${program}']`,
           locateStrategy: "xpath",
         });
       },

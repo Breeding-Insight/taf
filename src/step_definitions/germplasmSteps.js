@@ -1,11 +1,13 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
+const { getToday } = require("./helpers");
+const helpers = require("./helpers");
 const germplasmPage = client.page.germplasmPage();
 
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
   async function () {
-    await germplasmPage.section.germplasmTable.assert.visible("@header");
+    await germplasmPage.assert.visible("@header");
   }
 );
 
@@ -192,4 +194,145 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
   await client.execute("window.scrollTo(0,0);");
   await germplasmPage.moveToElement(control, 1, 1);
   await germplasmPage.click(control);
+});
+
+Then(/^user can see "([^"]*)" tab$/, async function (args1) {
+  switch (args1) {
+    case "Germplasm":
+      await germplasmPage.assert.visible("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.assert.visible("@germplasmListsTab");
+    default:
+      break;
+  }
+});
+
+When(/^user selects "([^"]*)" tab on Gerplasm page$/, async function (args1) {
+  switch (args1) {
+    case "All Germplasm":
+      await germplasmPage.click("@allGermplasmTab");
+      break;
+    case "Germplasm Lists":
+      await germplasmPage.click("@germplasmListsTab");
+    default:
+      break;
+  }
+});
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Germplasm Lists$/,
+  async function (args1, args2, args3) {
+    await germplasmPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+When(
+  /^user sets "([^"]*)" in "([^"]*)" search fields$/,
+  async function (args1, args2) {
+    args1 = args1.replace("@TODAY", helpers.getToday());
+    switch (args2) {
+      case "GID":
+        await germplasmPage.setValue(
+          { selector: "//th[1]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Name":
+        await germplasmPage.setValue(
+          { selector: "//th[2]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Breeding Method":
+        await germplasmPage.setValue(
+          { selector: "//th[3]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Source":
+        await germplasmPage.setValue(
+          { selector: "//th[4]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Female Parent GID":
+        await germplasmPage.setValue(
+          { selector: "//th[6]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Male Parent GID":
+        await germplasmPage.setValue(
+          { selector: "//th[7]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Created Date":
+        await germplasmPage.setValue(
+          { selector: "//th[8]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      case "Created By":
+        await germplasmPage.setValue(
+          { selector: "//th[9]//div/input", locateStrategy: "xpath" },
+          args1
+        );
+        break;
+      default:
+        break;
+    }
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on All Germplasm$/,
+  async function (args1, args2, args3) {
+    args1 = args1.replace("@TODAY", helpers.getToday());
+    await germplasmPage.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+  }
+);
+
+Then(/^user can see "([^"]*)" in All Germplasm$/, async function (args1) {
+  await germplasmPage.assert.containsText(
+    { selector: "//tr[@class='is-empty']/td/p", locateStrategy: "xpath" },
+    args1
+  );
+});
+
+Then(/^user can see Germplasm table on Germplasm page$/, async function () {
+  await germplasmPage.expect.section("@germplasmTable").to.be.visible;
+});
+
+Then(
+  /^user can see Germplasm Lists table on Germplasm page$/,
+  async function () {
+    await germplasmPage.expect.section("@listsTable").to.be.visible;
+  }
+);
+
+Then(
+  /^user can not see loading wheel message on Germplasm page$/,
+  async function () {
+    await germplasmPage.assert.not.elementPresent(
+      "div.loading-overlay.is-active div.loading-icon"
+    );
+  }
+);
+
+Then(/^user can see "([^"]*)" on Germplasm page$/, async function (args1) {
+  await germplasmPage.assert.containsText("#germplasmTable p", args1);
 });

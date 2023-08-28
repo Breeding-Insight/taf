@@ -89,7 +89,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   }
 
   let status;
-  await waitReady();
+  //await waitReady();
   await page.waitForElementVisible(
     "@iUnderstandButton",
     10000,
@@ -130,6 +130,24 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
+
+  if (client.globals.breedingInsightVersion == undefined) {
+    let version = 0;
+    try {
+      await page.getText(
+        { selector: "footer span", timeout: 10000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
+    } catch (error) {
+      //try another control
+      await page.getText("#versionInfo span span", ({ value }) => {
+        version = String(value).trim();
+      });
+    }
+    client.globals.breedingInsightVersion = version;
+  }
 });
 
 When(/^user navigates to Program Selection page$/, async () => {
@@ -249,6 +267,13 @@ Then(/^user can see Results per page combobox$/, async () => {
   await page.assert.visible("@paginationComboBox");
 });
 
+When(
+  /^user selects "([^"]*)" in Results per page combobox$/,
+  async function (args1) {
+    await page.click("@paginationComboBox", await setOption(args1));
+  }
+);
+
 Then(/^user can see Label per page$/, async () => {
   await page.assert.visible("@perPageLabel");
 });
@@ -354,7 +379,7 @@ When(/^user selects Cancel button$/, async () => {
 });
 
 When(/^user sets "([^"]*)" in Role dropdown$/, async (args1) => {
-  setRole(args1);
+  await setRole(args1);
 });
 
 When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
@@ -682,7 +707,7 @@ When(/^user clicks the combo box of Program Selector$/, async () => {
 
 Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
+    selector: `//*[@id='program-menu']//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -690,7 +715,7 @@ Then(/^user can see "([^"]*)" as an option$/, async (args1) => {
 When(/^user selects "([^"]*)" the program selector$/, async (args1) => {
   await page.click("@programSelectorDropDownButton");
   await page.click({
-    selector: `//*[@id='program-menu']/div/a[normalize-space(.)='${args1}']`,
+    selector: `//*[@id='program-menu']//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   });
 });
@@ -720,7 +745,7 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Ontology":
       await page.assert.visible("@ontologyMenu");
       break;
-    case "Program Management":
+    case "Program Administration":
       await page.assert.visible("@programManagementMenu");
       break;
     case "BrAPI":
@@ -729,8 +754,8 @@ Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
     case "Jobs":
       await page.assert.visible("@jobsMenu");
       break;
-    case "Trials and Studies":
-      await page.assert.visible("@trialsAndStudiesMenu");
+    case "Experiments & Observations":
+      await page.assert.visible("@experimentsAndObservationsMenu");
       break;
     default:
       throw new Error(`Unexpected ${args1} name.`);
@@ -825,7 +850,7 @@ Then(/^user can see 'Import' button$/, async () => {
 When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.pause(1000);
   const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //button//span[normalize-space(.)='${args1}']`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //span[normalize-space(.)='${args1}']/ancestor::button`,
     locateStrategy: "xpath",
   };
   await page.waitForElementVisible(selector);
@@ -841,7 +866,7 @@ Then(/^user can see "([^"]*)" button$/, async (args1) => {
 
 Then(/^user can see "([^"]*)" column header$/, async (args1) => {
   await page.assert.visible({
-    selector: `//table/thead/tr/th[contains(text(),'${args1}')]`,
+    selector: `//table/thead/tr/th//span[contains(text(),'${args1}')] | //table/thead/tr/th[contains(text(),'${args1}')]`,
     locateStrategy: "xpath",
   });
 });
@@ -856,7 +881,7 @@ Then(/^user can see each row has a "([^"]*)" link$/, async (args1) => {
 
   await page.expect
     .elements({
-      selector: "//a[normalize-space(.)='Show details']",
+      selector: `//a[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     })
     .count.equal(rows);
@@ -897,7 +922,10 @@ When(/^user selects 'Import' button$/, async () => {
 });
 
 When(/^user selects 'Yes, abort' button$/, async () => {
-  await page.click("#traitsimport-yes-abort");
+  await page.click({
+    selector: "//*[contains(text(), 'abort')]/ancestor::button",
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see Ontology table$/, async () => {
@@ -906,10 +934,37 @@ Then(/^user can see Ontology table$/, async () => {
 
 Then(/^user can see an error message "([^"]*)"$/, async (args1) => {
   await page.assert.visible({
-    selector: `//*[@id="app"]//*[contains(text(), "${args1}")]`,
+    selector: `//*[@id='import-ontology']//span[normalize-space()="${args1}"]`,
     locateStrategy: "xpath",
   });
 });
+
+Then(
+  /^user can see "([^"]*)" row "([^"]*)" "([^"]*)" field "([^"]*)" message$/,
+  async function (args1, args2, args3, args4) {
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Row']`,
+        locateStrategy: "xpath",
+      },
+      args1
+    );
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Field']`,
+        locateStrategy: "xpath",
+      },
+      args3
+    );
+    await page.assert.containsText(
+      {
+        selector: `//tbody/tr[${args2}]/td[@data-label='Error']`,
+        locateStrategy: "xpath",
+      },
+      args4
+    );
+  }
+);
 
 When(/^user sets "([^"]*)" in Name field of User$/, async function (args1) {
   await setUserName(args1.replace("*", this.parameters.timeStamp));
@@ -1051,6 +1106,14 @@ When(/^user close notification pop-up$/, async function () {
   });
 });
 
+When(/^user refresh the page$/, async function () {
+  await client.refresh();
+});
+
+Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
+  await page.expect.elements("tbody tr").count.to.equal(Number(args1));
+});
+
 //functions
 async function setUserName(name) {
   user.userName = name;
@@ -1066,7 +1129,7 @@ async function setEmail(email) {
 
 async function setRole(role) {
   user.role = role;
-  return await page.section.newUserForm.setValue("@roleSelect", user.role);
+  await page.section.newUserForm.setValue("@roleSelect", user.role);
 }
 
 async function closeNotification() {
@@ -1108,4 +1171,8 @@ async function waitReady() {
   if (!found) {
     throw new Error("Application version failed to load. Unable to login.");
   }
+}
+
+async function setOption(option) {
+  await page.click(`option[value='${option}']`);
 }
