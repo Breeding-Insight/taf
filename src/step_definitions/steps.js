@@ -5,6 +5,7 @@ const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
+const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
