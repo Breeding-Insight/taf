@@ -113,6 +113,7 @@ Feature: Breeding Methods
     When user selects "<Program Name>" on program-selection page
     When user selects "Program Administration" in navigation
     When user selects "Breeding Methods" tab
+    Then user can not see 'Create Breeding Method' button in Breeding Method Management page
 
     Examples:
       | Program Name | name | abbreviation | description |

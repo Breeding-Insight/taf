@@ -14,6 +14,15 @@ Then(
 );
 
 Then(
+  /^user can not see 'Create Breeding Method' button in Breeding Method Management page$/,
+  async () => {
+    await page.section.breedingMethods.assert.not.elementPresent(
+      "@createBreedingMethodButton"
+    );
+  }
+);
+
+Then(
   /^user can see 'Breeding Methods' tab in Program Management page$/,
   async () => {
     await page.assert.visible("@breedingMethodsTab");
