@@ -90,6 +90,9 @@ Feature: Breeding Methods
     When user sets "cucumbermember@mailinator.com" in Email field of User
     When user sets "member" in Role dropdown of User
     When user click 'Save' button in User
+    And user pause for "5" seconds
+    When user close the Notification
+    When user selects "Program Administration" in navigation
     Then user logs out
     #Login as Breeder
     Given user logs in as "Cucumber Breeder"

@@ -457,7 +457,9 @@ Then(/^user can see 'Users' tab in Program Management page$/, async () => {
 Then(
   /^user can see 'Configuration' tab on Program Management page$/,
   async () => {
-    await page.section.programManagement.assert.visible("@programConfigurationLink");
+    await page.section.programManagement.assert.visible(
+      "@programConfigurationLink"
+    );
   }
 );
 
@@ -775,10 +777,12 @@ When(
     if (args1.includes("*")) {
       programName = program.Name;
     } else programName = args1;
-    await page.click({
+    selector = {
       selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
       locateStrategy: "xpath",
-    });
+    };
+    await page.waitForElementVisible(selector);
+    await page.click(selector);
   }
 );
 
