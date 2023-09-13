@@ -62,3 +62,62 @@ Feature: Breeding Methods
     Examples:
       | name     | abbreviation | description |
       | ZZZ Test | ZZZ          | Testing     |
+
+  @BI-1786
+  Scenario Outline: Scenario Outline name: Choose/create breeding methods
+    Given user logs in as "sysad"
+    And user selects "System Administration" on program-selection page
+    When user is on the program-management page
+    #Create a new program
+    When user selects 'New Program' button in Programs page
+    When user sets "<Program Name>" in Program Name field in Programs page
+    When user selects "Potato" in Species dropdown in Programs page
+    When user sets "A*" in Program Key field in Programs page
+    When user selects 'Save' button in Programs page
+    When user pause for "10" seconds
+    When user navigates to Program Selection page
+    When user selects "<Program Name>" on program-selection page
+    When user selects "Program Administration" in navigation
+    When user selects "Users" tab
+    When user clicks 'New User' button
+    When user sets "Breeder" in Name field of User
+    When user sets "cucumberbreeder@mailinator.com" in Email field of User
+    When user sets "breeder" in Role dropdown of User
+    When user click 'Save' button in User
+    And user pause for "5" seconds
+    When user clicks 'New User' button
+    When user sets "Breeder" in Name field of User
+    When user sets "cucumbermember@mailinator.com" in Email field of User
+    When user sets "member" in Role dropdown of User
+    When user click 'Save' button in User
+    And user pause for "5" seconds
+    When user close the Notification
+    When user selects "Program Administration" in navigation
+    Then user logs out
+    #Login as Breeder
+    Given user logs in as "Cucumber Breeder"
+    When user selects "<Program Name>" on program-selection page
+    When user selects "Program Administration" in navigation
+    When user selects "Breeding Methods" tab
+    When user clicks 'Create Breeding Method' button in Breeding Method Management page
+    When user sets "<name>" in 'Name' field in Breeding Method form
+    And user sets "<description>" in 'Description' field in Breeding Method form
+    And user sets "<abbreviation>" in 'Abbreviation' field in Breeding Method form
+    When user selects "Ploidy" in 'Category' dropdown in Breeding Method form
+    When user selects "Generative (+)" in 'Genetic Diversity' dropdown in Breeding Method form
+    And user clicks 'Save' button in Breeding Method form
+    And user pause for "2" seconds
+    When user clicks Show All button
+    When user close the Notification
+    Then user can see "<name>" in Name column in Breeding Method page
+    Then user logs out
+    #Login as Member
+    Given user logs in as "Cucumber Member"
+    When user selects "<Program Name>" on program-selection page
+    When user selects "Program Administration" in navigation
+    When user selects "Breeding Methods" tab
+    Then user can not see 'Create Breeding Method' button in Breeding Method Management page
+
+    Examples:
+      | Program Name | name | abbreviation | description |
+      | P*           | M*   | Z*           | Testing     |

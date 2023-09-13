@@ -1122,6 +1122,10 @@ Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
   await page.expect.elements("tbody tr").count.to.equal(Number(args1));
 });
 
+When(/^user close the Notification$/, async function () {
+  await page.click("button[aria-label='Close Notification']");
+});
+
 //functions
 async function setUserName(name) {
   user.userName = name;
