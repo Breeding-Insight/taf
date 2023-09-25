@@ -1,4 +1,4 @@
-Germplasm Name,Germplasm GID,Test (T) or Check (C ),Exp Title ,Exp Description,Exp Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Exp Replicate #,Exp Block #,Row,Column,Exp Trt Factor Name,ObsUnitID
+Germplasm Name,Germplasm GID,Test (T) or Check (C),Exp Title ,Exp Description,Exp Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Exp Replicate #,Exp Block #,Row,Column,Exp Trt Factor Name,ObsUnitID
 Test,1,C,Trial 5 test2,second trial test,plot test2,phenotyping test,New Study test2,New Location test2,2020,1 - test2,0,2,4,50,Jam application,
 Test,1,T,Trial 5 test2,second trial,plot test2,phenotyping test,Study two test2,Location Two test2,2020,2 - test2,0,2,4,51,Jelly application,
 Test,1,C,Trial 5 test2,second trial,plot test2,phenotyping test,Study three test2, Location Three test2,2020,2 - test2,0,2,4,52,Juice application,
