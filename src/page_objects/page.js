@@ -492,7 +492,6 @@ module.exports = {
       },
       navigateToProgramSelection: async function () {
         //get the current url
-        debugger;
         let url;
         await client.url(({ value }) => {
           url = new URL(value).origin;

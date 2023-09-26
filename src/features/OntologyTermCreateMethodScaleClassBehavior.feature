@@ -238,7 +238,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<ordinal_value>" in Value second field on ontology list page
         And user sets "<second scale category>" in Nominal second field on ontology list page
         And user selects 'Save' button on ontology list page
-        When user clicks Show All button
+        When user selects Show All button
         When user selects 'Show details' button of "<ont_term_name>" on ontology list page
         Then user can see "<ordinal_value>" in Value first field of Show Details on ontology list page
         And user can see "<first scale category>" in Ordinal first field of Show Details on ontology list page
@@ -263,7 +263,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         And user sets "<first scale category>" in Nominal first field on ontology list page
         And user sets "<second scale category>" in Nominal second field on ontology list page
         And user selects 'Save' button on ontology list page
-        When user clicks Show All button
+        When user selects Show All button
         When user selects 'Show details' button of "<ont_term_name>" on ontology list page
         Then user can see "<first scale category>" in Nominal first field of Show Details on ontology list page
         And user can see "<second scale category>" in Nominal second field of Show Details on ontology list page

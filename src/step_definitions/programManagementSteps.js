@@ -8,6 +8,7 @@ const program = {};
 const location = {};
 const helpers = require("./helpers");
 const { Sign } = require("crypto");
+const programManagementStepsMod = require("./programManagementStepsHelpers");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
@@ -20,34 +21,28 @@ When(/^user is on the program-management page$/, async () => {
   await page.assert.visible("#adminProgramTableLabel");
 });
 
-When(/^user selects 'New Program' button in Programs page$/, async () => {
+When(/^user selects 'New Program' button in Programs page$/, async function () {
   await page.click("@newProgramButton");
 });
 
 When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async function (args1) {
-    await page.section.programForm.clearValue("@programNameField");
-    await page.section.programForm.setValue(
-      "@programNameField",
-      args1.replace("*", helpers.generateRandomAlphaString(5))
-    );
+    await programManagementStepsMod.setProgramName(args1);
   }
 );
 
 When(
   /^user selects "([^"]*)" in Species dropdown in Programs page$/,
-  async (args1) => {
-    await page.section.programForm.setValue("@speciesSelect", args1);
+  async function (args1) {
+    await programManagementStepsMod.setSpecies(args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
   async function (args1) {
-    await page.section.programForm.clearValue("@programKeyField");
-    program.Key = args1.replace("*", helpers.generateRandomAlphaString(5));
-    await page.section.programForm.setValue("@programKeyField", program.Key);
+    await programManagementStepsMod.setProgramKey(args1);
   }
 );
 
@@ -345,10 +340,8 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
   await page.section.programForm.assert.visible("@cancelButton");
 });
 
-When(/^user selects 'Save' button in Programs page$/, async () => {
-  await getProgramValues();
-  await page.section.programForm.click("@saveButton");
-  await page.pause(5000);
+When(/^user selects 'Save' button in Programs page$/, async function () {
+  await programManagementStepsMod.clickSaveProgram();
 });
 
 Then(/^user can see 'Program Form' in Programs page$/, async () => {
@@ -774,15 +767,7 @@ When(
 When(
   /^user selects "([^"]*)" on program-selection page$/,
   async function (args1) {
-    if (args1.includes("*")) {
-      programName = program.Name;
-    } else programName = args1;
-    selector = {
-      selector: `//*[@id='app']//main//a[normalize-space(.)='${programName}']`,
-      locateStrategy: "xpath",
-    };
-    await page.waitForElementVisible(selector);
-    await page.click(selector);
+    await programManagementStepsMod.selectProgram(args1);
   }
 );
 
@@ -810,37 +795,3 @@ When(
     await page.click("#showShareModalBtn");
   }
 );
-
-//functions
-//Get the program values
-async function getProgramValues() {
-  await page.section.programForm.getValue("@programNameField", ({ value }) => {
-    program.Name = value;
-  });
-  let option;
-  await page.section.programForm.getValue("@speciesSelect", ({ value }) => {
-    option = value;
-  });
-
-  await page.section.programForm.getText(
-    { selector: `.//option[@value='${option}']`, locateStrategy: "xpath" },
-    ({ value }) => {
-      program.Species = String(value).trim();
-    }
-  );
-  //Key only present for create, not edit
-  let keyPresent;
-  await page.section.programForm.api.element(
-    "css selector",
-    "@programKeyField",
-    function (result) {
-      keyPresent = result.value;
-    }
-  );
-
-  if (keyPresent) {
-    await page.section.programForm.getValue("@programKeyField", ({ value }) => {
-      program.Key = value;
-    });
-  }
-}

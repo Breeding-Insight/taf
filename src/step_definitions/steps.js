@@ -1,5 +1,5 @@
 const { client } = require("nightwatch-api");
-const { Given, Then, When } = require("@cucumber/cucumber");
+const { Given, Then, When, World } = require("@cucumber/cucumber");
 const path = require("path");
 const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
@@ -158,8 +158,8 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   }
 });
 
-When(/^user navigates to Program Selection page$/, async () => {
-  await page.navigateToProgramSelection();
+When(/^user navigates to Program Selection page$/, async function () {
+  await navigateToProgramSelection();
 });
 
 When(/^user selects Users in navigation$/, async () => {
@@ -267,6 +267,14 @@ Then(/^user can see Next page button$/, async () => {
   await page.assert.visible("@nextButton");
 });
 
+When(/^user selects Next page button$/, async function () {
+  await page.click("@nextButton");
+});
+
+When(/^user selects Previous page button$/, async function () {
+  await page.click("@previousButton");
+});
+
 Then(/^user can see Current page button$/, async () => {
   await page.assert.visible("@paginationButton");
 });
@@ -278,7 +286,9 @@ Then(/^user can see Results per page combobox$/, async () => {
 When(
   /^user selects "([^"]*)" in Results per page combobox$/,
   async function (args1) {
-    await page.click("@paginationComboBox", await setOption(args1));
+    await client.execute("window.scrollTo(500,500);");
+    await page.click("@paginationComboBox");
+    await setOption(args1);
   }
 );
 
@@ -290,7 +300,7 @@ Then(/^user can see Show All button$/, async () => {
   await page.assert.visible("@showAllButton");
 });
 
-When(/^user clicks Show All button$/, async () => {
+When(/^user selects Show All button$/, async () => {
   await page.click("@showAllButton");
 });
 
@@ -401,27 +411,16 @@ When(/^user selects Program "([^"]*)" in navigation$/, async (args1) => {
 //  Use 'user selects "([^"]*)" in top-level navigation'
 //   OR
 //  'user selects "([^"]*)" tab'
-When(/^user selects "([^"]*)" in navigation$/, async (args1) => {
-  if (args1 === "Ontology") {
-    await page.click("#usersidebarlayout-ontology-menu");
-  } else {
-    await page.click({
-      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${args1}')]`,
-      locateStrategy: "xpath",
-    });
-  }
+When(/^user selects "([^"]*)" in navigation$/, async function (args1) {
+  await navigateOnLeftMenu(args1);
 });
 
-When(/^user selects "([^"]*)" in top-level navigation$/, async (args1) => {
-  if (args1 === "Ontology") {
-    await page.click("#usersidebarlayout-ontology-menu");
-  } else {
-    await page.click({
-      selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
-      locateStrategy: "xpath",
-    });
+When(
+  /^user selects "([^"]*)" in top-level navigation$/,
+  async function (args1) {
+    await topLevelNavigation(args1);
   }
-});
+);
 
 //Deprecated due to removing submenus, replaced with When(/^user selects "([^"]*)" tab$/ which selects tabs
 When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
@@ -431,11 +430,8 @@ When(/^user selects "([^"]*)" in sub-level navigation$/, async (args1) => {
   });
 });
 
-When(/^user selects "([^"]*)" tab$/, async (args1) => {
-  await page.click({
-    selector: `.//nav[contains(@class, 'tabs is-boxed')]//li/a[normalize-space()='${args1}']`,
-    locateStrategy: "xpath",
-  });
+When(/^user selects "([^"]*)" tab$/, async function (args1) {
+  await clickTab(args1);
 });
 
 Then(/^user does not see new user form$/, async () => {
@@ -478,8 +474,8 @@ When(/^user creates a new user$/, async function (table) {
   await page.section.newUserForm.click("@saveButton");
 });
 
-When(/^user clicks 'New User' button$/, async () => {
-  await page.click("@newUserButton");
+When(/^user clicks 'New User' button$/, async function () {
+  await clickNewUserButton();
 });
 
 When(/^user edits a user$/, async function (table) {
@@ -833,11 +829,24 @@ When(/^user uploads "([^"]*)" file$/, async (args1) => {
   await page.setValue('input[type="file"]', path.resolve(importFolder, args1));
 });
 
-When(/^user uploads Germplasm "([^"]*)" file$/, async (args1) => {
-  await page.setValue(
-    'input[type="file"]',
-    path.resolve(germplasmFolder, args1)
-  );
+When(/^user imports "([^"]*)" file to Germplasm$/, async function (args1) {
+  await importGermplasmFile(args1);
+});
+
+When(
+  /^user imports "([^"]*)" file "([^"]*)" times in Germplasm$/,
+  async function (args1, args2) {
+    var { setDefaultTimeout } = require("@cucumber/cucumber");
+    setDefaultTimeout = setDefaultTimeout * 5;
+    for (let index = 0; index < args2; index++) {
+      await importGermplasmFile(args1);
+    }
+    setDefaultTimeout = setDefaultTimeout / 5;
+  }
+);
+
+When(/^user uploads Germplasm "([^"]*)" file$/, async function (args1) {
+  await uploadGermplasmFile(args1);
 });
 
 Then(/^user can see "([^"]*)" displayed$/, async (args1) => {
@@ -855,14 +864,8 @@ Then(/^user can see 'Import' button$/, async () => {
   await page.assert.visible("#fileselectmessagebox-import-button");
 });
 
-When(/^user selects "([^"]*)" button$/, async (args1) => {
-  await page.pause(1000);
-  const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //span[normalize-space(.)='${args1}']/ancestor::button`,
-    locateStrategy: "xpath",
-  };
-  await page.waitForElementVisible(selector);
-  await page.click(selector);
+When(/^user selects "([^"]*)" button$/, async function (args1) {
+  await selectsButton();
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
@@ -924,9 +927,8 @@ Then(/^user can see 'Yes, abort' button$/, async () => {
   await page.assert.containsText("#traitsimport-yes-abort", "Yes, abort");
 });
 
-When(/^user selects 'Import' button$/, async () => {
-  await page.click("#fileselectmessagebox-import-button");
-  await page.pause(3000);
+When(/^user selects 'Import' button$/, async function () {
+  await selectsImportButton();
 });
 
 When(/^user selects 'Yes, abort' button$/, async () => {
@@ -986,8 +988,8 @@ When(/^user sets "([^"]*)" in Role dropdown of User$/, async (args1) => {
   await setRole(args1);
 });
 
-When(/^user click 'Save' button in User$/, async () => {
-  await page.click("@saveUserButton");
+When(/^user click 'Save' button in User$/, async function () {
+  await clickSaveUserButton();
 });
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
@@ -1098,12 +1100,7 @@ When(/^user pause for "([^"]*)" seconds$/, async function (args1) {
 });
 
 When(/^user logs out$/, async function () {
-  await page.click("@userStatusMenuDropDownButton");
-  await page.click("@logoutButton");
-  await client.url("https://sandbox.orcid.org/");
-  await page.click("#cy-user-info");
-  await page.click("#cy-signout");
-  await page.pause(10000);
+  await userLogsOut();
 });
 
 When(/^user close notification pop-up$/, async function () {
@@ -1123,7 +1120,39 @@ Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
 });
 
 When(/^user close the Notification$/, async function () {
-  await page.click("button[aria-label='Close Notification']");
+  await clickCloseNotification();
+});
+
+Given(/^a new program is created$/, async function () {
+  await loginAs(this, "sysad");
+  const programManagementSteps = require("./programManagementStepsHelpers.js");
+  await programManagementSteps.selectProgram("System Administration");
+  await programManagementSteps.clickNewProgram();
+  await programManagementSteps.setProgramName("*");
+  await programManagementSteps.setSpecies("Sweet Potato");
+  await programManagementSteps.setProgramKey("*");
+  await programManagementSteps.clickSaveProgram();
+  await page.pause(1000);
+  await navigateToProgramSelection();
+  await programManagementSteps.selectProgram("*");
+  await navigateOnLeftMenu("Program Administration");
+  await clickTab("Users");
+  await clickNewUserButton();
+  await setUserName("Breeder");
+  await setEmail("cucumberbreeder@mailinator.com");
+  await setRole("Breeder");
+  await clickSaveUserButton();
+  await page.pause(1000);
+  await clickNewUserButton();
+  await setUserName("Member");
+  await setEmail("cucumbermember@mailinator.com");
+  await setRole("Member");
+  await clickSaveUserButton();
+  await page.pause(1000);
+
+  //logs out
+  await closeNotification();
+  await userLogsOut();
 });
 
 //functions
@@ -1186,5 +1215,172 @@ async function waitReady() {
 }
 
 async function setOption(option) {
-  await page.click(`option[value='${option}']`);
+  await page.click({
+    selector: `//option[@value='${option}']`,
+    locateStrategy: "xpath",
+  });
+}
+
+async function loginAs(world, user) {
+  if (world.parameters.launch_url != undefined) {
+    await client.url(world.parameters.launch_url);
+  } else {
+    await page.navigate();
+  }
+
+  let status;
+  //await waitReady();
+  await page.waitForElementVisible(
+    "@iUnderstandButton",
+    10000,
+    false,
+    async (result) => {
+      status = result.value;
+    }
+  );
+
+  if (status) await page.click("@iUnderstandButton");
+
+  await page.click("@loginButton");
+  await page.click("@orcidSignInButton");
+
+  let email;
+  let password;
+
+  switch (user) {
+    case "sysad":
+      email = "christian@mailinator.com";
+      password = "cucumber1";
+      break;
+    case "Cucumber Breeder":
+      email = "cucumberbreeder@mailinator.com";
+      password = "cucumber1";
+      break;
+    case "Cucumber Member":
+      email = "cucumbermember@mailinator.com";
+      password = "cucumber2";
+      break;
+    case "TrailMix Breeder":
+      email = "trailmix@mailinator.com";
+      password = "trailmix1";
+      break;
+    default:
+      throw new Error("Unknown user name");
+  }
+
+  await page.isVisible("@acceptAllCookies", ({ value }) => {
+    if (value) page.click("@acceptAllCookies");
+  });
+
+  await page.setValue("@emailInput", email);
+  await page.setValue("@passwordInput", password);
+  await page.click("@signInButton");
+
+  if (client.globals.breedingInsightVersion == undefined) {
+    let version = 0;
+    try {
+      await page.getText(
+        { selector: "footer span", timeout: 120000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
+    } catch (error) {
+      //try another control
+      await page.getText(
+        { selector: "#versionInfo span span", timeout: 120000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
+    }
+    client.globals.breedingInsightVersion = version;
+  }
+}
+
+async function navigateToProgramSelection() {
+  await page.navigateToProgramSelection();
+}
+
+async function navigateOnLeftMenu(option) {
+  if (option === "Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav//a[contains(text(), '${option}')]`,
+      locateStrategy: "xpath",
+    });
+  }
+}
+
+async function clickTab(tab) {
+  await page.click({
+    selector: `.//nav[contains(@class, 'tabs is-boxed')]//li/a[normalize-space()='${tab}']`,
+    locateStrategy: "xpath",
+  });
+}
+
+async function clickNewUserButton() {
+  await page.click("@newUserButton");
+}
+
+async function clickSaveUserButton() {
+  await page.click("@saveUserButton");
+}
+
+async function closeNotification() {
+  await page.click("button[aria-label='Close Notification']");
+}
+
+async function userLogsOut() {
+  await page.click("@userStatusMenuDropDownButton");
+  await page.click("@logoutButton");
+  await client.url("https://sandbox.orcid.org/");
+  await page.click("#cy-user-info");
+  await page.click("#cy-signout");
+  await page.pause(10000);
+}
+
+async function topLevelNavigation(args1) {
+  if (args1 === "Ontology") {
+    await page.click("#usersidebarlayout-ontology-menu");
+  } else {
+    await page.click({
+      selector: `//*[@id="sideMenu"]//nav/ul/li/a[contains(text(), '${args1}')]`,
+      locateStrategy: "xpath",
+    });
+  }
+}
+
+async function uploadGermplasmFile(args1) {
+  await page.setValue(
+    'input[type="file"]',
+    path.resolve(germplasmFolder, args1)
+  );
+}
+
+async function selectsImportButton() {
+  await page.click("#fileselectmessagebox-import-button");
+  await page.pause(3000);
+}
+
+async function selectsButton(args1) {
+  await page.pause(1000);
+  const selector = {
+    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //span[normalize-space(.)='${args1}']/ancestor::button`,
+    locateStrategy: "xpath",
+  };
+  await page.waitForElementVisible(selector);
+  await page.click(selector);
+}
+
+async function importGermplasmFile(args1) {
+  await topLevelNavigation("Import Data");
+  await uploadGermplasmFile(args1);
+  await selectsImportButton();
+  const importStepsHelpers = require("./importStepsHelpers.js");
+  await importStepsHelpers.setListName("*");
+  await importStepsHelpers.setListDescription("*");
+  await selectsButton("Confirm");
+  await page.pause(1000);
 }
