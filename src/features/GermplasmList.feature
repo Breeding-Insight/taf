@@ -25,6 +25,10 @@ Feature: Germplasm List View
         When user gets row "1" from column "Description" on Germplasm lists page
         When user selects "Details" of row "1" of Germplasm Lists page
         Then user can see "Cucumber Breeder" as "User" of Germplasm Lists Details page
+        Then user can see "*" as "Description" of Germplasm Lists Details page
+        Then user can see "Cucumber Breeder" as "User" of Germplasm Lists Details page
+        Then user can see "10" as "Total Entries" of Germplasm Lists Details page
+        Then user can see "@TODAY" as "Import Date" of Germplasm Lists Details page
 
 
 

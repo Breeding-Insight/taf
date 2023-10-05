@@ -3,7 +3,7 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const { getToday } = require("./helpers");
 const helpers = require("./helpers");
 const germplasmPage = client.page.germplasmPage();
-const germplasmList = "";
+const germplasmList = [];
 
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
@@ -410,35 +410,51 @@ Then(
     let val;
     let selector;
 
+    await germplasmPage.pause(5000);
+
     switch (args2) {
       case "Description":
-        selector = "@descriptionText";
-        if (args2.includes("*")) {
-          args2 = germplasmList["Description"];
+        if (args1.includes("*")) {
+          args1 = germplasmList["Description"];
         }
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@descriptionText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
         break;
       case "User":
-        selector = "@userText";
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@userText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
         break;
       case "Import Date":
-        selector = "@importDateText";
+        if (args1.includes("@TODAY")) args1 = helpers.getToday();
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@importDateText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
         break;
       case "Total Entries":
-        selector = "@totalEntriesText";
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@totalEntriesText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
         break;
       default:
         throw new Error(`Unexpected ${args2} name.`);
     }
-
-    await germplasmPage.pause(5000);
-
-    await germplasmPage.section.germplasmListsDetails.getText(
-      selector,
-      ({ value }) => {
-        val = String(value).trim();
-      }
-    );
-
-    await client.assert.equal(val, args1);
   }
 );
