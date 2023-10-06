@@ -321,3 +321,15 @@ Then(/^user can see "([^"]*)" in preview table$/, async function (args1) {
     args1
   );
 });
+
+Then(/^user can see "([^"]*)" tab in Import Data page$/, async function(args1) {
+  switch (args1) {
+    case "Genotypic Data":
+      await importPage.assert.visible("@genotypicDataTab");
+      break;
+    default:
+      console.log("Unable to find " + args1);
+      break;
+  }
+	
+});
