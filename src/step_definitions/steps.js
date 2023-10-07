@@ -1120,7 +1120,7 @@ Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
 });
 
 When(/^user close the Notification$/, async function () {
-  await clickCloseNotification();
+  await page.click("button[aria-label='Close Notification']");
 });
 
 Given(/^a new program is created$/, async function () {
