@@ -3,6 +3,7 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const path = require("path");
 const helpers = require("./helpers.js");
 const importPage = client.page.importPage();
+const importStepsHelpers = require("./importStepsHelpers.js");
 const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
 const experimentsFolder = path.join(
   __basedir,
@@ -10,19 +11,18 @@ const experimentsFolder = path.join(
   "files",
   "ExperimentsImport"
 );
-const importStepsHelpers = require("./importStepsHelpers.js");
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
   async function (args1) {
-    await setListName(args1);
+    await importStepsHelpers.setListName(args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in List Description field of import page$/,
   async function (args1) {
-    await setListDescription(args1);
+    await importStepsHelpers.setListDescription(args1);
   }
 );
 

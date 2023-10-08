@@ -865,7 +865,7 @@ Then(/^user can see 'Import' button$/, async () => {
 });
 
 When(/^user selects "([^"]*)" button$/, async function (args1) {
-  await selectsButton();
+  await selectsButton(args1);
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
