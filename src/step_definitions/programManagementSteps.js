@@ -8,7 +8,7 @@ const program = {};
 const location = {};
 const helpers = require("./helpers");
 const { Sign } = require("crypto");
-const programManagementStepsMod = require("./programManagementStepsHelpers");
+const programManagementStepsHelpers = require("./programManagementStepsHelpers");
 
 Then(/^user can see Program User Management page$/, async () => {
   await page.assert.visible({
@@ -28,21 +28,21 @@ When(/^user selects 'New Program' button in Programs page$/, async function () {
 When(
   /^user sets "([^"]*)" in Program Name field in Programs page$/,
   async function (args1) {
-    await programManagementStepsMod.setProgramName(args1);
+    await programManagementStepsHelpers.setProgramName(args1);
   }
 );
 
 When(
   /^user selects "([^"]*)" in Species dropdown in Programs page$/,
   async function (args1) {
-    await programManagementStepsMod.setSpecies(args1);
+    await programManagementStepsHelpers.setSpecies(args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in Program Key field in Programs page$/,
   async function (args1) {
-    await programManagementStepsMod.setProgramKey(args1);
+    await programManagementStepsHelpers.setProgramKey(args1);
   }
 );
 
@@ -72,9 +72,10 @@ Then(
 When(
   /^user selects 'Edit' of "([^"]*)" in Programs page$/,
   async function (args1) {
+    await helpers.showAll();
     let programName;
     if (args1.includes("*")) {
-      programName = program.Name;
+      programName = programManagementStepsHelpers.getProgram().Name;
     } else {
       programName = args1;
     }
@@ -89,6 +90,7 @@ When(
 Then(
   /^user can see "([^"]*)" in Program Name field in Programs page$/,
   async (args1) => {
+    let program = programManagementStepsHelpers.getProgram();
     if (program.Name != null) {
       await page.section.programForm.assert.value(
         "@programNameField",
@@ -112,7 +114,7 @@ Then(
   async (args1) => {
     //will find match on 1st row only
     if (args1.includes("*")) {
-      programName = program.Name;
+      programName = programManagementStepsHelpers.getProgram().Name;
     } else {
       programName = args1;
     }
@@ -147,7 +149,10 @@ Then(/^user can see "([^"]*)" Program in Programs page$/, async (args1) => {
 });
 
 Then(/^user can see new program in Programs page$/, async (table) => {
-  let selector = `.//td[normalize-space(.)='${program.Name}']`;
+  await helpers.showAll();
+  let selector = `.//td[normalize-space(.)='${
+    programManagementStepsHelpers.getProgram().Name
+  }']`;
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
@@ -157,7 +162,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
               selector: selector,
               locateStrategy: "xpath",
             },
-            program.Name
+            programManagementStepsHelpers.getProgram().Name
           );
           break;
         case "Key":
@@ -167,7 +172,7 @@ Then(/^user can see new program in Programs page$/, async (table) => {
                 selector + "/ancestor::tr//td[@data-label='Program Key']",
               locateStrategy: "xpath",
             },
-            program.Key
+            programManagementStepsHelpers.getProgram().Key
           );
           break;
         case "Species":
@@ -227,9 +232,9 @@ Then(
 When(
   /^user selects 'Deactivate' of "([^"]*)" in Programs page$/,
   async (args1) => {
-    let programName;
-    if (program.Name != null) {
-      programName = program.Name;
+    await helpers.showAll();
+    if (args1.includes("*")){
+      programName = programManagementStepsHelpers.getProgram().Name;
     } else {
       programName = args1;
     }
@@ -266,7 +271,7 @@ When(
 Then(
   /^user can not see "([^"]*)" in Name column in Program page$/,
   async (args1) => {
-    let programName;
+    let programName = programManagementStepsHelpers.getProgram();
     if (program.Name == null) programName = args1;
     else programName = program.Name;
     const selector = {
@@ -341,7 +346,7 @@ Then(/^user can see 'Cancel' button in Programs page$/, async () => {
 });
 
 When(/^user selects 'Save' button in Programs page$/, async function () {
-  await programManagementStepsMod.clickSaveProgram();
+  await programManagementStepsHelpers.clickSaveProgram();
 });
 
 Then(/^user can see 'Program Form' in Programs page$/, async () => {
@@ -360,8 +365,8 @@ Then(
 );
 
 Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
-  let programName;
-  if (program.Name == null) programName = args1;
+  let programName = programManagementStepsHelpers.getProgram();
+  if (programName == null) programName = args1;
   else programName = program.Name;
 
   await page.assert.visible({
@@ -551,36 +556,39 @@ When(/^user creates a new program$/, async function (table) {
   await page.waitForElementVisible("@newProgramButton");
   await page.click("@newProgramButton");
   let programForm = page.section.programForm;
+  let program;
   for (column of table.raw()[0]) {
     for (hash of table.hashes()) {
       switch (column) {
         case "Program Name":
-          program.Name = hash["Program Name"].replace(
-            "*",
-            this.parameters.timeStamp
+          await programForm.setValue(
+            "@programNameField",
+            hash["Program Name"].replace("*", this.parameters.timeStamp)
           );
-          await programForm.setValue("@programNameField", program.Name);
           break;
         case "Species":
-          program.Species = hash["Species"];
-          await programForm.setValue("@speciesSelect", program.Species);
+          await programForm.setValue("@speciesSelect", hash["Species"]);
           break;
         case "Program Key":
-          program.Key = hash["Program Key"].replace(
-            "*",
-            helpers.generateRandomAlphaString(5)
+          await programForm.setValue(
+            "@programKeyField",
+            hash["Program Key"].replace(
+              "*",
+              helpers.generateRandomAlphaString(5)
+            )
           );
-          await programForm.setValue("@programKeyField", program.Key);
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
       }
     }
   }
-  await programForm.click("@saveButton");
+  await programManagementStepsHelpers.clickSaveProgram();
 });
 
 Then(/^user can see a new program is created$/, async () => {
+  await helpers.showAll();
+  let program = programManagementStepsHelpers.getProgram();
   let selector = `.//td[normalize-space(.)='${program.Name}']`;
   await page.assert.containsText(
     { selector: selector, locateStrategy: "xpath" },
@@ -609,8 +617,8 @@ Then(
     await page.section.programForm.assert.containsText(
       "@modalHeader",
       args1.replace("*", () => {
-        if (program.Name != null) return program.Name;
-        return this.parameters.timeStamp;
+        if (args1.includes("*")) return programManagementStepsHelpers.getProgram().Name;
+        return args1;
       })
     );
   }
@@ -668,7 +676,7 @@ Then(
   /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = programManagementStepsHelpers.getProgram().Name;
     }
     await page.section.programConfigurationForm.assert.containsText(
       "@notSharedMessage",
@@ -695,7 +703,7 @@ Then(
   /^user can see "([^"]*)" is currently shared but not accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = programManagementStepsHelpers.getProgram().Name;
     }
     await page.assert.visible({
       selector: `//li[normalize-space()='${args1} (Not Accepted)']`,
@@ -708,7 +716,7 @@ Then(
   /^user can see "([^"]*)" is currently shared and accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = programManagementStepsHelpers.getProgram().Name;
     }
     await page.assert.visible({
       selector: `//li[normalize-space()='${args1} (Accepted)']`,
@@ -721,7 +729,7 @@ Then(
   /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = programManagementStepsHelpers.getProgram().Name;
     }
     await page.assert.visible({
       selector: `//label[normalize-space()='${args1}']//input`,
@@ -734,7 +742,7 @@ When(
   /^user selects "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = programManagementStepsHelpers.getProgram().Name;
     }
     await page.click({
       selector: `//label[normalize-space()='${args1}']//input`,
@@ -767,7 +775,7 @@ When(
 When(
   /^user selects "([^"]*)" on program-selection page$/,
   async function (args1) {
-    await programManagementStepsMod.selectProgram(args1);
+    await programManagementStepsHelpers.selectProgram(args1);
   }
 );
 

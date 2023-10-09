@@ -1329,7 +1329,7 @@ async function clickSaveUserButton() {
 }
 
 async function closeNotification() {
-  await page.click("button[aria-label='Close Notification']");
+  await page.click("article:not([style='display: none;']) button[aria-label='Close Notification'][class='delete']");
 }
 
 async function userLogsOut() {
