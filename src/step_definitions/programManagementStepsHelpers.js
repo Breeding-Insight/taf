@@ -10,6 +10,9 @@ const helpers = require("./helpers");
 const { Sign } = require("crypto");
 
 module.exports = {
+  getProgram: function () {
+    return program;
+  },
   selectProgram: async function (name) {
     if (name.includes("*")) {
       name = program.Name;

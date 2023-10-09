@@ -865,7 +865,7 @@ Then(/^user can see 'Import' button$/, async () => {
 });
 
 When(/^user selects "([^"]*)" button$/, async function (args1) {
-  await selectsButton();
+  await selectsButton(args1);
 });
 
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
@@ -1120,7 +1120,7 @@ Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
 });
 
 When(/^user close the Notification$/, async function () {
-  await clickCloseNotification();
+  await page.click("button[aria-label='Close Notification']");
 });
 
 Given(/^a new program is created$/, async function () {
@@ -1329,7 +1329,7 @@ async function clickSaveUserButton() {
 }
 
 async function closeNotification() {
-  await page.click("button[aria-label='Close Notification']");
+  await page.click("article:not([style='display: none;']) button[aria-label='Close Notification'][class='delete']");
 }
 
 async function userLogsOut() {

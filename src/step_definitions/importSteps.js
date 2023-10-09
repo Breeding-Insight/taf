@@ -11,7 +11,6 @@ const experimentsFolder = path.join(
   "files",
   "ExperimentsImport"
 );
-const importStepsHelpers = require("./importStepsHelpers.js");
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
@@ -23,7 +22,7 @@ When(
 When(
   /^user sets "([^"]*)" in List Description field of import page$/,
   async function (args1) {
-    await setListDescription(args1);
+    await importStepsHelpers.setListDescription(args1);
   }
 );
 
@@ -321,4 +320,16 @@ Then(/^user can see "([^"]*)" in preview table$/, async function (args1) {
     },
     args1
   );
+});
+
+Then(/^user can see "([^"]*)" tab in Import Data page$/, async function(args1) {
+  switch (args1) {
+    case "Genotypic Data":
+      await importPage.assert.visible("@genotypicDataTab");
+      break;
+    default:
+      console.log("Unable to find " + args1);
+      break;
+  }
+	
 });
