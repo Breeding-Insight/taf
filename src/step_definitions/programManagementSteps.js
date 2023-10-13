@@ -233,7 +233,7 @@ When(
   /^user selects 'Deactivate' of "([^"]*)" in Programs page$/,
   async (args1) => {
     await helpers.showAll();
-    if (args1.includes("*")){
+    if (args1.includes("*")) {
       programName = programManagementStepsHelpers.getProgram().Name;
     } else {
       programName = args1;
@@ -365,12 +365,10 @@ Then(
 );
 
 Then(/^user can see "([^"]*)" archived in system in banner$/, async (args1) => {
-  let programName = programManagementStepsHelpers.getProgram();
-  if (programName == null) programName = args1;
-  else programName = program.Name;
-
+  if (args1.includes("*"))
+    args1 = programManagementStepsHelpers.getProgram().Name;
   await page.assert.visible({
-    selector: `//article//div[normalize-space(.)='${programName} archived in system' and contains(@class, 'banner-text')]`,
+    selector: `//article//div[normalize-space(.)='${args1} archived in system' and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
   });
 });
@@ -617,7 +615,8 @@ Then(
     await page.section.programForm.assert.containsText(
       "@modalHeader",
       args1.replace("*", () => {
-        if (args1.includes("*")) return programManagementStepsHelpers.getProgram().Name;
+        if (args1.includes("*"))
+          return programManagementStepsHelpers.getProgram().Name;
         return args1;
       })
     );
