@@ -224,7 +224,7 @@ Then(
     //will find match on new row only
     await page.section.programForm.isItemInRow({
       Species: args1,
-      Name: program.Name,
+      Name: programManagementStepsHelpers.getProgram().Name,
     });
   }
 );
