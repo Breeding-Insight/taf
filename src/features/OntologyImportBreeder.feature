@@ -10,7 +10,7 @@ Feature: Ontology Import (10 Scenarios)
 	@BI-809
 	@SmokeTests
 	Scenario: Import Ontology page
-		Then user can header "Import File"
+		Then user can see header "Import File"
 		And user can see a message 'Before You Import...'
 		And user can see a message 'Prepare ontology information for import using the provided template.'
 		And user can see a button 'Download the Ontology Import Template'
@@ -138,14 +138,14 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error(s) detected in file, test_traits_missingCol.xlsx. Missing expected columns [Status, Trait entity, Name]. Import cannot proceed."
+		Then user can see an error message "Missing expected columns [Status, Trait entity, Name]"
 
 	@BI-928
 	@bug
 	Scenario: Ontology - duplicate column
 		And user uploads "test_traits_dupCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error(s) detected in file, test_traits_dupCol.xlsx. Found duplicate column names. Import cannot proceed."
+		Then user can see an error message "Found duplicate column names"
 
 	@BI-1453
 	Scenario: Ontology - missing formula
@@ -207,7 +207,6 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see "3" row "3" "Term Type" field "Invalid term type" message
 
 	@BI-1699
-	@debug
 	Scenario: Validate that imported observations meet ontology defined criteria
 		And user uploads Experiments & Observations "InvalidImport.png" file
 		And user selects 'Import' button

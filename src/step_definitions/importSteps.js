@@ -1,6 +1,7 @@
 const { client } = require("nightwatch-api");
 const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const path = require("path");
+const helpers = require("./helpers.js");
 const importPage = client.page.importPage();
 const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
 const experimentsFolder = path.join(
@@ -308,3 +309,14 @@ Then(
     );
   }
 );
+
+Then(/^user can see "([^"]*)" in preview table$/, async function(args1) {
+  args1 = args1.replace("@TODAY", helpers.getToday());
+  await importPage.assert.visible(
+    {
+      selector: `//p[text()='${args1}']`,
+      locateStrategy: "xpath",
+    },
+    args1
+  );
+});

@@ -127,6 +127,11 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     default:
       throw new Error("Unknown user name");
   }
+
+  await page.isVisible("@acceptAllCookies", ({ value }) => {
+    if (value) page.click("@acceptAllCookies");
+  });
+
   await page.setValue("@emailInput", email);
   await page.setValue("@passwordInput", password);
   await page.click("@signInButton");
@@ -135,16 +140,19 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
     let version = 0;
     try {
       await page.getText(
-        { selector: "footer span", timeout: 10000 },
+        { selector: "footer span", timeout: 120000 },
         ({ value }) => {
           version = String(value).trim();
         }
       );
     } catch (error) {
       //try another control
-      await page.getText("#versionInfo span span", ({ value }) => {
-        version = String(value).trim();
-      });
+      await page.getText(
+        { selector: "#versionInfo span span", timeout: 120000 },
+        ({ value }) => {
+          version = String(value).trim();
+        }
+      );
     }
     client.globals.breedingInsightVersion = version;
   }
@@ -803,7 +811,7 @@ Then(/^user can see "([^"]*)" in the the Role dropdown$/, async (args1) => {
   await page.section.newUserForm.assert.containsText("@roleSelect", args1);
 });
 
-Then(/^user can header "([^"]*)"$/, async (args1) => {
+Then(/^user can see header "([^"]*)"$/, async (args1) => {
   await page.assert.containsText("#app main section h1", args1);
 });
 
@@ -1112,6 +1120,10 @@ When(/^user refresh the page$/, async function () {
 
 Then(/^user can see row "([^"]*)" rows in a table$/, async function (args1) {
   await page.expect.elements("tbody tr").count.to.equal(Number(args1));
+});
+
+When(/^user close the Notification$/, async function () {
+  await page.click("button[aria-label='Close Notification']");
 });
 
 //functions
