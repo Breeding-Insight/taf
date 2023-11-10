@@ -46,7 +46,8 @@ Feature: Germplasm table loading message
         Then user can not see loading wheel message on Germplasm page
         And user selects "Import Data" in navigation
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -92,7 +93,8 @@ Feature: Germplasm table loading message
         And user selects "Confirm" button
         And user selects "Import Data" in navigation
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button

@@ -865,6 +865,16 @@ When(/^user selects "([^"]*)" button$/, async (args1) => {
   await page.click(selector);
 });
 
+When(/^user selects "([^"]*)" link$/, async (args1) => {
+  await page.pause(1000);
+  const selector = {
+    selector: `//a[starts-with(normalize-space(.),'${args1}')]`,
+    locateStrategy: "xpath",
+  };
+  await page.waitForElementVisible(selector);
+  await page.click(selector);
+});
+
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
     selector: `//button[contains(normalize-space(.),'${args1}')]`,
@@ -935,6 +945,7 @@ When(/^user selects 'Yes, abort' button$/, async () => {
     locateStrategy: "xpath",
   });
 });
+
 
 Then(/^user can see Ontology table$/, async () => {
   await page.assert.visible("#ontologyTableLabel");
