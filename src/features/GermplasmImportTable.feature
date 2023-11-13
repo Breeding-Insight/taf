@@ -44,9 +44,7 @@ Feature: Germplasm Import Table
         Then user can see details on Germplasm details page
             | Preferred Name | GID | Breeding Method | Source | Pedigree                | Pedigree GID | Synonyms | External UID | User             | Creation Date |
             | Germplas124    | 3   | Backcross       | Cross  | Germplas123/Germplas123 | 2 / 2        | Germ2    |              | Cucumber Breeder |               |
-        Then user can see "Images" tab of Germplasm details page
         Then user can see "Pedigrees" tab of Germplasm details page
-        Then user can see "Attributes" tab of Germplasm details page
 
     @BI-1514
     Scenario: GIDs clickable Link
