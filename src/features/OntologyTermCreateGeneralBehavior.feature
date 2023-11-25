@@ -81,7 +81,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Date" in 'Scale Class' dropdown on ontology list page
         When user selects 'Cancel' button on ontology list page
-        When user clicks Show All button
+        When user selects Show All button
         Then user can not see "<ont_term_name>" in 'Name' column on ontology list page
 
         Examples:
@@ -101,7 +101,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects "Date" in 'Scale Class' dropdown on ontology list page
         And user selects 'Save' button on ontology list page
         When user pause for "10" seconds
-        When user clicks Show All button
+        When user selects Show All button
         Then user can see "<ont_term_name>" in 'Name' column on ontology list page
         Then user can see "<trait_entity> <trait_attribute>" in 'Trait' column on ontology list page
         Then user can see "<method_description> Observation" in 'Method' column on ontology list page

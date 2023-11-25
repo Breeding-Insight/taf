@@ -90,5 +90,32 @@ module.exports = {
         },
       },
     },
+    germplasmListsDetails: {
+      selector: "//div[@class='germplasm']",
+      locateStrategy: "xpath",
+      elements: {
+        descriptionText: {
+          selector: ".//b[normalize-space(.)='Description:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        userText: {
+          selector: ".//b[normalize-space(.)='User:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        importDateText: {
+          selector: ".//b[normalize-space(.)='Import Date:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        totalEntriesText: {
+          selector:
+            ".//b[normalize-space(.)='Total Entries:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+      },
+    },
   },
 };

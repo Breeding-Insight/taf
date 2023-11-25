@@ -6,13 +6,13 @@ Feature: Germplasm Import Table
         When user is on the program-management page
         #Create a new program
         When user selects 'New Program' button in Programs page
-        When user sets "P*" in Program Name field in Programs page
+        When user sets "A*" in Program Name field in Programs page
         When user selects "Potato" in Species dropdown in Programs page
         When user sets "A*" in Program Key field in Programs page
         When user selects 'Save' button in Programs page
         When user pause for "10" seconds
         When user navigates to Program Selection page
-        When user selects "P*" on program-selection page
+        When user selects "A*" on program-selection page
         When user selects "Program Administration" in navigation
         When user selects "Users" tab
         When user clicks 'New User' button
@@ -25,7 +25,7 @@ Feature: Germplasm Import Table
         When user logs out
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
-        And user selects "Import Data" in navigation
+        And user selects "Import Data" in top-level navigation
         And user uploads Germplasm "Germplasm77_2022-07-12.xlsx" file
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
@@ -36,7 +36,7 @@ Feature: Germplasm Import Table
     @BI-1501
     Scenario Outline: All of the information associated with a Germplasm Details page
         Given user logs in as "Cucumber Breeder"
-        When user selects "P*" on program-selection page
+        When user selects "A*" on program-selection page
         And user selects "Germplasm" in navigation
         Then user can see All Germplasm records exist on Germplasm page
         When user can see All Germplasm records have Show Details link on Germplasm page

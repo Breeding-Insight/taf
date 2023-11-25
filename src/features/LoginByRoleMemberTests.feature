@@ -1,4 +1,3 @@
-@debug
 Feature: Logging with Member
 
 	@BI-822

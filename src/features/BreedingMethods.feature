@@ -107,7 +107,7 @@ Feature: Breeding Methods
     When user selects "Generative (+)" in 'Genetic Diversity' dropdown in Breeding Method form
     And user clicks 'Save' button in Breeding Method form
     And user pause for "2" seconds
-    When user clicks Show All button
+    When user selects Show All button
     When user close the Notification
     Then user can see "<name>" in Name column in Breeding Method page
     Then user logs out
