@@ -128,10 +128,10 @@ Feature: Ontology Term Create - General Behavior
     @BI-1312
     Scenario: Ontology Term Create - Name & Method Description - Character Limits
         Given user selects 'New Term' button on ontology list page
-        When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
+        When user sets as is "ThisNameWithMoreThanSixteenCharacters" in 'Name' field on ontology list page
         When user sets "ThisDescription" in 'Method Description' field on ontology list page
         When user selects 'Save' button on ontology list page
-        Then user can see "Name must be less than 12 characters." below the 'Name' field on ontology list page
+        Then user can see "Name must be less than 16 characters." below the 'Name' field on ontology list page
         When user sets as is "ThisNameWith" in 'Name' field on ontology list page
         When user sets "ThisDescriptionIsMoreThanThirtyCharacters" in 'Method Description' field on ontology list page
         When user selects 'Save' button on ontology list page
