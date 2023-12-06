@@ -948,7 +948,6 @@ When(/^user selects 'Yes, abort' button$/, async () => {
   });
 });
 
-
 Then(/^user can see Ontology table$/, async () => {
   await page.assert.visible("#ontologyTableLabel");
 });
@@ -1004,10 +1003,13 @@ When(/^user click 'Save' button in User$/, async function () {
 });
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
-  await page.assert.visible({
-    selector: `//article//div[contains(text(), normalize-space("${args1}")) and contains(@class, 'banner-text')]`,
-    locateStrategy: "xpath",
-  });
+  await page.assert.containsText(
+    {
+      selector: "//article//div[contains(@class, 'banner-text')]",
+      locateStrategy: "xpath",
+    },
+    args1
+  );
 });
 
 Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
@@ -1140,7 +1142,7 @@ Given(/^a new program is created$/, async function () {
   await programManagementSteps.selectProgram("System Administration");
   await programManagementSteps.clickNewProgram();
   await programManagementSteps.setProgramName("*");
-  await programManagementSteps.setSpecies("Sweet Potato");
+  await programManagementSteps.setSpecies("Grape");
   await programManagementSteps.setProgramKey("*");
   await programManagementSteps.clickSaveProgram();
   await page.pause(1000);
@@ -1340,7 +1342,9 @@ async function clickSaveUserButton() {
 }
 
 async function closeNotification() {
-  await page.click("article:not([style='display: none;']) button[aria-label='Close Notification'][class='delete']");
+  await page.click(
+    "article:not([style='display: none;']) button[aria-label='Close Notification'][class='delete']"
+  );
 }
 
 async function userLogsOut() {

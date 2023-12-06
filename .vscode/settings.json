@@ -3,4 +3,16 @@
         "src/step_definitions/*.js",
         ],
         "cucumberautocomplete.strictGherkinCompletion": true,
+        "sqltools.connections": [
+            {
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 5432,
+                "driver": "PostgreSQL",
+                "name": "brapi",
+                "database": "bidb",
+                "username": "postgres",
+                "password": "postgres"
+            }
+        ],
 }
