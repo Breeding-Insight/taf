@@ -156,7 +156,7 @@ Feature: Experiments & Observations
         And user uploads Experiments & Observations "EXPBadTitle.csv" file
         When user selects 'Import' button
         When user pause for "10" seconds
-        Then user can see banner appears with an error message "Fix Invalid Fields"
+        Then user can see banner appears with an error message "File contains more than one Experiment title"
         Examples:
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
