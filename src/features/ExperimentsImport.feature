@@ -259,6 +259,7 @@ Feature: Experiments & Observations
         When user pause for "10" seconds
         And user uploads Experiments & Observations "EXP.csv" file
         When user selects 'Import' button
+        When user pause for "10" seconds
         Then user can see "Import Experiments & Observations" preview table
         Then user can see "User: Cucumber Breeder" in preview table
         Then user can see "Creation Date: @TODAY" in preview table
