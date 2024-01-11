@@ -1479,7 +1479,7 @@ When(
       .replace("*", this.parameters.timeStamp)
       .slice(-11);
     await ontologyPage.section.allTraitsForm.click({
-      selector: `//td[normalize-space()='${traitObject.nameField}']/following-sibling::td[@class='has-text-right is-narrow']/a`,
+      selector: `//td[normalize-space()='${traitObject.nameField}']/following-sibling::td/a[@data-testid='showDetails']`,
       locateStrategy: "xpath",
     });
   }
