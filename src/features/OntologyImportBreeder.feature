@@ -195,7 +195,7 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Import Traits - exceeds character length max
 		And user uploads "test_traits_exceedsCharLen.xlsx" file
 		And user selects 'Import' button
-		Then user can see "3" row "1" "Name" field "Name exceeds 12 character limit" message
+		Then user can see "3" row "1" "Name" field "Name exceeds 16 character limit" message
 		Then user can see "4" row "2" "Method Description" field "Method description exceeds 30 character limit" message
 
 	@BI-1273

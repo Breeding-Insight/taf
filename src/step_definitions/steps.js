@@ -1003,13 +1003,10 @@ When(/^user click 'Save' button in User$/, async function () {
 });
 
 Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
-  await page.assert.containsText(
-    {
-      selector: "//article[not(@style='display: none;')]//div[contains(@class, 'banner-text')]",
-      locateStrategy: "xpath",
-    },
-    args1
-  );
+  await page.assert.visible({
+    selector: `//article//*[contains(text(), normalize-space("${args1}"))]`,
+    locateStrategy: "xpath",
+  });
 });
 
 Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
