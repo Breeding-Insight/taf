@@ -144,11 +144,6 @@ jobs:
         run: sleep 180s
         shell: bash
 
-      - name: Try setting up species again
-        run: |
-          docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
-          docker exec bidb psql -U postgres -a -f species.sql -d postgres
-
       - name: Set up required bidb data for tests
         run: |
           docker cp populate-taf-data.sql bidb:/populate-taf-data.sql
