@@ -30,13 +30,11 @@ Feature: Germplasm List View
         Then user can see "10" as "Total Entries" of Germplasm Lists Details page
         Then user can see "@TODAY" as "Import Date" of Germplasm Lists Details page
 
-    @debug
     @BI-1787
     Scenario: Genotype data store and fetch
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
         When user selects "Import Data" in top-level navigation
-        
         Then user can see "Genotypic Data" tab in Import Data page
 
 
