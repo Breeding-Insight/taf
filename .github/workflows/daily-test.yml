@@ -89,6 +89,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: Breeding-Insight/bi-docker-stack
+          submodules: recursive
           token: ${{ secrets.DOCKERPATH }}
           path: bi-docker-stack
 
