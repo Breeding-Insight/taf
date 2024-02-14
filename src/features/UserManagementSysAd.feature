@@ -7,7 +7,7 @@ Feature: System User Management (15)
 
 	@BI-825
 	@BI-801
-	# @SmokeTests
+	@SmokeTests
 	Scenario: User Management page
 		When user is on the user-management page
 		Then user can see page of Users
@@ -67,7 +67,7 @@ Feature: System User Management (15)
 
 	@BI-830
 	@BI-802
-	# @SmokeTests
+	@SmokeTests
 	Scenario: Adding new user with no system role
 		Given user is on the user-management page
 		When user creates a new user
