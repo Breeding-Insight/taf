@@ -44,6 +44,7 @@ AfterAll(async () => {
   console.log("Browser Name=" + client.capabilities.browserName);
   switch (client.capabilities.browserName) {
     case "msedge": //same as chrome
+    case "chrome-headless-shell":
     case "chrome":
       run.version = client.capabilities.version;
       run.platform = client.capabilities.platform;
