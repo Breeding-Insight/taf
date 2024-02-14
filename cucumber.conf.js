@@ -41,6 +41,7 @@ BeforeAll(async () => {
 
 AfterAll(async () => {
   run.browserName = client.capabilities.browserName;
+  console.log("Browser Name=" + client.capabilities.browserName);
   switch (client.capabilities.browserName) {
     case "msedge": //same as chrome
     case "chrome":
