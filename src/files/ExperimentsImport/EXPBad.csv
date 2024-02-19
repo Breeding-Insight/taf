@@ -1,5 +1,5 @@
 Germplasm Name,Germplasm GID,Test (T) or Check (C),Exp Title ,Exp Description,Exp Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Exp Replicate #,Exp Block #,Row,Column,Treatment Factors,ObsUnitID
-Germplas140,1,C,New Trial DRP53,A new trial DRP115,plott,phenotyping,New Study 15,New Location DRP6,2000,9390,1,2,4,5,Jam application,
-Germplas141,2,C,,A new trial DRP116,plot,phenotyping,New Study 16,New Location DRP7,2000,9391,1,2,4,5,,
-Germplas142,,C,New Trial DRP55,A new trial DRP117,plot,phenotyping,New Study 17,New Location DRP8,,9392,1,2,4,5,Jam application,
-Germplas143,4,C,New Trial DRP56,A new trial DRP118,3,phenotyping,,New Location DRP9,2000,9393,1,2,4,5,Jam application,
+Germplas140,1,C,New Trial DRP,A new trial DRP,plott,phenotyping,New Study 15,New Location DRP6,2000,9390,1,2,4,5,Jam application,
+Germplas141,2,C,New Trial DRP,A new trial DRP,plot,phenotyping,New Study 16,New Location DRP7,2000,9391,1,2,4,5,,
+Germplas142,,C,New Trial DRP,A new trial DRP,plot,phenotyping,New Study 17,New Location DRP8,,9392,1,2,4,5,Jam application,
+Germplas143,4,C,New Trial DRP,A new trial DRP,3,phenotyping,,New Location DRP9,2000,9393,1,2,4,5,Jam application,
