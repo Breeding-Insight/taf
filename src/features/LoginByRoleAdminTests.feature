@@ -34,7 +34,7 @@ Feature: Logging with Sys Administration
 			| Name    |
 			| Species |
 			| # Users |
-		When user clicks Show All button
+		When user selects Show All button
 		Then user can see each row has an Edit link
 		And user can see each row has a Deactivate link
 		And user can see Previous page button

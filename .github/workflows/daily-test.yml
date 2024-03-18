@@ -89,6 +89,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: Breeding-Insight/bi-docker-stack
+          submodules: recursive
           token: ${{ secrets.DOCKERPATH }}
           path: bi-docker-stack
 
@@ -116,11 +117,6 @@ jobs:
       - name: Sleep to ensure docker set up
         run: sleep 60s
         shell: bash
-
-      - name: Try setting up species again
-        run: |
-          docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
-          docker exec bidb psql -U postgres -a -f species.sql -d postgres
 
       - name: Set up required bidb data for tests
         run: |

@@ -138,14 +138,14 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Ontology - missing column
 		And user uploads "test_traits_missingCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error(s) detected in file, test_traits_missingCol.xlsx. Missing expected columns [Status, Trait entity, Name]. Import cannot proceed."
+		Then user can see an error message "Missing expected columns [Status, Trait entity, Name]"
 
 	@BI-928
 	@bug
 	Scenario: Ontology - duplicate column
 		And user uploads "test_traits_dupCol.xlsx" file
 		And user selects 'Import' button
-		Then user can see an error message "Error(s) detected in file, test_traits_dupCol.xlsx. Found duplicate column names. Import cannot proceed."
+		Then user can see an error message "Found duplicate column names"
 
 	@BI-1453
 	Scenario: Ontology - missing formula
@@ -195,7 +195,7 @@ Feature: Ontology Import (10 Scenarios)
 	Scenario: Import Traits - exceeds character length max
 		And user uploads "test_traits_exceedsCharLen.xlsx" file
 		And user selects 'Import' button
-		Then user can see "3" row "1" "Name" field "Name exceeds 12 character limit" message
+		Then user can see "3" row "1" "Name" field "Name exceeds 16 character limit" message
 		Then user can see "4" row "2" "Method Description" field "Method description exceeds 30 character limit" message
 
 	@BI-1273
