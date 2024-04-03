@@ -134,6 +134,8 @@ jobs:
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: 122
         if: matrix.os == 'ubuntu-latest'
 
       - name: Run Chrome
