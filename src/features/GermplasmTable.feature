@@ -108,7 +108,7 @@ Feature: Germplasm table loading message
         Then user can see Term Type "Germplasm Attribute" on trait details
         Then user can see Trait "Root Color Liightness" on trait details
         Then user can see Method "0 Measurement" on trait details
-        Then user can see Scale Class "Nominal" on trait details
+        Then user can see Scale Class "Numerical" on trait details
 
         Examples:
             | ProgramName | Key | Species |
