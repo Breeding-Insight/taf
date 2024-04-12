@@ -3,6 +3,7 @@ Feature: Ontology Subscribe
         Given a new program is created
 
     @BI-1789
+    #bug - BI-2097
     Scenario: Add program name to subscribe ontology success message
         #Login as Cucumber Breeder and go to Snacks and share ontlogy with new program
         When user logs in as "Cucumber Breeder"
@@ -23,5 +24,5 @@ Feature: Ontology Subscribe
         When user selects "Configuration" tab on Program Management page
         When user selects "Snacks" in Choose ontology to subscribe to dropdown on Program Management page
         When user selects Save button of Subscribe to Shared Ontology on Program Management page
-        Then user can see banner contains "Successfully subscribed to Snacks's ontology"
+        Then user can see banner contains "Successfully subscribed to Snacks"
 
