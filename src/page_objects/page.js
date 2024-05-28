@@ -28,7 +28,7 @@ module.exports = {
 
     orcidSignInButton: "#connect-orcid-button",
 
-    emailInput: "#username",
+    emailInput: "#username-input",
     passwordInput: "#password",
 
     signInButton: "#signin-button",
