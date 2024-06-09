@@ -88,7 +88,7 @@ When(/^user clicks on Name sort ascending$/, async function () {
 Then(/^user can see "([^"]*)" Name in first line$/, async function (args1) {
   await importPage.assert.containsText(
     {
-      selector: `//tr[1]//td[@data-label='Name']`,
+      selector: `//tr[1]//td[@data-label='Germplasm Name']`,
       locateStrategy: "xpath",
     },
     args1

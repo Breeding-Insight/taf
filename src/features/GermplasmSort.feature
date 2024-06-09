@@ -36,11 +36,11 @@ Feature: Germplasm Sort Test
 		And user pause for "10" seconds
 		And user selects "Germplasm" in navigation
 		Then user can see All Germplasm records exist on Germplasm page
-		When user clicks on GID sort descending
-		Then user can see "11" GID in first line
 		When user clicks on GID sort ascending
 		Then user can see "1" GID in first line
-		When user clicks on "Name" of Germplasm table
+		When user clicks on GID sort descending
+		Then user can see "11" GID in first line
+		When user clicks on "Germplasm Name" of Germplasm table
 		When user clicks on Name sort descending
 		Then user can see "unknown" Name in first line
 		When user clicks on Name sort ascending

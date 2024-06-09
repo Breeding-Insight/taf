@@ -40,7 +40,7 @@ Feature: Germplasm Import Table
         And user selects "Germplasm" in navigation
         Then user can see All Germplasm records exist on Germplasm page
         When user can see All Germplasm records have Show Details link on Germplasm page
-        When user selects "Show Details" of row "3" of Germplasm page
+        When user selects Show Details of GID "3" of Germplasm page
         Then user can see details on Germplasm details page
             | Preferred Name | GID | Breeding Method | Source | Pedigree                | Pedigree GID | Synonyms | External UID | User             | Creation Date |
             | Germplas124    | 3   | Backcross       | Cross  | Germplas123/Germplas123 | 2 / 2        | Germ2    |              | Cucumber Breeder |               |
@@ -53,7 +53,7 @@ Feature: Germplasm Import Table
         And user selects "Germplasm" in navigation
         Then user can see Female Parent GID value is a link
         Then user can see Male Parent GID value is a link
-        When user selects "3" row Female Parent GID
+        When user selects "2" row Female Parent GID
         Then user can see details on Germplasm details page
             | Preferred Name | GID | Breeding Method | Source | Pedigree            | Pedigree GID | Synonyms | External UID | User             |
             | Germplas123    | 2   | Complex cross   | Cross  | Germplasm/Germplasm | 1 / 1        | Germ1    |              | Cucumber Breeder |
@@ -70,10 +70,10 @@ Feature: Germplasm Import Table
         When user sets "90" in "GID" search fields
         Then user can see "No germplasm are currently defined for this program." in All Germplasm
         When user refresh the page
-        When user sets "Germplas123" in "Name" search fields
-        Then user can see "Germplas123" in row "1" as "Name" column on All Germplasm
+        When user sets "Germplasm" in "Germplasm Name" search fields
+        Then user can see "Germplasm" in row "1" as "Germplasm Name" column on All Germplasm
         When user refresh the page
-        When user sets "AAA" in "Name" search fields
+        When user sets "AAA" in "Germplasm Name" search fields
         Then user can see "No germplasm are currently defined for this program." in All Germplasm
         When user refresh the page
         When user sets "Test cross" in "Breeding Method" search fields

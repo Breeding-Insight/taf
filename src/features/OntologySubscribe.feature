@@ -23,5 +23,5 @@ Feature: Ontology Subscribe
         When user selects "Configuration" tab on Program Management page
         When user selects "Snacks" in Choose ontology to subscribe to dropdown on Program Management page
         When user selects Save button of Subscribe to Shared Ontology on Program Management page
-        Then user can see banner contains "Successfully subscribed to Snacks's ontology"
+        Then user can see banner contains "Successfully subscribed to Snacks"
 
