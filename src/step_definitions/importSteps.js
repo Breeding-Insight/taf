@@ -71,14 +71,14 @@ Then(/^user can see "([^"]*)" GID in first line$/, async function (args1) {
   );
 });
 
-When(/^user clicks on Name sort descending$/, async function () {
+When(/^user clicks on Germplasm Name sort descending$/, async function () {
   await importPage.click({
     selector: "//th[2]//span[@class='icon sort-icon is-small']",
     locateStrategy: "xpath",
   });
 });
 
-When(/^user clicks on Name sort ascending$/, async function () {
+When(/^user clicks on Germplasm Name sort ascending$/, async function () {
   await importPage.click({
     selector: "//th[2]//span[@class='icon sort-icon is-small is-desc']",
     locateStrategy: "xpath",
@@ -88,7 +88,7 @@ When(/^user clicks on Name sort ascending$/, async function () {
 Then(/^user can see "([^"]*)" Name in first line$/, async function (args1) {
   await importPage.assert.containsText(
     {
-      selector: `//tr[1]//td[@data-label='Name']`,
+      selector: `//tr[1]//td[@data-label='Germplasm Name']`,
       locateStrategy: "xpath",
     },
     args1

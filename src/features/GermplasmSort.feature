@@ -1,6 +1,8 @@
 Feature: Germplasm Sort Test
 
 	@BI-1588
+	@BI-2165
+	@debug
 	Scenario: Easily able to sort the germplasm in the germplasm table
 		#Create a new program
 		Given user logs in as "sysad"
@@ -36,14 +38,14 @@ Feature: Germplasm Sort Test
 		And user pause for "10" seconds
 		And user selects "Germplasm" in navigation
 		Then user can see All Germplasm records exist on Germplasm page
-		When user clicks on GID sort descending
-		Then user can see "11" GID in first line
 		When user clicks on GID sort ascending
 		Then user can see "1" GID in first line
-		When user clicks on "Name" of Germplasm table
-		When user clicks on Name sort descending
+		When user clicks on GID sort descending
+		Then user can see "11" GID in first line
+		When user clicks on "Germplasm Name" of Germplasm table
+		When user clicks on Germplasm Name sort descending
 		Then user can see "unknown" Name in first line
-		When user clicks on Name sort ascending
+		When user clicks on Germplasm Name sort ascending
 		Then user can see "Germplas123" Name in first line
 		When user clicks on "Breeding Method" of Germplasm table
 		When user clicks on Breeding Method sort descending
