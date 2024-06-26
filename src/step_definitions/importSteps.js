@@ -333,3 +333,9 @@ Then(/^user can see "([^"]*)" tab in Import Data page$/, async function(args1) {
   }
 	
 });
+
+When('user sets {string} in Project Name field of import page', async function(s) {
+  await importPage.setValue("@projectNameField", s);
+})
+
+

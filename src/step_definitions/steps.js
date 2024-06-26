@@ -5,6 +5,7 @@ const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
+const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport")
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
@@ -1165,6 +1166,10 @@ Given(/^a new program is created$/, async function () {
   await userLogsOut();
 });
 
+When('user uploads Genotype Sample {string} file', async function(s) {
+  await uploadGenotypeSamplesFile(s);
+})
+
 //functions
 async function setUserName(name) {
   user.userName = name;
@@ -1369,6 +1374,10 @@ async function uploadGermplasmFile(args1) {
     'input[type="file"]',
     path.resolve(germplasmFolder, args1)
   );
+}
+
+async function uploadGenotypeSamplesFile(args1){
+  await page.setValue('input[type="file"]', path.resolve(genotypeSamplesFolder, args1))
 }
 
 async function selectsImportButton() {
