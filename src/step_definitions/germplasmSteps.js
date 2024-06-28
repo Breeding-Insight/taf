@@ -237,7 +237,8 @@ Then(/^user can see Male Parent GID value is a link$/, async function () {
 
 When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
   let control = {
-    selector: `//tbody//tr[${args1}]//td[@data-label='Female Parent GID']//a`,
+    selector: `//tr/td[@data-label='Female Parent GID'][normalize-space()='${args1}']/a`,
+    index: 0,
     locateStrategy: "xpath",
   };
   await client.execute("window.scrollTo(0,0);");
@@ -293,7 +294,7 @@ When(
           args1
         );
         break;
-      case "Name":
+      case "Germplasm Name":
         await germplasmPage.setValue(
           { selector: "//th[2]//div/input", locateStrategy: "xpath" },
           args1
@@ -456,5 +457,14 @@ Then(
       default:
         throw new Error(`Unexpected ${args2} name.`);
     }
+  }
+);
+
+When('user selects Show Details of GID {string} of Germplasm page', async function(gid) {
+  // Write code here that turns the phrase above into concrete actions
+    await germplasmPage.section.germplasmTable.click({
+      selector: `.//tr//td[1]/a[normalize-space()='${gid}']/../..//a[normalize-space()='Show Details']`,
+      locateStrategy: "xpath",
+    });
   }
 );
