@@ -1,9 +1,11 @@
 {
-    "cucumberautocomplete.steps": [
-        "src/step_definitions/*.js",
-        ],
-        "cucumberautocomplete.strictGherkinCompletion": true,
-        "sqltools.connections": [
+  "cucumber.features": [
+    "src/features/*.feature",
+  ],
+  "cucumber.glue": [
+    "src/step_defintions/*.js",
+  ],
+    "sqltools.connections": [
             {
                 "previewLimit": 50,
                 "server": "localhost",
