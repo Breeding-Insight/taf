@@ -153,7 +153,9 @@ Feature: Ontology Import (10 Scenarios)
 		And user selects 'Import' button
 		Then user can see "2" row "1" "Method Formula" field "Missing method formula for Computation method" message
 
+	
 	@BI-1454
+	#Bug BI-2099
 	Scenario: Ontology - missing scale categories
 		And user uploads "test_traits_missingScaleCat.xlsx" file
 		And user selects 'Import' button
