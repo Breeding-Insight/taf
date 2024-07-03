@@ -9,6 +9,7 @@ const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamp
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
+const experimentsObservationsPage = client.page.experimentsObservationsPage();
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -1168,6 +1169,10 @@ Given(/^a new program is created$/, async function () {
 
 When('user uploads Genotype Sample {string} file', async function(s) {
   await uploadGenotypeSamplesFile(s);
+})
+
+Then('user can see Date Created as descending sort', async function() {
+  await experimentsObservationsPage.section.table.assert.attributeEquals("@DateCreatedSort", "class", "icon sort-icon is-small is-desc");
 })
 
 //functions

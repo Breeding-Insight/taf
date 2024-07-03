@@ -1,6 +1,6 @@
 Feature: Germplasm Sort Test
   
-	@BI-1588 @BI-2165
+	@BI-1588
 	Scenario: Easily able to sort the germplasm in the germplasm table
 		#Create a new program
 		Given user logs in as "sysad"
@@ -74,4 +74,5 @@ Feature: Germplasm Sort Test
 		Examples:
 			| Program Name | Program Key | Species |
 			| A*           | A*          | Potato  |
+
 

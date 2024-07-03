@@ -271,6 +271,16 @@ When(
   }
 );
 
+When(
+  /^user uploads Sample Submission "([^"]*)" file$/,
+  async function (args1) {
+    await importPage.setValue(
+      'input[type="file"]',
+      path.resolve(experimentsFolder, args1)
+    );
+  }
+);
+
 Then(/^user can see "([^"]*)" preview table$/, async function (args1) {
   await importPage.assert.visible("#import-experiment div.b-table");
 });
