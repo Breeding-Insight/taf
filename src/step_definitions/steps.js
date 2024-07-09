@@ -1175,6 +1175,10 @@ Then('user can see Date Created as descending sort', async function() {
   await experimentsObservationsPage.section.table.assert.attributeEquals("@DateCreatedSort", "class", "icon sort-icon is-small is-desc");
 })
 
+Then('user can see Created Date as descending sort', async function() {
+  await page.assert.attributeEquals({ selector: "//div/span[normalize-space(.)='Created Date']/span", locateStrategy: "xpath" }, "class", "icon sort-icon is-small is-desc");
+})
+
 //functions
 async function setUserName(name) {
   user.userName = name;

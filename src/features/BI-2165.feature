@@ -20,18 +20,16 @@ Background: Setup
         When user selects "Import Experiments & Observations" button
         And user uploads Experiments & Observations "EXP.csv" file
         When user selects 'Import' button
-        When user pause for "10" seconds
         And user selects "Confirm" button
+        When user pause for "10" seconds
         When user selects "Experiments & Observations" in navigation
         Then user can see Date Created as descending sort
         When user selects "Sample Management" in navigation
         When user selects "Import Sample Submission" button
-        And user uploads Sample Submission "EXP.csv" file
+        And user uploads Genotype Sample "bi_sample_submission_v01.xls" file
         When user selects 'Import' button
-        When user pause for "10" seconds
+        And user sets "Genotype Sample" in Project Name field of import page
         And user selects "Confirm" button
-        When user selects "Experiments & Observations" in navigation
-        Then user can see Date Created as descending sort
-
-
-
+        When user pause for "10" seconds
+        When user selects "Sample Management" in navigation
+        Then user can see Created Date as descending sort
