@@ -17,6 +17,7 @@ Feature: Ontology Term Create - Method & Scale Class Behavior
         Then user can see 'Maximum Valid Value' field on ontology list page
 
     @BI-1109
+    @bug-BI-2194
     Scenario: Computation Method Class / Numerical Scale Class required fields
         Given user selects 'New Term' button on ontology list page
         And user sets "<ont_term_name>" in 'Name' field on ontology list page

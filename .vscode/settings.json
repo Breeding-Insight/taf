@@ -3,7 +3,7 @@
     "src/features/*.feature",
   ],
   "cucumber.glue": [
-    "src/step_defintions/*.js",
+    "src/step_definitions/*.js",
   ],
     "sqltools.connections": [
             {
