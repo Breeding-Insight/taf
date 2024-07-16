@@ -45,6 +45,7 @@ Feature: Breeding Methods
     And user selects "Import Data" in navigation
     And user uploads Germplasm "BreedingMethodGermplasm.csv" file
     And user selects 'Import' button
+    And user pause for "5" seconds
     When user sets "BreedingMethodGermplasm" in List Name field of import page
     When user sets "BreedingMethodGermplasm" in List Description field of import page
     And user selects "Confirm" button
