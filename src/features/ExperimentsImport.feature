@@ -216,6 +216,7 @@ Feature: Experiments & Observations
             | A*          | T*  | Grape   |
 
     @BI-1776
+    @BUG-BI-2239
     Scenario Outline: Preview Experiment & Observation import
         When user selects 'New Program' button in Programs page
         When user sets "<ProgramName>" in Program Name field in Programs page
