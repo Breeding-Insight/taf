@@ -2,6 +2,10 @@ Feature: scale class Nominal - values post save
 
      @BI-1329
     Scenario: scale class Nominal - values post save
+    Given a new program is created
+        Given user logs in as "Cucumber Breeder"
+        When user selects "*" on program-selection page
+        And user selects "Ontology" in navigation
         Given user selects 'New Term' button on ontology list page
         Given user sets "<ont_term_name>" in 'Name' field on ontology list page
         And user sets "<trait_description>" in 'Description' field on ontology list page
