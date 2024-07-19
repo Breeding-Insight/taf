@@ -76,14 +76,16 @@ Feature: System User Management (15)
 		Then user can see a new user is added in User
 
 	@BI-831
+		@role
 	Scenario:  Adding new user with admin role
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		Then user can see a new user is added in User
 
 	@BI-832
+		@role
 	Scenario: Filling out new user form and selecting Cancel
 		Given user is on the user-management page
 		When user selects New User button
@@ -96,32 +98,37 @@ Feature: System User Management (15)
 
 	@BI-833
 	@BI-835
+		@role
 	Scenario: Edit form entities
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		And user edits a user
 			| Name   | Email                | Role |
 			| Test * | test*@mailinator.com |      |
 		Then user can see edited user in users list
 
 	@BI-834
+		@role
+		##todo possible need to fix quotes depending on how step definition handled
+		##todo possible creating a user needs to be fixed for taf setup
 	Scenario: Editing form and selecting Cancel
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		And user clicks Edit of a user
 		And user selects Cancel button
 		Then user can see user is in users list
 
 	@BI-838
+		@role
 	Scenario Outline: Deactivate link - modal
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| <NameToDeactivate> | test*@mailinator.com | breeder |
+			| <NameToDeactivate> | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		Then user can see "Deactivate" in modal box header
 		And user can see "<NameToDeactivate>" in modal box header
@@ -137,11 +144,12 @@ Feature: System User Management (15)
 			| Test *       |
 
 	@BI-839
+		@role
 	Scenario: User Deactivate link and Cancel
 		Given user is on the user-management page
 		And user creates a new user
 			| Name       | Email                | Role    |
-			| User* | test*@mailinator.com | breeder |
+			| User* | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		Then user can see a modal box
 		When user selects 'Cancel' button
@@ -149,11 +157,12 @@ Feature: System User Management (15)
 		Then user can see edited user in users list
 
 	@BI-840
+		@role
 	Scenario: Deactivate link - Yes, deactivate
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| Test * | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		When user selects 'Yes, deactivate' button
 		Then user can not see user is in users list

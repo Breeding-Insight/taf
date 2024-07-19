@@ -6,6 +6,7 @@ Feature: Configuration
         And user selects "System Administration" on program-selection page
 
     @BI-1502
+        @role
     Scenario Outline: Configuration as a sub-menu
         When user is on the program-management page
         #Create a new program
@@ -22,7 +23,7 @@ Feature: Configuration
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up

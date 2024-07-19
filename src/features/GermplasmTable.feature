@@ -20,7 +20,7 @@ Feature: Germplasm table loading message
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -77,7 +77,7 @@ Feature: Germplasm table loading message
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up

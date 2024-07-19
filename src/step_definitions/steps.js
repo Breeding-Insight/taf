@@ -1148,15 +1148,15 @@ Given(/^a new program is created$/, async function () {
   await navigateOnLeftMenu("Program Administration");
   await clickTab("Users");
   await clickNewUserButton();
-  await setUserName("Breeder");
+  await setUserName("ProgramAdmin");
   await setEmail("cucumberbreeder@mailinator.com");
-  await setRole("Breeder");
+  await setRole("Program Administrator");
   await clickSaveUserButton();
   await page.pause(1000);
   await clickNewUserButton();
-  await setUserName("Member");
+  await setUserName("ReadOnly");
   await setEmail("cucumbermember@mailinator.com");
-  await setRole("Member");
+  await setRole("Read Only");
   await clickSaveUserButton();
   await page.pause(1000);
 

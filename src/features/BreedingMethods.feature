@@ -19,7 +19,7 @@ Feature: Breeding Methods
     When user clicks 'New User' button
     When user sets "Christian" in Name field of User
     When user sets "christian@mailinator.com" in Email field of User
-    When user sets "breeder" in Role dropdown of User
+    When user sets "Program Administrator" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     And user selects "Breeding Methods" tab
@@ -82,13 +82,13 @@ Feature: Breeding Methods
     When user clicks 'New User' button
     When user sets "Breeder" in Name field of User
     When user sets "cucumberbreeder@mailinator.com" in Email field of User
-    When user sets "breeder" in Role dropdown of User
+    When user sets "Program Administrator" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     When user clicks 'New User' button
     When user sets "Breeder" in Name field of User
     When user sets "cucumbermember@mailinator.com" in Email field of User
-    When user sets "member" in Role dropdown of User
+    When user sets "Read Only" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     When user close the Notification

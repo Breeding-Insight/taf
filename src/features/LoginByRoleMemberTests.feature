@@ -1,7 +1,7 @@
-Feature: Logging with Member
+Feature: Logging with Read Only
 
 	@BI-822
-	Scenario: Logging in as a member of one program
+	Scenario: Logging in as a Read Only of one program
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
 		Then user can see Welcome page of program
@@ -15,7 +15,7 @@ Feature: Logging with Member
 		And user can see "Program Administration" in navigation
 
 	@BI-823
-	Scenario: Logging in as a breeder of one program
+	Scenario: Logging in as a Read Only of one program
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
 		Then user can see Welcome page of program
@@ -28,14 +28,14 @@ Feature: Logging with Member
 		And user can see "Program Administration" in navigation
 
 	@BI-845
-	Scenario: Logging in as a breeder of one program
+	Scenario: Logging in as a Read Only of one program
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
 		When user selects "Ontology" in navigation
 		Then user can not see "Import Ontology" in navigation
 
 	@BI-887
-	Scenario: No Admin role, Program Member - Program User Management
+	Scenario: No System Admin role, Program Read Only - Program User Management
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
 		And user selects "Program Administration" in navigation
@@ -47,7 +47,7 @@ Feature: Logging with Member
 	#To ensure there is at least one location in list of locations in Snacks
 	#Scenario will still pass with no locations, but won't test the lack of Edit and Deactivate links
 	@BI-915
-	Scenario: Program Location Management page - member - SETUP
+	Scenario: Program Location Management page - Read Only - SETUP
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
 		When user selects "Program Administration" in navigation
@@ -60,7 +60,7 @@ Feature: Logging with Member
 			| Location*     |
 
 	@BI-915
-	Scenario: Program Location Management page - member
+	Scenario: Program Location Management page - Read Only
 		Given user logs in as "Cucumber Member"
 		When user selects "Snacks" on program-selection page
 		And user selects "Program Administration" in navigation
