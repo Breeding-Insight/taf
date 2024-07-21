@@ -1,6 +1,7 @@
 Feature: Breeding Methods
 
   @BI-1805
+  @debug
   Scenario Outline: Breeding Methods Management
     Given user logs in as "sysad"
     And user selects "System Administration" on program-selection page
@@ -34,10 +35,10 @@ Feature: Breeding Methods
     When user selects "Ploidy" in 'Category' dropdown in Breeding Method form
     When user selects "Generative (+)" in 'Genetic Diversity' dropdown in Breeding Method form
     And user clicks 'Save' button in Breeding Method form
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user can see banner contains "Breeding method created successfully"
     When user clicks 'Show All' button in Breeding Method Management page
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user can see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
@@ -54,7 +55,7 @@ Feature: Breeding Methods
     When user selects "Program Administration" in navigation
     And user selects "Breeding Methods" tab
     And user clicks 'Show All' button in Breeding Method Management page
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user cannot see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
