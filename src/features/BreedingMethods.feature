@@ -1,7 +1,6 @@
 Feature: Breeding Methods
 
   @BI-1805
-  @debug
   Scenario Outline: Breeding Methods Management
     Given user logs in as "sysad"
     And user selects "System Administration" on program-selection page
