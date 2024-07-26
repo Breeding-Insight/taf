@@ -611,7 +611,7 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 });
 
 When(
-  /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a Program Administrator$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
@@ -635,7 +635,7 @@ When(
 );
 
 When(
-  /^user can see "([^"]*)" has been added to "([^"]*)" as a member$/,
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a Read Only$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 

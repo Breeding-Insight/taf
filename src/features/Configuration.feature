@@ -6,7 +6,6 @@ Feature: Configuration
         And user selects "System Administration" on program-selection page
 
     @BI-1502
-        @role
     Scenario Outline: Configuration as a sub-menu
         When user is on the program-management page
         #Create a new program

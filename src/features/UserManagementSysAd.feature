@@ -76,7 +76,6 @@ Feature: System User Management (15)
 		Then user can see a new user is added in User
 
 	@BI-831
-		@role
 	Scenario:  Adding new user with admin role
 		Given user is on the user-management page
 		When user creates a new user
@@ -85,7 +84,6 @@ Feature: System User Management (15)
 		Then user can see a new user is added in User
 
 	@BI-832
-		@role
 	Scenario: Filling out new user form and selecting Cancel
 		Given user is on the user-management page
 		When user selects New User button
@@ -98,7 +96,6 @@ Feature: System User Management (15)
 
 	@BI-833
 	@BI-835
-		@role
 	Scenario: Edit form entities
 		Given user is on the user-management page
 		When user creates a new user
@@ -110,9 +107,6 @@ Feature: System User Management (15)
 		Then user can see edited user in users list
 
 	@BI-834
-		@role
-		##todo possible need to fix quotes depending on how step definition handled
-		##todo possible creating a user needs to be fixed for taf setup
 	Scenario: Editing form and selecting Cancel
 		Given user is on the user-management page
 		When user creates a new user
@@ -123,7 +117,6 @@ Feature: System User Management (15)
 		Then user can see user is in users list
 
 	@BI-838
-		@role
 	Scenario Outline: Deactivate link - modal
 		Given user is on the user-management page
 		And user creates a new user
@@ -144,7 +137,6 @@ Feature: System User Management (15)
 			| Test *       |
 
 	@BI-839
-		@role
 	Scenario: User Deactivate link and Cancel
 		Given user is on the user-management page
 		And user creates a new user
@@ -157,7 +149,6 @@ Feature: System User Management (15)
 		Then user can see edited user in users list
 
 	@BI-840
-		@role
 	Scenario: Deactivate link - Yes, deactivate
 		Given user is on the user-management page
 		And user creates a new user
