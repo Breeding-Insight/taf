@@ -5,9 +5,11 @@ const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
+const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport")
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
+const experimentsObservationsPage = client.page.experimentsObservationsPage();
 
 Given(/^user logs with valid credentials$/, async () => {
   await page.navigate();
@@ -1165,6 +1167,18 @@ Given(/^a new program is created$/, async function () {
   await userLogsOut();
 });
 
+When('user uploads Genotype Sample {string} file', async function(s) {
+  await uploadGenotypeSamplesFile(s);
+})
+
+Then('user can see Date Created as descending sort', async function() {
+  await experimentsObservationsPage.section.table.assert.attributeEquals("@DateCreatedSort", "class", "icon sort-icon is-small is-desc");
+})
+
+Then('user can see Created Date as descending sort', async function() {
+  await page.assert.attributeEquals({ selector: "//div/span[normalize-space(.)='Created Date']/span", locateStrategy: "xpath" }, "class", "icon sort-icon is-small is-desc");
+})
+
 //functions
 async function setUserName(name) {
   user.userName = name;
@@ -1369,6 +1383,10 @@ async function uploadGermplasmFile(args1) {
     'input[type="file"]',
     path.resolve(germplasmFolder, args1)
   );
+}
+
+async function uploadGenotypeSamplesFile(args1){
+  await page.setValue('input[type="file"]', path.resolve(genotypeSamplesFolder, args1))
 }
 
 async function selectsImportButton() {

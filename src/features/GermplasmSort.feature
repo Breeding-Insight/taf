@@ -1,5 +1,5 @@
 Feature: Germplasm Sort Test
-
+  
 	@BI-1588
 	Scenario: Easily able to sort the germplasm in the germplasm table
 		#Create a new program
@@ -41,9 +41,9 @@ Feature: Germplasm Sort Test
 		When user clicks on GID sort descending
 		Then user can see "11" GID in first line
 		When user clicks on "Germplasm Name" of Germplasm table
-		When user clicks on Name sort descending
+		When user clicks on Germplasm Name sort descending
 		Then user can see "unknown" Name in first line
-		When user clicks on Name sort ascending
+		When user clicks on Germplasm Name sort ascending
 		Then user can see "Germplas123" Name in first line
 		When user clicks on "Breeding Method" of Germplasm table
 		When user clicks on Breeding Method sort descending
@@ -74,4 +74,5 @@ Feature: Germplasm Sort Test
 		Examples:
 			| Program Name | Program Key | Species |
 			| A*           | A*          | Potato  |
+
 

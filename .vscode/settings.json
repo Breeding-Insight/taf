@@ -1,5 +1,5 @@
 {
-  "cucumber.features": [
+    "cucumber.features": [
     "src/features/*.feature",
   ],
   "cucumber.glue": [
