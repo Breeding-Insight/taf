@@ -628,7 +628,7 @@ When(
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='breeder']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='Program Administrator']`,
       locateStrategy: "xpath",
     });
   }
@@ -652,7 +652,7 @@ When(
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='member']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='Read Only']`,
       locateStrategy: "xpath",
     });
   }
