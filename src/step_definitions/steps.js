@@ -613,7 +613,7 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 });
 
 When(
-  /^user can see "([^"]*)" has been added to "([^"]*)" as a breeder$/,
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a Program Administrator$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
@@ -630,14 +630,14 @@ When(
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='breeder']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='Program Administrator']`,
       locateStrategy: "xpath",
     });
   }
 );
 
 When(
-  /^user can see "([^"]*)" has been added to "([^"]*)" as a member$/,
+  /^user can see "([^"]*)" has been added to "([^"]*)" as a Read Only$/,
   async (args1, args2) => {
     await page.navigateToProgram(args2);
 
@@ -654,7 +654,7 @@ When(
       locateStrategy: "xpath",
     });
     await page.waitForElementVisible({
-      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='member']`,
+      selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='Read Only']`,
       locateStrategy: "xpath",
     });
   }
@@ -1150,15 +1150,15 @@ Given(/^a new program is created$/, async function () {
   await navigateOnLeftMenu("Program Administration");
   await clickTab("Users");
   await clickNewUserButton();
-  await setUserName("Breeder");
+  await setUserName("ProgramAdmin");
   await setEmail("cucumberbreeder@mailinator.com");
-  await setRole("Breeder");
+  await setRole("Program Administrator");
   await clickSaveUserButton();
   await page.pause(1000);
   await clickNewUserButton();
-  await setUserName("Member");
+  await setUserName("ReadOnly");
   await setEmail("cucumbermember@mailinator.com");
-  await setRole("Member");
+  await setRole("Read Only");
   await clickSaveUserButton();
   await page.pause(1000);
 

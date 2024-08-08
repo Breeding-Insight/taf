@@ -29,7 +29,7 @@ Feature: Smoke Tests (11)
 
 		Examples:
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| Test * | test*@mailinator.com | Program Administrator |
 
 	@BI-806
 	Scenario: Check Users page
