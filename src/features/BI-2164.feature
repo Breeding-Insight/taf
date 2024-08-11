@@ -6,6 +6,7 @@ Background: Create a new list referencing existing GIDs
         When user selects "*" on program-selection page
         And user selects "Import Data" in top-level navigation
         And user uploads Germplasm "Germplasm77_2022-07-12.xlsx" file
+        And user pause for "5" seconds
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
         When user sets "GermplasmSort" in List Description field of import page
@@ -14,6 +15,7 @@ Background: Create a new list referencing existing GIDs
 
     @BI-2164
     @debug
+    @BUG_BI-2260
     Scenario Outline: All of the information associated with a Germplasm Details page
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
