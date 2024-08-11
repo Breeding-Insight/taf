@@ -461,10 +461,13 @@ Then(
 );
 
 When('user selects Show Details of GID {string} of Germplasm page', async function(gid) {
-  // Write code here that turns the phrase above into concrete actions
     await germplasmPage.section.germplasmTable.click({
       selector: `.//tr//td[1]/a[normalize-space()='${gid}']/../..//a[normalize-space()='Show Details']`,
       locateStrategy: "xpath",
     });
   }
 );
+
+Then('user can see GID as descending sort', async function() {
+  await germplasmPage.section.germplasmTable.assert.attributeEquals("@GIDSort", "class", "icon sort-icon is-small is-desc");
+})

@@ -27,7 +27,7 @@ VALUES
 ('0000-0002-7046-0251', 'TrailMix Breeder', 'trailmix@mailinator.com', by_user_id, by_user_id, true);
 
 INSERT INTO system_user_role (bi_user_id, system_role_id, created_by, updated_by) 
-SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'admin';
+SELECT bi_user.id, system_role.id, by_user_id, by_user_id FROM bi_user JOIN system_role ON bi_user.name = 'Christian' and system_role.domain = 'System Administrator';
 
 --Create program germplasm sequences
 create sequence tmtest_germplasm_sequence;
@@ -49,27 +49,27 @@ SELECT id, by_user_id, by_user_id FROM program WHERE name = 'Snacks';
 
 --Add Users To Programs
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'breeder'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'Program Administrator'
 JOIN program ON program.name = 'Snacks';
 
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'member'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Breeder' and role.domain = 'Read Only'
 JOIN program ON program.name = 'Trail Mix';
 
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Member' and role.domain = 'member'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Cucumber Member' and role.domain = 'Read Only'
 JOIN program ON program.name = 'Snacks';
 
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'TrailMix Breeder' and role.domain = 'breeder'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'TrailMix Breeder' and role.domain = 'Program Administrator'
 JOIN program ON program.name = 'Trail Mix';
 
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'Program Administrator'
 JOIN program ON program.name = 'Snacks';
 
 INSERT INTO program_user_role (program_id, user_id, role_id, created_by, updated_by, active) 
-SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'breeder'
+SELECT program.id, bi_user.id, role.id, by_user_id, by_user_id, true FROM bi_user JOIN role ON bi_user.name = 'Christian' and role.domain = 'Program Administrator'
 JOIN program ON program.name = 'Trail Mix';
 
 INSERT INTO program_enabled_breeding_methods(breeding_method_id, program_id, created_by, created_at, updated_by, updated_at)

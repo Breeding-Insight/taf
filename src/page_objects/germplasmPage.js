@@ -27,6 +27,10 @@ module.exports = {
           selector: "//table//a[normalize-space()='Show Details']",
           locateStrategy: "xpath",
         },
+        GIDSort:{
+          selector: "//span[normalize-space()='GID']/span",
+          locateStrategy: "xpath"
+        }
       },
     },
     listsTable: {
