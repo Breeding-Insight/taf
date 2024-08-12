@@ -3,7 +3,7 @@ Feature: Sorting by most recent first, hereafter referred to as geologic sort fo
 Background: Setup
         Given a new program is created
 
-    @BI-2165 @debug
+    @BI-2165
         Scenario: Sorting by most recent first, hereafter referred to as geologic sort for germplasm, experiments, and sample submission
         When user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
