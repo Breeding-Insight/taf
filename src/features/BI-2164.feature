@@ -11,6 +11,8 @@ Background: Create a new list referencing existing GIDs
         When user sets "GermplasmSort" in List Name field of import page
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
+        And user pause for "5" seconds
+        And user close notification pop-up
         When user logs out
 
     @BI-2164
@@ -25,4 +27,8 @@ Background: Create a new list referencing existing GIDs
         And user selects 'Import' button
         When user sets "GermplasmSort2" in List Name field of import page
         When user sets "GermplasmSort2" in List Description field of import page
-        # And user selects "Confirm" button
+        Then user can see "Duplicate names detected and are highlighted in yellow" on preview table
+        And user selects "Confirm" button
+        And user pause for "5" seconds
+        When user selects "Germplasm" in navigation
+        Then user can see row "10" rows in a table
