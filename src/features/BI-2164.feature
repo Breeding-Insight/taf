@@ -1,6 +1,12 @@
 Feature: Create a new list referencing existing GIDs
 
 Background: Create a new list referencing existing GIDs
+      
+
+    @BI-2164
+    @debug
+    @BUG_BI-2260
+    Scenario Outline: All of the information associated with a Germplasm Details page
         Given a new program is created
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
@@ -13,14 +19,6 @@ Background: Create a new list referencing existing GIDs
         And user selects "Confirm" button
         And user pause for "5" seconds
         And user close notification pop-up
-        When user logs out
-
-    @BI-2164
-    @debug
-    @BUG_BI-2260
-    Scenario Outline: All of the information associated with a Germplasm Details page
-        Given user logs in as "Cucumber Breeder"
-        When user selects "*" on program-selection page
         And user selects "Import Data" in top-level navigation
         And user uploads Germplasm "Germplasm77_2022-07-12.xlsx" file
         And user pause for "20" seconds
