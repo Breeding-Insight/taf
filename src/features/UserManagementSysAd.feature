@@ -80,7 +80,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		Then user can see a new user is added in User
 
 	@BI-832
@@ -100,7 +100,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		And user edits a user
 			| Name   | Email                | Role |
 			| Test * | test*@mailinator.com |      |
@@ -111,7 +111,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		When user creates a new user
 			| Name   | Email                | Role  |
-			| Test * | test*@mailinator.com | admin |
+			| Test * | test*@mailinator.com | System Administrator |
 		And user clicks Edit of a user
 		And user selects Cancel button
 		Then user can see user is in users list
@@ -121,7 +121,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| <NameToDeactivate> | test*@mailinator.com | breeder |
+			| <NameToDeactivate> | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		Then user can see "Deactivate" in modal box header
 		And user can see "<NameToDeactivate>" in modal box header
@@ -141,7 +141,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		And user creates a new user
 			| Name       | Email                | Role    |
-			| User* | test*@mailinator.com | breeder |
+			| User* | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		Then user can see a modal box
 		When user selects 'Cancel' button
@@ -153,7 +153,7 @@ Feature: System User Management (15)
 		Given user is on the user-management page
 		And user creates a new user
 			| Name   | Email                | Role    |
-			| Test * | test*@mailinator.com | breeder |
+			| Test * | test*@mailinator.com | System Administrator |
 		When user selects Deactivate of user
 		When user selects 'Yes, deactivate' button
 		Then user can not see user is in users list

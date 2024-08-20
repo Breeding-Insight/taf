@@ -69,7 +69,7 @@ The implemented scenarios assume the following data is set up on BI:
 **Users**
 | Name | Email | System Role |
 | ------ | ------ | ------ |
-| Christian | christian@mailinator.com | admin |
+| Christian | christian@mailinator.com | System Administrator |
 | Cucumber Breeder | cucumberbreeder@mailinator.com | |
 | Cucumber Member | cucumbermember@mailinator.com| |
 | TrailMix Breeder | trailmix@mailinator.com | |
@@ -77,8 +77,8 @@ The implemented scenarios assume the following data is set up on BI:
 **Programs**
 | Name | Species | Users (role) |
 | ------ | ------ | ------ |
-| Snacks | Grape | Cucumber Breeder (breeder) <br> Cucumber Member (member) <br> Christian (breeder) |
-| Trail Mix | Grape | Cucumber Breeder (member) <br> TrailMix Breeder (breeder) <br> Christian (breeder) |
+| Snacks | Grape | Cucumber Breeder (Program Administrator) <br> Cucumber Member (Read Only) <br> Christian (Program Administrator) |
+| Trail Mix | Grape | Cucumber Breeder (Read Only) <br> TrailMix Breeder (Program Administrator) <br> Christian (Program Administrator) |
 
 **Automated Database Setup**
 
