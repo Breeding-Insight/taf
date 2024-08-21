@@ -2,11 +2,15 @@ Feature: Display the full name in the table and details pane for ontology
 
   Background: 
         Given a new program is created
-
-    @BI-2160
-    Scenario Outline: Display the full name in the table and details pane for ontology
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
+        And user selects "Import Data" in navigation
+        And user uploads Germplasm "GermplasmSample.xlsx" file
+        And user selects 'Import' button
+
+    @BI-2160
+    @Smoke
+    Scenario Outline: Display the full name in the table and details pane for ontology
         And user selects "Import Data" in navigation
         And user uploads Germplasm "GermplasmSample.xlsx" file
         And user selects 'Import' button
