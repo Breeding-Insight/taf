@@ -1179,6 +1179,10 @@ Then('user can see Created Date as descending sort', async function() {
   await page.assert.attributeEquals({ selector: "//div/span[normalize-space(.)='Created Date']/span", locateStrategy: "xpath" }, "class", "icon sort-icon is-small is-desc");
 })
 
+When('user selects {string} menu item', async function name(args1) {
+  await page.click({selector:"//a[@role='menuitem'][normalize-space(.)='Import file']", locateStrategy:"xpath"});
+})
+
 //functions
 async function setUserName(name) {
   user.userName = name;
