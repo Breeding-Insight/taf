@@ -1390,8 +1390,7 @@ async function uploadGenotypeSamplesFile(args1){
 }
 
 async function selectsImportButton() {
-  await page.waitForElementVisible("#fileselectmessagebox-import-button", 60000);
-  await page.click("#fileselectmessagebox-import-button");
+  await client.execute('document.getElementById("fileselectmessagebox-import-button").click();');
   await page.pause(3000);
 }
 
