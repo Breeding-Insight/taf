@@ -5,6 +5,7 @@ Background: Create a new list referencing existing GIDs
 
     @BI-2164
     @debug
+    @Smoke
     @BUG_BI-2260
     Scenario Outline: All of the information associated with a Germplasm Details page
         Given a new program is created
