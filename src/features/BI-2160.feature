@@ -11,7 +11,9 @@ Feature: Display the full name in the table and details pane for ontology
         And user selects "Germplasm" in navigation
         And user selects "Manage Germplasm" button
         And user selects "Import file" menu item 
+        And user pause for "5" seconds
         And user uploads Germplasm "GermplasmSample.xlsx" file
+        And user pause for "5" seconds
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
         When user sets "GermplasmSort" in List Description field of import page
