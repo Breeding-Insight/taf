@@ -11,6 +11,7 @@ Background: Create a new list referencing existing GIDs
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
         And user selects "Import Data" in top-level navigation
+        And user pause for "5" seconds
         And user uploads Germplasm "Germplasm77_2022-07-12.xlsx" file
         And user selects 'Import' button
         When user sets "GermplasmSort" in List Name field of import page
@@ -19,6 +20,7 @@ Background: Create a new list referencing existing GIDs
         And user pause for "5" seconds
         And user close notification pop-up
         And user selects "Import Data" in top-level navigation
+        And user pause for "5" seconds
         And user uploads Germplasm "Germplasm77_2022-07-12.xlsx" file
         And user selects 'Import' button
         When user sets "GermplasmSort2" in List Name field of import page
