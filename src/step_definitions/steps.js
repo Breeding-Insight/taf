@@ -848,6 +848,7 @@ When(
 );
 
 When(/^user uploads Germplasm "([^"]*)" file$/, async function (args1) {
+  await page.pause(5 * 1000);
   await uploadGermplasmFile(args1);
 });
 
@@ -1177,6 +1178,10 @@ Then('user can see Date Created as descending sort', async function() {
 
 Then('user can see Created Date as descending sort', async function() {
   await page.assert.attributeEquals({ selector: "//div/span[normalize-space(.)='Created Date']/span", locateStrategy: "xpath" }, "class", "icon sort-icon is-small is-desc");
+})
+
+When('user selects {string} menu item', async function name(args1) {
+  await page.click({selector:`//a[@role='menuitem'][normalize-space(.)='${args1}']`, locateStrategy:"xpath"});
 })
 
 //functions
