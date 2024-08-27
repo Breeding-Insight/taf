@@ -1395,7 +1395,7 @@ async function uploadGenotypeSamplesFile(args1){
 }
 
 async function selectsImportButton() {
-  await page.click("#fileselectmessagebox-import-button");
+  await client.execute('document.getElementById("fileselectmessagebox-import-button").click();');
   await page.pause(3000);
 }
 

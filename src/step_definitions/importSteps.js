@@ -348,4 +348,8 @@ When('user sets {string} in Project Name field of import page', async function(s
   await importPage.setValue("@projectNameField", s);
 })
 
+Then('user can see {string} on preview table', async function(s) {
+  await importPage.assert.visible({selector:`//*[contains(text(), "${s}")]`, locateStrategy:"xpath"});
+})
+
 
