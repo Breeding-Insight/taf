@@ -848,7 +848,7 @@ When(
 );
 
 When(/^user uploads Germplasm "([^"]*)" file$/, async function (args1) {
-  await page.pause(5 * 1000);
+  await page.pause(10 * 1000);
   await uploadGermplasmFile(args1);
 });
 
