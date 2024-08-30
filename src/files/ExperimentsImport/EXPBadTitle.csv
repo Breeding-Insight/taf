@@ -1,5 +1,5 @@
-Germplasm Name,Germplasm GID,Test (T) or Check (C),Exp Title ,Exp Description,Exp Unit,Sub-Obs Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Sub Unit ID,Exp Replicate #,Exp Block #,Row,Column,Lat,Long,Elevation,RTK,Treatment Factors,ObsUnitID
-Germplas127,1,C,New Trial DRP,A new trial DRP,plot,multiple fruit,phenotyping,New Study 15,New Location DRP6,2000,9390,1,1,2,4,5,,,,,Jam application,
-Germplas128,2,C,New Trial DRP 1,A new trial DRP,plot,multiple fruit,phenotyping,New Study 16,New Location DRP7,2000,9391,2,1,2,4,5,,,,,Jam application,
-Germplas129,3,C,New Trial DRP,A new trial DRP,plot,multiple fruit,phenotyping,New Study 17,New Location DRP8,2000,9392,3,1,2,4,5,,,,,Jam application,
-Germplas130,4,C,New Trial DRP,A new trial DRP,plot,multiple fruit,phenotyping,New Study 18,New Location DRP9,2000,9393,1,1,2,4,5,,,,,Jam application,
+Germplasm Name,Germplasm GID,Test (T) or Check (C),Exp Title ,Exp Description,Exp Unit,Exp Type,Env,Env Location,Env Year,Exp Unit ID,Sub Unit ID,Exp Replicate #,Exp Block #,Row,Column,Lat,Long,Elevation,RTK,Treatment Factors
+Germplas127,1,C,New Trial DRP,A new trial DRP,plot,phenotyping,New Study 15,New Location DRP6,2000,9390,1,1,2,4,5,,,,,Jam application
+Germplas128,2,C,New Trial DRP 1,A new trial DRP,plot,phenotyping,New Study 16,New Location DRP7,2000,9391,2,1,2,4,5,,,,,Jam application
+Germplas129,3,C,New Trial DRP,A new trial DRP,plot,phenotyping,New Study 17,New Location DRP8,2000,9392,3,1,2,4,5,,,,,Jam application
+Germplas130,4,C,New Trial DRP,A new trial DRP,plot,phenotyping,New Study 18,New Location DRP9,2000,9393,1,1,2,4,5,,,,,Jam application
