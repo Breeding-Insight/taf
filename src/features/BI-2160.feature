@@ -4,7 +4,6 @@ Feature: Display the full name in the table and details pane for ontology
         Given a new program is created
 
     @BI-2160
-    @debug
     Scenario Outline: Display the full name in the table and details pane for ontology
         Given user logs in as "Cucumber Breeder"
         When user selects "*" on program-selection page
