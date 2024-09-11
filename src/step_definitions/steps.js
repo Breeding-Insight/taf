@@ -884,6 +884,7 @@ When(/^user selects "([^"]*)" link$/, async (args1) => {
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
     selector: `//button[contains(normalize-space(.),'${args1}')]`,
+    timeout: 60000,
     locateStrategy: "xpath",
   });
 });
