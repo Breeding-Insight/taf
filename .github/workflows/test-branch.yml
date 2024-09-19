@@ -88,7 +88,7 @@ jobs:
       AWS_GENO_BUCKET: breedinginsight.org-test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -97,7 +97,7 @@ jobs:
 
       #check out docker
       - name: Docker checkout (private)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Breeding-Insight/bi-docker-stack
           ref: ${{ github.event.inputs.bi_docker_stack }}
@@ -106,14 +106,14 @@ jobs:
           path: bi-docker-stack
 
       - name: Update bi-api Branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Breeding-Insight/bi-api
           ref: ${{ github.event.inputs.biapi }}
           path: bi-docker-stack/bi-api
 
       - name: Update bi-web Branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Breeding-Insight/bi-web
           ref: ${{ github.event.inputs.biweb }}
