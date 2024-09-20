@@ -37,9 +37,3 @@ Feature: The ontology can be case insensitive
     And user can see "Blackberry" column header
     And user can see "Blackberry1" column header
     And user can see "Blackberry01" column header
-        # Then user can see "Full Name" column header
-        # Then user pause for "5" seconds
-        # When user selects "Full Name" column header
-        # Then user can see "Full Name" sort on column header
-        # When user selects 'Show details' button of "Blackberry1" on ontology list page
-        # Then user can see "Test" in Full Name field of Show Details on ontology list page
