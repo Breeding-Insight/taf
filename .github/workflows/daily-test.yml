@@ -160,7 +160,7 @@ jobs:
         run: npm run test:chromeDaily
 
       - name: Publish Report Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cucumber-report-${{ matrix.os }}-${{ github.run_number }}
