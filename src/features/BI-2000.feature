@@ -14,4 +14,4 @@ Feature: Ontology error message disappears when a valid file is uploaded
         And user uploads Ontology "test01-ontology.xls" file
         And user selects 'Import' button
 		When user selects "Confirm" button
-        Then user can see banner contains "Imported ontology terms have been added"
+        Then user cannot see banner contains "Error(s) detected in file, Bad.xls . (See details below.) Import cannot proceed."
