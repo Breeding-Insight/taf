@@ -11,6 +11,7 @@ const experimentsFolder = path.join(
   "files",
   "ExperimentsImport"
 );
+const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport");
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
@@ -271,15 +272,12 @@ When(
   }
 );
 
-When(
-  /^user uploads Sample Submission "([^"]*)" file$/,
-  async function (args1) {
-    await importPage.setValue(
-      'input[type="file"]',
-      path.resolve(experimentsFolder, args1)
-    );
-  }
-);
+When(/^user uploads Sample Submission "([^"]*)" file$/, async function (args1) {
+  await importPage.setValue(
+    'input[type="file"]',
+    path.resolve(experimentsFolder, args1)
+  );
+});
 
 Then(/^user can see "([^"]*)" preview table$/, async function (args1) {
   await importPage.assert.visible("#import-experiment div.b-table");
@@ -332,24 +330,37 @@ Then(/^user can see "([^"]*)" in preview table$/, async function (args1) {
   );
 });
 
-Then(/^user can see "([^"]*)" tab in Import Data page$/, async function(args1) {
-  switch (args1) {
-    case "Genotypic Data":
-      await importPage.assert.visible("@genotypicDataTab");
-      break;
-    default:
-      console.log("Unable to find " + args1);
-      break;
+Then(
+  /^user can see "([^"]*)" tab in Import Data page$/,
+  async function (args1) {
+    switch (args1) {
+      case "Genotypic Data":
+        await importPage.assert.visible("@genotypicDataTab");
+        break;
+      default:
+        console.log("Unable to find " + args1);
+        break;
+    }
   }
-	
+);
+
+When(
+  "user sets {string} in Project Name field of import page",
+  async function (s) {
+    await importPage.setValue("@projectNameField", s);
+  }
+);
+
+Then("user can see {string} on preview table", async function (s) {
+  await importPage.assert.visible({
+    selector: `//*[contains(text(), "${s}")]`,
+    locateStrategy: "xpath",
+  });
 });
 
-When('user sets {string} in Project Name field of import page', async function(s) {
-  await importPage.setValue("@projectNameField", s);
-})
-
-Then('user can see {string} on preview table', async function(s) {
-  await importPage.assert.visible({selector:`//*[contains(text(), "${s}")]`, locateStrategy:"xpath"});
-})
-
-
+When("user uploads Genotype Samples {string} file", async function (file) {
+  await importPage.setValue(
+    'input[type="file"]',
+    path.resolve(experimentsFolder, args1)
+  );
+});
