@@ -1022,6 +1022,13 @@ Then(/^user can see banner contains "([^"]*)"$/, async function (args1) {
  }
 );
 
+Then(/^user cannot see banner contains "([^"]*)"$/, async (args1) => {
+  await page.assert.not.visible({
+    selector: `//article//*[contains(text(), normalize-space("${args1}"))]`,
+    locateStrategy: "xpath",
+  });
+});
+
 Then(/^user can see "([^"]*)" column in Users$/, async (args1) => {
   await page.assert.visible({
     selector: `//*[@id='programUserTableLabel']//th[normalize-space(.)='${args1}']`,
