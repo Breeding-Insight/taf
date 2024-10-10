@@ -1,7 +1,6 @@
 Feature: Sample Tracking
 
   @BI-2057
-  @debug
   Scenario: Sample Tracking
     Given a new program is created
     Given user logs in as "Cucumber Breeder"
