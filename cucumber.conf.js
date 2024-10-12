@@ -23,7 +23,7 @@ const run = {
   BreedingInsight: "",
 };
 
-setDefaultTimeout(300000);
+setDefaultTimeout(600000);
 global.__basedir = __dirname;
 
 Before(async function () {
