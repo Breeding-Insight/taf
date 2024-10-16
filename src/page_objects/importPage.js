@@ -6,6 +6,7 @@ module.exports = {
       selector: "//li//a[normalize-space()='Genotypic Data']",
       locateStrategy: "xpath",
     },
-    projectNameField:{selector:"#Project-Name"}
+    projectNameField:{selector:"#Project-Name"},
+    fileSelector:{selector:".file-select input", locateStrategy:"css"}
   },
 };
