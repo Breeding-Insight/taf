@@ -364,7 +364,3 @@ When("user uploads Genotype Samples {string} file", async function (file) {
     path.resolve(experimentsFolder, args1)
   );
 });
-
-Then('user can see Import file extension supported are {string}', async function (s) {
-  await importPage.assert.attributeEquals("@fileSelector", "accept", s);
-})
