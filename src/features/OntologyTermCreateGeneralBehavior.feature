@@ -81,7 +81,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects "Observation" in 'Method Class' dropdown on ontology list page
         And user selects "Date" in 'Scale Class' dropdown on ontology list page
         When user selects 'Cancel' button on ontology list page
-        When user clicks Show All button
+        When user selects Show All button
         Then user can not see "<ont_term_name>" in 'Name' column on ontology list page
 
         Examples:
@@ -101,7 +101,7 @@ Feature: Ontology Term Create - General Behavior
         And user selects "Date" in 'Scale Class' dropdown on ontology list page
         And user selects 'Save' button on ontology list page
         When user pause for "10" seconds
-        When user clicks Show All button
+        When user selects Show All button
         Then user can see "<ont_term_name>" in 'Name' column on ontology list page
         Then user can see "<trait_entity> <trait_attribute>" in 'Trait' column on ontology list page
         Then user can see "<method_description> Observation" in 'Method' column on ontology list page
@@ -128,10 +128,10 @@ Feature: Ontology Term Create - General Behavior
     @BI-1312
     Scenario: Ontology Term Create - Name & Method Description - Character Limits
         Given user selects 'New Term' button on ontology list page
-        When user sets as is "ThisNameWithMoreThanTwelveCharacters" in 'Name' field on ontology list page
+        When user sets as is "ThisNameWithMoreThanSixteenCharacters" in 'Name' field on ontology list page
         When user sets "ThisDescription" in 'Method Description' field on ontology list page
         When user selects 'Save' button on ontology list page
-        Then user can see "Name must be less than 12 characters." below the 'Name' field on ontology list page
+        Then user can see "Name must be less than 16 characters." below the 'Name' field on ontology list page
         When user sets as is "ThisNameWith" in 'Name' field on ontology list page
         When user sets "ThisDescriptionIsMoreThanThirtyCharacters" in 'Method Description' field on ontology list page
         When user selects 'Save' button on ontology list page

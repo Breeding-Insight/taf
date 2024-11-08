@@ -28,7 +28,7 @@ module.exports = {
 
     orcidSignInButton: "#connect-orcid-button",
 
-    emailInput: "#username",
+    emailInput: "#username-input",
     passwordInput: "#password",
 
     signInButton: "#signin-button",
@@ -492,7 +492,6 @@ module.exports = {
       },
       navigateToProgramSelection: async function () {
         //get the current url
-        debugger;
         let url;
         await client.url(({ value }) => {
           url = new URL(value).origin;

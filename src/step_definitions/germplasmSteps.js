@@ -3,6 +3,7 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const { getToday } = require("./helpers");
 const helpers = require("./helpers");
 const germplasmPage = client.page.germplasmPage();
+const germplasmList = [];
 
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
@@ -29,6 +30,16 @@ When(
   /^user selects "([^"]*)" of row "([^"]*)" of Germplasm page$/,
   async function (link, rowIndex) {
     await germplasmPage.section.germplasmTable.click({
+      selector: `.//tr[${rowIndex}]//a[normalize-space()='${link}']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+When(
+  /^user selects "([^"]*)" of row "([^"]*)" of Germplasm Lists page$/,
+  async function (link, rowIndex) {
+    await germplasmPage.section.listsTable.click({
       selector: `.//tr[${rowIndex}]//a[normalize-space()='${link}']`,
       locateStrategy: "xpath",
     });
@@ -134,6 +145,44 @@ Then(
   }
 );
 
+Then(
+  /^user can see details on Germplasm Lists details page$/,
+  async function (table) {
+    for (column of table.raw()[0]) {
+      for (i = 0; i < table.hashes().length; i++) {
+        switch (column) {
+          case "Description":
+            await germplasmPage.section.germplasmListsDetails.assert.containsText(
+              "@descriptionText",
+              table.hashes()[i][column]
+            );
+            break;
+          case "User":
+            await germplasmPage.section.germplasmListsDetails.assert.containsText(
+              "@userText",
+              table.hashes()[i][column]
+            );
+            break;
+          case "Import Date":
+            await germplasmPage.section.germplasmListsDetails.assert.containsText(
+              "@importDateText",
+              table.hashes()[i][column].replace("@TODAY", helpers.getToday())
+            );
+            break;
+          case "Total Entries":
+            await germplasmPage.section.germplasmListsDetails.assert.containsText(
+              "@totalEntriesText",
+              table.hashes()[i][column]
+            );
+            break;
+          default:
+            throw new Error(`Unexpected ${label} name.`);
+        }
+      }
+    }
+  }
+);
+
 Then(/^user can see Female Parent GID value is a link$/, async function () {
   let countOfTD;
   await germplasmPage.findElements(
@@ -188,7 +237,8 @@ Then(/^user can see Male Parent GID value is a link$/, async function () {
 
 When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
   let control = {
-    selector: `//tbody//tr[${args1}]//td[@data-label='Female Parent GID']//a`,
+    selector: `//tr/td[@data-label='Female Parent GID'][normalize-space()='${args1}']/a`,
+    index: 0,
     locateStrategy: "xpath",
   };
   await client.execute("window.scrollTo(0,0);");
@@ -213,7 +263,7 @@ When(/^user selects "([^"]*)" tab on Gerplasm page$/, async function (args1) {
     case "All Germplasm":
       await germplasmPage.click("@allGermplasmTab");
       break;
-    case "Germplasm Lists":
+    case "Lists":
       await germplasmPage.click("@germplasmListsTab");
     default:
       break;
@@ -244,7 +294,7 @@ When(
           args1
         );
         break;
-      case "Name":
+      case "Germplasm Name":
         await germplasmPage.setValue(
           { selector: "//th[2]//div/input", locateStrategy: "xpath" },
           args1
@@ -336,3 +386,88 @@ Then(
 Then(/^user can see "([^"]*)" on Germplasm page$/, async function (args1) {
   await germplasmPage.assert.containsText("#germplasmTable p", args1);
 });
+
+When(
+  /^user gets row "([^"]*)" from column "([^"]*)" on Germplasm lists page$/,
+  async function (args1, args2) {
+    let val;
+
+    await germplasmPage.section.germplasmListsDetails.getText(
+      {
+        selector: `//tr[${args1}]/td[@data-label='${args2}']`,
+        locateStrategy: "xpath",
+      },
+      ({ value }) => {
+        val = String(value).trim();
+      }
+    );
+    germplasmList[args2] = val;
+  }
+);
+
+Then(
+  /^user can see "([^"]*)" as "([^"]*)" of Germplasm Lists Details page$/,
+  async function (args1, args2) {
+    let val;
+    let selector;
+
+    await germplasmPage.pause(5000);
+
+    switch (args2) {
+      case "Description":
+        if (args1.includes("*")) {
+          args1 = germplasmList["Description"];
+        }
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@descriptionText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
+        break;
+      case "User":
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@userText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
+        break;
+      case "Import Date":
+        if (args1.includes("@TODAY")) args1 = helpers.getToday();
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@importDateText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
+        break;
+      case "Total Entries":
+        await germplasmPage.section.germplasmListsDetails.getText(
+          "@totalEntriesText",
+          ({ value }) => {
+            val = String(value).trim();
+          }
+        );
+        await client.assert.equal(val, args1);
+        break;
+      default:
+        throw new Error(`Unexpected ${args2} name.`);
+    }
+  }
+);
+
+When('user selects Show Details of GID {string} of Germplasm page', async function(gid) {
+    await germplasmPage.section.germplasmTable.click({
+      selector: `.//tr//td[1]/a[normalize-space()='${gid}']/../..//a[normalize-space()='Show Details']`,
+      locateStrategy: "xpath",
+    });
+  }
+);
+
+Then('user can see GID as descending sort', async function() {
+  await germplasmPage.section.germplasmTable.assert.attributeEquals("@GIDSort", "class", "icon sort-icon is-small is-desc");
+})

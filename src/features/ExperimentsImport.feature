@@ -22,7 +22,7 @@ Feature: Experiments & Observations
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -36,7 +36,8 @@ Feature: Experiments & Observations
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -73,7 +74,7 @@ Feature: Experiments & Observations
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -87,7 +88,8 @@ Feature: Experiments & Observations
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -108,8 +110,8 @@ Feature: Experiments & Observations
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
 
-    @BI-1775
-    Scenario Outline: Error reporting Text to Table
+    @BI-1960
+    Scenario Outline: Error reporting Multiple Experiment Titles
         #Create a new program
         When user selects 'New Program' button in Programs page
         When user sets "<ProgramName>" in Program Name field in Programs page
@@ -124,7 +126,7 @@ Feature: Experiments & Observations
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -143,7 +145,59 @@ Feature: Experiments & Observations
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
+        And user uploads Ontology "test01-ontology.xls" file
+        When user selects 'Import' button
+        And user selects "Confirm" button
+        When user pause for "10" seconds
+        When user selects "Experiments & Observations" in navigation
+        When user selects "Import Experiments & Observations" button
+        And user uploads Experiments & Observations "EXPBadTitle.csv" file
+        When user selects 'Import' button
+        When user pause for "10" seconds
+        Then user can see banner appears with an error message "File contains more than one Experiment Title"
+        Examples:
+            | ProgramName | Key | Species |
+            | A*          | T*  | Grape   |
+
+    @BI-1775
+    Scenario Outline: Error reporting Text to Table
+        #Create a new program
+        When user selects 'New Program' button in Programs page
+        When user sets "<ProgramName>" in Program Name field in Programs page
+        When user selects "<Species>" in Species dropdown in Programs page
+        When user sets "<Key>" in Program Key field in Programs page
+        When user selects 'Save' button in Programs page
+        When user pause for "10" seconds
+        When user navigates to Program Selection page
+        When user selects "<ProgramName>" on program-selection page
+        When user selects "Program Administration" in navigation
+        When user selects "Users" tab
+        When user clicks 'New User' button
+        When user sets "Cucumber Breeder" in Name field of User
+        When user sets "cucumberbreeder@mailinator.com" in Email field of User
+        When user sets "Program Administrator" in Role dropdown of User
+        When user click 'Save' button in User
+        When user pause for "10" seconds
+        When user close notification pop-up
+        When user logs out
+        Given user logs in as "Cucumber Breeder"
+        When user selects "<ProgramName>" on program-selection page
+        And user selects "Import Data" in navigation
+        And user uploads Germplasm "GermplasmBad.xlsx" file
+        And user selects 'Import' button
+        When user pause for "10" seconds
+        Then user can see "Breeding Method" in row "1" as "Field" column on Germplasm Lists
+        Then user can see "Source" in row "2" as "Field" column on Germplasm Lists
+        And user uploads Germplasm "GermplasmSample.xlsx" file
+        And user selects 'Import' button
+        When user sets "GermplasmSort" in List Name field of import page
+        When user sets "GermplasmSort" in List Description field of import page
+        And user selects "Confirm" button
+        When user selects "Ontology" in navigation
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -153,16 +207,16 @@ Feature: Experiments & Observations
         And user uploads Experiments & Observations "EXPBad.csv" file
         When user selects 'Import' button
         When user pause for "10" seconds
-        Then user can see "Exp Title" in row "1" as "Field" column on Experiment and Observation Import page
-        Then user can see "Germplasm GID" in row "2" as "Field" column on Experiment and Observation Import page
-        Then user can see "Env Year" in row "3" as "Field" column on Experiment and Observation Import page
-        Then user can see "Env" in row "4" as "Field" column on Experiment and Observation Import page
+        Then user can see "Germplasm GID" in row "1" as "Field" column on Experiment and Observation Import page
+        Then user can see "Env Year" in row "2" as "Field" column on Experiment and Observation Import page
+        Then user can see "Env" in row "3" as "Field" column on Experiment and Observation Import page
 
         Examples:
             | ProgramName | Key | Species |
             | A*          | T*  | Grape   |
 
     @BI-1776
+    @BUG-BI-2239
     Scenario Outline: Preview Experiment & Observation import
         When user selects 'New Program' button in Programs page
         When user sets "<ProgramName>" in Program Name field in Programs page
@@ -177,7 +231,7 @@ Feature: Experiments & Observations
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -191,7 +245,8 @@ Feature: Experiments & Observations
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -203,8 +258,9 @@ Feature: Experiments & Observations
         When user pause for "10" seconds
         And user selects "Confirm" button
         When user pause for "10" seconds
-        And user uploads Experiments & Observations "EXP.csv" file
+        And user uploads Experiments & Observations "EXP2.csv" file
         When user selects 'Import' button
+        When user pause for "10" seconds
         Then user can see "Import Experiments & Observations" preview table
         Then user can see "User: Cucumber Breeder" in preview table
         Then user can see "Creation Date: @TODAY" in preview table

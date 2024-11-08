@@ -1,6 +1,20 @@
 {
-    "cucumberautocomplete.steps": [
-        "src/step_definitions/*.js",
+    "cucumber.features": [
+    "src/features/*.feature",
+  ],
+  "cucumber.glue": [
+    "src/step_definitions/*.js",
+  ],
+    "sqltools.connections": [
+            {
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 5432,
+                "driver": "PostgreSQL",
+                "name": "brapi",
+                "database": "bidb",
+                "username": "postgres",
+                "password": "postgres"
+            }
         ],
-        "cucumberautocomplete.strictGherkinCompletion": true,
 }

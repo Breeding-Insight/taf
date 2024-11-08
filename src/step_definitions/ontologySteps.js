@@ -1539,6 +1539,8 @@ Then(
   }
 );
 
+
+
 Then(
   /^user can see "([^"]*)" in Ordinal second field of Show Details on ontology list page$/,
   async function (args1) {
@@ -1719,3 +1721,23 @@ Then(
     );
   }
 );
+
+When('user selects {string} column header', async function(args1) {
+    var item = {
+      selector: `//table/thead/tr/th//span[contains(text(),'${args1}')] | //table/thead/tr/th[contains(text(),'${args1}')]`,
+      locateStrategy: "xpath",
+    }
+    await page.waitForElementVisible(item, 60000);
+    await page.click(item);
+  });
+
+Then('user can see {string} sort on column header', async function (args1) {
+  await page.assert.visible({
+    selector: `//table/thead/tr/th//span[contains(text(),'${args1}')]//*[contains(@class,'icon sort-icon')] | //table/thead/tr/th[contains(text(),'${args1}')]//*[contains(@class,'icon sort-icon')]`,
+    locateStrategy: "xpath",
+  });
+})
+
+Then('user can see {string} in Full Name field of Show Details on ontology list page', async function (args1) {
+  await page.assert.containsText({selector:"//div[@class='is-full-length trait-detail']//span[text()='Full Name']/../following-sibling::*//span", locateStrategy:"xpath"}, args1)
+})

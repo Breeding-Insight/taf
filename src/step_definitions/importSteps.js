@@ -3,6 +3,7 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const path = require("path");
 const helpers = require("./helpers.js");
 const importPage = client.page.importPage();
+const importStepsHelpers = require("./importStepsHelpers.js");
 const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
 const experimentsFolder = path.join(
   __basedir,
@@ -10,18 +11,19 @@ const experimentsFolder = path.join(
   "files",
   "ExperimentsImport"
 );
+const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport");
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
   async function (args1) {
-    await importPage.setValue("@listNameField", args1);
+    await importStepsHelpers.setListName(args1);
   }
 );
 
 When(
   /^user sets "([^"]*)" in List Description field of import page$/,
   async function (args1) {
-    await importPage.setValue("@listDescriptionField", args1);
+    await importStepsHelpers.setListDescription(args1);
   }
 );
 
@@ -70,14 +72,14 @@ Then(/^user can see "([^"]*)" GID in first line$/, async function (args1) {
   );
 });
 
-When(/^user clicks on Name sort descending$/, async function () {
+When(/^user clicks on Germplasm Name sort descending$/, async function () {
   await importPage.click({
     selector: "//th[2]//span[@class='icon sort-icon is-small']",
     locateStrategy: "xpath",
   });
 });
 
-When(/^user clicks on Name sort ascending$/, async function () {
+When(/^user clicks on Germplasm Name sort ascending$/, async function () {
   await importPage.click({
     selector: "//th[2]//span[@class='icon sort-icon is-small is-desc']",
     locateStrategy: "xpath",
@@ -87,7 +89,7 @@ When(/^user clicks on Name sort ascending$/, async function () {
 Then(/^user can see "([^"]*)" Name in first line$/, async function (args1) {
   await importPage.assert.containsText(
     {
-      selector: `//tr[1]//td[@data-label='Name']`,
+      selector: `//tr[1]//td[@data-label='Germplasm Name']`,
       locateStrategy: "xpath",
     },
     args1
@@ -270,6 +272,13 @@ When(
   }
 );
 
+When(/^user uploads Sample Submission "([^"]*)" file$/, async function (args1) {
+  await importPage.setValue(
+    'input[type="file"]',
+    path.resolve(experimentsFolder, args1)
+  );
+});
+
 Then(/^user can see "([^"]*)" preview table$/, async function (args1) {
   await importPage.assert.visible("#import-experiment div.b-table");
 });
@@ -310,7 +319,7 @@ Then(
   }
 );
 
-Then(/^user can see "([^"]*)" in preview table$/, async function(args1) {
+Then(/^user can see "([^"]*)" in preview table$/, async function (args1) {
   args1 = args1.replace("@TODAY", helpers.getToday());
   await importPage.assert.visible(
     {
@@ -318,5 +327,40 @@ Then(/^user can see "([^"]*)" in preview table$/, async function(args1) {
       locateStrategy: "xpath",
     },
     args1
+  );
+});
+
+Then(
+  /^user can see "([^"]*)" tab in Import Data page$/,
+  async function (args1) {
+    switch (args1) {
+      case "Genotypic Data":
+        await importPage.assert.visible("@genotypicDataTab");
+        break;
+      default:
+        console.log("Unable to find " + args1);
+        break;
+    }
+  }
+);
+
+When(
+  "user sets {string} in Project Name field of import page",
+  async function (s) {
+    await importPage.setValue("@projectNameField", s);
+  }
+);
+
+Then("user can see {string} on preview table", async function (s) {
+  await importPage.assert.visible({
+    selector: `//*[contains(text(), "${s}")]`,
+    locateStrategy: "xpath",
+  });
+});
+
+When("user uploads Genotype Samples {string} file", async function (file) {
+  await importPage.setValue(
+    'input[type="file"]',
+    path.resolve(experimentsFolder, args1)
   );
 });

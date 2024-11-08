@@ -20,7 +20,7 @@ Feature: Germplasm table loading message
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -46,7 +46,8 @@ Feature: Germplasm table loading message
         Then user can not see loading wheel message on Germplasm page
         And user selects "Import Data" in navigation
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button
@@ -76,7 +77,7 @@ Feature: Germplasm table loading message
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -92,7 +93,8 @@ Feature: Germplasm table loading message
         And user selects "Confirm" button
         And user selects "Import Data" in navigation
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         And user selects "Confirm" button

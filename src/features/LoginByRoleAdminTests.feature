@@ -3,9 +3,9 @@ Feature: Logging with Sys Administration
 	Background: Required Setup
 		Given user logs in as "sysad"
 		And user selects "System Administration" on program-selection page
-		And user can see "Cucumber Breeder" has been added to "Snacks" as a breeder
-		And user can see "Cucumber Breeder" has been added to "Trail Mix" as a member
-		And user can see "TrailMix Breeder" has been added to "Trail Mix" as a breeder
+		And user can see "Cucumber Breeder" has been added to "Snacks" as a Program Administrator
+		And user can see "Cucumber Breeder" has been added to "Trail Mix" as a Read Only
+		And user can see "TrailMix Breeder" has been added to "Trail Mix" as a Program Administrator
 		And user can see "Snacks" as a program
 
 	@BI-817
@@ -34,7 +34,7 @@ Feature: Logging with Sys Administration
 			| Name    |
 			| Species |
 			| # Users |
-		When user clicks Show All button
+		When user selects Show All button
 		Then user can see each row has an Edit link
 		And user can see each row has a Deactivate link
 		And user can see Previous page button

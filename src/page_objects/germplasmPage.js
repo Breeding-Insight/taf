@@ -27,6 +27,10 @@ module.exports = {
           selector: "//table//a[normalize-space()='Show Details']",
           locateStrategy: "xpath",
         },
+        GIDSort:{
+          selector: "//span[normalize-space()='GID']/span",
+          locateStrategy: "xpath"
+        }
       },
     },
     listsTable: {
@@ -87,6 +91,33 @@ module.exports = {
         attributesLink: {
           selector: ".//nav//li/a[normalize-space()='Attributes']",
           locateStrategy: "xpath",
+        },
+      },
+    },
+    germplasmListsDetails: {
+      selector: "//div[@class='germplasm']",
+      locateStrategy: "xpath",
+      elements: {
+        descriptionText: {
+          selector: ".//b[normalize-space(.)='Description:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        userText: {
+          selector: ".//b[normalize-space(.)='User:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        importDateText: {
+          selector: ".//b[normalize-space(.)='Import Date:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
+        },
+        totalEntriesText: {
+          selector:
+            ".//b[normalize-space(.)='Total Entries:']/../following::div",
+          locateStrategy: "xpath",
+          timeout: 10000,
         },
       },
     },

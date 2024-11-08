@@ -77,7 +77,7 @@ jobs:
       AWS_GENO_BUCKET: breedinginsight.org-test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -86,9 +86,10 @@ jobs:
 
       #check out docker
       - name: Docker checkout (private)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Breeding-Insight/bi-docker-stack
+          submodules: recursive
           token: ${{ secrets.DOCKERPATH }}
           path: bi-docker-stack
 
@@ -103,10 +104,12 @@ jobs:
           java-version: 13
 
         #from bi-docker-stack
-      - run: docker-compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-redis.yml -f bi-docker-stack/docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-qa.yml up -d
+      - run: docker compose -f bi-docker-stack/docker-compose.yml -f bi-docker-stack/docker-compose-redis.yml -f bi-docker-stack/docker-compose-gigwa.yml -f bi-docker-stack/docker-compose-qa.yml up -d
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: 122
         if: matrix.os == 'ubuntu-latest'
 
       - name: Run Chrome
@@ -116,11 +119,6 @@ jobs:
       - name: Sleep to ensure docker set up
         run: sleep 60s
         shell: bash
-
-      - name: Try setting up species again
-        run: |
-          docker cp bi-docker-stack/brapi-server/sql/species.sql bidb:/species.sql
-          docker exec bidb psql -U postgres -a -f species.sql -d postgres
 
       - name: Set up required bidb data for tests
         run: |
@@ -162,7 +160,7 @@ jobs:
         run: npm run test:chromeDaily
 
       - name: Publish Report Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cucumber-report-${{ matrix.os }}-${{ github.run_number }}

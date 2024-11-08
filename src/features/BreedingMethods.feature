@@ -19,7 +19,7 @@ Feature: Breeding Methods
     When user clicks 'New User' button
     When user sets "Christian" in Name field of User
     When user sets "christian@mailinator.com" in Email field of User
-    When user sets "breeder" in Role dropdown of User
+    When user sets "Program Administrator" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     And user selects "Breeding Methods" tab
@@ -34,10 +34,10 @@ Feature: Breeding Methods
     When user selects "Ploidy" in 'Category' dropdown in Breeding Method form
     When user selects "Generative (+)" in 'Genetic Diversity' dropdown in Breeding Method form
     And user clicks 'Save' button in Breeding Method form
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user can see banner contains "Breeding method created successfully"
     When user clicks 'Show All' button in Breeding Method Management page
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user can see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
@@ -45,6 +45,7 @@ Feature: Breeding Methods
     And user selects "Import Data" in navigation
     And user uploads Germplasm "BreedingMethodGermplasm.csv" file
     And user selects 'Import' button
+    And user pause for "5" seconds
     When user sets "BreedingMethodGermplasm" in List Name field of import page
     When user sets "BreedingMethodGermplasm" in List Description field of import page
     And user selects "Confirm" button
@@ -53,7 +54,7 @@ Feature: Breeding Methods
     When user selects "Program Administration" in navigation
     And user selects "Breeding Methods" tab
     And user clicks 'Show All' button in Breeding Method Management page
-    And user pause for "2" seconds
+    And user pause for "5" seconds
     Then user cannot see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
@@ -82,13 +83,13 @@ Feature: Breeding Methods
     When user clicks 'New User' button
     When user sets "Breeder" in Name field of User
     When user sets "cucumberbreeder@mailinator.com" in Email field of User
-    When user sets "breeder" in Role dropdown of User
+    When user sets "Program Administrator" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     When user clicks 'New User' button
     When user sets "Breeder" in Name field of User
     When user sets "cucumbermember@mailinator.com" in Email field of User
-    When user sets "member" in Role dropdown of User
+    When user sets "Read Only" in Role dropdown of User
     When user click 'Save' button in User
     And user pause for "5" seconds
     When user close the Notification
@@ -107,7 +108,7 @@ Feature: Breeding Methods
     When user selects "Generative (+)" in 'Genetic Diversity' dropdown in Breeding Method form
     And user clicks 'Save' button in Breeding Method form
     And user pause for "2" seconds
-    When user clicks Show All button
+    When user selects Show All button
     When user close the Notification
     Then user can see "<name>" in Name column in Breeding Method page
     Then user logs out

@@ -21,7 +21,7 @@ Feature: Ontology Import Preview
         When user clicks 'New User' button
         When user sets "Cucumber Breeder" in Name field of User
         When user sets "cucumberbreeder@mailinator.com" in Email field of User
-        When user sets "breeder" in Role dropdown of User
+        When user sets "Program Administrator" in Role dropdown of User
         When user click 'Save' button in User
         When user pause for "10" seconds
         When user close notification pop-up
@@ -35,7 +35,8 @@ Feature: Ontology Import Preview
         When user sets "GermplasmSort" in List Description field of import page
         And user selects "Confirm" button
         When user selects "Ontology" in navigation
-        When user selects "Import Batch File" button
+        When user selects "Manage Ontology" button
+        When user selects "Import file" link
         And user uploads Ontology "test01-ontology.xls" file
         When user selects 'Import' button
         When user selects 'Show details' button of "Blackberry" on Ontology Import page
