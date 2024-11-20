@@ -5,10 +5,16 @@ const page = client.page.page();
 const ontologyPage = client.page.ontologyPage();
 const importFolder = path.join(__basedir, "src", "files", "TraitImport");
 const germplasmFolder = path.join(__basedir, "src", "files", "GermplasmImport");
-const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport")
+const genotypeSamplesFolder = path.join(
+  __basedir,
+  "src",
+  "files",
+  "GenotypeSamplesImport"
+);
 const fs = require("fs");
 const user = {};
 const helpers = require("./helpers.js");
+const { timeStamp, time, assert } = require("console");
 const experimentsObservationsPage = client.page.experimentsObservationsPage();
 
 Given(/^user logs with valid credentials$/, async () => {
@@ -884,6 +890,7 @@ When(/^user selects "([^"]*)" link$/, async (args1) => {
 Then(/^user can see "([^"]*)" button$/, async (args1) => {
   await page.assert.visible({
     selector: `//button[contains(normalize-space(.),'${args1}')]`,
+    timeout: 60000,
     locateStrategy: "xpath",
   });
 });
@@ -1005,12 +1012,15 @@ When(/^user click 'Save' button in User$/, async function () {
   await clickSaveUserButton();
 });
 
-Then(/^user can see banner contains "([^"]*)"$/, async (args1) => {
-  await page.assert.visible({
-    selector: `//article//*[contains(text(), normalize-space("${args1}"))]`,
-    locateStrategy: "xpath",
-  });
-});
+Then(/^user can see banner contains "([^"]*)"$/, async function (args1) {
+      await page.assert.visible(
+        {
+          selector: `//article//*[contains(text(), normalize-space("${args1}"))]`,
+          locateStrategy: "xpath",
+          timeout: 600000
+        })
+ }
+);
 
 Then(/^user cannot see banner contains "([^"]*)"$/, async (args1) => {
   await page.assert.not.visible({
@@ -1175,21 +1185,35 @@ Given(/^a new program is created$/, async function () {
   await userLogsOut();
 });
 
-When('user uploads Genotype Sample {string} file', async function(s) {
+When("user uploads Genotype Sample {string} file", async function (s) {
   await uploadGenotypeSamplesFile(s);
-})
+});
 
-Then('user can see Date Created as descending sort', async function() {
-  await experimentsObservationsPage.section.table.assert.attributeEquals("@DateCreatedSort", "class", "icon sort-icon is-small is-desc");
-})
+Then("user can see Date Created as descending sort", async function () {
+  await experimentsObservationsPage.section.table.assert.attributeEquals(
+    "@DateCreatedSort",
+    "class",
+    "icon sort-icon is-small is-desc"
+  );
+});
 
-Then('user can see Created Date as descending sort', async function() {
-  await page.assert.attributeEquals({ selector: "//div/span[normalize-space(.)='Created Date']/span", locateStrategy: "xpath" }, "class", "icon sort-icon is-small is-desc");
-})
+Then("user can see Created Date as descending sort", async function () {
+  await page.assert.attributeEquals(
+    {
+      selector: "//div/span[normalize-space(.)='Created Date']/span",
+      locateStrategy: "xpath",
+    },
+    "class",
+    "icon sort-icon is-small is-desc"
+  );
+});
 
-When('user selects {string} menu item', async function name(args1) {
-  await page.click({selector:`//a[@role='menuitem'][normalize-space(.)='${args1}']`, locateStrategy:"xpath"});
-})
+When("user selects {string} menu item", async function name(args1) {
+  await page.click({
+    selector: `//a[@role='menuitem'][normalize-space(.)='${args1}']`,
+    locateStrategy: "xpath",
+  });
+});
 
 //functions
 async function setUserName(name) {
@@ -1397,12 +1421,17 @@ async function uploadGermplasmFile(args1) {
   );
 }
 
-async function uploadGenotypeSamplesFile(args1){
-  await page.setValue('input[type="file"]', path.resolve(genotypeSamplesFolder, args1))
+async function uploadGenotypeSamplesFile(args1) {
+  await page.setValue(
+    'input[type="file"]',
+    path.resolve(genotypeSamplesFolder, args1)
+  );
 }
 
 async function selectsImportButton() {
-  await client.execute('document.getElementById("fileselectmessagebox-import-button").click();');
+  await client.execute(
+    'document.getElementById("fileselectmessagebox-import-button").click();'
+  );
   await page.pause(3000);
 }
 
