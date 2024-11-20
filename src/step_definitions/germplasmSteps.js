@@ -471,3 +471,7 @@ When('user selects Show Details of GID {string} of Germplasm page', async functi
 Then('user can see GID as descending sort', async function() {
   await germplasmPage.section.germplasmTable.assert.attributeEquals("@GIDSort", "class", "icon sort-icon is-small is-desc");
 })
+
+Then('user can see {string} on Download prompt', async function (s) {
+  await germplasmPage.assert.visible({selector:`//label/span[contains(text(),'${s}')]`, locateStrategy:"xpath"});
+})
