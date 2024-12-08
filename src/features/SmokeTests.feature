@@ -31,7 +31,7 @@ Feature: Smoke Tests (11)
 			| Name   | Email                | Role    |
 			| Test * | test*@mailinator.com | Program Administrator |
 
-	@BI-806
+	@BI-880
 	@SmokeTests
 	Scenario: Check Users page
 		Given user logs in as "Cucumber Breeder"
