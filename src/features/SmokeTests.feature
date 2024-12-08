@@ -32,6 +32,7 @@ Feature: Smoke Tests (11)
 			| Test * | test*@mailinator.com | Program Administrator |
 
 	@BI-806
+	@SmokeTests
 	Scenario: Check Users page
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page
