@@ -26,7 +26,7 @@ Background: Setup
         Then user can see Date Created as descending sort
         When user selects "Sample Management" in navigation
         When user selects "Import Sample Submission" button
-        And user uploads Genotype Sample "bi_sample_submission_v01.xls" file
+        And user uploads Genotype Sample "bi_sample_submission.xls" file
         When user selects 'Import' button
         And user sets "Genotype Sample" in Project Name field of import page
         And user selects "Confirm" button
