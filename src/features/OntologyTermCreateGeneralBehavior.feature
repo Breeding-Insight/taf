@@ -57,6 +57,7 @@ Feature: Ontology Term Create - General Behavior
         Then user can see "Test1, FullName1" in Synonyms text on ontology list page
 
     @BI-1518
+    @BUG-BI-2417
     Scenario: Ontology Term Create - Required Fields
         When user selects 'New Term' button on ontology list page
         When user selects 'Save' button on ontology list page

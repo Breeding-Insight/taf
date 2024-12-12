@@ -65,6 +65,7 @@ Feature: System User Management (15)
 		And user selects Save button
 		Then user can see 'Email must be in email format' below the Email field
 
+	@BUG-BI-2416
 	@BI-830
 	@BI-802
 	@SmokeTests
@@ -76,6 +77,7 @@ Feature: System User Management (15)
 		Then user can see a new user is added in User
 
 	@BI-831
+	@BUG-BI-2416
 	Scenario:  Adding new user with admin role
 		Given user is on the user-management page
 		When user creates a new user
@@ -96,6 +98,7 @@ Feature: System User Management (15)
 
 	@BI-833
 	@BI-835
+	@BUG-BI-2416
 	Scenario: Edit form entities
 		Given user is on the user-management page
 		When user creates a new user
@@ -107,6 +110,7 @@ Feature: System User Management (15)
 		Then user can see edited user in users list
 
 	@BI-834
+	@BUG-BI-2416
 	Scenario: Editing form and selecting Cancel
 		Given user is on the user-management page
 		When user creates a new user
@@ -117,6 +121,7 @@ Feature: System User Management (15)
 		Then user can see user is in users list
 
 	@BI-838
+	@BUG-BI-2416
 	Scenario Outline: Deactivate link - modal
 		Given user is on the user-management page
 		And user creates a new user
@@ -137,6 +142,7 @@ Feature: System User Management (15)
 			| Test *       |
 
 	@BI-839
+	@BUG-BI-2416
 	Scenario: User Deactivate link and Cancel
 		Given user is on the user-management page
 		And user creates a new user
@@ -149,6 +155,7 @@ Feature: System User Management (15)
 		Then user can see edited user in users list
 
 	@BI-840
+	@BUG-BI-2416
 	Scenario: Deactivate link - Yes, deactivate
 		Given user is on the user-management page
 		And user creates a new user

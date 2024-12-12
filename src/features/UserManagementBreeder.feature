@@ -114,6 +114,7 @@ Feature: Breeder User Management
 		And user does not see a new user in Users list
 
 	@BI-893
+	@BUG-BI-2416
 	Scenario: New User form - enter all required, valid fields - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -153,6 +154,7 @@ Feature: Breeder User Management
 		Then user can see new user form
 
 	@BI-897
+	@BUG-BI-2416
 	Scenario: Edit Form elements
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -167,6 +169,7 @@ Feature: Breeder User Management
 		Then user can see Cancel button
 
 	@BI-898
+	@BUG-BI-2416
 	Scenario: Edit Form - change role - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -180,6 +183,7 @@ Feature: Breeder User Management
 		Then user can see user is in users list
 
 	@BI-899
+	@BUG-BI-2416
 	Scenario: Edit Form - change role - Save
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -194,6 +198,7 @@ Feature: Breeder User Management
 		Then user can see user is in users list
 
 	@BI-900
+	@BUG-BI-2416
 	Scenario Outline: Deactivate link - modal
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -216,6 +221,7 @@ Feature: Breeder User Management
 			| User*            |
 
 	@BI-901
+	@BUG-BI-2416
 	Scenario: Deactivate link - Cancel
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page
@@ -230,6 +236,7 @@ Feature: Breeder User Management
 		Then user can see user is in users list
 
 	@BI-902
+	@BUG-BI-2416
 	Scenario: Deactivate link - Yes, deactivate
 		Given user logs in as "Cucumber Breeder"
 		And user selects "Snacks" on program-selection page

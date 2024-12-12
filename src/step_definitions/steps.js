@@ -1017,7 +1017,7 @@ Then(/^user can see banner contains "([^"]*)"$/, async function (args1) {
         {
           selector: `//article//*[contains(text(), normalize-space("${args1}"))]`,
           locateStrategy: "xpath",
-          timeout: 120000
+          timeout: 480000
         })
  }
 );

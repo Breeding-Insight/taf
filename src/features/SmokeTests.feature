@@ -11,6 +11,7 @@ Feature: Smoke Tests (11)
 		Then user can see a new program is created
 
 	@BI-806
+	@BUG-BI-2416
 	Scenario Outline: New Program User
 		Given user logs in as "Cucumber Breeder"
 		When user selects "Snacks" on program-selection page

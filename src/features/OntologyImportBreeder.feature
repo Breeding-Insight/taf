@@ -182,6 +182,7 @@ Feature: Ontology Import (10 Scenarios)
 		Then user can see 'Confirm New Ontology Term' header
 
 	@BI-1267
+	@BUG-BI-2419
 	Scenario: Import Traits - missing scale categories
 		And user uploads "test_traits_missingReqFields.xlsx" file
 		And user selects 'Import' button

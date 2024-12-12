@@ -1,6 +1,6 @@
 Feature: Popup window for germplasm download
 
-    @BI-2001 @BI-2002 @debug
+    @BI-2001 @BI-2002
     Scenario: Popup window for germplasm download
         Given a new program is created
         Given user logs in as "Cucumber Breeder"
