@@ -746,6 +746,10 @@ Then(/^user can see Welcome page of program$/, async () => {
   await page.assert.visible("@programWelcomeText");
 });
 
+Then(/^user can see "([^"]*)" title$/, async (args1) => {
+  await page.assert.containsText({selector:'#main .title', locateStrategy:'css'}, args1);
+});
+
 Then(/^user can see "([^"]*)" in navigation$/, async (args1) => {
   switch (args1) {
     case "Home":
