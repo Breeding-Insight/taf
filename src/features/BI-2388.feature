@@ -16,7 +16,7 @@ Scenario: System Admin permissions
     Then user can see "Program Administration" title
     When user selects "Home" in top-level navigation
     Then user can see "Welcome" title
-    When user selects "Germplas" in top-level navigation
+    When user selects "Germplasm" in top-level navigation
     Then user can see "Germplasm" title
     When user selects "Experiments & Observations" in top-level navigation
     Then user can see "Experiments & Observations" title
