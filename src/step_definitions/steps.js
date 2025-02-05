@@ -1220,7 +1220,7 @@ When("user selects {string} menu item", async function name(args1) {
 });
 
 Then('user can not see {string} button', async function (args0) {
-  await experimentsObservationPage.assert.not.elementPresent({selector:`//button[contains(.,'${args0}')]`, locateStrategy:"xpath"});
+  await page.assert.not.elementPresent({selector:`//button[contains(.,'${args0}')]`, locateStrategy:"xpath"});
 })
 
 //functions
