@@ -1,6 +1,7 @@
 Feature: Experiment and Observations File to accept without sub units Apps
 
 @BI-2353
+@debug
 Scenario: Experiment and Observations File to accept without sub units Apps
     Given a new program is created
     Given user logs in as "Cucumber Breeder"

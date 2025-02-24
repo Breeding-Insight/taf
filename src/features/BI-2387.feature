@@ -1,6 +1,5 @@
 Feature: Program Admin/Breeder permissions
 
-@debug
 @BI-2387
 Scenario: Program Admin/Breeder permissions
     Given a new program is created
