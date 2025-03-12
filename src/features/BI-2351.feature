@@ -1,14 +1,15 @@
-Feature: Experiment and Observations File to accept without sub units Apps
+Feature: Experimental Collaborator UX
 
-@BI-2353
-@debug
-Scenario: Experiment and Observations File to accept without sub units Apps
+@BI-2351
+Scenario: Experimental Collaborator UX
     Given a new program is created
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page
-    When user selects "Experiments & Observations" in navigation
-    When user selects "Import Experiments & Observations" button
-    And user uploads Experiments & Observations "EXP-with-sub-obs-sub-unit-id.csv" file
-    When user selects 'Import' button
-    When user pause for "30" seconds
-    Then user can see banner appears with an error message "Error(s) detected in file, EXP-with-sub-obs-sub-unit-id.csv. Ontology term(s) not found: SubObsUnit,SubObsUnitID,sadfasdfsdf. Import cannot proceed."
+    When user selects "Program Administration" in top-level navigation
+    When user selects 'Edit' of "cucumbermember@mailinator.com" of Users
+    When user selects "Experimental Collaborator" in Role dropdown
+    When user selects Save button
+    When user logs out
+    When user logs in as "Cucumber Member"
+    When user selects "*" on program-selection page
+    Then user can see "Home, Experiments & Observations, BrAPI" in top-level navigation

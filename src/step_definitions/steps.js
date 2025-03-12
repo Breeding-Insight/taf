@@ -1219,6 +1219,18 @@ When("user selects {string} menu item", async function name(args1) {
   });
 });
 
+Then('user can see {string} in top-level navigation', async function (args1) {
+  const myArray = args1.split(",");
+
+  page.expect.elements({selector:"//*[@id='sideMenu']//li", locateStrategy:"xpath"}).count.to.equal(myArray.length);
+
+  for (let index = 0; index < myArray.length; index++) {
+    const element = myArray[index];
+    await page.assert.visible({selector:`//*[@id='sideMenu']//li[contains(.,'${element.trim()}')]`, locateStrategy:"xpath"});
+  }
+  });
+
+
 //functions
 async function setUserName(name) {
   user.userName = name;
