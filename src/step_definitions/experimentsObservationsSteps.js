@@ -1,12 +1,9 @@
-const { client } = require("nightwatch-api");
-const { Then, When } = require("@cucumber/cucumber");
-const experimentsObservationPage = client.page.experimentsObservationsPage();
-const helpers = require("./helpers");
+const { When } = require("@cucumber/cucumber");
 
 When(
     /^user selects "([^"]*)" of row "([^"]*)" of Experiments page$/,
     async function (link, rowIndex) {
-      await experimentsObservationPage.section.table.click({
+      await this.browser.page.experimentsObservationsPage().section.table.click({
         selector: `.//tr[${rowIndex}]//a[normalize-space()='${link}']`,
         locateStrategy: "xpath",
       });

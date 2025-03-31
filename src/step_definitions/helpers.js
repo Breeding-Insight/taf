@@ -1,12 +1,9 @@
-const { client } = require("nightwatch-api");
-const page = client.page.page();
-
 module.exports = {
   showAll: async function () {
-    await page.moveToElement("@showAllButton", 1, 1);
-    await page.pause(1000);
-    await page.click("@showAllButton");
-    await page.pause(5000);
+    await this.browser.page.page().moveToElement("@showAllButton", 1, 1);
+    await this.browser.page.page().pause(1000);
+    await this.browser.page.page().click("@showAllButton");
+    await this.browser.page.page().pause(5000);
   },
 
   generateRandomAlphaString: function (length) {
