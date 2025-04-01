@@ -94,16 +94,15 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
 
   let status;
   //await waitReady();
-  await this.browser.page.page().waitForElementVisible(
+  await this.browser.page.page().waitForElementPresent(
     "@iUnderstandButton",
     10000,
     false,
-    async (result) => {
-      status = result.value;
+    (result) => {
+      // status = result.status;
+      if (result.status != 0) this.browser.page.page().click("@iUnderstandButton");
     }
   );
-
-  if (status) await this.browser.page.page().click("@iUnderstandButton");
 
   await this.browser.page.page().click("@loginButton");
   await this.browser.page.page().click("@orcidSignInButton");
