@@ -1301,11 +1301,13 @@ async function loginAs(world, user) {
     10000,
     false,
     async (result) => {
-      status = result.value;
+      if (result.status != 0){
+        if (status) await this.browser.page.page().click("@iUnderstandButton");
+      }
     }
   );
 
-  if (status) await this.browser.page.page().click("@iUnderstandButton");
+  
 
   await this.browser.page.page().click("@loginButton");
   await this.browser.page.page().click("@orcidSignInButton");
