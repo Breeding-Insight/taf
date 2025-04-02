@@ -77,7 +77,9 @@ module.exports = {
       
       webdriver: {
         start_process: true,
-        server_path: ''
+        server_path: require("chromedriver").path,
+        port: 4444,
+        cli_args: ['--port=4444']
       },
         
     },
@@ -92,7 +94,6 @@ module.exports = {
             '--ignore-certificate-errors',
             '--allow-insecure-localhost',
             '--edge-skip-compat-layer-relaunch'
-            // '--headless=new'
           ]
         }
       },
