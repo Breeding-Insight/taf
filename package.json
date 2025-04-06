@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:debug": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --tags @debug --format json:report/cucumber_report.json",
-    "test:chromeDaily": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json",
-    "test:chromeWeekly": "mkdirp report && cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json"
+    "test:debug": "mkdirp report && cucumber-js --require cucumber.conf.js  --tags @debug --require src/step_definitions src/features --tags @debug --format json:report/run.json",
+    "test:chromeDaily": "mkdirp report && cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/run.json",
+    "test:chromeWeekly": "mkdirp report && cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/run.json"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +16,5 @@
     "cucumber-html-reporter": "^7.2.0",
     "mkdirp": "^1.0.4",
     "nightwatch": "^3.12.0"
-  },
-  "dependencies": {
-    "chromedriver": "^134.0.5"
   }
 }
