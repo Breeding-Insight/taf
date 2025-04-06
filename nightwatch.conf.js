@@ -77,9 +77,9 @@ module.exports = {
 
       webdriver: {
         start_process: true,
-        server_path: require("chromedriver").path,
-        port: 4444,
-        cli_args: ["--port=4444"],
+        // server_path: require("chromedriver").path,
+        // port: 4444,
+        // cli_args: ["--port=4444"],
       },
     },
 
