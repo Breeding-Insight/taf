@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/run.json",
-    "test:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/run.json",
-    "test:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/run.json"
+    "test:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/cucumber_report.json",
+    "test:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json",
+    "test:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json"
   },
   "keywords": [],
   "author": "",

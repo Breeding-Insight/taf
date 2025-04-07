@@ -87,7 +87,7 @@ Then(/^user selects the user$/, () => {
 
 Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   if (this.parameters.launch_url != undefined) {
-    await client.url(this.parameters.launch_url);
+    await this.browser.url(this.parameters.launch_url);
   } else {
     await this.browser.page.page().navigate();
   }
@@ -139,7 +139,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await this.browser.page.page().setValue("@passwordInput", password);
   await this.browser.page.page().click("@signInButton");
 
-  if (client.globals.breedingInsightVersion == undefined) {
+  if (globals.breedingInsightVersion == undefined) {
     let version = 0;
     try {
       await this.browser.page.page().getText(

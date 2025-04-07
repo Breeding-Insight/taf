@@ -18,7 +18,7 @@
         "--format",
         "json:report/cucumber_report.json",
         "--tags",
-        "@SmokeTests"
+        "@debug"
       ]
     }
   ]

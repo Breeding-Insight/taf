@@ -8,14 +8,20 @@ const {
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const run = {
+  browserName: "",
+  platform: "",
+  version: "",
+  BreedingInsight: "",
+};
 
 setDefaultTimeout(-1);
 global.__basedir = __dirname;
 
 Before(async function ({ pickle }) {
-  const fs = require('fs');
-  fs.mkdirSync('report', { recursive: true });
-  fs.mkdirSync('screenshots', { recursive: true });
+  const fs = require("fs");
+  fs.mkdirSync("report", { recursive: true });
+  fs.mkdirSync("screenshots", { recursive: true });
 
   // Create a unique and guaranteed-empty temp dir
   const tmpUserDataDir = fs.mkdtempSync(
@@ -86,6 +92,34 @@ Before(async function ({ pickle }) {
   console.log("Launching Chrome with args:", chromeArgs);
 
   this.browser = await this.client.launchBrowser();
+
+  if (run.browserName == "") {
+    run.browserName = this.browser.capabilities.browserName;
+    switch (this.browser.capabilities.browserName) {
+      case "msedge": //same as chrome
+      case "chrome-headless-shell":
+      case "chrome":
+        run.version = this.browser.capabilities.version;
+        run.platform = this.browser.capabilities.platformName;
+        break;
+      case "firefox":
+        run.version = this.browser.capabilities.browserVersion;
+        run.platform = this.browser.capabilities.platformName;
+        break;
+      default:
+        throw new Error("Unrecognized browser.");
+    }
+    // convert JSON object to string
+    const data = JSON.stringify(run);
+
+    // write JSON string to a file
+    fs.writeFile("report/run.json", data, (err) => {
+      if (err) {
+        throw err;
+      }
+      console.log("JSON data is saved.");
+    });
+  }
 });
 
 After(async function (testCase) {
