@@ -9,20 +9,31 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 
-
 setDefaultTimeout(-1);
 global.__basedir = __dirname;
 
 Before(async function ({ pickle }) {
   // Create a unique and guaranteed-empty temp dir
-  const tmpUserDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'nw-chrome-profile-'));
+  const tmpUserDataDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), "nw-chrome-profile-")
+  );
 
   const chromeArgs = [
-    '--no-sandbox',
-    '--ignore-certificate-errors',
-    '--allow-insecure-localhost',
-    '--disable-gpu',
-    `--user-data-dir=${tmpUserDataDir}`
+    `--user-data-dir=${tmpUserDataDir}`,
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-extensions",
+    "--disable-gpu",
+    "--disable-background-networking",
+    "--disable-sync",
+    "--metrics-recording-only",
+    "--disable-default-apps",
+    "--mute-audio",
+    "--no-first-run",
+    "--ignore-certificate-errors",
+    "--allow-insecure-localhost",
+    "--headless=new",
+    "--incognito",
   ];
 
   const webdriver = {};
@@ -56,11 +67,11 @@ Before(async function ({ pickle }) {
     config: this.parameters.config,
     globals,
     desiredCapabilities: {
-      browserName: 'chrome',
-      'goog:chromeOptions': {
-        args: chromeArgs
-      }
-    }
+      browserName: "chrome",
+      "goog:chromeOptions": {
+        args: chromeArgs,
+      },
+    },
   });
 
   // Optional: sync name to cloud runs
@@ -97,19 +108,19 @@ AfterAll(async function () {
         throw "Error opening file.";
       }
       runInfo = JSON.parse(data);
-    reporter.generate({
-      theme: "bootstrap",
-      jsonFile: "report/cucumber_report.json",
-      output: "report/cucumber_report.html",
-      reportSuiteAsScenarios: true,
-      launchReport: true,
-      metadata: {
+      reporter.generate({
+        theme: "bootstrap",
+        jsonFile: "report/cucumber_report.json",
+        output: "report/cucumber_report.html",
+        reportSuiteAsScenarios: true,
+        launchReport: true,
+        metadata: {
           "Breeding Insight": runInfo.BreedingInsight,
           Browser: runInfo.browserName,
           "Browser Version": runInfo.version,
           OS: runInfo.platform,
-      },
-    });
+        },
+      });
     });
   } catch (err) {
     console.log(err);
