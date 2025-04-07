@@ -13,6 +13,10 @@ setDefaultTimeout(-1);
 global.__basedir = __dirname;
 
 Before(async function ({ pickle }) {
+  const fs = require('fs');
+  fs.mkdirSync('report', { recursive: true });
+  fs.mkdirSync('screenshots', { recursive: true });
+
   // Create a unique and guaranteed-empty temp dir
   const tmpUserDataDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "nw-chrome-profile-")
