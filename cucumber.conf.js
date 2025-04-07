@@ -8,12 +8,12 @@ const {
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const run = {
-  browserName: "",
-  platform: "",
-  version: "",
-  BreedingInsight: "",
-};
+// const run = {
+//   browserName: "",
+//   platform: "",
+//   version: "",
+//   BreedingInsight: "",
+// };
 
 setDefaultTimeout(-1);
 global.__basedir = __dirname;
@@ -75,7 +75,9 @@ Before(async function ({ pickle }) {
     webdriver,
     persist_globals: this.parameters["persist-globals"],
     config: this.parameters.config,
-    globals,
+    globals:{
+      run: {}
+    },
     desiredCapabilities: {
       browserName: "chrome",
       "goog:chromeOptions": {
@@ -93,18 +95,18 @@ Before(async function ({ pickle }) {
 
   this.browser = await this.client.launchBrowser();
 
-  if (run.browserName == "") {
-    run.browserName = this.browser.capabilities.browserName;
+  if (this.browser.globals.run.browserName == "") {
+    this.browser.globals.run.browserName = this.browser.capabilities.browserName;
     switch (this.browser.capabilities.browserName) {
       case "msedge": //same as chrome
       case "chrome-headless-shell":
       case "chrome":
-        run.version = this.browser.capabilities.version;
-        run.platform = this.browser.capabilities.platformName;
+        this.browser.globals.run.version = this.browser.capabilities.version;
+        this.browser.globals.run.platform = this.browser.capabilities.platformName;
         break;
       case "firefox":
-        run.version = this.browser.capabilities.browserVersion;
-        run.platform = this.browser.capabilities.platformName;
+        this.browser.globals.run.version = this.browser.capabilities.browserVersion;
+        this.browser.globals.run.platform = this.browser.capabilities.platformName;
         break;
       default:
         throw new Error("Unrecognized browser.");

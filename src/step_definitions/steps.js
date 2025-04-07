@@ -139,7 +139,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
   await this.browser.page.page().setValue("@passwordInput", password);
   await this.browser.page.page().click("@signInButton");
 
-  if (globals.breedingInsightVersion == undefined) {
+  if (this.browser.globals.run.breedingInsightVersion == undefined) {
     let version = 0;
     try {
       await this.browser.page.page().getText(
@@ -157,7 +157,7 @@ Given(/^user logs in as "([^"]*)"$/, async function (args1) {
         }
       );
     }
-    client.globals.breedingInsightVersion = version;
+    browser.globals.run.breedingInsightVersion = version;
   }
 });
 
