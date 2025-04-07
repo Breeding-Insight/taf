@@ -35,13 +35,13 @@ Before(function ({ pickle }) {
   }
 
   this.client = Nightwatch.createClient({
-    // headless: this.parameters.headless,
-    // env: this.parameters.env,
+    headless: this.parameters.headless,
+    env: this.parameters.env,
     timeout: this.parameters.timeout,
     parallel: !!this.parameters.parallel,
-    // output: !this.parameters["disable-output"],
+    output: !this.parameters["disable-output"],
     enable_global_apis: true,
-    // silent: !this.parameters.verbose,
+    silent: !this.parameters.verbose,
     always_async_commands: true,
     webdriver,
     persist_globals,
@@ -51,8 +51,18 @@ Before(function ({ pickle }) {
 
   if (this.client.settings.sync_test_names) {
     const { name } = pickle;
+    const os = require('os');
+    const path = require('path');
+    const uniqueProfile = path.join(os.tmpdir(), `nightwatch-profile-${process.pid}`);
     this.client.updateCapabilities({
       name,
+      args: [
+        '--no-sandbox',
+        '--ignore-certificate-errors',
+        '--allow-insecure-localhost',
+        '--disable-gpu',
+        `--user-data-dir=${uniqueProfile}`
+      ]
     });
   }
 
