@@ -5,36 +5,35 @@ const {
   Before,
   setDefaultTimeout,
 } = require("@cucumber/cucumber");
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
+
 
 setDefaultTimeout(-1);
 global.__basedir = __dirname;
 
-Before(function ({ pickle }) {
-  const os = require('os');
-  const path = require('path');
-  const fs = require('fs');
+Before(async function ({ pickle }) {
+  // Create a unique and guaranteed-empty temp dir
+  const tmpUserDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'nw-chrome-profile-'));
 
-  // Always use a unique Chrome profile path
-  const uniqueProfile = path.join(os.tmpdir(), `nightwatch-profile-${process.pid}-${Date.now()}`);
-  fs.rmSync(uniqueProfile, { recursive: true, force: true });
+  const chromeArgs = [
+    '--no-sandbox',
+    '--ignore-certificate-errors',
+    '--allow-insecure-localhost',
+    '--disable-gpu',
+    `--user-data-dir=${tmpUserDataDir}`
+  ];
 
   const webdriver = {};
-
   if (this.parameters["webdriver-host"]) {
     webdriver.host = this.parameters["webdriver-host"];
   }
-
   if (this.parameters["webdriver-port"]) {
     webdriver.port = this.parameters["webdriver-port"];
   }
-
-  if (typeof this.parameters["start-process"] != "undefined") {
+  if (typeof this.parameters["start-process"] !== "undefined") {
     webdriver.start_process = this.parameters["start-process"];
-  }
-
-  let persist_globals;
-  if (this.parameters["persist-globals"]) {
-    persist_globals = this.parameters["persist-globals"];
   }
 
   const globals = {};
@@ -42,6 +41,7 @@ Before(function ({ pickle }) {
     globals.waitForConditionPollInterval = this.parameters["retry-interval"];
   }
 
+  // Build client
   this.client = Nightwatch.createClient({
     headless: this.parameters.headless,
     env: this.parameters.env,
@@ -52,47 +52,25 @@ Before(function ({ pickle }) {
     silent: !this.parameters.verbose,
     always_async_commands: true,
     webdriver,
-    persist_globals,
+    persist_globals: this.parameters["persist-globals"],
     config: this.parameters.config,
     globals,
+    desiredCapabilities: {
+      browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: chromeArgs
+      }
+    }
   });
 
-  // Set Chrome options properly
-  const chromeArgs = [
-    '--no-sandbox',
-    '--ignore-certificate-errors',
-    '--allow-insecure-localhost',
-    '--disable-gpu',
-    `--user-data-dir=${uniqueProfile}`
-  ];
-
-  const capabilitiesUpdate = {
-    'goog:chromeOptions': {
-      args: chromeArgs
-    }
-  };
-
-  // Optionally sync test name with capability if enabled
+  // Optional: sync name to cloud runs
   if (this.client.settings.sync_test_names) {
-    capabilitiesUpdate.name = pickle.name;
+    this.client.updateCapabilities({ name: pickle.name });
   }
 
-  this.client.updateCapabilities(capabilitiesUpdate);
+  console.log("Launching Chrome with args:", chromeArgs);
 
-  // Debug log to confirm it worked
-  console.log("Launching browser with Chrome args:", chromeArgs);
-
-  const { options = {} } = this.client.settings.test_runner;
-
-  // auto_start_session is true by default
-  if (
-    options.auto_start_session ||
-    typeof options.auto_start_session == "undefined"
-  ) {
-    return this.client.launchBrowser().then((browser) => {
-      this.browser = browser;
-    });
-  }
+  this.browser = await this.client.launchBrowser();
 });
 
 After(async function (testCase) {
