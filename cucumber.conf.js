@@ -10,6 +10,14 @@ setDefaultTimeout(-1);
 global.__basedir = __dirname;
 
 Before(function ({ pickle }) {
+  const os = require('os');
+  const path = require('path');
+  const fs = require('fs');
+
+  // Always use a unique Chrome profile path
+  const uniqueProfile = path.join(os.tmpdir(), `nightwatch-profile-${process.pid}-${Date.now()}`);
+  fs.rmSync(uniqueProfile, { recursive: true, force: true });
+
   const webdriver = {};
 
   if (this.parameters["webdriver-host"]) {
@@ -49,22 +57,30 @@ Before(function ({ pickle }) {
     globals,
   });
 
+  // Set Chrome options properly
+  const chromeArgs = [
+    '--no-sandbox',
+    '--ignore-certificate-errors',
+    '--allow-insecure-localhost',
+    '--disable-gpu',
+    `--user-data-dir=${uniqueProfile}`
+  ];
+
+  const capabilitiesUpdate = {
+    'goog:chromeOptions': {
+      args: chromeArgs
+    }
+  };
+
+  // Optionally sync test name with capability if enabled
   if (this.client.settings.sync_test_names) {
-    const { name } = pickle;
-    const os = require('os');
-    const path = require('path');
-    const uniqueProfile = path.join(os.tmpdir(), `nightwatch-profile-${process.pid}`);
-    this.client.updateCapabilities({
-      name,
-      args: [
-        '--no-sandbox',
-        '--ignore-certificate-errors',
-        '--allow-insecure-localhost',
-        '--disable-gpu',
-        `--user-data-dir=${uniqueProfile}`
-      ]
-    });
+    capabilitiesUpdate.name = pickle.name;
   }
+
+  this.client.updateCapabilities(capabilitiesUpdate);
+
+  // Debug log to confirm it worked
+  console.log("Launching browser with Chrome args:", chromeArgs);
 
   const { options = {} } = this.client.settings.test_runner;
 
@@ -97,7 +113,7 @@ AfterAll(async function () {
 
   try {
     let runInfo;
-    fs.readFile("run.json", (err, data) => {
+    fs.readFile("report/run.json", (err, data) => {
       if (err) {
         console.log("File read failed:", err);
         throw "Error opening file.";
