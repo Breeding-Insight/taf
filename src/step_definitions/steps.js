@@ -615,22 +615,23 @@ When(/^user can see "([^"]*)" as a program$/, async (args1) => {
 
 When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a Program Administrator$/,
-  async (args1, args2) => {
-    await this.browser.page.page().navigateToProgram(args2);
+  async function(args1, args2) {
+    let page = this.browser.page.page()
+    await page.navigateToProgram(args2);
 
-    await this.browser.page.page().section.navigationMenu.waitForElementVisible(
+    await page.section.navigationMenu.waitForElementVisible(
       "@programManagementLink"
     );
-    await this.browser.page.page().section.navigationMenu.click("@programManagementLink");
-    await this.browser.page.page().section.programManagement.waitForElementVisible("@usersLink");
-    await this.browser.page.page().section.programManagement.click("@usersLink");
-    await this.browser.page.page().waitForElementVisible("@showAllButton");
-    await this.browser.page.page().click("@showAllButton");
-    await this.browser.page.page().waitForElementVisible({
+    await page.section.navigationMenu.click("@programManagementLink");
+    await page.section.programManagement.waitForElementVisible("@usersLink");
+    await page.section.programManagement.click("@usersLink");
+    await page.waitForElementVisible("@showAllButton");
+    await page.click("@showAllButton");
+    await page.waitForElementVisible({
       selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']`,
       locateStrategy: "xpath",
     });
-    await this.browser.page.page().waitForElementVisible({
+    await page.waitForElementVisible({
       selector: `//*[@id='programUserTableLabel']//tr//td[normalize-space(.)='${args1}']/following-sibling::td[normalize-space(.)='Program Administrator']`,
       locateStrategy: "xpath",
     });
@@ -639,7 +640,7 @@ When(
 
 When(
   /^user can see "([^"]*)" has been added to "([^"]*)" as a Read Only$/,
-  async (args1, args2) => {
+  async function(args1, args2) {
     await this.browser.page.page().navigateToProgram(args2);
 
     await this.browser.page.page().section.navigationMenu.waitForElementVisible(

@@ -42,7 +42,7 @@ Before(async function ({ pickle }) {
     "--no-first-run",
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
-    "--headless=new",
+    // "--headless=new",
     "--incognito",
   ];
 
@@ -132,7 +132,7 @@ After(async function (testCase) {
     this.attach(fs.readFileSync(filename), "image/png");
   }
   if (this.browser) {
-    await this.browser.quit();
+    // await this.browser.quit();
   }
 });
 

@@ -464,25 +464,25 @@ module.exports = {
       navigateToUsers: async function () {
         //get the current url
         let url;
-        await browser.url(({ value }) => {
+        await this.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await browser.url(url + "/admin/user-management");
+        await this.url(url + "/admin/user-management");
       },
       navigateToPrograms: async function () {
         //get the current url
         debugger;
         let url;
-        await browser.url(({ value }) => {
+        await this.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await browser.url(url + "/admin/programs");
+        await this.url(url + "/admin/programs");
         await this.waitForElementVisible("#adminProgramTableLabel");
       },
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
         await this.click("@showAllButton");
-        await browser.execute("window.scrollTo(0,0);");
+        await this.execute("window.scrollTo(0,0);");
         await this.click({
           selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(text())='${program}']`,
           locateStrategy: "xpath",
@@ -491,10 +491,10 @@ module.exports = {
       navigateToProgramSelection: async function () {
         //get the current url
         let url;
-        await browser.url(({ value }) => {
+        await this.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await browser.url(url + "/program-selection");
+        await this.url(url + "/program-selection");
         await this.waitForElementVisible("@welcomeText");
       },
       isOptionVisible: async function (optionName) {
