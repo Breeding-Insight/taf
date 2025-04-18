@@ -22,7 +22,7 @@ Before(async function ({ pickle }) {
   );
 
   const chromeArgs = [
-    `--user-data-dir=${tmpUserDataDir}`,
+    // `--user-data-dir=${tmpUserDataDir}`,
     "--no-sandbox",
     "--disable-dev-shm-usage",
     "--disable-extensions",
@@ -103,7 +103,7 @@ After(async function (testCase) {
   if (this.tmpUserDataDir) {
     fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
   }
-  
+
 });
 
 After(async function () {
