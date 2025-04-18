@@ -99,6 +99,11 @@ After(async function (testCase) {
   if (browser) {
     await this.browser.quit();
   }
+
+  if (this.tmpUserDataDir) {
+    fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
+  }
+  
 });
 
 After(async function () {
