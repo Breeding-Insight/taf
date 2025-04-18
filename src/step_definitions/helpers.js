@@ -1,11 +1,4 @@
 module.exports = {
-  showAll: async function () {
-    await this.browser.page.page().moveToElement("@showAllButton", 1, 1);
-    await this.browser.page.page().pause(1000);
-    await this.browser.page.page().click("@showAllButton");
-    await this.browser.page.page().pause(5000);
-  },
-
   generateRandomAlphaString: function (length) {
     let generated = "";
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -35,4 +28,23 @@ module.exports = {
     }
     return value;
   },
+
+  getValue: async function(section, field) {
+    return await new Promise((resolve, reject) => {
+      section.getValue(field, ({ value, status }) => {
+        if (status === 0) resolve(value);
+        else reject(new Error(`Failed to get value for ${field}`));
+      });
+    });
+  },
+
+  getText: async function(section, field) {
+    return await new Promise((resolve, reject) => {
+      section.getText(field, ({ value, status }) => {
+        if (status === 0) resolve(value);
+        else reject(new Error(`Failed to get value for ${field}`));
+      });
+    });
+  }
 };
+

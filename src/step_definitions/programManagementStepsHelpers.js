@@ -1,8 +1,7 @@
 const { Given, Then, When } = require("@cucumber/cucumber");
 const path = require("path");
-const importFolder = path.join(__basedir, "src", "files", "TraitImport");
+const importFolder = path.join(__dirname, "../", "files", "TraitImport");
 const fs = require("fs");
-const program = {};
 const location = {};
 const helpers = require("./helpers");
 const { Sign } = require("crypto");

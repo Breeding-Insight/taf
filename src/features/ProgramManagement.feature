@@ -1,3 +1,4 @@
+@debug
 Feature: Program Management (15)
 
 	Background: Sysad logs in

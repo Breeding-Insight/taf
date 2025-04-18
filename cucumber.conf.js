@@ -8,15 +8,8 @@ const {
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-// const run = {
-//   browserName: "",
-//   platform: "",
-//   version: "",
-//   BreedingInsight: "",
-// };
 
 setDefaultTimeout(-1);
-global.__basedir = __dirname;
 
 Before(async function ({ pickle }) {
   const fs = require("fs");
@@ -42,7 +35,7 @@ Before(async function ({ pickle }) {
     "--no-first-run",
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
-    // "--headless=new",
+    "--start-maximized",
     "--incognito",
   ];
 
@@ -94,47 +87,54 @@ Before(async function ({ pickle }) {
   console.log("Launching Chrome with args:", chromeArgs);
 
   this.browser = await this.client.launchBrowser();
-
-  if (this.browser.globals.run.browserName == "") {
-    this.browser.globals.run.browserName = this.browser.capabilities.browserName;
-    switch (this.browser.capabilities.browserName) {
-      case "msedge": //same as chrome
-      case "chrome-headless-shell":
-      case "chrome":
-        this.browser.globals.run.version = this.browser.capabilities.version;
-        this.browser.globals.run.platform = this.browser.capabilities.platformName;
-        break;
-      case "firefox":
-        this.browser.globals.run.version = this.browser.capabilities.browserVersion;
-        this.browser.globals.run.platform = this.browser.capabilities.platformName;
-        break;
-      default:
-        throw new Error("Unrecognized browser.");
-    }
-    // convert JSON object to string
-    const data = JSON.stringify(run);
-
-    // write JSON string to a file
-    fs.writeFile("report/run.json", data, (err) => {
-      if (err) {
-        throw err;
-      }
-      console.log("JSON data is saved.");
-    });
-  }
+  this.browser.globals.timestamp = Date.now();
 });
 
 After(async function (testCase) {
-  if (testCase.result.status === "FAILED" && this.browser) {
+  if (testCase.result.status === "FAILED" && browser) {
     let filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
     await this.browser.saveScreenshot(filename);
     const fs = require("fs");
     this.attach(fs.readFileSync(filename), "image/png");
   }
-  if (this.browser) {
+  if (browser) {
     // await this.browser.quit();
   }
 });
+
+After(async function () {
+  if (!this.browser?.globals?.run?.browserName) {
+    const caps = this.browser.capabilities;
+    const globalsRun = this.browser.globals.run;
+
+    globalsRun.browserName = caps.browserName;
+
+    switch (caps.browserName) {
+      case "msedge":
+      case "chrome-headless-shell":
+      case "chrome":
+        globalsRun.version = caps.browserVersion;
+        globalsRun.platform = caps.platformName;
+        break;
+      case "firefox":
+        globalsRun.version = caps.browserVersion;
+        globalsRun.platform = caps.platformName;
+        break;
+    }
+      // convert JSON object to string
+      const data = JSON.stringify(globalsRun);
+
+      // write JSON string to a file
+      fs.writeFile("report/run.json", data, (err) => {
+        if (err) {
+          throw err;
+        }
+        console.log("JSON data is saved.");
+      });
+  }
+});
+
+
 
 AfterAll(async function () {
   var reporter = require("cucumber-html-reporter");
@@ -155,7 +155,7 @@ AfterAll(async function () {
         reportSuiteAsScenarios: true,
         launchReport: true,
         metadata: {
-          "Breeding Insight": runInfo.BreedingInsight,
+          "Breeding Insight": runInfo.breedingInsightVersion,
           Browser: runInfo.browserName,
           "Browser Version": runInfo.version,
           OS: runInfo.platform,
@@ -166,12 +166,4 @@ AfterAll(async function () {
     console.log(err);
     process.exit(1);
   }
-
-  // fs.readFile("report/cucumber_report.json", function (err, data) {
-  //   if (err) throw err;
-  //   if (data.includes(`"status": "failed"`)) {
-  //     console.log("Test failed.");
-  //     process.exit(1);
-  //   }
-  // });
 });

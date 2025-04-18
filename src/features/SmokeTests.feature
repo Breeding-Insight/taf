@@ -1,3 +1,4 @@
+@debug
 Feature: Smoke Tests (11)
 
 	@BI-804

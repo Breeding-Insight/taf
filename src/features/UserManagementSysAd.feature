@@ -1,3 +1,4 @@
+@debug
 Feature: System User Management (15)
 
 	Background: Sysad logs in

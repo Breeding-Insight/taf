@@ -15,11 +15,14 @@ When(
   async function () {
     let count;
     await this.browser.page.germplasmPage().pause(10000);
-    await this.browser.page.germplasmPage().findElements("tbody tr", (result) => {
-      count = result.value.length;
-    });
-    await this.browser.page.germplasmPage().section.germplasmTable.expect
-      .elements("@showDetailsLinks")
+    await this.browser.page
+      .germplasmPage()
+      .findElements("tbody tr", (result) => {
+        count = result.value.length;
+      });
+    await this.browser.page
+      .germplasmPage()
+      .section.germplasmTable.expect.elements("@showDetailsLinks")
       .count.equal(count);
   }
 );
@@ -51,64 +54,84 @@ Then(
       for (i = 0; i < table.hashes().length; i++) {
         switch (column) {
           case "Preferred Name":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@preferredNameText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@preferredNameText",
+                table.hashes()[i][column]
+              );
             break;
           case "GID":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@GIDText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@GIDText",
+                table.hashes()[i][column]
+              );
             break;
           case "Breeding Method":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@breedingMethodText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@breedingMethodText",
+                table.hashes()[i][column]
+              );
             break;
           case "Source":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@sourceText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@sourceText",
+                table.hashes()[i][column]
+              );
             break;
           case "Pedigree":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@pedigreeText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@pedigreeText",
+                table.hashes()[i][column]
+              );
             break;
           case "Pedigree GID":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@pedigreeGIDText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@pedigreeGIDText",
+                table.hashes()[i][column]
+              );
             break;
           case "Synonyms":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@synonymsText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@synonymsText",
+                table.hashes()[i][column]
+              );
             break;
           case "External UID":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@externalUIDText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@externalUIDText",
+                table.hashes()[i][column]
+              );
             break;
           case "User":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@userText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@userText",
+                table.hashes()[i][column]
+              );
             break;
           case "Creation Date":
-            await this.browser.page.germplasmPage().section.germplasmDetails.assert.containsText(
-              "@creationDateText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmDetails.assert.textContains(
+                "@creationDateText",
+                table.hashes()[i][column]
+              );
             break;
           default:
             throw new Error(`Unexpected ${column} name.`);
@@ -123,19 +146,19 @@ Then(
   async function (args1) {
     switch (args1) {
       case "Images":
-        await this.browser.page.germplasmPage().section.germplasmDetails.assert.visible(
-          "@imagesLink"
-        );
+        await this.browser.page
+          .germplasmPage()
+          .section.germplasmDetails.assert.visible("@imagesLink");
         break;
       case "Pedigrees":
-        await this.browser.page.germplasmPage().section.germplasmDetails.assert.visible(
-          "@pedigreesLink"
-        );
+        await this.browser.page
+          .germplasmPage()
+          .section.germplasmDetails.assert.visible("@pedigreesLink");
         break;
       case "Attributes":
-        await this.browser.page.germplasmPage().section.germplasmDetails.assert.visible(
-          "@attributesLink"
-        );
+        await this.browser.page
+          .germplasmPage()
+          .section.germplasmDetails.assert.visible("@attributesLink");
         break;
       default:
         throw new Error(`Unexpected ${column} name.`);
@@ -150,28 +173,36 @@ Then(
       for (i = 0; i < table.hashes().length; i++) {
         switch (column) {
           case "Description":
-            await this.browser.page.germplasmPage().section.germplasmListsDetails.assert.containsText(
-              "@descriptionText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmListsDetails.assert.textContains(
+                "@descriptionText",
+                table.hashes()[i][column]
+              );
             break;
           case "User":
-            await this.browser.page.germplasmPage().section.germplasmListsDetails.assert.containsText(
-              "@userText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmListsDetails.assert.textContains(
+                "@userText",
+                table.hashes()[i][column]
+              );
             break;
           case "Import Date":
-            await this.browser.page.germplasmPage().section.germplasmListsDetails.assert.containsText(
-              "@importDateText",
-              table.hashes()[i][column].replace("@TODAY", helpers.getToday())
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmListsDetails.assert.textContains(
+                "@importDateText",
+                table.hashes()[i][column].replace("@TODAY", helpers.getToday())
+              );
             break;
           case "Total Entries":
-            await this.browser.page.germplasmPage().section.germplasmListsDetails.assert.containsText(
-              "@totalEntriesText",
-              table.hashes()[i][column]
-            );
+            await this.browser.page
+              .germplasmPage()
+              .section.germplasmListsDetails.assert.textContains(
+                "@totalEntriesText",
+                table.hashes()[i][column]
+              );
             break;
           default:
             throw new Error(`Unexpected ${label} name.`);
@@ -204,7 +235,9 @@ Then(/^user can see Female Parent GID value is a link$/, async function () {
     }
   );
 
-  await this.browser.page.germplasmPage().assert.strictEqual(countOfTD, countOfTDLinks);
+  await this.browser.page
+    .germplasmPage()
+    .assert.strictEqual(countOfTD, countOfTDLinks);
 });
 
 Then(/^user can see Male Parent GID value is a link$/, async function () {
@@ -230,7 +263,9 @@ Then(/^user can see Male Parent GID value is a link$/, async function () {
     }
   );
 
-  await this.browser.page.germplasmPage().assert.strictEqual(countOfTD, countOfTDLinks);
+  await this.browser.page
+    .germplasmPage()
+    .assert.strictEqual(countOfTD, countOfTDLinks);
 });
 
 When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
@@ -239,7 +274,7 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
     index: 0,
     locateStrategy: "xpath",
   };
-  await client.execute("window.scrollTo(0,0);");
+  await this.browser.execute("window.scrollTo(0,0);");
   await this.browser.page.germplasmPage().moveToElement(control, 1, 1);
   await this.browser.page.germplasmPage().click(control);
 });
@@ -247,10 +282,14 @@ When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
 Then(/^user can see "([^"]*)" tab$/, async function (args1) {
   switch (args1) {
     case "Germplasm":
-      await this.browser.page.germplasmPage().assert.visible("@allGermplasmTab");
+      await this.browser.page
+        .germplasmPage()
+        .assert.visible("@allGermplasmTab");
       break;
     case "Germplasm Lists":
-      await this.browser.page.germplasmPage().assert.visible("@germplasmListsTab");
+      await this.browser.page
+        .germplasmPage()
+        .assert.visible("@germplasmListsTab");
     default:
       break;
   }
@@ -271,7 +310,7 @@ When(/^user selects "([^"]*)" tab on Gerplasm page$/, async function (args1) {
 Then(
   /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Germplasm Lists$/,
   async function (args1, args2, args3) {
-    await this.browser.page.germplasmPage().assert.containsText(
+    await this.browser.page.germplasmPage().assert.textContains(
       {
         selector: `//tbody/tr[${args2}]/td[@data-label='${args3}']`,
         locateStrategy: "xpath",
@@ -287,52 +326,68 @@ When(
     args1 = args1.replace("@TODAY", helpers.getToday());
     switch (args2) {
       case "GID":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[1]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[1]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Germplasm Name":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[2]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[2]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Breeding Method":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[3]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[3]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Source":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[4]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[4]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Female Parent GID":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[6]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[6]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Male Parent GID":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[7]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[7]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Created Date":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[8]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[8]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       case "Created By":
-        await this.browser.page.germplasmPage().setValue(
-          { selector: "//th[9]//div/input", locateStrategy: "xpath" },
-          args1
-        );
+        await this.browser.page
+          .germplasmPage()
+          .setValue(
+            { selector: "//th[9]//div/input", locateStrategy: "xpath" },
+            args1
+          );
         break;
       default:
         break;
@@ -344,7 +399,7 @@ Then(
   /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on All Germplasm$/,
   async function (args1, args2, args3) {
     args1 = args1.replace("@TODAY", helpers.getToday());
-    await this.browser.page.germplasmPage().assert.containsText(
+    await this.browser.page.germplasmPage().assert.textContains(
       {
         selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
         locateStrategy: "xpath",
@@ -355,51 +410,66 @@ Then(
 );
 
 Then(/^user can see "([^"]*)" in All Germplasm$/, async function (args1) {
-  await this.browser.page.germplasmPage().assert.containsText(
-    { selector: "//tr[@class='is-empty']/td/p", locateStrategy: "xpath" },
-    args1
-  );
+  await this.browser.page
+    .germplasmPage()
+    .assert.textContains(
+      { selector: "//tr[@class='is-empty']/td/p", locateStrategy: "xpath" },
+      args1
+    );
 });
 
 Then(/^user can see Germplasm table on Germplasm page$/, async function () {
-  await this.browser.page.germplasmPage().expect.section("@germplasmTable").to.be.visible;
+  await this.browser.page
+    .germplasmPage()
+    .expect.section("@germplasmTable").to.be.visible;
 });
 
 Then(
   /^user can see Germplasm Lists table on Germplasm page$/,
   async function () {
-    await this.browser.page.germplasmPage().expect.section("@listsTable").to.be.visible;
+    await this.browser.page.germplasmPage().expect.section("@listsTable").to.be
+      .visible;
   }
 );
 
 Then(
   /^user can not see loading wheel message on Germplasm page$/,
   async function () {
-    await this.browser.page.germplasmPage().assert.not.elementPresent(
-      "div.loading-overlay.is-active div.loading-icon"
-    );
+    await this.browser.page
+      .germplasmPage()
+      .assert.not.elementPresent(
+        "div.loading-overlay.is-active div.loading-icon"
+      );
   }
 );
 
 Then(/^user can see "([^"]*)" on Germplasm page$/, async function (args1) {
-  await this.browser.page.germplasmPage().assert.containsText("#germplasmTable p", args1);
+  await this.browser.page
+    .germplasmPage()
+    .assert.textContains("#germplasmTable p", args1);
 });
 
 When(
   /^user gets row "([^"]*)" from column "([^"]*)" on Germplasm lists page$/,
   async function (args1, args2) {
-    let val;
-
-    await this.browser.page.germplasmPage().section.germplasmListsDetails.getText(
-      {
+    // let val;
+    // await this.browser.page
+    //   .germplasmPage()
+    //   .section.germplasmListsDetails.getText(
+    //     {
+    //       selector: `//tr[${args1}]/td[@data-label='${args2}']`,
+    //       locateStrategy: "xpath",
+    //     },
+    //     ({ value }) => {
+    //       val = String(value).trim();
+    //     }
+    //   );
+    germplasmList[args2] = await helpers.getText(browser.page
+      .germplasmPage()
+      .section.germplasmListsDetails, {
         selector: `//tr[${args1}]/td[@data-label='${args2}']`,
         locateStrategy: "xpath",
-      },
-      ({ value }) => {
-        val = String(value).trim();
-      }
-    );
-    germplasmList[args2] = val;
+      });
   }
 );
 
@@ -407,7 +477,6 @@ Then(
   /^user can see "([^"]*)" as "([^"]*)" of Germplasm Lists Details page$/,
   async function (args1, args2) {
     let val;
-    let selector;
 
     await this.browser.page.germplasmPage().pause(5000);
 
@@ -416,41 +485,33 @@ Then(
         if (args1.includes("*")) {
           args1 = germplasmList["Description"];
         }
-        await this.browser.page.germplasmPage().section.germplasmListsDetails.getText(
-          "@descriptionText",
-          ({ value }) => {
-            val = String(value).trim();
-          }
+        val = await helpers.getText(
+          browser.page.germplasmPage().section.germplasmListsDetails,
+          "@descriptionText"
         );
-        await client.assert.equal(val, args1);
+        await this.browser.assert.equal(val, args1);
         break;
       case "User":
-        await this.browser.page.germplasmPage().section.germplasmListsDetails.getText(
-          "@userText",
-          ({ value }) => {
-            val = String(value).trim();
-          }
+        val = await helpers.getText(
+          browser.page.germplasmPage().section.germplasmListsDetails,
+          "@userText"
         );
-        await client.assert.equal(val, args1);
+        await browser.assert.equal(val, args1);
         break;
       case "Import Date":
         if (args1.includes("@TODAY")) args1 = helpers.getToday();
-        await this.browser.page.germplasmPage().section.germplasmListsDetails.getText(
-          "@importDateText",
-          ({ value }) => {
-            val = String(value).trim();
-          }
+        val = await helpers.getText(
+          browser.page.germplasmPage().section.germplasmListsDetails,
+          "@importDateText"
         );
-        await client.assert.equal(val, args1);
+        await this.browser.assert.equal(val, args1);
         break;
       case "Total Entries":
-        await this.browser.page.germplasmPage().section.germplasmListsDetails.getText(
-          "@totalEntriesText",
-          ({ value }) => {
-            val = String(value).trim();
-          }
+        val = await helpers.getText(
+          browser.page.germplasmPage().section.germplasmListsDetails,
+          "@totalEntriesText"
         );
-        await client.assert.equal(val, args1);
+        await this.browser.assert.equal(val, args1);
         break;
       default:
         throw new Error(`Unexpected ${args2} name.`);
@@ -458,7 +519,9 @@ Then(
   }
 );
 
-When('user selects Show Details of GID {string} of Germplasm page', async function(gid) {
+When(
+  "user selects Show Details of GID {string} of Germplasm page",
+  async function (gid) {
     await this.browser.page.germplasmPage().section.germplasmTable.click({
       selector: `.//tr//td[1]/a[normalize-space()='${gid}']/../..//a[normalize-space()='Show Details']`,
       locateStrategy: "xpath",
@@ -466,10 +529,21 @@ When('user selects Show Details of GID {string} of Germplasm page', async functi
   }
 );
 
-Then('user can see GID as descending sort', async function() {
-  await this.browser.page.germplasmPage().section.germplasmTable.assert.attributeEquals("@GIDSort", "class", "icon sort-icon is-small is-desc");
-})
+Then("user can see GID as descending sort", async function () {
+  await this.browser.page
+    .germplasmPage()
+    .section.germplasmTable.assert.attributeEquals(
+      "@GIDSort",
+      "class",
+      "icon sort-icon is-small is-desc"
+    );
+});
 
-Then('user can see {string} on Download prompt', async function (s) {
-  await this.browser.page.germplasmPage().assert.visible({selector:`//label/span[contains(text(),'${s}')]`, locateStrategy:"xpath"});
-})
+Then("user can see {string} on Download prompt", async function (s) {
+  await this.browser.page
+    .germplasmPage()
+    .assert.visible({
+      selector: `//label/span[contains(text(),'${s}')]`,
+      locateStrategy: "xpath",
+    });
+});

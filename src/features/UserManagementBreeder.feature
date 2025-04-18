@@ -1,3 +1,4 @@
+@debug
 Feature: Breeder User Management
 
 	Scenario: User Program Welcome Page

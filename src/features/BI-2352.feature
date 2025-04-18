@@ -1,6 +1,5 @@
 Feature: Read Only permissions
 
-    @debug
     @BI-2352
     Scenario: Read Only permissions
         Given a new program is created

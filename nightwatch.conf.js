@@ -1,93 +1,66 @@
-// Refer to the online docs for more details:
-// https://nightwatchjs.org/gettingstarted/configuration/
-//
-
-//  _   _  _         _      _                     _          _
-// | \ | |(_)       | |    | |                   | |        | |
-// |  \| | _   __ _ | |__  | |_ __      __  __ _ | |_   ___ | |__
-// | . ` || | / _` || '_ \ | __|\ \ /\ / / / _` || __| / __|| '_ \
-// | |\  || || (_| || | | || |_  \ V  V / | (_| || |_ | (__ | | | |
-// \_| \_/|_| \__, ||_| |_| \__|  \_/\_/   \__,_| \__| \___||_| |_|
-//             __/ |
-//            |___/
-
 module.exports = {
-  // An array of folders (excluding subfolders) where your tests are located;
-  // if this is not specified, the test source must be passed as the second argument to the test runner.
+  // Test source folder(s)
   src_folders: ["src/step_definitions"],
 
-  // See https://nightwatchjs.org/guide/concepts/page-object-model.html
+  // Page object path
   page_objects_path: "src/page_objects",
 
-  // See https://nightwatchjs.org/guide/extending-nightwatch/adding-custom-commands.html
+  // Custom commands path
   custom_commands_path: [],
 
-  // See https://nightwatchjs.org/guide/extending-nightwatch/adding-custom-assertions.html
+  // Custom assertions path
   custom_assertions_path: [],
 
-  // See https://nightwatchjs.org/guide/extending-nightwatch/adding-plugins.html
+  // Plugins
   plugins: [],
 
-  // See https://nightwatchjs.org/guide/concepts/test-globals.html
+  // Globals path
   globals_path: "",
 
   webdriver: {},
 
+  // Report folder
   output_folder: "report",
 
   test_workers: {
     enabled: false,
   },
 
+  // Cucumber Test Runner Configuration
   test_runner: {
-    // set cucumber as the runner
-    // For more info on using CucumberJS with Nightwatch, visit:
-    // https://nightwatchjs.org/guide/writing-tests/using-cucumberjs.html
-    type: "cucumber",
-
-    // define cucumber specific options
+    type: "cucumber", // Cucumber as test runner
     options: {
-      //set the feature path
-      feature_path: "src/features/*.feature",
-      // tags: '@debug'
-
-      // start the webdriver session automatically (enabled by default)
-      auto_start_session: true,
-      require: ["./cucumber.conf.js"],
-
-      // use parallel execution in Cucumber
-      // parallel: 2 // set number of workers to use (can also be defined in the cli as --parallel 2
+      feature_path: "src/features/*.feature",  // Path to feature files
+      require: ["./cucumber.conf.js"],         // Path to cucumber.conf.js
+      auto_start_session: false,               // Do not start session automatically
     },
   },
 
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: "http://localhost",
+      launch_url: "http://localhost",          // URL for the app under test
 
       screenshots: {
-        enabled: true,
-        path: "screensshots",
-        on_failure: true,
+        enabled: true,                         // Enable screenshot capture
+        path: "screenshots",                   // Fix typo here to "screenshots" instead of "screenshots"
+        on_failure: true,                      // Capture screenshot on failure
       },
 
       desiredCapabilities: {
-        browserName: "chrome",
+        browserName: "chrome",                 // Chrome as the browser for tests
       },
 
       webdriver: {
-        start_process: true,
-        // server_path: require("chromedriver").path,
-        // port: 4444,
-        // cli_args: ["--port=4444"],
+        start_process: true,                   // Start WebDriver automatically
+        server_path: require("chromedriver").path,  // Path to Chromedriver (ensure chromedriver is installed)
       },
     },
 
     chrome: {
       desiredCapabilities: {
-        browserName: "chrome",
+        browserName: "chrome",                 // Chrome browser for tests
         "goog:chromeOptions": {
-          // More info on Chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
           args: [
             "--no-sandbox",
             "--ignore-certificate-errors",

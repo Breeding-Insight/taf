@@ -2,26 +2,26 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const path = require("path");
 const helpers = require("./helpers.js");
 const importStepsHelpers = require("./importStepsHelpers.js");
-const ontologyFolder = path.join(__basedir, "src", "files", "OntologyImport");
+const ontologyFolder = path.join(__dirname, "../", "files", "OntologyImport");
 const experimentsFolder = path.join(
-  __basedir,
-  "src",
+  __dirname,
+  "../",
   "files",
   "ExperimentsImport"
 );
-const genotypeSamplesFolder = path.join(__basedir, "src", "files", "GenotypeSamplesImport");
+const genotypeSamplesFolder = path.join(__dirname, "../", "files", "GenotypeSamplesImport");
 
 When(
   /^user sets "([^"]*)" in List Name field of import page$/,
   async function (args1) {
-    await importStepsHelpers.setListName(args1);
+    await importStepsHelpers.setListName(args1, browser);
   }
 );
 
 When(
   /^user sets "([^"]*)" in List Description field of import page$/,
   async function (args1) {
-    await importStepsHelpers.setListDescription(args1);
+    await importStepsHelpers.setListDescription(args1, browser);
   }
 );
 
@@ -61,7 +61,7 @@ When(/^user clicks on GID sort ascending$/, async function () {
 });
 
 Then(/^user can see "([^"]*)" GID in first line$/, async function (args1) {
-  await this.browser.page.importPage().assert.containsText(
+  await this.browser.page.importPage().assert.textContains(
     {
       selector: `//tr[1]//td[@data-label='GID']/a`,
       locateStrategy: "xpath",
@@ -85,7 +85,7 @@ When(/^user clicks on Germplasm Name sort ascending$/, async function () {
 });
 
 Then(/^user can see "([^"]*)" Name in first line$/, async function (args1) {
-  await this.browser.page.importPage().assert.containsText(
+  await this.browser.page.importPage().assert.textContains(
     {
       selector: `//tr[1]//td[@data-label='Germplasm Name']`,
       locateStrategy: "xpath",
@@ -111,7 +111,7 @@ When(/^user clicks on Breeding Method sort ascending$/, async function () {
 Then(
   /^user can see "([^"]*)" Breeding Method in first line$/,
   async function (args1) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
         selector: `//tr[1]//td[@data-label='Breeding Method']`,
         locateStrategy: "xpath",
@@ -136,7 +136,7 @@ When(/^user clicks on Source sort ascending$/, async function () {
 });
 
 Then(/^user can see "([^"]*)" Source in first line$/, async function (args1) {
-  await this.browser.page.importPage().assert.containsText(
+  await this.browser.page.importPage().assert.textContains(
     {
       selector: `//tr[1]//td[@data-label='Source']`,
       locateStrategy: "xpath",
@@ -162,9 +162,10 @@ When(/^user clicks on Female Parent GID sort ascending$/, async function () {
 Then(
   /^user can see "([^"]*)" Female Parent GID in first line$/,
   async function (args1) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
-        selector: `//tr[1]//td[@data-label='Female Parent GID']/div | //tr[1]//td[@data-label='Female Parent GID']/a`,
+        // selector: `//tr[1]//td[@data-label='Female Parent GID']/div | //tr[1]//td[@data-label='Female Parent GID']/a`,
+        selector: "//tr[1]//td[@data-label='Female Parent GID']",
         locateStrategy: "xpath",
       },
       args1
@@ -189,7 +190,7 @@ When(/^user clicks on Male Parent GID sort ascending$/, async function () {
 Then(
   /^user can see "([^"]*)" Male Parent GID in first line$/,
   async function (args1) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
         selector: `//tr[1]//td[@data-label='Male Parent GID']`,
         locateStrategy: "xpath",
@@ -216,7 +217,7 @@ When(/^user clicks on Created Date sort ascending$/, async function () {
 Then(
   /^user can see "([^"]*)" Created Date in first line$/,
   async function (args1) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
         selector: `//tr[11]//td[@data-label='Created Date']`,
         locateStrategy: "xpath",
@@ -243,7 +244,7 @@ When(/^user clicks on Created By sort ascending$/, async function () {
 Then(
   /^user can see "([^"]*)" Created By in first line$/,
   async function (args1) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
         selector: `//tr[1]//td[@data-label='Created By']`,
         locateStrategy: "xpath",
@@ -254,7 +255,7 @@ Then(
 );
 
 When(/^user uploads Ontology "([^"]*)" file$/, async function (args1) {
-  await this.browser.page.importPage().setValue(
+  await this.browser.page.importPage().uploadFile(
     'input[type="file"]',
     path.resolve(ontologyFolder, args1)
   );
@@ -263,7 +264,7 @@ When(/^user uploads Ontology "([^"]*)" file$/, async function (args1) {
 When(
   /^user uploads Experiments & Observations "([^"]*)" file$/,
   async function (args1) {
-    await this.browser.page.importPage().setValue(
+    await this.browser.page.importPage().uploadFile(
       'input[type="file"]',
       path.resolve(experimentsFolder, args1)
     );
@@ -271,7 +272,7 @@ When(
 );
 
 When(/^user uploads Sample Submission "([^"]*)" file$/, async function (args1) {
-  await this.browser.page.importPage().setValue(
+  await this.browser.page.importPage().uploadFile(
     'input[type="file"]',
     path.resolve(experimentsFolder, args1)
   );
@@ -307,7 +308,7 @@ Then(
 Then(
   /^user can see "([^"]*)" in row "([^"]*)" as "([^"]*)" column on Experiment and Observation Import page$/,
   async function (args1, args2, args3) {
-    await this.browser.page.importPage().assert.containsText(
+    await this.browser.page.importPage().assert.textContains(
       {
         selector: `//tbody/tr[${args2}]//td[@data-label='${args3}']`,
         locateStrategy: "xpath",
@@ -357,7 +358,7 @@ Then("user can see {string} on preview table", async function (s) {
 });
 
 When("user uploads Genotype Samples {string} file", async function (file) {
-  await this.browser.page.importPage().setValue(
+  await this.browser.page.importPage().uploadFile(
     'input[type="file"]',
     path.resolve(experimentsFolder, args1)
   );
