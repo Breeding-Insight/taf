@@ -20,6 +20,7 @@ Before(async function ({ pickle }) {
   const tmpUserDataDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "nw-chrome-profile-")
   );
+  console.log("tmpUserDataDir:", tmpUserDataDir);
 
   const chromeArgs = [
     // `--user-data-dir=${tmpUserDataDir}`,
