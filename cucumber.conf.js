@@ -23,7 +23,6 @@ Before(async function ({ pickle }) {
   console.log("tmpUserDataDir:", tmpUserDataDir);
 
   const chromeArgs = [
-    // `--user-data-dir=${tmpUserDataDir}`,
     "--no-sandbox",
     "--disable-dev-shm-usage",
     "--disable-extensions",
@@ -37,6 +36,7 @@ Before(async function ({ pickle }) {
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
+    "--headless=new"
   ];
 
   const webdriver = {};
