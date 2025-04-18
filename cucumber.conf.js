@@ -35,9 +35,7 @@ Before(async function ({ pickle }) {
     "--no-first-run",
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
-    "--start-maximized",
-    "--headless=new",
-    "--incognito",
+    "--window-size=1920,1080",
   ];
 
   const webdriver = {};
@@ -99,7 +97,7 @@ After(async function (testCase) {
     this.attach(fs.readFileSync(filename), "image/png");
   }
   if (browser) {
-    // await this.browser.quit();
+    await this.browser.quit();
   }
 });
 
