@@ -165,4 +165,12 @@ AfterAll(async function () {
     console.log(err);
     process.exit(1);
   }
+
+  fs.readFile("report/cucumber_report.json", function (err, data) {
+    if (err) throw err;
+    if (data.includes(`"status": "failed"`)) {
+      console.log("Test failed.");
+      process.exit(1);
+    }
+  });
 });
