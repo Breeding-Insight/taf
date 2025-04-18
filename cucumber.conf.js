@@ -36,6 +36,7 @@ Before(async function ({ pickle }) {
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
     "--start-maximized",
+    "--headless=new",
     "--incognito",
   ];
 
