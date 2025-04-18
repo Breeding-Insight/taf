@@ -59,17 +59,26 @@ module.exports = {
 
     chrome: {
       desiredCapabilities: {
-        browserName: "chrome",                 // Chrome browser for tests
+        browserName: "chrome",
         "goog:chromeOptions": {
+          w3c: true,
           args: [
             "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-extensions",
+            "--disable-gpu",
+            "--disable-background-networking",
+            "--disable-sync",
+            "--metrics-recording-only",
+            "--disable-default-apps",
+            "--mute-audio",
+            "--no-first-run",
             "--ignore-certificate-errors",
             "--allow-insecure-localhost",
-            "--edge-skip-compat-layer-relaunch",
-            "--disable-gpu",
-          ],
-        },
-      },
+            "--window-size=1920,1080"
+          ]
+        }
+      }
     },
   },
 };
