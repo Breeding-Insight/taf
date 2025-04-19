@@ -667,28 +667,28 @@ When(/^user creates a new program$/, async function (table) {
 
 Then(/^user can see a new program is created$/, async function() {
   await showAll();
-  let selector = `.//td[normalize-space(.)='${program.Name}']`;
+  let selector = `.//td[normalize-space(.)='${browser.globals.program.Name}']`;
   await browser.page
     .page()
     .assert.textContains(
       { selector: selector, locateStrategy: "xpath" },
-      program.Name
+      browser.globals.program.Name
     );
   await browser.page.page().assert.textContains(
     {
       selector: selector + "/ancestor::tr//td[@data-label='Species']",
       locateStrategy: "xpath",
     },
-    program.Species
+    browser.globals.program.Species
   );
   await browser.page.page().assert.textContains(
     {
       selector: selector + "/ancestor::tr//td[@data-label='Program Key']",
       locateStrategy: "xpath",
     },
-    program.Key
+    browser.globals.program.Key
   );
-  console.log("and this" + program.Name);
+  console.log("and this" + browser.globals.program.Name);
 });
 
 Then(
