@@ -1324,13 +1324,7 @@ Given(/^a new program is created$/, async function () {
   await loginAs("sysad");
   const systemAdministrationPage = this.browser.page.systemAdministrationPage();
   await systemAdministrationPage.selectProgram("System Administration");
-  this.browser.globals.programName = helpers.generateRandomAlphaString(10);
-  await systemAdministrationPage.createProgram(
-    helpers.generateRandomAlphaString(5),
-    "Grape",
-    helpers.generateRandomAlphaString(5)
-  );
-  await systemAdministrationPage.createProgram("*", "Grape", "*");
+  await systemAdministrationPage.createProgram("*", "Grape","*");
   await navigateToProgramSelection();
   await systemAdministrationPage.selectProgram("*");
   await navigateOnLeftMenu("Program Administration");

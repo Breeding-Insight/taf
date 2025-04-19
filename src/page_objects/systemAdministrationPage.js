@@ -40,10 +40,6 @@ module.exports = {
         await this.click(selector);
       },
       createProgram: async function (programNamne, species, programKey) {
-        // await this.api.debug();
-        // await this.api.waitForElementVisible("@newProgramControl", 60000);
-        // await this.api.waitForElementVisible({selector:"#adminProgramTableLabel > button"}, 60000);
-
         await this.click("@newProgramControl");
         await this.setValue("@programNameControl", programNamne.replace("*", helpers.generateRandomAlphaString(5)));
         await this.setValue("@speciesControl", species);
