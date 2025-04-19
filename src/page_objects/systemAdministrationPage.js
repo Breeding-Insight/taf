@@ -36,8 +36,8 @@ module.exports = {
           selector: `//*[@id='app']//main//a[normalize-space(.)='${name}']`,
           locateStrategy: "xpath",
         };
-        await this.api.waitForElementPresent(selector, 60000);
-        await this.api.click(selector);
+        await this.waitForElementPresent(selector, 60000);
+        await this.click(selector);
       },
       createProgram: async function (programNamne, species, programKey) {
         // await this.api.debug();
