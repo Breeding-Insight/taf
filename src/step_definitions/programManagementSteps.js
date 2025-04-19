@@ -89,11 +89,10 @@ When(
 Then(
   /^user can see "([^"]*)" in Program Name field in Programs page$/,
   async function(args1) {
-    let program = getProgram();
-    if (program.Name != null) {
+    if ( browser.globals.program.Name != null) {
       await browser.page
         .page()
-        .section.programForm.assert.value("@programNameField", program.Name);
+        .section.programForm.assert.value("@programNameField",  browser.globals.program.Name);
     } else {
       await browser.page
         .page()
@@ -300,9 +299,8 @@ When(
 Then(
   /^user can not see "([^"]*)" in Name column in Program page$/,
   async function(args1) {
-    let programName = getProgram();
-    if (program.Name == null) programName = args1;
-    else programName = program.Name;
+    if (browser.globals.program.Name == null) programName = args1;
+    else programName = browser.globals.program.Name;
     const selector = {
       selector: `.//tr/td[@data-label='Name'][normalize-space(.)='${programName}']`,
       locateStrategy: "xpath",
@@ -768,7 +766,7 @@ Then(
   /^user can see "([^"]*)" message on Configuration tab on Program Management page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 = browser.globals.program.Name;
     }
     await browser.page
       .page()
@@ -800,7 +798,7 @@ Then(
   /^user can see "([^"]*)" is currently shared but not accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 =  browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//li[normalize-space()='${args1} (Not Accepted)']`,
@@ -813,7 +811,7 @@ Then(
   /^user can see "([^"]*)" is currently shared and accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 =  browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//li[normalize-space()='${args1} (Accepted)']`,
@@ -826,7 +824,7 @@ Then(
   /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 = program.Name;
+      args1 =  browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//label[normalize-space()='${args1}']//input`,

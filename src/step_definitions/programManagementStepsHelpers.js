@@ -12,7 +12,7 @@ module.exports = {
   },
   selectProgram: async function (name) {
     if (name.includes("*")) {
-      name = program.Name;
+      name =  browser.globals.program.Name;
     }
     selector = {
       selector: `//*[@id='app']//main//a[normalize-space(.)='${name}']`,
@@ -55,10 +55,10 @@ module.exports = {
     await this.browser.page.page().section.programForm.getValue(
       "@programNameField",
       ({ value }) => {
-        program.Name = value;
+        browser.globals.program.Name = value;
       }
     );
-    console.log("Program name: " + program.Name);
+    console.log("Program name: " +  browser.globals.program.Name);
     let option;
     await this.browser.page.page().section.programForm.getValue("@speciesSelect", ({ value }) => {
       option = value;
