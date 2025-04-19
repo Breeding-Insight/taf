@@ -46,6 +46,7 @@ module.exports = {
         await this.setValue("@programKeyControl", programKey.replace("*", helpers.generateRandomAlphaString(5)));
         await this.getProgramValues();
         await this.click("@saveControl");
+        await this.waitForElementNotPresent("@saveControl");
       },
 
       clickNewProgram: async function () {
