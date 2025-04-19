@@ -74,7 +74,7 @@ When(
     await showAll();
     let programName;
     if (args1.includes("*")) {
-      programName = getProgram().Name;
+      programName = browser.globals.program.Name;
     } else {
       programName = args1;
     }
@@ -115,7 +115,7 @@ Then(
   async function(args1) {
     //will find match on 1st row only
     if (args1.includes("*")) {
-      programName = getProgram().Name;
+      programName = browser.globals.program.Name;
     } else {
       programName = args1;
     }
@@ -160,7 +160,7 @@ Then(/^user can see "([^"]*)" Program in Programs page$/, async function(args1) 
 Then(/^user can see new program in Programs page$/, async function(table) {
   await showAll();
   let selector = `.//td[normalize-space(.)='${
-    getProgram().Name
+    browser.globals.program.Name
   }']`;
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
@@ -173,7 +173,7 @@ Then(/^user can see new program in Programs page$/, async function(table) {
                 selector: selector,
                 locateStrategy: "xpath",
               },
-              getProgram().Name
+              browser.globals.program.Name
             );
           break;
         case "Key":
@@ -185,7 +185,7 @@ Then(/^user can see new program in Programs page$/, async function(table) {
                   selector + "/ancestor::tr//td[@data-label='Program Key']",
                 locateStrategy: "xpath",
               },
-              getProgram().Key
+              browser.globals.program.Key
             );
           break;
         case "Species":
@@ -244,7 +244,7 @@ Then(
     //will find match on new row only
     await browser.page.page().section.programForm.isItemInRow({
       Species: args1,
-      Name: getProgram().Name,
+      Name: browser.globals.program.Name,
     });
   }
 );
@@ -254,7 +254,7 @@ When(
   async function(args1) {
     await showAll();
     if (args1.includes("*")) {
-      programName = getProgram().Name;
+      programName = browser.globals.program.Name;
     } else {
       programName = args1;
     }
@@ -423,7 +423,7 @@ Then(
 
 Then(/^user can see "([^"]*)" archived in system in banner$/, async function(args1) {
   if (args1.includes("*"))
-    args1 = getProgram().Name;
+    args1 = browser.globals.program.Name;
   await browser.page.page().assert.visible({
     selector: `//article//div[normalize-space(.)='${args1} archived in system' and contains(@class, 'banner-text')]`,
     locateStrategy: "xpath",
@@ -696,7 +696,7 @@ Then(
       "@modalHeader",
       args1.replace("*", () => {
         if (args1.includes("*"))
-          return getProgram().Name;
+          return browser.globals.program.Name;
         return args1;
       })
     );
@@ -901,10 +901,6 @@ When(
     await browser.page.page().click("#showShareModalBtn");
   }
 );
-
-async function getProgram() {
-  return program;
-}
 
 async function selectProgram(name) {
   if (name.includes("*")) {

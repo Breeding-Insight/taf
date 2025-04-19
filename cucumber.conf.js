@@ -9,7 +9,8 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 
-setDefaultTimeout(-1);
+require('events').EventEmitter.defaultMaxListeners = 20; 
+setDefaultTimeout(300000);
 
 Before(async function ({ pickle }) {
   const fs = require("fs");
