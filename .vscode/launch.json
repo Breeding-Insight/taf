@@ -1,25 +1,23 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug",
-      "program": "${workspaceRoot}/node_modules/@cucumber/cucumber/bin/cucumber-js",
+      "name": "Debug Cucumber Tests",
+      "program": "${workspaceFolder}/node_modules/.bin/cucumber-js",
       "args": [
-        "${workspaceRoot}/src/features",
-        "--require",
-        "cucumber.conf.js",
-        "--require",
-        "src/step_definitions",
-        "--format",
-        "json:report/cucumber_report.json",
-        "--tags",
-        "@debug"
-      ]
+        "--require", "cucumber.conf.js",
+        "--require", "src/step_definitions",
+        "src/features",
+        "--format", "json:report/cucumber_report.json"
+      ],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "test"
+      },
+      "runtimeArgs": ["--inspect-brk"]
     }
   ]
 }
