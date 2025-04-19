@@ -84,7 +84,8 @@ Before(async function ({ pickle }) {
     this.client.updateCapabilities({ name: pickle.name });
   }
 
-  console.log("Launching Chrome with args:", chromeArgs);
+  console.log("Launching Chrome with args: ", chromeArgs);
+  console.log("Executing test : " + pickle.name)
 
   this.browser = await this.client.launchBrowser();
   this.browser.globals.timestamp = Date.now();
