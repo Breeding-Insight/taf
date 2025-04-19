@@ -105,9 +105,6 @@ After(async function (testCase) {
     fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
   }
 
-});
-
-After(async function () {
   if (!this.browser?.globals?.run?.browserName) {
     const caps = this.browser.capabilities;
     const globalsRun = this.browser.globals.run;
@@ -138,8 +135,6 @@ After(async function () {
       });
   }
 });
-
-
 
 AfterAll(async function () {
   var reporter = require("cucumber-html-reporter");
