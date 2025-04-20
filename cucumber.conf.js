@@ -18,7 +18,9 @@ Before(async function ({ pickle }) {
   fs.mkdirSync("report", { recursive: true });
   fs.mkdirSync("screenshots", { recursive: true });
 
-  this.tmpUserDataDir = fs.mkdtempSync(path.join(os.tmpdir(), "nw-chrome-profile-"));
+  this.tmpUserDataDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), "nw-chrome-profile-")
+  );
   console.log("tmpUserDataDir:", this.tmpUserDataDir);
 
   const chromeArgs = [
@@ -39,8 +41,10 @@ Before(async function ({ pickle }) {
   ];
 
   const webdriver = {};
-  if (this.parameters["webdriver-host"]) webdriver.host = this.parameters["webdriver-host"];
-  if (this.parameters["webdriver-port"]) webdriver.port = this.parameters["webdriver-port"];
+  if (this.parameters["webdriver-host"])
+    webdriver.host = this.parameters["webdriver-host"];
+  if (this.parameters["webdriver-port"])
+    webdriver.port = this.parameters["webdriver-port"];
   if (typeof this.parameters["start-process"] !== "undefined")
     webdriver.start_process = this.parameters["start-process"];
 
@@ -112,45 +116,5 @@ After(async function (testCase) {
     } catch (err) {
       console.error("Error saving run metadata:", err);
     }
-  }
-});
-
-AfterAll(async function () {
-  let runInfo = {
-    browserName: "Unknown",
-    version: "Unknown",
-    platform: process.platform,
-  };
-
-  try {
-    const data = await fsPromises.readFile("report/run.json", "utf-8");
-    runInfo = JSON.parse(data);
-  } catch (err) {
-    console.warn("No run.json found, falling back to defaults.");
-  }
-
-  try {
-    reporter.generate({
-      theme: "bootstrap",
-      jsonFile: "report/cucumber_report.json",
-      output: "report/cucumber_report.html",
-      reportSuiteAsScenarios: true,
-      launchReport: true,
-      metadata: {
-        "Breeding Insight": runInfo.breedingInsightVersion || "N/A",
-        Browser: runInfo.browserName,
-        "Browser Version": runInfo.version,
-        OS: runInfo.platform,
-      },
-    });
-
-    const reportData = await fsPromises.readFile("report/cucumber_report.json", "utf-8");
-    if (reportData.includes(`"status": "failed"`)) {
-      console.log("Test failed.");
-      process.exit(1);
-    }
-  } catch (err) {
-    console.error("Error generating report:", err);
-    process.exit(1);
   }
 });
