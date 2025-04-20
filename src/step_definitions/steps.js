@@ -258,17 +258,17 @@ Then(/^user can see each row has an Edit link$/, async function () {
     }
   );
 
-  await this.browser.elements(
+  const result = await this.browser.elements(
     selector.locateStrategy,
-    selector.selector,
-    ({ value }) => {
-      this.assert.strictEqual(
-        value.length,
-        rowCount,
-        `Expected ${rowCount} Edit links`
-      );
-    }
+    selector.selector
   );
+  
+  this.assert.strictEqual(
+    result.value.length,
+    rowCount,
+    `Expected ${rowCount} Edit links`
+  );
+  
 });
 
 Then(/^user can see each row has a Deactivate link$/, async function () {
