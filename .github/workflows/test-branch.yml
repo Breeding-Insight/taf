@@ -173,6 +173,9 @@ jobs:
         if: (github.event.inputs.suite=='smoke')
         run: npm run test:chromeDaily
 
+      - name: Run HTML Report generator
+        run: npm run report
+
       - id: biWebBranch
         run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
 

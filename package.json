@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/cucumber_report.json && npm run report",
-    "test:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json && npm run report",
-    "test:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json && npm run report",
-    "test:e2e": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json && npm run report",
-    "test:e2e:debug": "node --inspect-brk ./node_modules/.bin/cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json && npm run report",
+    "test:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
+    "test:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
+    "test:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
+    "test:e2e": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
+    "test:e2e:debug": "node --inspect-brk ./node_modules/.bin/cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
     "report": "node reporter.js"
   },
   "keywords": [],
