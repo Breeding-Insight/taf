@@ -10,6 +10,7 @@ const genotypeSamplesFolder = path.join(
 );
 const user = {};
 const helpers = require("./helpers.js");
+const assert = require('assert');
 
 Given(/^user logs with valid credentials$/, async function () {
   await this.browser.page.page().navigate();
@@ -228,21 +229,6 @@ Then(/^user can not see "([^"]*)" link$/, async function (args1) {
 });
 
 Then(/^user can see each row has an Edit link$/, async function () {
-  // const selector = {
-  //   selector: "//td/a[normalize-space()='Edit']",
-  //   locateStrategy: "xpath",
-  // };
-
-  // let rows;
-  // await this.api.elements(
-  //   "css selector",
-  //   "#app div.sidebarlayout main table tbody tr",
-  //   ({ value }) => {
-  //     rows = value.length;
-  //   }
-  // );
-  // await this.browser.page.page().expect.elements(selector).count.equal(rows);
-
   const selector = {
     selector: "//td/a[normalize-space()='Edit']",
     locateStrategy: "xpath",
@@ -263,8 +249,8 @@ Then(/^user can see each row has an Edit link$/, async function () {
     selector.selector
   );
   
-  this.assert.strictEqual(
-    result.value.length,
+  assert.equal(
+    result.length,
     rowCount,
     `Expected ${rowCount} Edit links`
   );

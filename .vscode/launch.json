@@ -5,12 +5,13 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Cucumber Tests",
-      "program": "${workspaceFolder}/node_modules/.bin/cucumber-js",
+      "program": "${workspaceRoot}/node_modules/@cucumber/cucumber/bin/cucumber-js",
       "args": [
         "--require", "cucumber.conf.js",
         "--require", "src/step_definitions",
         "src/features",
-        "--format", "json:report/cucumber_report.json"
+        "--format", "json:report/cucumber_report.json",
+        "--tags", "@debug"
       ],
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"],

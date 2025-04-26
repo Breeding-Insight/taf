@@ -2,6 +2,7 @@ const { Then, When, AfterAll } = require("@cucumber/cucumber");
 const { getToday } = require("./helpers");
 const helpers = require("./helpers");
 const germplasmList = [];
+const assert = require("assert");
 
 Then(
   /^user can see All Germplasm records exist on Germplasm page$/,
@@ -235,9 +236,7 @@ Then(/^user can see Female Parent GID value is a link$/, async function () {
     }
   );
 
-  await this.browser.page
-    .germplasmPage()
-    .assert.strictEqual(countOfTD, countOfTDLinks);
+  assert.strictEqual(countOfTD, countOfTDLinks);
 });
 
 Then(/^user can see Male Parent GID value is a link$/, async function () {
@@ -263,9 +262,8 @@ Then(/^user can see Male Parent GID value is a link$/, async function () {
     }
   );
 
-  await this.browser.page
-    .germplasmPage()
-    .assert.strictEqual(countOfTD, countOfTDLinks);
+  assert.strictEqual(countOfTD, countOfTDLinks);
+  
 });
 
 When(/^user selects "([^"]*)" row Female Parent GID$/, async function (args1) {
