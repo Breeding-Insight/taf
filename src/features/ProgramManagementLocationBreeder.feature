@@ -1,4 +1,3 @@
-@debug
 Feature: Program Location Management
 
 	Background: Required Setup

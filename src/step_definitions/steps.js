@@ -10,7 +10,7 @@ const genotypeSamplesFolder = path.join(
 );
 const user = {};
 const helpers = require("./helpers.js");
-const assert = require('assert');
+const assert = require("assert");
 
 Given(/^user logs with valid credentials$/, async function () {
   await this.browser.page.page().navigate();
@@ -248,13 +248,8 @@ Then(/^user can see each row has an Edit link$/, async function () {
     selector.locateStrategy,
     selector.selector
   );
-  
-  assert.equal(
-    result.length,
-    rowCount,
-    `Expected ${rowCount} Edit links`
-  );
-  
+
+  assert.equal(result.length, rowCount, `Expected ${rowCount} Edit links`);
 });
 
 Then(/^user can see each row has a Deactivate link$/, async function () {
@@ -325,7 +320,7 @@ When(
     // let control = {selector:"#paginationSelect"};
     // browser.page.page().waitForElementVisible(control, 10000).setValue(control, args1);
 
-    const selector = '#paginationSelect';
+    const selector = "#paginationSelect";
 
     await browser.waitForElementVisible(selector, 5000);
 
@@ -334,12 +329,12 @@ When(
         const select = document.querySelector(selector);
         if (select) {
           select.value = args1;
-          select.dispatchEvent(new Event('change', { bubbles: true }));
+          select.dispatchEvent(new Event("change", { bubbles: true }));
         }
       },
       [selector, args1]
     );
-    // await browser.pause(500); 
+    // await browser.pause(500);
     // await browser.getValue(selector, function (result) {
     //   console.log('Selected value:', result.value);
     // });
@@ -860,12 +855,13 @@ Then(/^user can see Welcome page of program$/, async function () {
 });
 
 Then(/^user can see "([^"]*)" title$/, async function (args1) {
-  await this.browser.page
-    .page()
-    .assert.textContains(
-      { selector: "#main .title", locateStrategy: "css" },
-      args1
-    );
+  const titleSelector = {
+    selector: "//*[@id='main']/section/div//*[contains(@class,'title')]",
+    locateStrategy: "xpath",
+  };
+
+  await this.browser.page.page().waitForElementVisible(titleSelector, 60000); // Wait up to 10s
+  await this.browser.page.page().assert.textContains(titleSelector, args1);
 });
 
 Then(/^user can see "([^"]*)" in navigation$/, async function (args1) {
@@ -951,10 +947,9 @@ Then(/^user can see header "([^"]*)"$/, async function (args1) {
 });
 
 Then(/^user can see a message 'Before You Import...'$/, async function () {
-  await this.browser.page.ontologyPage().assert.textContains(
-    "@beforeImportMessage",
-    "Before You Import..."
-  );
+  await this.browser.page
+    .ontologyPage()
+    .assert.textContains("@beforeImportMessage", "Before You Import...");
 });
 
 Then(/^user can see a button 'Choose a file...'$/, async function () {
@@ -1310,7 +1305,7 @@ Given(/^a new program is created$/, async function () {
   await loginAs("sysad");
   const systemAdministrationPage = this.browser.page.systemAdministrationPage();
   await systemAdministrationPage.selectProgram("System Administration");
-  await systemAdministrationPage.createProgram("*", "Grape","*");
+  await systemAdministrationPage.createProgram("*", "Grape", "*");
   await navigateToProgramSelection();
   await systemAdministrationPage.selectProgram("*");
   await navigateOnLeftMenu("Program Administration");

@@ -76,8 +76,8 @@ module.exports = {
 
       clickSaveProgram: async function () {
         await this.getProgramValues();
-        await this.browser.page.page().section.programForm.click("@saveButton");
-        await this.browser.page.page().pause(5000);
+        await this.click("@saveControl");
+        return this.pause(5000);
       },
 
       getProgramValues: async function () {
@@ -130,6 +130,7 @@ module.exports = {
           });
           browser.globals.program.Key = programKey;
         }
+        // return this;
       },
     }
   ],

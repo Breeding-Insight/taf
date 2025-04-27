@@ -6,14 +6,14 @@ const location = {};
 const helpers = require("./helpers");
 const { Sign } = require("crypto");
 
-Then(/^user can see Program User Management page$/, async function() {
+Then(/^user can see Program User Management page$/, async function () {
   await browser.page.page().assert.visible({
     selector: "//*[@id='main']//h1[contains(text(),'Program Administration')]",
     locateStrategy: "xpath",
   });
 });
 
-When(/^user is on the program-management page$/, async function() {
+When(/^user is on the program-management page$/, async function () {
   await browser.page.page().assert.visible("#adminProgramTableLabel");
 });
 
@@ -44,7 +44,7 @@ When(
 
 When(
   /^user checks 'Specify custom program data storage location' checkbox in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.click("@specifyCustomDataCheckbox");
@@ -52,7 +52,7 @@ When(
 );
 When(
   /^user sets "([^"]*)" in BrAPI URL field in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await browser.page
       .page()
       .section.programForm.setValue("@brAPIURLField", args1);
@@ -61,7 +61,7 @@ When(
 
 Then(
   /^user can see "([^"]*)" text under BrAPI URL field in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await browser.page
       .page()
       .section.programForm.assert.textContains("@brAPIURLErrorMessage", args1);
@@ -88,11 +88,14 @@ When(
 
 Then(
   /^user can see "([^"]*)" in Program Name field in Programs page$/,
-  async function(args1) {
-    if ( browser.globals.program.Name != null) {
+  async function (args1) {
+    if (browser.globals.program.Name != null) {
       await browser.page
         .page()
-        .section.programForm.assert.value("@programNameField",  browser.globals.program.Name);
+        .section.programForm.assert.value(
+          "@programNameField",
+          browser.globals.program.Name
+        );
     } else {
       await browser.page
         .page()
@@ -103,7 +106,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in Species dropdown in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await browser.page
       .page()
       .section.programForm.assert.textContains("@speciesSelect", args1);
@@ -112,7 +115,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in Name column in Program page$/,
-  async function(args1) {
+  async function (args1) {
     //will find match on 1st row only
     if (args1.includes("*")) {
       programName = browser.globals.program.Name;
@@ -126,7 +129,7 @@ Then(
 );
 Then(
   /^user can see 'Program Key is required' text in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@programKeyRequired");
@@ -139,88 +142,81 @@ Then(
   }
 );
 
-When(/^user selects 'Cancel' button in Programs page$/, async function() {
+When(/^user selects 'Cancel' button in Programs page$/, async function () {
   await browser.page.page().section.programForm.click("@cancelButton");
 });
 
-Then(/^user can not see 'Program Form' in Programs page$/, async function() {
+Then(/^user can not see 'Program Form' in Programs page$/, async function () {
   await browser.page
     .page()
     .assert.not.elementPresent("#adminProgramTableLabel form.new-form");
 });
 
-Then(/^user can not see "([^"]*)" Program in Programs page$/, async function(args1) {
-  await browser.page.page().section.programForm.isProgramNotExists(args1);
-});
+Then(
+  /^user can not see "([^"]*)" Program in Programs page$/,
+  async function (args1) {
+    await browser.page.page().section.programForm.isProgramNotExists(args1);
+  }
+);
 
-Then(/^user can see "([^"]*)" Program in Programs page$/, async function(args1) {
-  await browser.page.page().section.programForm.isProgramExists(args1);
-});
+Then(
+  /^user can see "([^"]*)" Program in Programs page$/,
+  async function (args1) {
+    await browser.page.page().section.programForm.isProgramExists(args1);
+  }
+);
 
-Then(/^user can see new program in Programs page$/, async function(table) {
+Then(/^user can see new program in Programs page$/, async function (table) {
   await showAll();
-  let selector = `.//td[normalize-space(.)='${
-    browser.globals.program.Name
-  }']`;
+  let selector = `.//td[normalize-space(.)='${browser.globals.program.Name}']`;
   for (column of table.raw()[0]) {
     for (i = 0; i < table.hashes().length; i++) {
       switch (column) {
         case "Name":
-          await browser.page
-            .page()
-            .section.programForm.assert.textContains(
-              {
-                selector: selector,
-                locateStrategy: "xpath",
-              },
-              browser.globals.program.Name
-            );
+          await browser.page.page().section.programForm.assert.textContains(
+            {
+              selector: selector,
+              locateStrategy: "xpath",
+            },
+            browser.globals.program.Name
+          );
           break;
         case "Key":
-          await browser.page
-            .page()
-            .section.programForm.assert.textContains(
-              {
-                selector:
-                  selector + "/ancestor::tr//td[@data-label='Program Key']",
-                locateStrategy: "xpath",
-              },
-              browser.globals.program.Key
-            );
+          await browser.page.page().section.programForm.assert.textContains(
+            {
+              selector:
+                selector + "/ancestor::tr//td[@data-label='Program Key']",
+              locateStrategy: "xpath",
+            },
+            browser.globals.program.Key
+          );
           break;
         case "Species":
-          await browser.page
-            .page()
-            .section.programForm.assert.textContains(
-              {
-                selector: selector + "/ancestor::tr//td[@data-label='Species']",
-                locateStrategy: "xpath",
-              },
-              table.hashes()[i][column]
-            );
+          await browser.page.page().section.programForm.assert.textContains(
+            {
+              selector: selector + "/ancestor::tr//td[@data-label='Species']",
+              locateStrategy: "xpath",
+            },
+            table.hashes()[i][column]
+          );
           break;
         case "# Users":
-          await browser.page
-            .page()
-            .section.programForm.assert.textContains(
-              {
-                selector: selector + "/ancestor::tr//td[@data-label='# Users']",
-                locateStrategy: "xpath",
-              },
-              table.hashes()[i][column]
-            );
+          await browser.page.page().section.programForm.assert.textContains(
+            {
+              selector: selector + "/ancestor::tr//td[@data-label='# Users']",
+              locateStrategy: "xpath",
+            },
+            table.hashes()[i][column]
+          );
           break;
         case "BrAPI URL":
-          await browser.page
-            .page()
-            .section.programForm.assert.textContains(
-              {
-                selector:
-                  selector + "/ancestor::tr//td[@data-label='BrAPI URL']",
-                locateStrategy: "xpath",
-              },
-              table.hashes()[i][column]
-            );
+          await browser.page.page().section.programForm.assert.textContains(
+            {
+              selector: selector + "/ancestor::tr//td[@data-label='BrAPI URL']",
+              locateStrategy: "xpath",
+            },
+            table.hashes()[i][column]
+          );
           break;
         default:
           throw new Error(`Unexpected ${column} name.`);
@@ -240,7 +236,7 @@ Then(/^user can see new program in Programs page$/, async function(table) {
 
 Then(
   /^user can see "([^"]*)" in Species column in Program page$/,
-  async function(args1) {
+  async function (args1) {
     //will find match on new row only
     await browser.page.page().section.programForm.isItemInRow({
       Species: args1,
@@ -251,7 +247,7 @@ Then(
 
 When(
   /^user selects 'Deactivate' of "([^"]*)" in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await showAll();
     if (args1.includes("*")) {
       programName = browser.globals.program.Name;
@@ -268,37 +264,39 @@ When(
 
 Then(
   /^user can see 'Yes, remove' button in modal in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@yesRemoveButton");
   }
 );
 
-Then(/^user can see 'Cancel' button in modal in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.assert.visible("@cancelModalButton");
-});
+Then(
+  /^user can see 'Cancel' button in modal in Programs page$/,
+  async function () {
+    await browser.page
+      .page()
+      .section.programForm.assert.visible("@cancelModalButton");
+  }
+);
 
-When(/^user selects 'Cancel' button in modal in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.click("@cancelModalButton");
-});
+When(
+  /^user selects 'Cancel' button in modal in Programs page$/,
+  async function () {
+    await browser.page.page().section.programForm.click("@cancelModalButton");
+  }
+);
 
 When(
   /^user selects 'Yes, remove' button in modal in Programs page$/,
-  async function() {
-    await browser.page
-      .page()
-      .section.programForm.click("@yesRemoveButton");
+  async function () {
+    await browser.page.page().section.programForm.click("@yesRemoveButton");
   }
 );
 
 Then(
   /^user can not see "([^"]*)" in Name column in Program page$/,
-  async function(args1) {
+  async function (args1) {
     if (browser.globals.program.Name == null) programName = args1;
     else programName = browser.globals.program.Name;
     const selector = {
@@ -310,39 +308,42 @@ Then(
       .section.programForm.assert.not.elementPresent(selector);
   }
 );
-Then(/^user can see 'Program Name' label in Programs page$/, async function() {
+Then(/^user can see 'Program Name' label in Programs page$/, async function () {
   await browser.page
     .page()
     .section.programForm.assert.visible("@programNameLabel");
 });
 
-Then(/^user can see 'Program Name' field in Programs page$/, async function() {
+Then(/^user can see 'Program Name' field in Programs page$/, async function () {
   await browser.page
     .page()
     .section.programForm.assert.visible("@programNameField");
 });
 
-Then(/^user can see 'Program Key' label in Programs page$/, async function() {
+Then(/^user can see 'Program Key' label in Programs page$/, async function () {
   await browser.page
     .page()
     .section.programForm.assert.visible("@programKeyLabel");
 });
 
-Then(/^user can see 'Program Key' field in Programs page$/, async function() {
+Then(/^user can see 'Program Key' field in Programs page$/, async function () {
   await browser.page
     .page()
     .section.programForm.assert.visible("@programKeyField");
 });
 
-Then(/^user can not see 'Program Key' field in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.assert.not.elementPresent("@programKeyField");
-});
+Then(
+  /^user can not see 'Program Key' field in Programs page$/,
+  async function () {
+    await browser.page
+      .page()
+      .section.programForm.assert.not.elementPresent("@programKeyField");
+  }
+);
 
 Then(
   /^user can see 'Name of program. All Unicode special characters accepted.' text in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@programNameMessageText");
@@ -351,20 +352,18 @@ Then(
 
 Then(
   /^user can see 'Unique 2-6 character key representing the program. Alphabetic characters only.' text in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@programKeyMessageText");
   }
 );
 
-Then(/^user can see 'Species' label in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.assert.visible("@speciesLabel");
+Then(/^user can see 'Species' label in Programs page$/, async function () {
+  await browser.page.page().section.programForm.assert.visible("@speciesLabel");
 });
 
-Then(/^user can see 'Species' dropdown in Programs page$/, async function() {
+Then(/^user can see 'Species' dropdown in Programs page$/, async function () {
   await browser.page
     .page()
     .section.programForm.assert.visible("@speciesSelect");
@@ -372,43 +371,40 @@ Then(/^user can see 'Species' dropdown in Programs page$/, async function() {
 
 Then(
   /^user can see "([^"]*)" in 'Species' dropdown in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await browser.page.page().section.programForm.isSpeciesListed(args1);
   }
 );
 
 Then(
   /^user can see 'Specify custom program data storage location' checkbox in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@specifyCustomDataCheckbox");
   }
 );
 
-Then(/^user can see 'Save' button in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.assert.visible("@saveButton");
+Then(/^user can see 'Save' button in Programs page$/, async function () {
+  await browser.page.page().section.programForm.assert.visible("@saveButton");
 });
 
-Then(/^user can see 'Cancel' button in Programs page$/, async function() {
-  await browser.page
-    .page()
-    .section.programForm.assert.visible("@cancelButton");
+Then(/^user can see 'Cancel' button in Programs page$/, async function () {
+  await browser.page.page().section.programForm.assert.visible("@cancelButton");
 });
 
 When(/^user selects 'Save' button in Programs page$/, async function () {
-  await clickSaveProgram();
+  const systemAdministrationPage = this.browser.page.systemAdministrationPage();
+  await systemAdministrationPage.clickSaveProgram();
 });
 
-Then(/^user can see 'Program Form' in Programs page$/, async function() {
+Then(/^user can see 'Program Form' in Programs page$/, async function () {
   await browser.page.page().expect.section("@programForm").visible;
 });
 
 Then(
   /^user can see 'Program Name is required' text in Programs page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programForm.assert.visible("@programNameRequired");
@@ -421,25 +417,30 @@ Then(
   }
 );
 
-Then(/^user can see "([^"]*)" archived in system in banner$/, async function(args1) {
-  if (args1.includes("*"))
-    args1 = browser.globals.program.Name;
-  await browser.page.page().assert.visible({
-    selector: `//article//div[normalize-space(.)='${args1} archived in system' and contains(@class, 'banner-text')]`,
-    locateStrategy: "xpath",
-  });
-});
+Then(
+  /^user can see "([^"]*)" archived in system in banner$/,
+  async function (args1) {
+    if (args1.includes("*")) args1 = browser.globals.program.Name;
+    await browser.page.page().assert.visible({
+      selector: `//article//div[normalize-space(.)='${args1} archived in system' and contains(@class, 'banner-text')]`,
+      locateStrategy: "xpath",
+    });
+  }
+);
 
 When(
   /^user selects 'New Location' button in Program Management page$/,
-  async function() {
+  async function () {
     await browser.page.page().click("@newLocationButton");
   }
 );
 
-When(/^user selects 'Save' button in Program Management page$/, async function() {
-  await browser.page.page().section.locationForm.click("@saveButton");
-});
+When(
+  /^user selects 'Save' button in Program Management page$/,
+  async function () {
+    await browser.page.page().section.locationForm.click("@saveButton");
+  }
+);
 
 When(
   /^user sets "([^"]*)" in Name field in Program Management page$/,
@@ -449,9 +450,7 @@ When(
     }
 
     //add clear value when used to replace existing text value
-    await browser.page
-      .page()
-      .section.locationForm.clearValue("@nameField");
+    await browser.page.page().section.locationForm.clearValue("@nameField");
     await browser.page
       .page()
       .section.locationForm.setValue("@nameField", location.Name);
@@ -460,7 +459,7 @@ When(
 
 Then(
   /^user can not see the New Location form in Program Management page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.locationForm.assert.not.elementPresent("@form");
@@ -469,7 +468,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in Name column in Program Management page$/,
-  async function(args1) {
+  async function (args1) {
     let locationName;
     if (typeof location !== "undefined" && args1.includes("*")) {
       locationName = location.Name;
@@ -484,7 +483,7 @@ Then(
 
 Then(
   /^user can not see "([^"]*)" in Name column in Program Management page$/,
-  async function(args1) {
+  async function (args1) {
     let locationName;
     if (typeof location !== "undefined" && args1.includes("*")) {
       locationName = location.Name;
@@ -502,26 +501,32 @@ Then(
 
 When(
   /^user can see Program Management header in Program Management page$/,
-  async function() {
+  async function () {
     await browser.page.page().assert.visible("@programManagementHeader");
   }
 );
 
-Then(/^user can see 'Locations' tab in Program Management page$/, async function() {
-  await browser.page
-    .page()
-    .section.programManagement.assert.visible("@locationsLink");
-});
+Then(
+  /^user can see 'Locations' tab in Program Management page$/,
+  async function () {
+    await browser.page
+      .page()
+      .section.programManagement.assert.visible("@locationsLink");
+  }
+);
 
-Then(/^user can see 'Users' tab in Program Management page$/, async function() {
-  await browser.page
-    .page()
-    .section.programManagement.assert.visible("@usersLink");
-});
+Then(
+  /^user can see 'Users' tab in Program Management page$/,
+  async function () {
+    await browser.page
+      .page()
+      .section.programManagement.assert.visible("@usersLink");
+  }
+);
 
 Then(
   /^user can see 'Configuration' tab on Program Management page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programManagement.assert.visible("@programConfigurationLink");
@@ -530,14 +535,14 @@ Then(
 
 Then(
   /^user can see 'New Location' button in Program Management page$/,
-  async function() {
+  async function () {
     await browser.page.page().assert.visible("@newLocationButton");
   }
 );
 
 Then(
   /^user can see 'Name is required' below the Name field in Program Management page$/,
-  async function() {
+  async function () {
     await browser.page
       .page()
       .section.programManagement.section.form.assert.visible(
@@ -546,37 +551,37 @@ Then(
   }
 );
 
-When(/^user selects 'Cancel' button in Program Management page$/, async function() {
-  await browser.page
-    .page()
-    .section.programManagement.section.form.click("@cancelButton");
-});
-
 When(
-  /^user user can not see Location form in Program Management page$/,
-  async function() {
+  /^user selects 'Cancel' button in Program Management page$/,
+  async function () {
     await browser.page
       .page()
-      .section.programManagement.expect.section("@form").not.present;
+      .section.programManagement.section.form.click("@cancelButton");
   }
 );
 
-Then(/^user is her$/, async function() {
+When(
+  /^user user can not see Location form in Program Management page$/,
+  async function () {
+    await browser.page.page().section.programManagement.expect.section("@form")
+      .not.present;
+  }
+);
+
+Then(/^user is her$/, async function () {
   return true;
 });
 
 Then(
   /^user can not see 'New Location' button in Program Management page$/,
-  async function() {
-    await browser.page
-      .page()
-      .assert.not.elementPresent("@newLocationButton");
+  async function () {
+    await browser.page.page().assert.not.elementPresent("@newLocationButton");
   }
 );
 
 When(
   /^user selects 'Edit' of "([^"]*)" in Program Management page$/,
-  async function(args1) {
+  async function (args1) {
     await showAll();
     let selector;
     if (location != null) {
@@ -596,7 +601,7 @@ When(
 
 When(
   /^user selects 'Deactivate' of "([^"]*)" in Program Management page$/,
-  async function(args1) {
+  async function (args1) {
     await showAll();
     let selector;
     if (location != null) {
@@ -616,16 +621,14 @@ When(
 
 Then(
   /^user can see "([^"]*)" in modal box header in Program Management page$/,
-  async function(args1) {
+  async function (args1) {
     let headerText;
     if (args1.includes("Location*")) {
       headerText = location.Name;
     } else {
       headerText = args1;
     }
-    await browser.page
-      .page()
-      .assert.textContains("@modalHeader", headerText);
+    await browser.page.page().assert.textContains("@modalHeader", headerText);
   }
 );
 
@@ -663,7 +666,7 @@ When(/^user creates a new program$/, async function (table) {
   await clickSaveProgram();
 });
 
-Then(/^user can see a new program is created$/, async function() {
+Then(/^user can see a new program is created$/, async function () {
   await showAll();
   let selector = `.//td[normalize-space(.)='${browser.globals.program.Name}']`;
   await browser.page
@@ -695,8 +698,7 @@ Then(
     await browser.page.page().section.programForm.assert.textContains(
       "@modalHeader",
       args1.replace("*", () => {
-        if (args1.includes("*"))
-          return browser.globals.program.Name;
+        if (args1.includes("*")) return browser.globals.program.Name;
         return args1;
       })
     );
@@ -705,7 +707,7 @@ Then(
 
 Then(
   /^user can see "([^"]*)" in modal box text in Programs page$/,
-  async function(args1) {
+  async function (args1) {
     await browser.page
       .page()
       .section.programForm.assert.textContains("@modalText", args1);
@@ -722,9 +724,7 @@ When(
           .section.programManagement.click("@locationsLink");
         break;
       case "Users":
-        await browser.page
-          .page()
-          .section.programManagement.click("@usersLink");
+        await browser.page.page().section.programManagement.click("@usersLink");
         break;
       case "Configuration":
         await browser.page
@@ -798,7 +798,7 @@ Then(
   /^user can see "([^"]*)" is currently shared but not accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 =  browser.globals.program.Name;
+      args1 = browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//li[normalize-space()='${args1} (Not Accepted)']`,
@@ -811,7 +811,7 @@ Then(
   /^user can see "([^"]*)" is currently shared and accepted message$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 =  browser.globals.program.Name;
+      args1 = browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//li[normalize-space()='${args1} (Accepted)']`,
@@ -824,7 +824,7 @@ Then(
   /^user can see "([^"]*)" checkbox in Managed Shared Ontlogy page$/,
   async function (args1) {
     if (args1.includes("*")) {
-      args1 =  browser.globals.program.Name;
+      args1 = browser.globals.program.Name;
     }
     await browser.page.page().assert.visible({
       selector: `//label[normalize-space()='${args1}']//input`,
@@ -890,7 +890,7 @@ Then(
       .page()
       .assert.textContains(
         "#unSubscribeOntologyBtn",
-        args1.replace("*", parameters.timeStamp)
+        args1.replace("*", browser.globals.timeStamp)
       );
   }
 );
@@ -920,9 +920,7 @@ async function clickNewProgram() {
 }
 
 async function setProgramName(programName) {
-  await browser.page
-    .page()
-    .section.programForm.clearValue("@programNameField");
+  await browser.page.page().section.programForm.clearValue("@programNameField");
   await browser.page
     .page()
     .section.programForm.setValue(
@@ -938,16 +936,20 @@ async function setSpecies(species) {
 }
 
 async function setProgramKey(programKey) {
+  await browser.page.page().section.programForm.clearValue("@programKeyField");
+  if (browser.globals.program === undefined) {
+    browser.globals.program = {};
+  }
+  browser.globals.program.Key = programKey.replace(
+    "*",
+    helpers.generateRandomAlphaString(5)
+  );
   await browser.page
     .page()
-    .section.programForm.clearValue("@programKeyField");
-    if (browser.globals.program === undefined){
-      browser.globals.program = {};
-    }
-  browser.globals.program.Key = programKey.replace("*", helpers.generateRandomAlphaString(5));
-  await browser.page
-    .page()
-    .section.programForm.setValue("@programKeyField", browser.globals.program.Key);
+    .section.programForm.setValue(
+      "@programKeyField",
+      browser.globals.program.Key
+    );
 }
 
 async function clickSaveProgram() {
@@ -957,17 +959,37 @@ async function clickSaveProgram() {
 }
 
 async function getProgramValues() {
-  if (browser.globals.program === undefined){
+  if (browser.globals.program === undefined) {
     browser.globals.program = {};
   }
-  let keyPresent = await helpers.getValue(browser.page.page().section.programForm, "@programKeyField");
+  const titleSelector = "@programKeyField"; // Alias for the field within your page object
+  const programForm = this.browser.page.page().section.programForm;
 
-  if (keyPresent) {
-      browser.globals.program.Key = await helpers.getValue(browser.page.page().section.programForm, "@programKeyField");
+  // Wait for the element to be present in the DOM
+  const isVisible = await programForm.isVisible(titleSelector);
+
+  if (isVisible) {
+    // If visible, get the text
+    browser.globals.program.Key = await helpers.getValue(programForm, titleSelector);
+  } else {
+    // Log if the element is not visible and continue
+    console.log(
+      `Element ${titleSelector} is not visible. Continuing with the test.`
+    );
   }
-  browser.globals.program.Name = await helpers.getValue(browser.page.page().section.programForm, "@programNameField");
-  let option = await helpers.getValue(browser.page.page().section.programForm, "@speciesSelect");
-  browser.globals.program.Species = await helpers.getText(browser.page.page().section.programForm, { selector: `.//option[@value='${option}']`, locateStrategy: "xpath" });
+
+  browser.globals.program.Name = await helpers.getValue(
+    browser.page.page().section.programForm,
+    "@programNameField"
+  );
+  let option = await helpers.getValue(
+    browser.page.page().section.programForm,
+    "@speciesSelect"
+  );
+  browser.globals.program.Species = await helpers.getText(
+    browser.page.page().section.programForm,
+    { selector: `.//option[@value='${option}']`, locateStrategy: "xpath" }
+  );
 }
 
 async function showAll() {
