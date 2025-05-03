@@ -1,6 +1,7 @@
 Feature: scale class Ordinal - values post save BI-1258
 
     @BI-1327
+    @SmokeTests
     Scenario: scale class Ordinal - values post save BI-1258
         Given a new program is created
         Given user logs in as "Cucumber Breeder"

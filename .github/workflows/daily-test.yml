@@ -159,6 +159,9 @@ jobs:
         if: (github.event.inputs.suite=='smoke')
         run: npm run test:chromeDaily
 
+      - name: Run HTML Report generator
+        run: npm run report
+
       - name: Publish Report Artifact
         uses: actions/upload-artifact@v4
         if: always()

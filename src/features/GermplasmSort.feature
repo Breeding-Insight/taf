@@ -1,7 +1,6 @@
 Feature: Germplasm Sort Test
   
 	@BI-1588
-	@BUG-BI-2418
 	Scenario: Easily able to sort the germplasm in the germplasm table
 		#Create a new program
 		Given user logs in as "sysad"
@@ -58,12 +57,12 @@ Feature: Germplasm Sort Test
 		Then user can see "Cross" Source in first line
 		When user clicks on "Female Parent GID" of Germplasm table
 		When user clicks on Female Parent GID sort descending
-		Then user can see "6" Female Parent GID in first line
+		Then user can see "5" Female Parent GID in first line
 		When user clicks on Female Parent GID sort ascending
 		Then user can see "" Female Parent GID in first line
 		When user clicks on "Male Parent GID" of Germplasm table
 		When user clicks on Male Parent GID sort descending
-		Then user can see "6" Male Parent GID in first line
+		Then user can see "3" Male Parent GID in first line
 		When user clicks on Male Parent GID sort ascending
 		Then user can see "" Male Parent GID in first line
 		When user clicks on "Created By" of Germplasm table
