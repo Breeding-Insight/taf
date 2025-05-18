@@ -1,4 +1,5 @@
 const { When } = require("@cucumber/cucumber");
+const { assert } = require("nightwatch");
 
 When(
     /^user selects "([^"]*)" of row "([^"]*)" of Experiments page$/,
@@ -9,3 +10,10 @@ When(
       });
     }
   );
+When('user can see {string} as Collaborator', async function (s) {
+  await this.browser.page.experimentsObservationsPage().isCollaboratorVisible(s);
+})
+
+When('user can not see {string} delete button of Collaborator', async function(s) {
+  await this.browser.page.experimentsObservationsPage().isDeleteNotVisible(s);
+})

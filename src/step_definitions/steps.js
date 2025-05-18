@@ -1602,10 +1602,9 @@ async function selectsImportButton() {
 async function selectsButton(args1) {
   await this.browser.page.page().pause(1000);
   const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')] | //span[normalize-space(.)='${args1}']/ancestor::button`,
+    selector: `//button[starts-with(normalize-space(.),'${args1}')]`,
     locateStrategy: "xpath",
   };
-  await this.browser.page.page().waitForElementVisible(selector, 20000);
   await this.browser.page.page().click(selector);
 }
 
