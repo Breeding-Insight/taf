@@ -4,6 +4,7 @@ Feature: Read Only with non System Admin roles cannot see a delete button next t
     Given a new program is created
 
   @BI-2392
+  @debug
   Scenario Outline: Read Only with non System Admin roles cannot see a delete button next to each collaborator   
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page
