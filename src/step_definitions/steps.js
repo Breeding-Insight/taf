@@ -1619,29 +1619,6 @@ async function selectsButton(args1) {
     try {
       await this.browser.page.page().waitForElementVisible(element, 2000);
       await clickExecute(element.selector);
-      // await browser.execute(
-      //   function (xpath) {
-      //     const node = document.evaluate(
-      //       xpath,
-      //       document,
-      //       null,
-      //       XPathResult.FIRST_ORDERED_NODE_TYPE,
-      //       null
-      //     ).singleNodeValue;
-
-      //     if (node) {
-      //       const event = new MouseEvent("click", {
-      //         bubbles: true,
-      //         cancelable: true,
-      //         view: window,
-      //       });
-      //       node.dispatchEvent(event);
-      //     } else {
-      //       console.warn("Element not found via XPath: " + xpath);
-      //     }
-      //   },
-      //   [element.selector]
-      // );
       console.log("Click as button.");
     } catch (error) {
       element = {
@@ -1649,32 +1626,9 @@ async function selectsButton(args1) {
         locateStrategy: "xpath",
       };
 
-       try {
-      await this.browser.page.page().waitForElementVisible(element, 2000);
-      await clickExecute(element.selector);
-      // await browser.execute(
-      //   function (xpath) {
-      //     const node = document.evaluate(
-      //       xpath,
-      //       document,
-      //       null,
-      //       XPathResult.FIRST_ORDERED_NODE_TYPE,
-      //       null
-      //     ).singleNodeValue;
-
-      //     if (node) {
-      //       const event = new MouseEvent("click", {
-      //         bubbles: true,
-      //         cancelable: true,
-      //         view: window,
-      //       });
-      //       node.dispatchEvent(event);
-      //     } else {
-      //       console.warn("Element not found via XPath: " + xpath);
-      //     }
-      //   },
-      //   [element.selector]
-      // );
+      try {
+        await this.browser.page.page().waitForElementVisible(element, 2000);
+        await clickExecute(element.selector);
         console.log("Click span");
       } catch (error) {
         console.log("Unable to find or click button: " + args1);
@@ -1702,28 +1656,28 @@ async function showAll() {
   await this.browser.page.page().pause(5000);
 }
 
-async function  clickExecute(xpath){
+async function clickExecute(xpath) {
   await browser.execute(
-        function (xpath) {
-          const node = document.evaluate(
-            xpath,
-            document,
-            null,
-            XPathResult.FIRST_ORDERED_NODE_TYPE,
-            null
-          ).singleNodeValue;
+    function (xpath) {
+      const node = document.evaluate(
+        xpath,
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      ).singleNodeValue;
 
-          if (node) {
-            const event = new MouseEvent("click", {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-            });
-            node.dispatchEvent(event);
-          } else {
-            console.warn("Element not found via XPath: " + xpath);
-          }
-        },
-        [xpath]
-      );
+      if (node) {
+        const event = new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        });
+        node.dispatchEvent(event);
+      } else {
+        console.warn("Element not found via XPath: " + xpath);
+      }
+    },
+    [xpath]
+  );
 }
