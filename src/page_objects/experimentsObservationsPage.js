@@ -22,6 +22,9 @@ module.exports = {
       },
       isDeleteNotVisible: async function (collaborator) {
         this.assert.not.visible({selector:`//li[contains((.), '${collaborator}')]//button`, locateStrategy:"xpath"});
+      },
+      deleteCollaborator: async function (collaborator) {
+        this.api.click({selector:`//li[contains((.), '${collaborator}')]//button`, locateStrategy:"xpath"});
       }
     }
   ],

@@ -1,18 +1,17 @@
-Feature: Read Only with non System Admin roles cannot see a delete button next to each collaborator   
+Feature: Revoking access for Experimental Collaborator
 
   Background:
     Given a new program is created
 
-  @BI-2392
-  Scenario Outline: Read Only with non System Admin roles cannot see a delete button next to each collaborator   
+  @BI-2394
+  @debug
+  Scenario Outline: Revoking access for Experimental Collaborator
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page
     And user selects "Program Administration" in top-level navigation
-    And user selects New User button
-    And user sets "test user" in Name field of User 
-    And user sets "test@mailinator.com" in Email field of User
-    And user selects "Experimental Collaborator" in Role dropdown
-    And user selects Save button
+    And user selects "Edit" of row "2" of Experiments page
+    And user sets "Experimental Collaborator" in Role dropdown
+    And user selects "Save" button
     And user pause for "5" seconds
     And user selects "Germplasm" in top-level navigation
     And user selects "Manage Germplasm" button
@@ -35,8 +34,14 @@ Feature: Read Only with non System Admin roles cannot see a delete button next t
     When user selects 'Import' button
     When user selects "Confirm" button
     And user pause for "5" seconds
+    When user selects "Experiments & Observations" in navigation
+    When user selects "Import Experiments & Observations" button
+    And user uploads Experiments & Observations "BI-2392.csv" file
+    When user selects 'Import' button
+    When user selects "Confirm" button
+    And user pause for "5" seconds
     And user selects "Experiments & Observations" in top-level navigation
-    And user selects "New Trial DRP1" of row "1" of Experiments page
+    And user selects "New Trial DRP1" link
     And user selects "Manage Experiment" button
     And user selects "Add Collaborator" link
     And user selects "Save" button
@@ -44,6 +49,17 @@ Feature: Read Only with non System Admin roles cannot see a delete button next t
     Given user logs in as "Cucumber Member"
     When user selects "*" on program-selection page
     And user selects "Experiments & Observations" in top-level navigation
-    And user selects "New Trial DRP1" of row "1" of Experiments page
-    And user can see "test user(test@mailinator.com)" as Collaborator
-    And user can not see "test user(test@mailinator.com)" delete button of Collaborator
+    And user can see row "1" rows in a table
+    And user logs out
+    Given user logs in as "Cucumber Breeder"
+    When user selects "*" on program-selection page
+    And user selects "Experiments & Observations" in top-level navigation
+    And user selects "New Trial DRP1" link
+    And user selects "(cucumbermember@mailinator.com)" delete button of Collaborator
+    And user selects "Confirm" button
+    And user pause for "5" seconds
+    And user logs out
+    Given user logs in as "Cucumber Member"
+    When user selects "*" on program-selection page
+    And user selects "Experiments & Observations" in top-level navigation
+    And user can see "No experiments and observations are currently defined for this program." message

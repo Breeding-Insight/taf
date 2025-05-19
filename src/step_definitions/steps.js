@@ -1013,7 +1013,7 @@ When(/^user selects "([^"]*)" button$/, async function (args1) {
 When(/^user selects "([^"]*)" link$/, async function (args1) {
   await this.browser.page.page().pause(1000);
   const selector = {
-    selector: `//a[starts-with(normalize-space(.),'${args1}')]`,
+    selector: `//a[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   };
   await this.browser.page.page().waitForElementVisible(selector);
@@ -1600,12 +1600,88 @@ async function selectsImportButton() {
 }
 
 async function selectsButton(args1) {
-  await this.browser.page.page().pause(1000);
-  const selector = {
-    selector: `//button[starts-with(normalize-space(.),'${args1}')]`,
+  const selectorWithModal = {
+    selector: `//*[@class='modal is-active']//button[normalize-space(.)='${args1}']`,
     locateStrategy: "xpath",
   };
-  await this.browser.page.page().click(selector);
+  try {
+    await this.browser.page
+      .page()
+      .waitForElementVisible(selectorWithModal, 2000);
+    await this.browser.page.page().click(selectorWithModal);
+    console.log("Click the modal.");
+  } catch (error) {
+    let element = {
+      selector: `//button[normalize-space(.)='${args1}']`,
+      locateStrategy: "xpath",
+    };
+
+    try {
+      await this.browser.page.page().waitForElementVisible(element, 2000);
+      await clickExecute(element.selector);
+      // await browser.execute(
+      //   function (xpath) {
+      //     const node = document.evaluate(
+      //       xpath,
+      //       document,
+      //       null,
+      //       XPathResult.FIRST_ORDERED_NODE_TYPE,
+      //       null
+      //     ).singleNodeValue;
+
+      //     if (node) {
+      //       const event = new MouseEvent("click", {
+      //         bubbles: true,
+      //         cancelable: true,
+      //         view: window,
+      //       });
+      //       node.dispatchEvent(event);
+      //     } else {
+      //       console.warn("Element not found via XPath: " + xpath);
+      //     }
+      //   },
+      //   [element.selector]
+      // );
+      console.log("Click as button.");
+    } catch (error) {
+      element = {
+        selector: `//span[normalize-space(.)='${args1}']/..`,
+        locateStrategy: "xpath",
+      };
+
+       try {
+      await this.browser.page.page().waitForElementVisible(element, 2000);
+      await clickExecute(element.selector);
+      // await browser.execute(
+      //   function (xpath) {
+      //     const node = document.evaluate(
+      //       xpath,
+      //       document,
+      //       null,
+      //       XPathResult.FIRST_ORDERED_NODE_TYPE,
+      //       null
+      //     ).singleNodeValue;
+
+      //     if (node) {
+      //       const event = new MouseEvent("click", {
+      //         bubbles: true,
+      //         cancelable: true,
+      //         view: window,
+      //       });
+      //       node.dispatchEvent(event);
+      //     } else {
+      //       console.warn("Element not found via XPath: " + xpath);
+      //     }
+      //   },
+      //   [element.selector]
+      // );
+        console.log("Click span");
+      } catch (error) {
+        console.log("Unable to find or click button: " + args1);
+        throw error;
+      }
+    }
+  }
 }
 
 async function importGermplasmFile(args1) {
@@ -1624,4 +1700,30 @@ async function showAll() {
   await this.browser.page.page().pause(1000);
   await this.browser.page.page().click("@showAllButton");
   await this.browser.page.page().pause(5000);
+}
+
+async function  clickExecute(xpath){
+  await browser.execute(
+        function (xpath) {
+          const node = document.evaluate(
+            xpath,
+            document,
+            null,
+            XPathResult.FIRST_ORDERED_NODE_TYPE,
+            null
+          ).singleNodeValue;
+
+          if (node) {
+            const event = new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+            });
+            node.dispatchEvent(event);
+          } else {
+            console.warn("Element not found via XPath: " + xpath);
+          }
+        },
+        [xpath]
+      );
 }
