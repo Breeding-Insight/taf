@@ -1,10 +1,10 @@
-Feature: Revoking access for Experimental Collaborator
+Feature: Accessing experiment view
 
   Background:
     Given a new program is created
 
   @BI-2393
-  Scenario Outline: Revoking access for Experimental Collaborator
+  Scenario Outline: Accessing experiment view
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page
     And user selects "Program Administration" in top-level navigation
