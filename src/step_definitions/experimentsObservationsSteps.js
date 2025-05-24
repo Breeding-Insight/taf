@@ -18,6 +18,10 @@ When('user can not see {string} delete button of Collaborator', async function(s
   await this.browser.page.experimentsObservationsPage().isDeleteNotVisible(s);
 })
 
+When('user can see {string} delete button of Collaborator', async function(s) {
+  await this.browser.page.experimentsObservationsPage().isDeleteVisible(s);
+})
+
 When('user selects {string} delete button of Collaborator', async function (s) {
   await this.browser.page.experimentsObservationsPage().deleteCollaborator(s);
 })
