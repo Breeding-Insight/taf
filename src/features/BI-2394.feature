@@ -4,7 +4,6 @@ Feature: Revoking access for Experimental Collaborator
     Given a new program is created
 
   @BI-2394
-  @debug
   Scenario Outline: Revoking access for Experimental Collaborator
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page
