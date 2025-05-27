@@ -3,7 +3,6 @@ Feature: Program Administrator can see a delete button next to each collaborator
   Background:
     Given a new program is created
 
-@debug
   @BI-2390
   Scenario Outline: Program Administrator can see a delete button next to each collaborator
     Given user logs in as "Cucumber Breeder"
