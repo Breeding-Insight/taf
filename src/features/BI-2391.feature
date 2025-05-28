@@ -3,7 +3,6 @@ Feature: Experimental Collaborator with non System Admin roles cannot see a dele
   Background:
     Given a new program is created
 
-@debug
   @BI-2391
   Scenario Outline: Experimental Collaborator with non System Admin roles cannot see a delete button next to each collaborator
     Given user logs in as "Cucumber Breeder"
