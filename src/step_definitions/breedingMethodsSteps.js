@@ -146,7 +146,14 @@ Then(
 );
 
 Then(
-  /^user cannot see "Breeding method is in use. Deletion disabled." message$/,
+  /^user can see "Breeding method is in use. Deletion disabled." message on Program Administration page$/,
+  async function() {
+    await this.browser.page.programAdministrationPage().section.breedingMethods.assert.visible("@inUseMessage");
+  }
+);
+
+Then(
+  /^user cannot see "Breeding method is in use. Deletion disabled." message on Program Administration page$/,
   async function() {
     await this.browser.page.programAdministrationPage().section.breedingMethods.assert.not.elementPresent(
       "@inUseMessage"
