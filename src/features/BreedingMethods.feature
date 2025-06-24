@@ -41,7 +41,7 @@ Feature: Breeding Methods
     Then user can see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
-    Then user cannot see "Breeding method is in use. Deletion disabled." message
+    Then user cannot see "Breeding method is in use. Deletion disabled." message on Program Administration page
     And user selects "Import Data" in navigation
     And user uploads Germplasm "BreedingMethodGermplasm.csv" file
     And user selects 'Import' button
@@ -58,7 +58,7 @@ Feature: Breeding Methods
     Then user cannot see 'Delete' action on "<name>" Breeding Method
     Then user can see 'Edit' action on "<name>" Breeding Method
     When user clicks 'Edit' action on "<name>" Breeding Method
-    Then user can see "Breeding method is in use. Deletion disabled." message
+    Then user can see "Breeding method is in use. Deletion disabled." message on Program Administration page
 
     Examples:
       | name     | abbreviation | description |
