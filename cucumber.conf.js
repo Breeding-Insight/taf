@@ -51,7 +51,7 @@ Before(async function ({ pickle }) {
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
-    // "--headless=new",
+    "--headless=new",
   ];
 
   const chromePrefs = {
@@ -123,7 +123,7 @@ After(async function (testCase) {
   }
 
   if (this.browser) {
-    // await this.browser.quit();
+    await this.browser.quit();
   }
 
   if (this.tmpUserDataDir) {
