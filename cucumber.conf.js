@@ -23,6 +23,20 @@ Before(async function ({ pickle }) {
   );
   console.log("tmpUserDataDir:", this.tmpUserDataDir);
 
+  // Create a custom download folder for this scenario
+  this.tmpDownloadDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), "nw-chrome-downloads-")
+  );
+  console.log("tmpDownloadDir:", this.tmpDownloadDir);
+
+  // Initialize browser.globals.downloadedFilePath
+  if (!this.browser) {
+    // browser not initialized yet, will set after launch
+    this._initDownloadedFilePath = true;
+  } else {
+    this.browser.globals.downloadedFilePath = null;
+  }
+
   const chromeArgs = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
@@ -37,8 +51,15 @@ Before(async function ({ pickle }) {
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
-    "--headless=new",
+    // "--headless=new",
   ];
+
+  const chromePrefs = {
+    "download.default_directory": this.tmpDownloadDir,
+    "download.prompt_for_download": false,
+    "download.directory_upgrade": true,
+    "safebrowsing.enabled": true,
+  };
 
   const webdriver = {};
   if (this.parameters["webdriver-host"])
@@ -72,6 +93,7 @@ Before(async function ({ pickle }) {
       browserName: "chrome",
       "goog:chromeOptions": {
         args: chromeArgs,
+        prefs: chromePrefs, // <-- add prefs for downloads
       },
     },
   });
@@ -85,6 +107,12 @@ Before(async function ({ pickle }) {
 
   this.browser = await this.client.launchBrowser();
   this.browser.globals.timestamp = Date.now();
+
+  // Set downloadedFilePath on browser.globals after browser is available
+  if (this._initDownloadedFilePath) {
+    this.browser.globals.downloadedFilePath = null;
+    delete this._initDownloadedFilePath;
+  }
 });
 
 After(async function (testCase) {
@@ -95,11 +123,19 @@ After(async function (testCase) {
   }
 
   if (this.browser) {
-    await this.browser.quit();
+    // await this.browser.quit();
   }
 
   if (this.tmpUserDataDir) {
     fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
+  }
+  if (this.tmpDownloadDir) {
+    fs.rmSync(this.tmpDownloadDir, { recursive: true, force: true });
+  }
+
+  // Clear browser.globals.downloadedFilePath after scenario
+  if (this.browser && this.browser.globals) {
+    this.browser.globals.downloadedFilePath = null;
   }
 
   if (!this.browser?.globals?.run?.browserName) {
@@ -118,3 +154,38 @@ After(async function (testCase) {
     }
   }
 });
+
+/**
+ * Wait for a file to appear in the default download directory and return its path.
+ * Usage: await getLatestDownloadedFile(10000);
+ */
+async function getLatestDownloadedFile(timeoutMs = 10000) {
+  // Resolve the default download directory from Chrome options
+  let downloadDir = null;
+  // Try to get from the first browser instance if available
+  if (global.browser?.options?.desiredCapabilities?.["goog:chromeOptions"]?.prefs?.["download.default_directory"]) {
+    downloadDir = global.browser.options.desiredCapabilities["goog:chromeOptions"].prefs["download.default_directory"];
+  }
+  // Fallback: try to get from process.env or hardcoded path if needed
+  if (!downloadDir) {
+    downloadDir = require("os").tmpdir();
+  }
+
+  const fs = require("fs");
+  const path = require("path");
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const files = fs.readdirSync(downloadDir).filter((f) => !f.endsWith(".crdownload"));
+    if (files.length > 0) {
+      // Optionally, sort by mtime to get the latest file
+      const filePaths = files.map((f) => path.join(downloadDir, f));
+      filePaths.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+      return filePaths[0];
+    }
+    await new Promise((res) => setTimeout(res, 500));
+  }
+  throw new Error("No downloaded file found in time");
+}
+
+// Export for use in step definitions
+module.exports.getLatestDownloadedFile = getLatestDownloadedFile;
