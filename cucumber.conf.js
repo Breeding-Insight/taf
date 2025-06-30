@@ -52,6 +52,7 @@ Before(async function ({ pickle }) {
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
     "--headless=new",
+    `--user-data-dir=${this.tmpUserDataDir}`, // <-- set as argument
   ];
 
   const chromePrefs = {
@@ -93,7 +94,7 @@ Before(async function ({ pickle }) {
       browserName: "chrome",
       "goog:chromeOptions": {
         args: chromeArgs,
-        prefs: chromePrefs, // <-- add prefs for downloads
+        prefs: chromePrefs,
       },
     },
   });
