@@ -102,7 +102,12 @@ After(async function (testCase) {
     fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
   }
 
-  if (!this.browser?.globals?.run?.browserName) {
+  // Add guard to prevent TypeError if browser or capabilities are undefined
+  if (
+    this.browser &&
+    this.browser.capabilities &&
+    !this.browser?.globals?.run?.browserName
+  ) {
     const caps = this.browser.capabilities;
     const globalsRun = this.browser.globals.run;
 
