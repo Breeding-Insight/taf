@@ -1,8 +1,10 @@
 Feature: Create a new list referencing existing GIDs
+# The uploaded Germplasm file has blank GIDs.
+# Uploading the same germplasm file will add to the list
 
 Background: Create a new list referencing existing GIDs
       
-
+@debug
     @BI-2164
     @BUG_BI-2260
     Scenario Outline: All of the information associated with a Germplasm Details page
@@ -26,4 +28,4 @@ Background: Create a new list referencing existing GIDs
         And user selects "Confirm" button
         And user pause for "5" seconds
         When user selects "Germplasm" in navigation
-        Then user can see row "10" rows in a table
+        Then user can see row "20" rows in a table
