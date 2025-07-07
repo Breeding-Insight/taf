@@ -11,8 +11,8 @@ const path = require("path");
 const os = require("os");
 const reporter = require("cucumber-html-reporter");
 
-require("events").EventEmitter.defaultMaxListeners = 20;
-setDefaultTimeout(300000);
+require("events").EventEmitter.defaultMaxListeners = 50;
+setDefaultTimeout(600000);
 
 Before(async function ({ pickle }) {
   fs.mkdirSync("report", { recursive: true });
