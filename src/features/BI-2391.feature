@@ -45,5 +45,5 @@ Feature: Experimental Collaborator with non System Admin roles cannot see a dele
     When user selects "*" on program-selection page
     And user selects "Experiments & Observations" in top-level navigation
     And user selects "New Trial DRP1" of row "1" of Experiments page
-    And user can see "test user(test@mailinator.com)" as Collaborator
+    Then user can see "test user(test@mailinator.com)" as Collaborator
     And user can not see "test user(test@mailinator.com)" delete button of Collaborator
