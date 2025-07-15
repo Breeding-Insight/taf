@@ -51,7 +51,7 @@ Feature: Program Administrator can see a delete button next to each collaborator
     And user selects "Add Collaborator" link
     And user selects "Save" button
     And user pause for "2" seconds
-    And user can see "Experimental Collaborator1(experimentcollaborator1@mailinator.com)" as Collaborator
+    Then user can see "Experimental Collaborator1(experimentcollaborator1@mailinator.com)" as Collaborator
     And user can see "Experimental Collaborator2(experimentcollaborator2@mailinator.com)" as Collaborator
     And user can see "Experimental Collaborator1(experimentcollaborator1@mailinator.com)" delete button of Collaborator
     And user can see "Experimental Collaborator2(experimentcollaborator2@mailinator.com)" delete button of Collaborator
