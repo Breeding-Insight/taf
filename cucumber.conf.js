@@ -23,7 +23,8 @@ Before(async function ({ pickle }) {
   );
   console.log("tmpUserDataDir:", this.tmpUserDataDir);
 
-  const chromeArgs = [
+  // Set Chrome to headed mode if @debug tag is present
+  let chromeArgs = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
     "--disable-extensions",
@@ -37,8 +38,11 @@ Before(async function ({ pickle }) {
     "--ignore-certificate-errors",
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
-    "--headless=new",
   ];
+  const isDebug = pickle.tags && pickle.tags.some(tag => tag.name === '@debug');
+  if (!isDebug) {
+    chromeArgs.push("--headless=new");
+  }
 
   const webdriver = {};
   if (this.parameters["webdriver-host"])
@@ -94,7 +98,9 @@ After(async function (testCase) {
     this.attach(fs.readFileSync(filename), "image/png");
   }
 
-  if (this.browser) {
+  // Only quit browser if not running with @debug tag
+  const isDebug = testCase.pickle && testCase.pickle.tags && testCase.pickle.tags.some(tag => tag.name === '@debug');
+  if (this.browser && !isDebug) {
     await this.browser.quit();
   }
 
@@ -102,7 +108,11 @@ After(async function (testCase) {
     fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
   }
 
-  if (!this.browser?.globals?.run?.browserName) {
+  if (
+    this.browser &&
+    this.browser.capabilities &&
+    !this.browser?.globals?.run?.browserName
+  ) {
     const caps = this.browser.capabilities;
     const globalsRun = this.browser.globals.run;
 
