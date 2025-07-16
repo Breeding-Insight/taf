@@ -10,9 +10,24 @@ const fsPromises = fs.promises;
 const path = require("path");
 const os = require("os");
 const reporter = require("cucumber-html-reporter");
+const chromedriverPath = require("chromedriver").path;
 
 require("events").EventEmitter.defaultMaxListeners = 20;
-setDefaultTimeout(300000);
+setDefaultTimeout(1000 * 60 * 120); 
+
+process.on('SIGTERM', () => {
+  console.warn('Received SIGTERM - shutting down');
+});
+process.on('SIGINT', () => {
+  console.warn('Received SIGINT - interrupted');
+});
+process.on('uncaughtException', err => {
+  console.error('Uncaught exception:', err);
+});
+process.on('unhandledRejection', reason => {
+  console.error('Unhandled promise rejection:', reason);
+});
+
 
 Before(async function ({ pickle }) {
   fs.mkdirSync("report", { recursive: true });
@@ -78,6 +93,15 @@ Before(async function ({ pickle }) {
         args: chromeArgs,
       },
     },
+    webdriver: {
+      start_process: this.parameters["start-process"] !== false,
+      server_path: chromedriverPath,
+      port: this.parameters["webdriver-port"] ||  9515,
+      cli_args: [
+        "--verbose",
+        "--log-path=chromedriver.log",
+      ],
+    },
   });
 
   if (this.client.settings.sync_test_names) {
@@ -102,6 +126,14 @@ After(async function (testCase) {
   const isDebug = testCase.pickle && testCase.pickle.tags && testCase.pickle.tags.some(tag => tag.name === '@debug');
   if (this.browser && !isDebug) {
     await this.browser.quit();
+  }
+
+  try {
+    if (this.browser && !isDebug) {
+      await this.browser.quit();
+    }
+  } catch (e) {
+    console.error("Error during After hook:", e);
   }
 
   if (this.tmpUserDataDir) {
