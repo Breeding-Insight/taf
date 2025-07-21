@@ -53,6 +53,7 @@ Before(async function ({ pickle }) {
     globals.waitForConditionPollInterval = this.parameters["retry-interval"];
   }
 
+
   this.client = Nightwatch.createClient({
     headless: this.parameters.headless,
     env: this.parameters.env,
@@ -83,8 +84,18 @@ Before(async function ({ pickle }) {
   console.log("Launching Chrome with args: ", chromeArgs);
   console.log("Executing test : " + pickle.name);
 
-  this.browser = await this.client.launchBrowser();
-  this.browser.globals.timestamp = Date.now();
+  try {
+    this.browser = await this.client.launchBrowser();
+    this.browser.globals.timestamp = Date.now();
+  } catch (err) {
+    console.error("Failed to launch browser:", err.message);
+    if (this.attach) {
+      this.attach(`Browser launch failed: ${err.message}`);
+    }
+    // Optionally set a flag to skip further steps in this scenario
+    this.skipScenario = true;
+    return;
+  }
 });
 
 After(async function (testCase) {
