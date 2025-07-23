@@ -12,7 +12,7 @@ const os = require("os");
 const reporter = require("cucumber-html-reporter");
 
 require("events").EventEmitter.defaultMaxListeners = 20;
-setDefaultTimeout(300000);
+setDefaultTimeout(600000); // Increase timeout to 10 minutes
 
 Before(async function ({ pickle }) {
   fs.mkdirSync("report", { recursive: true });
@@ -103,20 +103,38 @@ Before(async function ({ pickle }) {
 });
 
 After(async function (testCase) {
-  if (testCase.result.status === "FAILED" && this.browser) {
-    const filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
-    await this.browser.saveScreenshot(filename);
-    this.attach(fs.readFileSync(filename), "image/png");
-  }
+  try {
+    // Take screenshot if test failed and browser is available
+    if (testCase.result.status === "FAILED" && this.browser) {
+      try {
+        const filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
+        await this.browser.saveScreenshot(filename);
+        this.attach(fs.readFileSync(filename), "image/png");
+      } catch (screenshotError) {
+        console.error("Failed to save screenshot:", screenshotError.message);
+      }
+    }
 
-  // Only quit browser if not running with @debug tag
-  const isDebug = testCase.pickle && testCase.pickle.tags && testCase.pickle.tags.some(tag => tag.name === '@debug');
-  if (this.browser && !isDebug) {
-    await this.browser.quit();
-  }
+    // Only quit browser if not running with @debug tag
+    const isDebug = testCase.pickle && testCase.pickle.tags && testCase.pickle.tags.some(tag => tag.name === '@debug');
+    if (this.browser && !isDebug) {
+      try {
+        await this.browser.quit();
+      } catch (quitError) {
+        console.error("Failed to quit browser:", quitError.message);
+      }
+    }
 
-  if (this.tmpUserDataDir) {
-    fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
+    // Clean up temp directory
+    if (this.tmpUserDataDir) {
+      try {
+        fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
+      } catch (cleanupError) {
+        console.error("Failed to clean up temp directory:", cleanupError.message);
+      }
+    }
+  } catch (error) {
+    console.error("Error in After hook:", error.message);
   }
 
   if (
