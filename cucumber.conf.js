@@ -11,13 +11,19 @@ const fsPromises = fs.promises;
 const path = require("path");
 const os = require("os");
 const reporter = require("cucumber-html-reporter");
+const globalTimings = {
+  startTime: null
+};
 
 require("events").EventEmitter.defaultMaxListeners = 20;
-setDefaultTimeout(600000); // Increase timeout to 10 minutes
+setDefaultTimeout(300000); // Increase timeout to 10 minutes
 
 BeforeAll(async function () {
   fs.mkdirSync("report", { recursive: true });
   fs.mkdirSync("screenshots", { recursive: true });
+  // Store start time in global object
+  globalTimings.startTime = Date.now();
+  console.log("Test run started at:", new Date(globalTimings.startTime).toISOString());
 });
 
 Before(async function ({ pickle }) {
@@ -163,5 +169,20 @@ After(async function (testCase) {
     } catch (err) {
       console.error("Error saving run metadata:", err);
     }
+  }
+});
+
+AfterAll(async function () {
+  const endTime = Date.now();
+  console.log("Test run ended at:", new Date(endTime).toISOString());
+  
+  // Calculate duration using global start time
+  const duration = (endTime - globalTimings.startTime) / 1000;
+  
+  if (!isNaN(duration)) {
+    console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
+    console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
+  } else {
+    console.error("Could not calculate duration - start time was not properly recorded");
   }
 });
