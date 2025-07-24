@@ -4,6 +4,7 @@ const {
   AfterAll,
   Before,
   setDefaultTimeout,
+  BeforeAll,
 } = require("@cucumber/cucumber");
 const fs = require("fs");
 const fsPromises = fs.promises;
@@ -14,10 +15,13 @@ const reporter = require("cucumber-html-reporter");
 require("events").EventEmitter.defaultMaxListeners = 20;
 setDefaultTimeout(600000); // Increase timeout to 10 minutes
 
-Before(async function ({ pickle }) {
+BeforeAll(async function () {
   fs.mkdirSync("report", { recursive: true });
   fs.mkdirSync("screenshots", { recursive: true });
+});
 
+Before(async function ({ pickle }) {
+  
   this.tmpUserDataDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "nw-chrome-profile-")
   );
@@ -137,6 +141,7 @@ After(async function (testCase) {
     console.error("Error in After hook:", error.message);
   }
 
+  const runJsonPath = "report/run.json";
   if (
     this.browser &&
     this.browser.capabilities &&
@@ -150,8 +155,11 @@ After(async function (testCase) {
     globalsRun.platform = caps.platformName;
 
     try {
-      await fsPromises.writeFile("report/run.json", JSON.stringify(globalsRun));
-      console.log("Saved run metadata.");
+      // Only write run.json if it doesn't exist
+      if (!fs.existsSync(runJsonPath)) {
+        await fsPromises.writeFile(runJsonPath, JSON.stringify(globalsRun));
+        console.log("Saved run metadata.");
+      }
     } catch (err) {
       console.error("Error saving run metadata:", err);
     }
