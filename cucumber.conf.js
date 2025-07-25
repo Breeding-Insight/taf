@@ -18,9 +18,9 @@ const globalTimings = {
 // Add at top with other requires
 const { exec } = require('child_process');
 
-// Add test statistics object
+// At the top with other requires
 const testStats = {
-  startTime: null,
+  startTime: Date.now(), // Initialize immediately
   scenarios: { total: 0, passed: 0, failed: 0 },
   steps: { total: 0, passed: 0, skipped: 0, failed: 0 }
 };
@@ -32,7 +32,7 @@ BeforeAll(async function () {
   fs.mkdirSync("report", { recursive: true });
   fs.mkdirSync("screenshots", { recursive: true });
   // Store start time in global object
-  testStats.startTime = globalTimings.startTime;
+  console.log("Test run started at:", new Date(testStats.startTime).toISOString());
 });
 
 Before(async function ({ pickle }) {
