@@ -15,6 +15,16 @@ const globalTimings = {
   startTime: null
 };
 
+// Add at top with other requires
+const { exec } = require('child_process');
+
+// Add test statistics object
+const testStats = {
+  startTime: null,
+  scenarios: { total: 0, passed: 0, failed: 0 },
+  steps: { total: 0, passed: 0, skipped: 0, failed: 0 }
+};
+
 require("events").EventEmitter.defaultMaxListeners = 20;
 setDefaultTimeout(300000); // Increase timeout to 10 minutes
 
@@ -22,8 +32,7 @@ BeforeAll(async function () {
   fs.mkdirSync("report", { recursive: true });
   fs.mkdirSync("screenshots", { recursive: true });
   // Store start time in global object
-  globalTimings.startTime = Date.now();
-  console.log("Test run started at:", new Date(globalTimings.startTime).toISOString());
+  testStats.startTime = globalTimings.startTime;
 });
 
 Before(async function ({ pickle }) {
@@ -173,16 +182,49 @@ After(async function (testCase) {
 });
 
 AfterAll(async function () {
-  const endTime = Date.now();
-  console.log("Test run ended at:", new Date(endTime).toISOString());
-  
-  // Calculate duration using global start time
-  const duration = (endTime - globalTimings.startTime) / 1000;
-  
-  if (!isNaN(duration)) {
-    console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
-    console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
-  } else {
-    console.error("Could not calculate duration - start time was not properly recorded");
+  try {
+    const endTime = Date.now();
+    console.log("\n=== Test Run Summary ===");
+    console.log("Test run ended at:", new Date(endTime).toISOString());
+    
+    const duration = (endTime - testStats.startTime) / 1000;
+    
+    if (!isNaN(duration)) {
+      console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
+      console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
+      
+      // Save final summary
+      const summary = {
+        startTime: new Date(testStats.startTime).toISOString(),
+        endTime: new Date(endTime).toISOString(),
+        duration: duration,
+        scenarios: testStats.scenarios,
+        steps: testStats.steps
+      };
+
+      await fsPromises.writeFile(
+        'report/test-summary.json', 
+        JSON.stringify(summary, null, 2)
+      );
+      
+      // Wait for file operations
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('Test summary saved to report/test-summary.json');
+    }
+  } catch (error) {
+    console.error('Error in AfterAll:', error);
   }
+});
+
+// Add process handlers
+process.on('SIGINT', async () => {
+  console.log('\nReceived interrupt signal - Running cleanup...');
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  process.exit(0);
+});
+
+process.on('beforeExit', async () => {
+  console.log('\nProcess ending - Ensuring cleanup completes...');
+  await new Promise(resolve => setTimeout(resolve, 3000));
 });
