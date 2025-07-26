@@ -246,6 +246,14 @@ AfterAll(async function () {
   } catch (error) {
     console.error('Error in AfterAll:', error);
   }
+  const { spawnSync } = require('child_process');
+  spawnSync('pkill', ['-f', 'chromedriver']); // Linux/macOS
+  // For Windows use `taskkill /IM chromedriver.exe /F`
+
+  setTimeout(() => {
+  console.log("⚠️ Forcing process exit after delay.");
+  process.exit(0);
+}, 1000);
 });
 
 // Add process handlers
@@ -255,3 +263,22 @@ process.on('SIGINT', async () => {
   // process.exit(0); // Removed to allow AfterAll to run
 });
 
+setTimeout(() => {
+  console.log('⚠️ Node is still alive after 10 seconds.');
+}, 10000);
+
+process.on('beforeExit', (code) => {
+  console.log(`[DEBUG] beforeExit triggered. Code: ${code}`);
+});
+
+process.on('exit', (code) => {
+  console.log(`[DEBUG] Process exited. Code: ${code}`);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❗ Unhandled Rejection:', reason);
+});
+
+process.on('SIGTERM', () => {
+  console.log('❗ SIGTERM received');
+});
