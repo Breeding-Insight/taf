@@ -1,3 +1,26 @@
+// Emergency summary on SIGTERM (process kill)
+process.on('SIGTERM', () => {
+  try {
+    const endTime = Date.now();
+    const duration = (endTime - testStats.startTime) / 1000;
+    const summary = {
+      startTime: new Date(testStats.startTime).toISOString(),
+      endTime: new Date(endTime).toISOString(),
+      duration: duration,
+      scenarios: testStats.scenarios,
+      steps: testStats.steps
+    };
+    fs.writeFileSync('report/test-summary.json', JSON.stringify(summary, null, 2));
+    console.log('\n=== Emergency Test Run Summary ===');
+    console.log(`Test run ended at: ${new Date(endTime).toISOString()}`);
+    console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
+    console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
+    console.log('Test summary saved to report/test-summary.json');
+  } catch (e) {
+    console.error('Error in SIGTERM emergency summary:', e);
+  }
+  process.exit(1);
+});
 const Nightwatch = require("nightwatch");
 const {
   After,
@@ -14,6 +37,7 @@ const reporter = require("cucumber-html-reporter");
 const globalTimings = {
   startTime: null
 };
+var timeStart = null;
 
 // Add at top with other requires
 const { exec } = require('child_process');
@@ -36,7 +60,8 @@ BeforeAll(async function () {
 });
 
 Before(async function ({ pickle }) {
-  
+  timeStart = Date.now().toString();
+  console.log("Test run started at:", timeStart);
   this.tmpUserDataDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "nw-chrome-profile-")
   );
@@ -179,6 +204,12 @@ After(async function (testCase) {
       console.error("Error saving run metadata:", err);
     }
   }
+  console.log("Test case completed:", testCase.pickle.name);
+  console.log("Date: ", Date.now().toString());
+  //time end
+  console.log("Duration: ", (Date.now() - timeStart) / 1000, "seconds");
+  //time in minutes
+  console.log("Duration: ", ((Date.now() - timeStart) / 1000 / 60).toFixed(2), "minutes");
 });
 
 AfterAll(async function () {
@@ -221,10 +252,6 @@ AfterAll(async function () {
 process.on('SIGINT', async () => {
   console.log('\nReceived interrupt signal - Running cleanup...');
   await new Promise(resolve => setTimeout(resolve, 3000));
-  process.exit(0);
+  // process.exit(0); // Removed to allow AfterAll to run
 });
 
-process.on('beforeExit', async () => {
-  console.log('\nProcess ending - Ensuring cleanup completes...');
-  await new Promise(resolve => setTimeout(resolve, 3000));
-});
