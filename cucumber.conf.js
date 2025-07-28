@@ -1,26 +1,3 @@
-// Emergency summary on SIGTERM (process kill)
-process.on('SIGTERM', () => {
-  try {
-    const endTime = Date.now();
-    const duration = (endTime - testStats.startTime) / 1000;
-    const summary = {
-      startTime: new Date(testStats.startTime).toISOString(),
-      endTime: new Date(endTime).toISOString(),
-      duration: duration,
-      scenarios: testStats.scenarios,
-      steps: testStats.steps
-    };
-    fs.writeFileSync('report/test-summary.json', JSON.stringify(summary, null, 2));
-    console.log('\n=== Emergency Test Run Summary ===');
-    console.log(`Test run ended at: ${new Date(endTime).toISOString()}`);
-    console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
-    console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
-    console.log('Test summary saved to report/test-summary.json');
-  } catch (e) {
-    console.error('Error in SIGTERM emergency summary:', e);
-  }
-  process.exit(1);
-});
 const Nightwatch = require("nightwatch");
 const {
   After,
@@ -33,42 +10,26 @@ const fs = require("fs");
 const fsPromises = fs.promises;
 const path = require("path");
 const os = require("os");
-const reporter = require("cucumber-html-reporter");
-const globalTimings = {
-  startTime: null
-};
-var timeStart = null;
-
-// Add at top with other requires
-const { exec } = require('child_process');
-
-// At the top with other requires
-const testStats = {
-  startTime: Date.now(), // Initialize immediately
-  scenarios: { total: 0, passed: 0, failed: 0 },
-  steps: { total: 0, passed: 0, skipped: 0, failed: 0 }
-};
 
 require("events").EventEmitter.defaultMaxListeners = 20;
 setDefaultTimeout(300000); // Increase timeout to 10 minutes
 
 BeforeAll(async function () {
-  fs.mkdirSync("report", { recursive: true });
-  fs.mkdirSync("screenshots", { recursive: true });
-  // Store start time in global object
-  console.log("Test run started at:", new Date(testStats.startTime).toISOString());
+  try {
+    fs.mkdirSync("report", { recursive: true });
+    fs.mkdirSync("screenshots", { recursive: true });
+  } catch (err) {
+    console.error("Error creating directories:", err.message);
+  }
 });
 
 Before(async function ({ pickle }) {
-  timeStart = Date.now().toString();
-  console.log("Test run started at:", timeStart);
   this.tmpUserDataDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "nw-chrome-profile-")
   );
   console.log("tmpUserDataDir:", this.tmpUserDataDir);
 
-  // Set Chrome to headed mode if @debug tag is present
-  let chromeArgs = [
+  const chromeArgs = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
     "--disable-extensions",
@@ -83,24 +44,18 @@ Before(async function ({ pickle }) {
     "--allow-insecure-localhost",
     "--window-size=1920,1080",
   ];
-  const isDebug = pickle.tags && pickle.tags.some(tag => tag.name === '@debug');
-  if (!isDebug) {
-    chromeArgs.push("--headless=new");
-  }
+  const isDebug = pickle.tags?.some(tag => tag.name === '@debug');
+  if (!isDebug) chromeArgs.push("--headless=new");
 
   const webdriver = {};
-  if (this.parameters["webdriver-host"])
-    webdriver.host = this.parameters["webdriver-host"];
-  if (this.parameters["webdriver-port"])
-    webdriver.port = this.parameters["webdriver-port"];
+  if (this.parameters["webdriver-host"]) webdriver.host = this.parameters["webdriver-host"];
+  if (this.parameters["webdriver-port"]) webdriver.port = this.parameters["webdriver-port"];
   if (typeof this.parameters["start-process"] !== "undefined")
     webdriver.start_process = this.parameters["start-process"];
 
   const globals = {};
-  if (this.parameters["retry-interval"]) {
+  if (this.parameters["retry-interval"])
     globals.waitForConditionPollInterval = this.parameters["retry-interval"];
-  }
-
 
   this.client = Nightwatch.createClient({
     headless: this.parameters.headless,
@@ -129,8 +84,8 @@ Before(async function ({ pickle }) {
     this.client.updateCapabilities({ name: pickle.name });
   }
 
-  console.log("Launching Chrome with args: ", chromeArgs);
-  console.log("Executing test : " + pickle.name);
+  console.log("Launching Chrome with args:", chromeArgs);
+  console.log("Executing test:", pickle.name);
 
   try {
     this.browser = await this.client.launchBrowser();
@@ -140,15 +95,12 @@ Before(async function ({ pickle }) {
     if (this.attach) {
       this.attach(`Browser launch failed: ${err.message}`);
     }
-    // Optionally set a flag to skip further steps in this scenario
     this.skipScenario = true;
-    return;
   }
 });
 
 After(async function (testCase) {
   try {
-    // Take screenshot if test failed and browser is available
     if (testCase.result.status === "FAILED" && this.browser) {
       try {
         const filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
@@ -159,8 +111,7 @@ After(async function (testCase) {
       }
     }
 
-    // Only quit browser if not running with @debug tag
-    const isDebug = testCase.pickle && testCase.pickle.tags && testCase.pickle.tags.some(tag => tag.name === '@debug');
+    const isDebug = testCase.pickle?.tags?.some(tag => tag.name === '@debug');
     if (this.browser && !isDebug) {
       try {
         await this.browser.quit();
@@ -169,7 +120,6 @@ After(async function (testCase) {
       }
     }
 
-    // Clean up temp directory
     if (this.tmpUserDataDir) {
       try {
         fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
@@ -183,8 +133,7 @@ After(async function (testCase) {
 
   const runJsonPath = "report/run.json";
   if (
-    this.browser &&
-    this.browser.capabilities &&
+    this.browser?.capabilities &&
     !this.browser?.globals?.run?.browserName
   ) {
     const caps = this.browser.capabilities;
@@ -195,72 +144,38 @@ After(async function (testCase) {
     globalsRun.platform = caps.platformName;
 
     try {
-      // Only write run.json if it doesn't exist
       if (!fs.existsSync(runJsonPath)) {
-        await fsPromises.writeFile(runJsonPath, JSON.stringify(globalsRun));
+        await fsPromises.writeFile(runJsonPath, JSON.stringify(globalsRun, null, 2));
         console.log("Saved run metadata.");
       }
     } catch (err) {
-      console.error("Error saving run metadata:", err);
+      console.error("Error saving run metadata:", err.message);
     }
   }
-  console.log("Test case completed:", testCase.pickle.name);
-  console.log("Date: ", Date.now().toString());
-  //time end
-  console.log("Duration: ", (Date.now() - timeStart) / 1000, "seconds");
-  //time in minutes
-  console.log("Duration: ", ((Date.now() - timeStart) / 1000 / 60).toFixed(2), "minutes");
 });
 
 AfterAll(async function () {
-  try {
-    const endTime = Date.now();
-    console.log("\n=== Test Run Summary ===");
-    console.log("Test run ended at:", new Date(endTime).toISOString());
-    
-    const duration = (endTime - testStats.startTime) / 1000;
-    
-    if (!isNaN(duration)) {
-      console.log(`Test run duration: ${duration.toFixed(2)} seconds`);
-      console.log(`Test run duration: ${(duration / 60).toFixed(2)} minutes`);
-      
-      // Save final summary
-      const summary = {
-        startTime: new Date(testStats.startTime).toISOString(),
-        endTime: new Date(endTime).toISOString(),
-        duration: duration,
-        scenarios: testStats.scenarios,
-        steps: testStats.steps
-      };
-
-      await fsPromises.writeFile(
-        'report/test-summary.json', 
-        JSON.stringify(summary, null, 2)
-      );
-      
-      // Wait for file operations
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Test summary saved to report/test-summary.json');
-    }
-  } catch (error) {
-    console.error('Error in AfterAll:', error);
-  }
+  // Kill ChromeDriver process
   const { spawnSync } = require('child_process');
-  spawnSync('pkill', ['-f', 'chromedriver']); // Linux/macOS
-  // For Windows use `taskkill /IM chromedriver.exe /F`
+  const isWin = process.platform === 'win32';
+  if (isWin) {
+    spawnSync('taskkill', ['/IM', 'chromedriver.exe', '/F']);
+  } else {
+    spawnSync('pkill', ['-f', 'chromedriver']);
+  }
 
+  // Delay before final exit to allow async flush
   setTimeout(() => {
-  console.log("⚠️ Forcing process exit after delay.");
-  process.exit(0);
-}, 1000);
+    console.log("⚠️ Forcing process exit after delay.");
+    process.exit(0);
+  }, 1000);
 });
 
-// Add process handlers
+// Handle interrupts and exit signals
 process.on('SIGINT', async () => {
   console.log('\nReceived interrupt signal - Running cleanup...');
   await new Promise(resolve => setTimeout(resolve, 3000));
-  // process.exit(0); // Removed to allow AfterAll to run
+  // Allow AfterAll to run naturally
 });
 
 setTimeout(() => {
