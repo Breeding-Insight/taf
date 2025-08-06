@@ -12,7 +12,7 @@ const path = require("path");
 const os = require("os");
 
 require("events").EventEmitter.defaultMaxListeners = 20;
-setDefaultTimeout(300000); // Increase timeout to 10 minutes
+setDefaultTimeout(300000); // Increase timeout to 5 minutes
 
 BeforeAll(async function () {
   try {
@@ -103,6 +103,7 @@ After(async function (testCase) {
   try {
     if (testCase.result.status === "FAILED" && this.browser) {
       try {
+        // Take screenshot if test failed and browser is available
         const filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
         await this.browser.saveScreenshot(filename);
         this.attach(fs.readFileSync(filename), "image/png");
@@ -114,6 +115,7 @@ After(async function (testCase) {
     const isDebug = testCase.pickle?.tags?.some(tag => tag.name === '@debug');
     if (this.browser && !isDebug) {
       try {
+        // Only quit browser if not running with @debug tag
         await this.browser.quit();
       } catch (quitError) {
         console.error("Failed to quit browser:", quitError.message);
@@ -122,6 +124,7 @@ After(async function (testCase) {
 
     if (this.tmpUserDataDir) {
       try {
+        // Clean up temp directory
         fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
       } catch (cleanupError) {
         console.error("Failed to clean up temp directory:", cleanupError.message);
