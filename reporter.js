@@ -1,4 +1,4 @@
-// generate-report.js
+// reporter.js
 const fs = require("fs").promises;
 const reporter = require("cucumber-html-reporter");
 
