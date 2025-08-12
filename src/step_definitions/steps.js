@@ -1386,7 +1386,6 @@ async function compareCellValuesByColumns(filePath, sourceCol, targetCol, rowNum
   return sourceValue === targetValue;
 }
 
-// Example Cucumber step
 Then(
   /^the value of column "([^"]*)" and column "([^"]*)" at row (\d+) in the downloaded file should be equal$/,
   async function (sourceCol, targetCol, rowNum) {
@@ -1631,7 +1630,7 @@ async function selectsImportButton() {
 async function selectsButton(args1) {
   //download file
   if (args1 === "Download file") {
-    this.browser.page.page().click('#germplasm-download-file'); // Replace with your actual selector
+    this.browser.page.page().click('#germplasm-download-file');
     const filePath = await getLatestDownloadedFile();
     this.browser.globals.downloadedFilePath = filePath;
     console.log("File downloaded to: " + filePath);
