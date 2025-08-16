@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
-    "test:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
-    "test:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
-    "test:e2e": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
-    "test:e2e:debug": "node --inspect-brk ./node_modules/.bin/cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json ; npm run report",
+    "pretest:debug": "cucumber-js --require cucumber.conf.js --tags @debug --require src/step_definitions src/features --format json:report/cucumber_report.json || true",
+    "test:debug": "npm run report",
+    "pretest:chromeDaily": "cucumber-js --require cucumber.conf.js --tags @SmokeTests --require src/step_definitions src/features --format json:report/cucumber_report.json || true",
+    "test:chromeDaily":  "npm run report",
+    "pretest:chromeWeekly": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json || true",
+    "test:chromeWeekly":  "npm run report",
+    "pretest:e2e": "cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json || true",
+    "test:e2e":   "npm run report",
+    "pretest:e2e:debug": "node --inspect-brk ./node_modules/.bin/cucumber-js --require cucumber.conf.js --require src/step_definitions src/features --format json:report/cucumber_report.json || true",
+    "test:e2e:debug":   "npm run report",
     "report": "node reporter.js"
   },
   "keywords": [],
@@ -16,14 +21,14 @@
   "license": "ISC",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "cucumber-html-reporter": "^7.2.0",
     "@cucumber/pretty-formatter": "*",
     "@slime/stopwatch": "^1.0.5",
+    "chromedriver": "^137.0.0",
+    "cucumber-html-reporter": "^7.2.0",
     "edgedriver": "^5.6.0",
     "geckodriver": "^4.4.1",
     "iedriver": "^3.4.0",
     "mkdirp": "^1.0.4",
-    "nightwatch": "^3.12.0",
-    "chromedriver": "^136.0.0"
+    "nightwatch": "^3.12.0"
   }
 }
