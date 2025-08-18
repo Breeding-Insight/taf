@@ -10,4 +10,4 @@ Scenario: Experiment and Observations File to accept without sub units Apps
     And user uploads Experiments & Observations "EXP-with-sub-obs-sub-unit-id.csv" file
     When user selects 'Import' button
     When user pause for "30" seconds
-    Then user can see banner appears with an error message "Error(s) detected in file, EXP-with-sub-obs-sub-unit-id.csv. Ontology term(s) not found: SubObsUnit,SubObsUnitID,sadfasdfsdf. Import cannot proceed."
+    Then user can see banner appears with an error message "Error(s) detected in file, EXP-with-sub-obs-sub-unit-id.csv. Ontology term(s) not found: sadfasdfsdf. Import cannot proceed."
