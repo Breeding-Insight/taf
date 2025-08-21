@@ -1,4 +1,5 @@
 const { Given, Then, When, World } = require("@cucumber/cucumber");
+const { getLatestDownloadedFile } = require('../../cucumber.conf.js');
 const path = require("path");
 const importFolder = path.join(__dirname, "../", "files", "TraitImport");
 const germplasmFolder = path.join(__dirname, "../", "files", "GermplasmImport");
@@ -11,6 +12,7 @@ const genotypeSamplesFolder = path.join(
 const user = {};
 const helpers = require("./helpers.js");
 const assert = require("assert");
+const ExcelJS = require("exceljs");
 
 Given(/^user logs with valid credentials$/, async function () {
   await this.browser.page.page().navigate();
@@ -1367,6 +1369,32 @@ Then("user can not see {string} button", async function (args0) {
   });
 });
 
+/**
+ * Compare the value of a source column and target column at a specific row in an Excel file.
+ * @param {string} filePath - Path to the Excel file.
+ * @param {string} sourceCol - Source column letter (e.g., "A").
+ * @param {string} targetCol - Target column letter (e.g., "B").
+ * @param {number} rowNum - Row number (1-based).
+ * @returns {Promise<boolean>} - true if equal, false otherwise.
+ */
+async function compareCellValuesByColumns(filePath, sourceCol, targetCol, rowNum) {
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(filePath);
+  const worksheet = workbook.worksheets[0];
+  const sourceValue = worksheet.getCell(`${sourceCol}${rowNum}`).value;
+  const targetValue = worksheet.getCell(`${targetCol}${rowNum}`).value;
+  return sourceValue === targetValue;
+}
+
+Then(
+  /^the value of column "([^"]*)" and column "([^"]*)" at row (\d+) in the downloaded file should be equal$/,
+  async function (sourceCol, targetCol, rowNum) {
+    const filePath = this.browser.globals.downloadedFilePath;
+    const isEqual = await compareCellValuesByColumns(filePath, sourceCol, targetCol, Number(rowNum));
+    assert.ok(isEqual, `Column ${sourceCol}${rowNum} and ${targetCol}${rowNum} values are not equal`);
+  }
+);
+
 //functions
 async function setUserName(name) {
   user.userName = name;
@@ -1600,10 +1628,20 @@ async function selectsImportButton() {
 }
 
 async function selectsButton(args1) {
+  //download file
+  if (args1 === "Download file") {
+    this.browser.page.page().click('#germplasm-download-file');
+    const filePath = await getLatestDownloadedFile();
+    this.browser.globals.downloadedFilePath = filePath;
+    console.log("File downloaded to: " + filePath);
+    return;
+  }
+
   const selectorWithModal = {
-    selector: `//*[@class='modal is-active']//button[normalize-space(.)='${args1}']`,
+    selector: `//*[@class='modal is-active']//button[normalize-space()='${args1}']`,
     locateStrategy: "xpath",
   };
+
   try {
     await this.browser.page
       .page()
