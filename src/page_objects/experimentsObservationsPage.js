@@ -15,6 +15,19 @@ module.exports = {
         locateStrategy: "xpath",
       },
     },
+    commands: [
+    {
+      isCollaboratorVisible: async function (collaborator) {
+        this.assert.visible({selector:`//li[contains((.), '${collaborator}')]`, locateStrategy:"xpath"});
+      },
+      isDeleteNotVisible: async function (collaborator) {
+        this.assert.not.visible({selector:`//li[contains((.), '${collaborator}')]//button`, locateStrategy:"xpath"});
+      },
+      deleteCollaborator: async function (collaborator) {
+        this.api.click({selector:`//li[contains((.), '${collaborator}')]//button`, locateStrategy:"xpath"});
+      }
+    }
+  ],
     sections: {
       table: {
         selector: ".table.is-striped.is-narrow",

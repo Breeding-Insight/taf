@@ -1,5 +1,3 @@
-const { client } = require("nightwatch-api");
-
 module.exports = {
   url: function () {
     return this.api.launchUrl;
@@ -339,14 +337,14 @@ module.exports = {
                   selector: elem + `//td[@data-label='Name']/a`,
                   locateStrategy: "xpath",
                 };
-                await this.assert.containsText(selector, list[key]);
+                await this.assert.textContains(selector, list[key]);
               }
               if (key == "Species") {
                 const selector = {
                   selector: elem + `//td[@data-label='Species']`,
                   locateStrategy: "xpath",
                 };
-                await this.assert.containsText(selector, list[key]);
+                await this.assert.textContains(selector, list[key]);
               }
             }
           },
@@ -419,7 +417,7 @@ module.exports = {
                   selector: keySelector,
                   locateStrategy: "xpath",
                 };
-                await this.assert.containsText(selector, list[key]);
+                await this.assert.textContains(selector, list[key]);
               }
             }
           },
@@ -466,25 +464,24 @@ module.exports = {
       navigateToUsers: async function () {
         //get the current url
         let url;
-        await client.url(({ value }) => {
+        await this.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await client.url(url + "/admin/user-management");
+        await this.url(url + "/admin/user-management");
       },
       navigateToPrograms: async function () {
         //get the current url
-        debugger;
-        let url;
-        await client.url(({ value }) => {
+        let url
+        await this.api.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await client.url(url + "/admin/programs");
+        await this.api.url(url + "/admin/programs");
         await this.waitForElementVisible("#adminProgramTableLabel");
       },
       navigateToProgram: async function (program) {
         await this.navigateToPrograms();
         await this.click("@showAllButton");
-        await client.execute("window.scrollTo(0,0);");
+        await this.execute("window.scrollTo(0,0);");
         await this.click({
           selector: `//*[@id='adminProgramTableLabel']//tr//a[normalize-space(text())='${program}']`,
           locateStrategy: "xpath",
@@ -493,11 +490,11 @@ module.exports = {
       navigateToProgramSelection: async function () {
         //get the current url
         let url;
-        await client.url(({ value }) => {
+        await this.api.url(({ value }) => {
           url = new URL(value).origin;
         });
-        await client.url(url + "/program-selection");
-        await this.waitForElementVisible("@welcomeText");
+        this.api.navigateTo(url + "/program-selection");
+        this.waitForElementVisible("@welcomeText");
       },
       isOptionVisible: async function (optionName) {
         const selector = {

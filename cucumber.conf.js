@@ -1,82 +1,202 @@
-const fs = require("fs");
+const Nightwatch = require("nightwatch");
 const {
-  setDefaultTimeout,
   After,
   AfterAll,
-  BeforeAll,
   Before,
+  setDefaultTimeout,
+  BeforeAll,
 } = require("@cucumber/cucumber");
-const {
-  createSession,
-  closeSession,
-  startWebDriver,
-  stopWebDriver,
-  getNewScreenshots,
-  saveScreenshot,
-} = require("nightwatch-api");
-const reporter = require("cucumber-html-reporter");
-const { client } = require("nightwatch-api");
-const run = {
-  browserName: "",
-  platform: "",
-  version: "",
-  BreedingInsight: "",
-};
+const fs = require("fs");
+const fsPromises = fs.promises;
+const path = require("path");
+const os = require("os");
 
-setDefaultTimeout(600000);
-global.__basedir = __dirname;
+require("events").EventEmitter.defaultMaxListeners = 20;
+setDefaultTimeout(300000); // Increase timeout to 5 minutes
 
-Before(async function () {
-  await createSession({ env: this.parameters.browser });
-  await client.resizeWindow(1900, 1200);
-  this.parameters.timeStamp = Date.now();
-  if (process.env.npm_config_url != undefined) {
-    this.parameters.launch_url = process.env.npm_config_url;
+BeforeAll(async function () {
+  try {
+    fs.mkdirSync("report", { recursive: true });
+    fs.mkdirSync("screenshots", { recursive: true });
+  } catch (err) {
+    console.error("Error creating directories:", err.message);
   }
 });
 
-BeforeAll(async () => {
-  await startWebDriver();
-});
-
-AfterAll(async () => {
-  run.browserName = client.capabilities.browserName;
-  switch (client.capabilities.browserName) {
-    case "msedge": //same as chrome
-    case "chrome-headless-shell":
-    case "chrome":
-      run.version = client.capabilities.version;
-      run.platform = client.capabilities.platform;
-      break;
-    case "firefox":
-      run.version = client.capabilities.browserVersion;
-      run.platform = client.capabilities.platformName;
-      break;
-    default:
-      throw new Error("Unrecognized browser.");
-  }
-  await stopWebDriver();
-
-  // convert JSON object to string
-  const data = JSON.stringify(run);
-
-  // write JSON string to a file
-  fs.writeFile("run.json", data, (err) => {
-    if (err) {
-      throw err;
-    }
-    console.log("JSON data is saved.");
-  });
-});
-
-After(function () {
-  if (run.BreedingInsight == "") {
-    run.BreedingInsight = client.globals.breedingInsightVersion;
-  }
-  
-  getNewScreenshots().forEach((file) =>
-    this.attach(fs.readFileSync(file), "image/png")
+Before(async function ({ pickle }) {
+  this.tmpUserDataDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), "nw-chrome-profile-")
   );
-  //Note: The following line can be commented out to keep browsers open for debugging purposes on local
-  closeSession();
+  console.log("tmpUserDataDir:", this.tmpUserDataDir);
+
+  const chromeArgs = [
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-extensions",
+    "--disable-gpu",
+    "--disable-background-networking",
+    "--disable-sync",
+    "--metrics-recording-only",
+    "--disable-default-apps",
+    "--mute-audio",
+    "--no-first-run",
+    "--ignore-certificate-errors",
+    "--allow-insecure-localhost",
+    "--window-size=1920,1080",
+  ];
+  const isDebug = pickle.tags?.some(tag => tag.name === '@debug');
+  if (!isDebug) chromeArgs.push("--headless=new");
+
+  const webdriver = {};
+  if (this.parameters["webdriver-host"]) webdriver.host = this.parameters["webdriver-host"];
+  if (this.parameters["webdriver-port"]) webdriver.port = this.parameters["webdriver-port"];
+  if (typeof this.parameters["start-process"] !== "undefined")
+    webdriver.start_process = this.parameters["start-process"];
+
+  const globals = {};
+  if (this.parameters["retry-interval"])
+    globals.waitForConditionPollInterval = this.parameters["retry-interval"];
+
+  this.client = Nightwatch.createClient({
+    headless: this.parameters.headless,
+    env: this.parameters.env,
+    timeout: this.parameters.timeout,
+    parallel: !!this.parameters.parallel,
+    output: !this.parameters["disable-output"],
+    enable_global_apis: true,
+    silent: !this.parameters.verbose,
+    always_async_commands: true,
+    webdriver,
+    persist_globals: this.parameters["persist-globals"],
+    config: this.parameters.config,
+    globals: {
+      run: {},
+    },
+    desiredCapabilities: {
+      browserName: "chrome",
+      "goog:chromeOptions": {
+        args: chromeArgs,
+      },
+    },
+  });
+
+  if (this.client.settings.sync_test_names) {
+    this.client.updateCapabilities({ name: pickle.name });
+  }
+
+  console.log("Launching Chrome with args:", chromeArgs);
+  console.log("Executing test:", pickle.name);
+
+  try {
+    this.browser = await this.client.launchBrowser();
+    this.browser.globals.timestamp = Date.now();
+  } catch (err) {
+    console.error("Failed to launch browser:", err.message);
+    if (this.attach) {
+      this.attach(`Browser launch failed: ${err.message}`);
+    }
+    this.skipScenario = true;
+  }
+});
+
+After(async function (testCase) {
+  try {
+    if (testCase.result.status === "FAILED" && this.browser) {
+      try {
+        // Take screenshot if test failed and browser is available
+        const filename = `screenshots/${testCase.pickle.name}-${Date.now()}.png`;
+        await this.browser.saveScreenshot(filename);
+        this.attach(fs.readFileSync(filename), "image/png");
+      } catch (screenshotError) {
+        console.error("Failed to save screenshot:", screenshotError.message);
+      }
+    }
+
+    const isDebug = testCase.pickle?.tags?.some(tag => tag.name === '@debug');
+    if (this.browser && !isDebug) {
+      try {
+        // Only quit browser if not running with @debug tag
+        await this.browser.quit();
+      } catch (quitError) {
+        console.error("Failed to quit browser:", quitError.message);
+      }
+    }
+
+    if (this.tmpUserDataDir) {
+      try {
+        // Clean up temp directory
+        fs.rmSync(this.tmpUserDataDir, { recursive: true, force: true });
+      } catch (cleanupError) {
+        console.error("Failed to clean up temp directory:", cleanupError.message);
+      }
+    }
+  } catch (error) {
+    console.error("Error in After hook:", error.message);
+  }
+
+  const runJsonPath = "report/run.json";
+  if (
+    this.browser?.capabilities &&
+    !this.browser?.globals?.run?.browserName
+  ) {
+    const caps = this.browser.capabilities;
+    const globalsRun = this.browser.globals.run;
+
+    globalsRun.browserName = caps.browserName;
+    globalsRun.version = caps.browserVersion;
+    globalsRun.platform = caps.platformName;
+
+    try {
+      if (!fs.existsSync(runJsonPath)) {
+        await fsPromises.writeFile(runJsonPath, JSON.stringify(globalsRun, null, 2));
+        console.log("Saved run metadata.");
+      }
+    } catch (err) {
+      console.error("Error saving run metadata:", err.message);
+    }
+  }
+});
+
+AfterAll(async function () {
+  // Kill ChromeDriver process
+  const { spawnSync } = require('child_process');
+  const isWin = process.platform === 'win32';
+  if (isWin) {
+    spawnSync('taskkill', ['/IM', 'chromedriver.exe', '/F']);
+  } else {
+    spawnSync('pkill', ['-f', 'chromedriver']);
+  }
+
+  // Delay before final exit to allow async flush
+  setTimeout(() => {
+    console.log("⚠️ Forcing process exit after delay.");
+    process.exit(0);
+  }, 1000);
+});
+
+// Handle interrupts and exit signals
+process.on('SIGINT', async () => {
+  console.log('\nReceived interrupt signal - Running cleanup...');
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  // Allow AfterAll to run naturally
+});
+
+setTimeout(() => {
+  console.log('⚠️ Node is still alive after 10 seconds.');
+}, 10000);
+
+process.on('beforeExit', (code) => {
+  console.log(`[DEBUG] beforeExit triggered. Code: ${code}`);
+});
+
+process.on('exit', (code) => {
+  console.log(`[DEBUG] Process exited. Code: ${code}`);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❗ Unhandled Rejection:', reason);
+});
+
+process.on('SIGTERM', () => {
+  console.log('❗ SIGTERM received');
 });

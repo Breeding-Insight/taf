@@ -3,7 +3,7 @@ Feature: The ontology can be case insensitive
   Background:
     Given a new program is created
 
-  @BI-2156
+  @BI-2056
   Scenario Outline: The ontology can be case insensitive
     Given user logs in as "Cucumber Breeder"
     When user selects "*" on program-selection page

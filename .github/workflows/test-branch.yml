@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     runs-on: ${{ matrix.os }}
@@ -172,6 +172,9 @@ jobs:
       - name: Run tests on Chrome (smoke tests)
         if: (github.event.inputs.suite=='smoke')
         run: npm run test:chromeDaily
+
+      - name: Run HTML Report generator
+        run: npm run report
 
       - id: biWebBranch
         run: INPUT=${{ github.event.inputs.biweb }} && echo "::set-output name=branch::${INPUT/\//-}"
