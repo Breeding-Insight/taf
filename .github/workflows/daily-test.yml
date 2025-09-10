@@ -160,6 +160,7 @@ jobs:
         run: npm run test:chromeDaily
 
       - name: Run HTML Report generator
+        if: always()
         run: npm run report
 
       - name: Publish Report Artifact
